@@ -6,34 +6,44 @@ import { ProfileComponent } from './pages/client/profile/profile.component';
 import { CatalogComponent } from './pages/client/catalog/catalog.component';
 import { CartComponent } from './pages/client/cart/cart.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { HotelsComponent } from './pages/admin/hotels/hotels.component';
+import { EventsComponent } from './pages/admin/events/events.component';
+import { ClientComponent } from './pages/client/client.component';
 
+// app-routing.module.ts
 const routes: Routes = [
-<<<<<<< HEAD
-  { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
-  { path: 'catalog', loadChildren: () => import('./features/catalog/catalog.module').then(m => m.CatalogModule) },
-  { path: 'cart', loadChildren: () => import('./features/cart/cart.module').then(m => m.CartModule) },
-  { path: 'admin', loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule) },
-  { path: '**',
-    loadComponent: () =>
-      import('./shared/not-found/not-found.component').then(c => c.NotFoundComponent)
-  }
-=======
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'catalog', component: CatalogComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: '**', redirectTo: '' } // ruta por defecto
->>>>>>> feature/setup-structure
+  { path: '', redirectTo: 'client/home', pathMatch: 'full' },
+
+  {
+    path: 'client',
+    component: ClientComponent,
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'catalog', component: CatalogComponent },
+      { path: 'cart', component: CartComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' }
+    ]
+  },
+
+  {
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'hotels', component: HotelsComponent },
+      { path: 'events', component: EventsComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  },
+
+  { path: '**', redirectTo: 'client/home' }
 ];
 
 @NgModule({
-  
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-  
- }
-
+export class AppRoutingModule { }
