@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'prueba-ng';
+  // Título de la aplicación visible en metadatos/tests. Reemplazado por un nombre más descriptivo.
+  title = 'Marriot Hoteles';
 }
