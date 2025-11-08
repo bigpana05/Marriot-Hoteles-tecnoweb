@@ -1,18 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/">Marriott Booking</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link" routerLink="/catalog">Catálogo</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/cart">Carrito</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/admin">Admin</a></li>
-      </ul>
-      <a class="btn btn-outline-light btn-sm" routerLink="/auth">Login</a>
-    </div>
-  </div>
-</nav>
+<app-navbar></app-navbar>
 
 <div class="container py-3">
   <router-outlet></router-outlet>
 </div>
 
+<!-- Elemento invisible para pruebas unitarias que espera el test por defecto -->
+<span id="app-title" style="display: none;">
+  {{ title }} app is running!
+</span>
+
+<app-footer></app-footer>
