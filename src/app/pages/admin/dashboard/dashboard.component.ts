@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { AdminUserService } from '../../../src/app/core/services/admin-user.service';
 import { HotelService } from '../../../src/app/core/services/hotel.service';
@@ -5,12 +6,16 @@ import { EventService } from '../../../src/app/core/services/event.service';
 import { User } from '../../../src/app/core/services/auth.service';
 import { Hotel } from '../../../src/app/core/models/hotel.model';
 import { Event } from '../../../src/app/core/models/event.model';
+=======
+import { Component } from '@angular/core';
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+<<<<<<< HEAD
 export class DashboardComponent implements OnInit {
   users: User[] = [];
   hotels: Hotel[] = [];
@@ -61,4 +66,8 @@ export class DashboardComponent implements OnInit {
     const sum = rates.reduce((a, b) => a + b, 0);
     return Math.round(sum / rates.length);
   }
+=======
+export class DashboardComponent {
+
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 }

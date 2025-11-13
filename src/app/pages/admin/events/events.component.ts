@@ -1,15 +1,20 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EventService } from '../../../src/app/core/services/event.service';
 import { HotelService } from '../../../src/app/core/services/hotel.service';
 import { Event } from '../../../src/app/core/models/event.model';
 import { Hotel } from '../../../src/app/core/models/hotel.model';
+=======
+import { Component } from '@angular/core';
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
 })
+<<<<<<< HEAD
 export class EventsComponent implements OnInit {
   events: Event[] = [];
   hotels: Hotel[] = [];
@@ -112,4 +117,8 @@ export class EventsComponent implements OnInit {
     if (!hotel) return 'Hotel';
     return `${hotel.name} (${hotel.city})`;
   }
+=======
+export class EventsComponent {
+
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 }

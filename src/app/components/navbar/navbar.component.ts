@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { AuthService, User } from '../../src/app/core/services/auth.service';
+=======
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 
 @Component({
   selector: 'app-navbar',
@@ -8,6 +11,7 @@ import { AuthService, User } from '../../src/app/core/services/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+<<<<<<< HEAD
   user: User | null = null;
 
   constructor(
@@ -23,3 +27,7 @@ export class NavbarComponent {
   }
 }
 
+=======
+
+}
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51

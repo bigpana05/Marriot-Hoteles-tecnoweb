@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { AuthService, User } from '../../src/app/core/services/auth.service';
+=======
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 
 @Component({
   selector: 'app-admin',
@@ -8,6 +11,7 @@ import { AuthService, User } from '../../src/app/core/services/auth.service';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent {
+<<<<<<< HEAD
   user: User | null = null;
 
   constructor(
@@ -28,4 +32,7 @@ export class AdminComponent {
     // Ir a la vista pública (cliente)
     this.router.navigate(['/client/home']);
   }
+=======
+
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 }

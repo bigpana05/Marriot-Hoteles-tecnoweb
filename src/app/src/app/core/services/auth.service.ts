@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
+<<<<<<< HEAD
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
 export type UserRole = 'ADMIN' | 'CLIENT';
 
+=======
+import { BehaviorSubject } from 'rxjs';
+
+export type UserRole = 'ADMIN' | 'CLIENT';
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 export interface User {
   id: number;
   email: string;
@@ -14,6 +20,7 @@ export interface User {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+<<<<<<< HEAD
   private readonly API_URL = 'http://localhost:3000';
 
   private currentUserSubject = new BehaviorSubject<User | null>(
@@ -75,6 +82,31 @@ export class AuthService {
 
   /** Cierra sesión */
   logout(): void {
+=======
+  private currentUserSubject = new BehaviorSubject<User | null>(this.getStored());
+  currentUser$ = this.currentUserSubject.asObservable();
+
+  private getStored(): User | null {
+    const raw = localStorage.getItem('user');
+    return raw ? JSON.parse(raw) : null;
+  }
+  get currentUserValue(): User | null {
+    return this.currentUserSubject.value;
+  }
+  isLoggedIn(): boolean {
+    return !!this.currentUserSubject.value;
+  }
+
+  // Mock simple: si el email contiene 'admin' => rol ADMIN, si no CLIENT.
+  login(email: string, _password: string) {
+    const role: UserRole = email.includes('admin') ? 'ADMIN' : 'CLIENT';
+    const user: User = { id: 1, email, name: email.split('@')[0], role, token: 'demo' };
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
+
+  logout() {
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
     localStorage.removeItem('user');
     this.currentUserSubject.next(null);
   }
