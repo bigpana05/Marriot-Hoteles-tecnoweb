@@ -1,0 +1,82 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@demo.cl",
+      "password": "admin",
+      "name": "Administrador",
+      "role": "ADMIN"
+    },
+    {
+      "id": 2,
+      "email": "cliente@demo.cl",
+      "password": "cliente",
+      "name": "Cliente Demo",
+      "role": "CLIENT"
+    }
+  ],
+  "hotels": [
+    {
+      "id": 1,
+      "name": "Marriott Santiago",
+      "city": "Santiago",
+      "country": "Chile",
+      "address": "Av. Kennedy 5741, Las Condes",
+      "roomTypes": "Standard, Suite, Ejecutiva",
+      "basePrice": 120,
+      "availableRooms": 30,
+      "totalRooms": 80
+    },
+    {
+      "id": 2,
+      "name": "Marriott Buenos Aires",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "address": "Catalinas, Retiro",
+      "roomTypes": "Standard, Deluxe, Suite",
+      "basePrice": 140,
+      "availableRooms": 20,
+      "totalRooms": 70
+    },
+    {
+      "id": 3,
+      "name": "Marriott Lima",
+      "city": "Lima",
+      "country": "Perú",
+      "address": "Malecón de la Reserva, Miraflores",
+      "roomTypes": "Standard, Vista Mar, Suite",
+      "basePrice": 150,
+      "availableRooms": 25,
+      "totalRooms": 60
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "name": "Conferencia Tech Latam",
+      "hotelId": 1,
+      "location": "Santiago",
+      "date": "2025-07-10",
+      "capacity": 300,
+      "attendees": 220
+    },
+    {
+      "id": 2,
+      "name": "Summit de Turismo",
+      "hotelId": 2,
+      "location": "Buenos Aires",
+      "date": "2025-09-05",
+      "capacity": 200,
+      "attendees": 150
+    },
+    {
+      "id": 3,
+      "name": "Expo Innovación",
+      "hotelId": 3,
+      "location": "Lima",
+      "date": "2025-11-20",
+      "capacity": 250,
+      "attendees": 80
+    }
+  ]
+}
