@@ -1,0 +1,145 @@
+<<<<<<< HEAD
+<section>
+  <h1 class="mb-3">Eventos y conferencias</h1>
+  <p class="text-muted mb-4">
+    Crea y gestiona eventos asociados a tus hoteles. Desde aquí puedes monitorear la ocupación.
+  </p>
+
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-3">
+            {{ formModel.id ? 'Editar evento' : 'Nuevo evento' }}
+          </h5>
+
+          <form #f="ngForm" (ngSubmit)="save(f)">
+            <div class="mb-2">
+              <label class="form-label">Nombre</label>
+              <input
+                class="form-control"
+                name="name"
+                [(ngModel)]="formModel.name"
+                required
+              />
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Hotel</label>
+              <select
+                class="form-select"
+                name="hotelId"
+                [(ngModel)]="formModel.hotelId"
+                required
+              >
+                <option *ngFor="let h of hotels" [ngValue]="h.id">
+                  {{ h.name }} ({{ h.city }})
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Ubicación</label>
+              <input
+                class="form-control"
+                name="location"
+                [(ngModel)]="formModel.location"
+                required
+              />
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <label class="form-label">Fecha</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  name="date"
+                  [(ngModel)]="formModel.date"
+                  required
+                />
+              </div>
+              <div class="col-md-3 mb-2">
+                <label class="form-label">Capacidad</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="capacity"
+                  [(ngModel)]="formModel.capacity"
+                  min="0"
+                  required
+                />
+              </div>
+              <div class="col-md-3 mb-2">
+                <label class="form-label">Asistentes</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="attendees"
+                  [(ngModel)]="formModel.attendees"
+                  min="0"
+                  required
+                />
+              </div>
+            </div>
+
+            <div *ngIf="error" class="text-danger small mb-2">
+              {{ error }}
+            </div>
+
+            <div class="d-flex gap-2">
+              <button class="btn btn-dark btn-sm" type="submit" [disabled]="f.invalid">
+                {{ formModel.id ? 'Guardar cambios' : 'Crear evento' }}
+              </button>
+              <button class="btn btn-outline-secondary btn-sm" type="button" (click)="resetForm(f)">
+                Limpiar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div *ngIf="loading">Cargando eventos...</div>
+      <div *ngIf="!loading" class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Listado</h5>
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Hotel</th>
+                  <th>Fecha</th>
+                  <th>Ocupación</th>
+                  <th style="width: 120px;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let e of events">
+                  <td>{{ e.name }}</td>
+                  <td>{{ getHotelName(e) }}</td>
+                  <td>{{ e.date }}</td>
+                  <td>{{ occupancy(e) }}%</td>
+                  <td class="text-end">
+                    <button class="btn btn-link btn-sm" (click)="edit(e)">Editar</button>
+                    <button class="btn btn-link text-danger btn-sm" (click)="delete(e)">
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="events.length === 0">
+                  <td colspan="5" class="text-center text-muted">Sin eventos registrados.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+=======
+<p>events works!</p>
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51

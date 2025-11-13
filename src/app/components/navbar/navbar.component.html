@@ -1,0 +1,69 @@
+<<<<<<< HEAD
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" routerLink="/client/home">
+      Marriott <span class="text-muted">SPA</span>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNavbar"
+      aria-controls="mainNavbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/client/home" routerLinkActive="active">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/client/catalog" routerLinkActive="active">Hoteles</a>
+        </li>
+      </ul>
+
+      <!-- Zona derecha: usuario -->
+      <div class="d-flex align-items-center gap-2">
+        <ng-container *ngIf="user; else guest">
+          <span class="small text-muted">
+            Hola, <strong>{{ user.name }}</strong>
+            <span *ngIf="user.role === 'ADMIN'">(Admin)</span>
+          </span>
+          <a
+            *ngIf="user.role === 'CLIENT'"
+            class="btn btn-outline-dark btn-sm"
+            routerLink="/client/profile"
+          >
+            Mi perfil
+          </a>
+          <a
+            *ngIf="user.role === 'ADMIN'"
+            class="btn btn-outline-dark btn-sm"
+            routerLink="/admin/dashboard"
+          >
+            Admin
+          </a>
+          <button class="btn btn-link btn-sm text-danger" (click)="logout()">
+            Cerrar sesión
+          </button>
+        </ng-container>
+
+        <ng-template #guest>
+          <a class="btn btn-outline-dark btn-sm" routerLink="/client/login">
+            Sign in
+          </a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+=======
+<p>navbar works!</p>
+>>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
