@@ -1,1 +1,118 @@
-<p>navbar works!</p>
+<nav class="navbar-marriott">
+  <div class="container-1440 navbar-inner">
+    <!-- Izquierda: logo + divisor -->
+    <div class="navbar-left">
+      <a class="brand" routerLink="/client/home" aria-label="Marriott International">
+        <img src="assets/brand/marriott-international-logo.svg" alt="Marriott International">
+      </a>
+      <span class="v-divider desktop-md" aria-hidden="true"></span>
+    </div>
+
+    <!-- Centro: links (solo desktop / laptop) -->
+    <div class="navbar-center desktop-md">
+      <ul class="nav-links">
+        <li><a routerLink="/client/catalog" routerLinkActive="active">Hotels</a></li>
+        <li><a routerLink="/client/experiences" routerLinkActive="active">Experiences</a></li>
+        <li><a routerLink="/client/offers" routerLinkActive="active">Exclusive Offers</a></li>
+        <li><a routerLink="/about" routerLinkActive="active">About Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Derecha: idioma, reserva, login y menú hamburguesa -->
+    <div class="navbar-right">
+      <!-- Selector de idioma (desktop) -->
+      <div class="lang-selector desktop-md">
+        <button 
+          type="button" 
+          class="lang-button"
+          (click)="toggleLangMenu()"
+          [class.active]="isLangMenuOpen">
+          <img class="icon-20" src="assets/icons/globe.svg" alt="">
+          <span class="lang-text">EN</span>
+        </button>
+        
+        <div class="lang-menu" *ngIf="isLangMenuOpen">
+          <div class="lang-menu-title">Language</div>
+          <div class="lang-option" (click)="selectLanguage('en')">
+            <span class="lang-name">English</span>
+            <span class="lang-checkmark" *ngIf="currentLang === 'en'">✓</span>
+          </div>
+          <div class="lang-option lang-option-disabled" (click)="$event.preventDefault()">
+            <span class="lang-name">Español</span>
+            <span class="lang-checkmark"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selector de idioma mobile -->
+      <div class="lang-selector mobile-lang-button mobile-only">
+        <button 
+          type="button" 
+          class="lang-button"
+          (click)="toggleLangMenu()"
+          [class.active]="isLangMenuOpen">
+          <img class="icon-20" src="assets/icons/globe.svg" alt="">
+          <span class="lang-text">EN</span>
+        </button>
+        
+        <div class="lang-menu" *ngIf="isLangMenuOpen">
+          <div class="lang-menu-title">Language</div>
+          <div class="lang-option" (click)="selectLanguage('en')">
+            <span class="lang-name">English</span>
+            <span class="lang-checkmark" *ngIf="currentLang === 'en'">✓</span>
+          </div>
+          <div class="lang-option lang-option-disabled" (click)="$event.preventDefault()">
+            <span class="lang-name">Español</span>
+            <span class="lang-checkmark"></span>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-reserve desktop-md">Reserve</button>
+
+      <!-- visible sólo en desktop/laptop -->
+      <a class="signin desktop-md" routerLink="/client/login">
+        <img class="icon-20" src="assets/icons/user.svg" alt="">
+        <span>Sign in or join</span>
+      </a>
+
+      <!-- visible en tablet/móvil -->
+      <button
+        type="button"
+        class="btn-menu mobile-only"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="isMenuOpen"
+        aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú desplegable para tablet/móvil -->
+  <div class="mobile-menu mobile-only" *ngIf="isMenuOpen">
+    <!-- Header del menú con logo y botón cerrar -->
+    <div class="mobile-menu-header">
+      <a class="mobile-menu-logo" routerLink="/client/home" (click)="closeMenu()">
+        <img src="assets/brand/marriott-international-logo.svg" alt="Marriott International">
+      </a>
+      <button type="button" class="btn-close-menu" (click)="closeMenu()" aria-label="Close menu">
+        ✕
+      </button>
+    </div>
+
+    <ul class="mobile-nav-links">
+      <li><a routerLink="/client/catalog" (click)="closeMenu()">Hotels</a></li>
+      <li><a routerLink="/client/experiences" (click)="closeMenu()">Experiences</a></li>
+      <li><a routerLink="/client/offers" (click)="closeMenu()">Exclusive Offers</a></li>
+      <li><a routerLink="/about" (click)="closeMenu()">About Us</a></li>
+    </ul>
+
+    <div class="mobile-actions">
+      <a class="mobile-signin" routerLink="/client/login" (click)="closeMenu()">
+        <img class="icon-20" src="assets/icons/user.svg" alt="">
+        <span>Sign in or join</span>
+      </a>
+      <button type="button" class="mobile-reserve" (click)="closeMenu()">Reserve</button>
+    </div>
+  </div>
+</nav>
