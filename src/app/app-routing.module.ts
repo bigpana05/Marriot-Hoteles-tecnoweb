@@ -10,6 +10,7 @@ import { DashboardComponent } from './pages/admin/dashboard/dashboard.component'
 import { HotelsComponent } from './pages/admin/hotels/hotels.component';
 import { EventsComponent } from './pages/admin/events/events.component';
 import { ClientComponent } from './pages/client/client.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 // app-routing.module.ts
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'catalog', component: CatalogComponent },
+      // TODO: FEATURE-123 - Implementar experiencias como módulo separado
+      { path: 'experiences', component: CatalogComponent },
+      // TODO: FEATURE-124 - Implementar ofertas exclusivas como módulo separado
+      { path: 'offers', component: CatalogComponent },
       { path: 'cart', component: CartComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
@@ -39,7 +44,10 @@ const routes: Routes = [
     ]
   },
 
-  { path: '**', redirectTo: 'client/home' }
+  { path: 'about', component: HomeComponent },
+  // Ruta 404 y wildcard
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '404' }
 ];
 
 @NgModule({
