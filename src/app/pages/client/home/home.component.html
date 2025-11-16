@@ -1,0 +1,67 @@
+<section class="hero">
+  <div class="hero-content">
+    <h1>Bienvenido a Marriott International</h1>
+    <p>Descubre hoteles, experiencias y ofertas exclusivas en todo el mundo.</p>
+
+    <!-- Formulario solo visual, sin lógica de envío todavía -->
+    <form class="search">
+      <input
+        type="text"
+        [(ngModel)]="search.city"
+        name="city"
+        placeholder="Ciudad o destino"
+      />
+      <input type="date" [(ngModel)]="search.checkIn" name="checkIn" />
+      <input type="date" [(ngModel)]="search.checkOut" name="checkOut" />
+      <!-- Por ahora solo navega al catálogo -->
+      <button type="button" routerLink="/client/catalog">Buscar</button>
+    </form>
+
+    <div class="cta-group">
+      <a routerLink="/client/catalog" class="btn btn-dark">Ver Catálogo</a>
+      <a routerLink="/client/login" class="btn btn-outline">Iniciar sesión</a>
+    </div>
+  </div>
+</section>
+
+<section class="benefits container">
+  <div class="benefit">
+    <h3>Reserva flexible</h3>
+    <p>Opciones con cancelación y cambios sencillos.</p>
+  </div>
+  <div class="benefit">
+    <h3>Mejores tarifas</h3>
+    <p>Ofertas y precios para socios.</p>
+  </div>
+  <div class="benefit">
+    <h3>Experiencias únicas</h3>
+    <p>Spa, gastronomía y tours seleccionados.</p>
+  </div>
+</section>
+
+<section class="container featured">
+  <h2>Hoteles destacados</h2>
+  <div class="grid">
+    <article class="card" *ngFor="let h of featuredHotels">
+      <div class="img" [style.backgroundImage]="'url(' + h.image + ')'"></div>
+      <div class="info">
+        <h4>{{ h.name }}</h4>
+        <p>{{ h.city }} • ★ {{ h.rating }}</p>
+        <button type="button" routerLink="/client/catalog">
+          Ver disponibilidad
+        </button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>© {{ year }} Marriott (Proyecto Tecno Web). Sitio académico.</p>
+    <nav>
+      <a routerLink="/client/catalog">Catálogo</a>
+      <a routerLink="/client/login">Entrar</a>
+      <a routerLink="/client/home">Inicio</a>
+    </nav>
+  </div>
+</footer>

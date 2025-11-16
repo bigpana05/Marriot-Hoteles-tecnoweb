@@ -1,0 +1,58 @@
+<section class="login">
+  <div class="login__card">
+    <h1 class="login__title">Iniciar sesión</h1>
+    <p class="login__subtitle">
+      Accede para gestionar tus reservas y experiencias.
+    </p>
+
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+      <div class="login__field">
+        <label for="email">Correo electrónico</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          required
+          [(ngModel)]="email"
+          #emailModel="ngModel"
+          placeholder="tu@correo.com"
+        />
+        <small
+          class="login__error"
+          *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)"
+        >
+          Ingresa un correo válido.
+        </small>
+      </div>
+
+      <div class="login__field">
+        <label for="password">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          required
+          minlength="4"
+          [(ngModel)]="password"
+          #passwordModel="ngModel"
+          placeholder="••••••"
+        />
+        <small
+          class="login__error"
+          *ngIf="
+            passwordModel.invalid &&
+            (passwordModel.dirty || passwordModel.touched)
+          "
+        >
+          La contraseña debe tener al menos 4 caracteres.
+        </small>
+      </div>
+
+      <p class="login__error login__error--global" *ngIf="error">{{ error }}</p>
+
+      <button type="submit" [disabled]="loginForm.invalid || loading">
+        {{ loading ? "Ingresando…" : "Ingresar" }}
+      </button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,121 @@
+/**
+ * Navbar Responsive Breakpoints
+ * Media queries para diferentes resoluciones de pantalla
+ */
+
+@import "navbar-variables";
+@import "navbar-breakpoints";
+
+/* Desktop XL - 1920px y mayor */
+@include respond-to-desktop-xl {
+  .nav-links {
+    gap: $spacing-gap-lg;
+  }
+
+  .navbar-left {
+    gap: 1px;
+  }
+
+  .navbar-inner {
+    gap: $spacing-gap-lg;
+  }
+
+  .navbar-right {
+    gap: $spacing-gap-md;
+  }
+}
+
+/* Desktop Lg - 1440px a 1919px */
+@include respond-to-desktop-lg {
+  .navbar-inner {
+    padding-left: $spacing-navbar-padding-md;
+    padding-right: $spacing-navbar-padding-md;
+    gap: $spacing-gap-md;
+  }
+
+  .navbar-left {
+    gap: 1px;
+  }
+
+  .nav-links {
+    gap: $spacing-gap-lg;
+  }
+
+  .navbar-right {
+    gap: $spacing-gap-md;
+  }
+}
+
+/* Desktop - 1024px a 1439px */
+@include respond-to-desktop {
+  .navbar-inner {
+    padding-left: 10px;
+    padding-right: 1px;
+    gap: 0px;
+  }
+
+  .brand img {
+    height: clamp(80px, 3vw, 30px);
+  }
+
+  .navbar-left {
+    gap: 1px;
+  }
+
+  .nav-links {
+    gap: $spacing-gap-md;
+  }
+
+  .navbar-right {
+    gap: 10px;
+  }
+}
+
+/* Tablet/Mobile - 768px y menor */
+@include respond-to-tablet {
+  .navbar-inner {
+    height: auto;
+    padding-left: $spacing-navbar-padding-sm;
+    padding-right: $spacing-navbar-padding-sm;
+    padding-block: 8px;
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .navbar-left {
+    gap: clamp(12px, 1.5vw, 20px);
+    grid-column: 1;
+  }
+
+  .navbar-center {
+    display: none;
+  }
+
+  .navbar-right {
+    gap: $spacing-gap-xs;
+    grid-column: 3;
+    justify-self: end;
+  }
+
+  .lang-text {
+    display: none;
+  }
+
+  .lang {
+    gap: 0;
+  }
+
+  .btn-reserve {
+    display: none;
+  }
+}
+
+/* Mobile pequeño - 480px y menor */
+@include respond-to-mobile {
+  .lang-text {
+    display: none;
+  }
+
+  .btn-reserve {
+    padding-inline: 18px;
+  }
+}

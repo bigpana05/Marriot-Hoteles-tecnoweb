@@ -1,0 +1,37 @@
+/**
+ * Navbar Component Styles
+ * 
+ * Archivo principal que agrupa todos los estilos modulares del navbar.
+ * Se divide en múltiples archivos SCSS para mantener organización y legibilidad.
+ * 
+ * Estructura modular:
+ * - _navbar-breakpoints.scss: Puntos de quiebre y mixins responsivos
+ * - _navbar-variables.scss: Variables de colores, espaciado y tipografía
+ * - _navbar-base.scss: Estilos base del navbar y sus secciones principales
+ * - _navbar-language-selector.scss: Estilos del selector de idioma
+ * - _navbar-mobile.scss: Menú móvil y estilos específicos de mobile
+ * - _navbar-responsive.scss: Media queries por breakpoint
+ * 
+ * Este enfoque modular mejora:
+ * - Mantenibilidad: Cada archivo tiene responsabilidad única
+ * - Reutilización: Variables compartidas en _navbar-variables.scss
+ * - Legibilidad: Archivos < 150 líneas cada uno
+ * - Evita límite de 400 líneas
+ */
+
+@import "navbar-breakpoints";
+@import "navbar-variables";
+@import "navbar-base";
+@import "navbar-language-selector";
+@import "navbar-mobile";
+@import "navbar-responsive";
+
+/* --- Estilos heredados desde rama dev --- */
+
+.navbar-brand {
+  letter-spacing: 0.04em;
+}
+
+.nav-link.active {
+  font-weight: 600;
+}

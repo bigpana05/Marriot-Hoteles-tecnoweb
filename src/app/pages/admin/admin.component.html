@@ -1,0 +1,60 @@
+<div class="admin-layout">
+  <!-- Lateral -->
+  <aside class="admin-sidebar">
+    <div class="admin-logo">
+      <span class="admin-logo__title">Marriott Admin</span>
+      <span class="admin-logo__subtitle">Panel de control</span>
+    </div>
+
+    <nav class="admin-menu">
+      <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/admin/users" routerLinkActive="active">Usuarios</a>
+      <a routerLink="/admin/hotels" routerLinkActive="active">Hoteles</a>
+      <a routerLink="/admin/events" routerLinkActive="active">Eventos</a>
+    </nav>
+  </aside>
+
+  <!-- Contenido -->
+  <main class="admin-content">
+    <!-- Barra superior con info de cuenta -->
+    <header class="admin-topbar">
+      <div class="admin-topbar__left">
+        <h1 class="admin-topbar__title">Panel de administración</h1>
+        <p class="admin-topbar__subtitle">
+          Gestiona usuarios, catálogo de hoteles y eventos.
+        </p>
+      </div>
+
+      <div class="admin-topbar__right" *ngIf="user">
+        <div class="admin-user">
+          <div class="admin-user__avatar">
+            {{ user.name.charAt(0) | uppercase }}
+          </div>
+          <div class="admin-user__info">
+            <span class="admin-user__name">{{ user.name }}</span>
+            <span class="admin-user__role">
+              {{ user.role === "ADMIN" ? "Administrador" : "Usuario" }}
+            </span>
+          </div>
+        </div>
+
+        <div class="admin-topbar__actions">
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            (click)="goToClient()"
+          >
+            Ver sitio público
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="logout()">
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Zona donde cambian las pantallas (dashboard / users / hotels / events) -->
+    <section class="admin-main">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

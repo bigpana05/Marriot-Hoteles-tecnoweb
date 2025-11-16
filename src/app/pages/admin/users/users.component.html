@@ -1,0 +1,134 @@
+<section>
+  <h1 class="mb-3">Gestión de usuarios</h1>
+  <p class="text-muted mb-4">
+    Crea cuentas de administradores y clientes que podrán usar la plataforma.
+  </p>
+
+  <div class="row">
+    <div class="col-md-5 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-3">
+            {{ formModel.id ? "Editar usuario" : "Nuevo usuario" }}
+          </h5>
+
+          <form #f="ngForm" (ngSubmit)="save(f)">
+            <div class="mb-2">
+              <label class="form-label">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                [(ngModel)]="formModel.name"
+                required
+              />
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Correo</label>
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                [(ngModel)]="formModel.email"
+                required
+              />
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                [(ngModel)]="formModel.password"
+                [required]="!formModel.id"
+                placeholder="{{
+                  formModel.id ? 'Dejar en blanco para mantener' : ''
+                }}"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Rol</label>
+              <select
+                class="form-select"
+                name="role"
+                [(ngModel)]="formModel.role"
+                required
+              >
+                <option value="CLIENT">Cliente</option>
+                <option value="ADMIN">Administrador</option>
+              </select>
+            </div>
+
+            <div *ngIf="error" class="text-danger small mb-2">
+              {{ error }}
+            </div>
+
+            <div class="d-flex gap-2">
+              <button
+                class="btn btn-dark btn-sm"
+                type="submit"
+                [disabled]="f.invalid"
+              >
+                {{ formModel.id ? "Guardar cambios" : "Crear usuario" }}
+              </button>
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                type="button"
+                (click)="resetForm(f)"
+              >
+                Limpiar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <div *ngIf="loading">Cargando usuarios...</div>
+      <div *ngIf="!loading" class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Listado</h5>
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Rol</th>
+                  <th style="width: 120px"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let u of users">
+                  <td>{{ u.name }}</td>
+                  <td>{{ u.email }}</td>
+                  <td>{{ u.role }}</td>
+                  <td class="text-end">
+                    <button class="btn btn-link btn-sm" (click)="edit(u)">
+                      Editar
+                    </button>
+                    <button
+                      class="btn btn-link text-danger btn-sm"
+                      (click)="deleteUser(u)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="users.length === 0">
+                  <td colspan="4" class="text-center text-muted">
+                    Sin usuarios cargados.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

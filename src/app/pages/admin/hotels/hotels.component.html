@@ -1,0 +1,178 @@
+<section>
+  <h1 class="mb-3">Catálogo de hoteles</h1>
+  <p class="text-muted mb-4">
+    Gestiona los hoteles disponibles: ubicación, tipos de habitaciones, tarifas
+    y disponibilidad.
+  </p>
+
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-3">
+            {{ formModel.id ? "Editar hotel" : "Nuevo hotel" }}
+          </h5>
+
+          <form #f="ngForm" (ngSubmit)="save(f)">
+            <div class="mb-2">
+              <label class="form-label">Nombre</label>
+              <input
+                class="form-control"
+                name="name"
+                [(ngModel)]="formModel.name"
+                required
+              />
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <label class="form-label">Ciudad</label>
+                <input
+                  class="form-control"
+                  name="city"
+                  [(ngModel)]="formModel.city"
+                  required
+                />
+              </div>
+              <div class="col-md-6 mb-2">
+                <label class="form-label">País</label>
+                <input
+                  class="form-control"
+                  name="country"
+                  [(ngModel)]="formModel.country"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Dirección</label>
+              <input
+                class="form-control"
+                name="address"
+                [(ngModel)]="formModel.address"
+                required
+              />
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Tipos de habitaciones</label>
+              <input
+                class="form-control"
+                name="roomTypes"
+                [(ngModel)]="formModel.roomTypes"
+                placeholder="Standard, Suite, Ejecutiva..."
+                required
+              />
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 mb-2">
+                <label class="form-label">Precio base (USD)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="basePrice"
+                  [(ngModel)]="formModel.basePrice"
+                  min="0"
+                  required
+                />
+              </div>
+              <div class="col-md-4 mb-2">
+                <label class="form-label">Habitaciones totales</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="totalRooms"
+                  [(ngModel)]="formModel.totalRooms"
+                  min="0"
+                  required
+                />
+              </div>
+              <div class="col-md-4 mb-2">
+                <label class="form-label">Disponibles</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="availableRooms"
+                  [(ngModel)]="formModel.availableRooms"
+                  min="0"
+                  required
+                />
+              </div>
+            </div>
+
+            <div *ngIf="error" class="text-danger small mb-2">
+              {{ error }}
+            </div>
+
+            <div class="d-flex gap-2">
+              <button
+                class="btn btn-dark btn-sm"
+                type="submit"
+                [disabled]="f.invalid"
+              >
+                {{ formModel.id ? "Guardar cambios" : "Crear hotel" }}
+              </button>
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                type="button"
+                (click)="resetForm(f)"
+              >
+                Limpiar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div *ngIf="loading">Cargando hoteles...</div>
+      <div *ngIf="!loading" class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Listado</h5>
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Ubicación</th>
+                  <th>Tipos</th>
+                  <th>Precio base</th>
+                  <th>Disp.</th>
+                  <th style="width: 120px"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let h of hotels">
+                  <td>{{ h.name }}</td>
+                  <td>{{ h.city }}, {{ h.country }}</td>
+                  <td>{{ h.roomTypes }}</td>
+                  <td>US$ {{ h.basePrice }}</td>
+                  <td>{{ h.availableRooms }}/{{ h.totalRooms }}</td>
+                  <td class="text-end">
+                    <button class="btn btn-link btn-sm" (click)="edit(h)">
+                      Editar
+                    </button>
+                    <button
+                      class="btn btn-link text-danger btn-sm"
+                      (click)="delete(h)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="hotels.length === 0">
+                  <td colspan="6" class="text-center text-muted">
+                    Sin hoteles registrados.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
