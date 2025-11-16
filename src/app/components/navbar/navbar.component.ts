@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService, User } from '../../core/services/auth.service';
 
 /**
  * NavbarComponent
  * 
- * Gesiona la barra de navegación principal de la aplicación.
+ * Gestiona la barra de navegación principal de la aplicación.
  * 
  * Responsabilidades:
  * - Mostrar/ocultar menú hamburguesa en mobile y tablet
  * - Gestionar selector de idioma (con dropdown)
- * - Proporcionar enlace s de navegación y autenticación
+ * - Proporcionar enlaces de navegación y autenticación
  * - Botón de reserva
  * 
  * Propiedades reactivas:
@@ -30,6 +32,24 @@ export class NavbarComponent {
 
   /** Idioma actual seleccionado: 'en' (English) o 'es' (Español) */
   currentLang = 'en';
+
+  /** Usuario autenticado actual (o null si invitado) */
+  user: User | null = null;
+
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {
+    this.auth.currentUser$.subscribe(u => (this.user = u));
+  }
+
+  /**
+   * Cierra sesión y redirige al home del cliente
+   */
+  logout(): void {
+    this.auth.logout();
+    this.router.navigate(['/client/home']);
+  }
 
   /**
    * Abre/cierra el menú hamburguesa móvil
@@ -73,4 +93,3 @@ export class NavbarComponent {
     // Próximamente: this.languageService.setLanguage(lang);
   }
 }
-

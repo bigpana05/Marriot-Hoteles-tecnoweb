@@ -16,14 +16,13 @@ export interface User {
 export class AuthService {
   private readonly API_URL = 'http://localhost:3000';
 
-  private currentUserSubject = new BehaviorSubject<User | null>(
-    this.loadStoredUser()
-  );
+  /** BehaviorSubject que mantiene el usuario actual */
+  private currentUserSubject = new BehaviorSubject<User | null>(this.loadStoredUser());
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  /** Lee usuario guardado en localStorage (si existe) */
+  /** Leer usuario guardado en localStorage */
   private loadStoredUser(): User | null {
     try {
       const raw = localStorage.getItem('user');
@@ -33,17 +32,17 @@ export class AuthService {
     }
   }
 
-  /** Usuario actual (conveniente para templates) */
+  /** Getter práctico del usuario actual */
   get currentUser(): User | null {
     return this.currentUserSubject.value;
   }
 
-  /** ¿Hay sesión iniciada? */
+  /** ¿Existe sesión activa? */
   isAuthenticated(): boolean {
     return !!this.currentUserSubject.value?.token;
   }
 
-  /** ¿El usuario tiene este rol? */
+  /** ¿El usuario tiene un rol específico? */
   hasRole(role: UserRole): boolean {
     return this.currentUserSubject.value?.role === role;
   }
@@ -64,14 +63,16 @@ export class AuthService {
 
     const user: User = {
       ...users[0],
-      token: 'fake-jwt-demo'
+      token: 'fake-jwt-demo' // Token de sesión fake para testing
     };
 
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSubject.next(user);
+
     return user;
   }
 
+  /** Cerrar sesión */
   logout(): void {
     localStorage.removeItem('user');
     this.currentUserSubject.next(null);

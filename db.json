@@ -17,6 +17,7 @@
       "token": "client-token-456"
     }
   ],
+
   "hotels": [
     {
       "id": 1,
@@ -52,6 +53,7 @@
       "totalRooms": 60
     }
   ],
+
   "events": [
     {
       "id": 1,

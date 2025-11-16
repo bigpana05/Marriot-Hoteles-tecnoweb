@@ -25,3 +25,13 @@
 @import 'navbar-language-selector';
 @import 'navbar-mobile';
 @import 'navbar-responsive';
+
+/* --- Estilos heredados desde rama dev --- */
+
+.navbar-brand {
+  letter-spacing: 0.04em;
+}
+
+.nav-link.active {
+  font-weight: 600;
+}

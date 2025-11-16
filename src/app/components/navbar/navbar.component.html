@@ -18,7 +18,7 @@
       </ul>
     </div>
 
-    <!-- Derecha: idioma, reserva, login y menú hamburguesa -->
+    <!-- Derecha: idioma, reserva, usuario, login y menú hamburguesa -->
     <div class="navbar-right">
       <!-- Selector de idioma (desktop) -->
       <div class="lang-selector desktop-md">
@@ -70,13 +70,50 @@
 
       <button type="button" class="btn-reserve desktop-md">Reserve</button>
 
-      <!-- visible sólo en desktop/laptop -->
-      <a class="signin desktop-md" routerLink="/client/login">
-        <img class="icon-20" src="assets/icons/user.svg" alt="">
-        <span>Sign in or join</span>
-      </a>
+      <!-- Zona derecha: usuario (desktop) -->
+      <div class="user-actions desktop-md">
+        <ng-container *ngIf="user; else guestDesktop">
+          <span class="user-greeting">
+            Hola, <strong>{{ user.name }}</strong>
+            <span *ngIf="user.role === 'ADMIN'">(Admin)</span>
+          </span>
 
-      <!-- visible en tablet/móvil -->
+          <a
+            *ngIf="user.role === 'CLIENT'"
+            class="signin"
+            routerLink="/client/profile"
+          >
+            <img class="icon-20" src="assets/icons/user.svg" alt="">
+            <span>My profile</span>
+          </a>
+
+          <a
+            *ngIf="user.role === 'ADMIN'"
+            class="signin"
+            routerLink="/admin/dashboard"
+          >
+            <img class="icon-20" src="assets/icons/user.svg" alt="">
+            <span>Admin</span>
+          </a>
+
+          <button
+            type="button"
+            class="btn-logout"
+            (click)="logout()"
+          >
+            Log out
+          </button>
+        </ng-container>
+
+        <ng-template #guestDesktop>
+          <a class="signin" routerLink="/client/login">
+            <img class="icon-20" src="assets/icons/user.svg" alt="">
+            <span>Sign in or join</span>
+          </a>
+        </ng-template>
+      </div>
+
+      <!-- visible en tablet/móvil: botón menú -->
       <button
         type="button"
         class="btn-menu mobile-only"
@@ -108,10 +145,51 @@
     </ul>
 
     <div class="mobile-actions">
-      <a class="mobile-signin" routerLink="/client/login" (click)="closeMenu()">
-        <img class="icon-20" src="assets/icons/user.svg" alt="">
-        <span>Sign in or join</span>
-      </a>
+      <!-- Usuario en mobile -->
+      <ng-container *ngIf="user; else guestMobile">
+        <div class="mobile-user-info">
+          <span>
+            Hola, <strong>{{ user.name }}</strong>
+            <span *ngIf="user.role === 'ADMIN'">(Admin)</span>
+          </span>
+        </div>
+
+        <a
+          *ngIf="user.role === 'CLIENT'"
+          class="mobile-signin"
+          routerLink="/client/profile"
+          (click)="closeMenu()"
+        >
+          <img class="icon-20" src="assets/icons/user.svg" alt="">
+          <span>My profile</span>
+        </a>
+
+        <a
+          *ngIf="user.role === 'ADMIN'"
+          class="mobile-signin"
+          routerLink="/admin/dashboard"
+          (click)="closeMenu()"
+        >
+          <img class="icon-20" src="assets/icons.user.svg" alt="">
+          <span>Admin</span>
+        </a>
+
+        <button
+          type="button"
+          class="mobile-reserve"
+          (click)="logout(); closeMenu()"
+        >
+          Log out
+        </button>
+      </ng-container>
+
+      <ng-template #guestMobile>
+        <a class="mobile-signin" routerLink="/client/login" (click)="closeMenu()">
+          <img class="icon-20" src="assets/icons/user.svg" alt="">
+          <span>Sign in or join</span>
+        </a>
+      </ng-template>
+
       <button type="button" class="mobile-reserve" (click)="closeMenu()">Reserve</button>
     </div>
   </div>
