@@ -1,18 +1,13 @@
-<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HotelService } from '../../../src/app/core/services/hotel.service';
 import { Hotel } from '../../../src/app/core/models/hotel.model';
-=======
-import { Component } from '@angular/core';
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 
 @Component({
   selector: 'app-hotels',
   templateUrl: './hotels.component.html',
   styleUrls: ['./hotels.component.scss']
 })
-<<<<<<< HEAD
 export class HotelsComponent implements OnInit {
   hotels: Hotel[] = [];
   loading = false;
@@ -102,8 +97,4 @@ export class HotelsComponent implements OnInit {
       error: () => (this.error = 'Error al eliminar hotel')
     });
   }
-=======
-export class HotelsComponent {
-
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 }

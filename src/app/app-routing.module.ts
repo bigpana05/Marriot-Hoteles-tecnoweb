@@ -14,8 +14,8 @@ import { HotelsComponent } from './pages/admin/hotels/hotels.component';
 import { EventsComponent } from './pages/admin/events/events.component';
 import { UsersComponent } from './pages/admin/users/users.component';
 
-import { AuthGuard } from './core/services/auth.guard';
-import { RoleGuard } from './core/services/role.guard';
+import { AuthGuard } from './core/guards/auth.guard';
+import { RoleGuard } from './core/guards/role.guard';
 
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 

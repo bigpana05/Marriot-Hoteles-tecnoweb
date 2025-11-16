@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-<<<<<<< HEAD
 interface FeaturedHotel {
   name: string;
   city: string;
@@ -8,15 +7,12 @@ interface FeaturedHotel {
   image: string;
 }
 
-=======
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-<<<<<<< HEAD
   year: number = new Date().getFullYear();
 
   // Modelo del buscador (solo para mostrar en pantalla)
@@ -33,7 +29,4 @@ export class HomeComponent {
     { name: 'Marriott Lima',         city: 'Lima',           rating: 4.5, image: 'assets/img/hotel-lima.jpg' },
     { name: 'Marriott Rio',          city: 'Río de Janeiro', rating: 4.8, image: 'assets/img/hotel-rio.jpg' }
   ];
-=======
-
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 }

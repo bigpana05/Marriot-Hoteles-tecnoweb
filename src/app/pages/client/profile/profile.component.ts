@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { AuthService, User } from '../../../src/app/core/services/auth.service';
-=======
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +8,6 @@ import { AuthService, User } from '../../../src/app/core/services/auth.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-<<<<<<< HEAD
   user: User | null = null;
 
   constructor(
@@ -29,7 +25,4 @@ export class ProfileComponent {
     this.auth.logout();
     this.router.navigate(['/client/login']);
   }
-=======
-
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 }
