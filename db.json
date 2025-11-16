@@ -1,21 +1,23 @@
 {
-<<<<<<< HEAD
   "users": [
     {
       "id": 1,
       "email": "admin@demo.cl",
       "password": "admin",
       "name": "Administrador",
-      "role": "ADMIN"
+      "role": "ADMIN",
+      "token": "admin-token-123"
     },
     {
       "id": 2,
       "email": "cliente@demo.cl",
       "password": "cliente",
       "name": "Cliente Demo",
-      "role": "CLIENT"
+      "role": "CLIENT",
+      "token": "client-token-456"
     }
   ],
+
   "hotels": [
     {
       "id": 1,
@@ -51,6 +53,7 @@
       "totalRooms": 60
     }
   ],
+
   "events": [
     {
       "id": 1,
@@ -81,24 +84,3 @@
     }
   ]
 }
-=======
-  "hotels": [
-    { "id": 1, "name": "JW Marriott Santiago", "location": "Santiago", "amenities": ["Pool","Gym","Spa"], "rating": 4.8 },
-    { "id": 2, "name": "Sheraton Miramar", "location": "Viña del Mar", "amenities": ["Spa","Ocean View"], "rating": 4.5 },
-    { "id": 3, "name": "Courtyard Las Condes", "location": "Santiago", "amenities": ["Gym","Restaurant"], "rating": 4.2 }
-  ],
-  "rooms": [
-    { "id": 1, "hotelId": 1, "type": "Deluxe", "capacity": 2, "price": 120, "availability": true },
-    { "id": 2, "hotelId": 1, "type": "Suite",  "capacity": 3, "price": 210, "availability": true },
-    { "id": 3, "hotelId": 2, "type": "Deluxe", "capacity": 2, "price": 140, "availability": false }
-  ],
-  "events": [
-    { "id": 1, "hotelId": 1, "name": "Conferencia Tech", "date": "2025-12-01", "capacity": 200, "price": 5000 },
-    { "id": 2, "hotelId": 2, "name": "Boda Costa",       "date": "2025-11-20", "capacity": 150, "price": 7000 }
-  ],
-  "users": [
-    { "id": 1, "email": "admin@demo.cl", "name": "Admin",  "role": "ADMIN",  "password": "admin" },
-    { "id": 2, "email": "cliente@demo.cl", "name": "Cliente", "role": "CLIENT", "password": "cliente" }
-  ]
-}
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51

@@ -37,6 +37,7 @@ import { ClientComponent } from './pages/client/client.component';
 import { HotelsComponent } from './pages/admin/hotels/hotels.component';
 import { EventsComponent } from './pages/admin/events/events.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { UsersComponent } from './pages/admin/users/users.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -69,7 +70,8 @@ import { FormsModule } from '@angular/forms';
     ClientComponent,
     HotelsComponent,
     EventsComponent,
-    DashboardComponent
+    DashboardComponent,
+    UsersComponent
   ],
   imports: [HttpClientModule,
 FormsModule,

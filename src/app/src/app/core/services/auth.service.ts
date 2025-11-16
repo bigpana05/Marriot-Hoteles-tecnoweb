@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
 export type UserRole = 'ADMIN' | 'CLIENT';
 
-=======
-import { BehaviorSubject } from 'rxjs';
-
-export type UserRole = 'ADMIN' | 'CLIENT';
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 export interface User {
   id: number;
   email: string;
@@ -20,17 +14,15 @@ export interface User {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-<<<<<<< HEAD
   private readonly API_URL = 'http://localhost:3000';
 
-  private currentUserSubject = new BehaviorSubject<User | null>(
-    this.loadStoredUser()
-  );
+  /** BehaviorSubject que mantiene el usuario actual */
+  private currentUserSubject = new BehaviorSubject<User | null>(this.loadStoredUser());
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  /** Lee usuario guardado en localStorage (si existe) */
+  /** Leer usuario guardado en localStorage */
   private loadStoredUser(): User | null {
     try {
       const raw = localStorage.getItem('user');
@@ -40,17 +32,17 @@ export class AuthService {
     }
   }
 
-  /** Usuario actual (conveniente para templates) */
+  /** Getter práctico del usuario actual */
   get currentUser(): User | null {
     return this.currentUserSubject.value;
   }
 
-  /** ¿Hay sesión iniciada? */
+  /** ¿Existe sesión activa? */
   isAuthenticated(): boolean {
     return !!this.currentUserSubject.value?.token;
   }
 
-  /** ¿El usuario tiene este rol? */
+  /** ¿El usuario tiene un rol específico? */
   hasRole(role: UserRole): boolean {
     return this.currentUserSubject.value?.role === role;
   }
@@ -71,7 +63,7 @@ export class AuthService {
 
     const user: User = {
       ...users[0],
-      token: 'fake-jwt-demo'
+      token: 'fake-jwt-demo' // Token de sesión fake para testing
     };
 
     localStorage.setItem('user', JSON.stringify(user));
@@ -80,33 +72,8 @@ export class AuthService {
     return user;
   }
 
-  /** Cierra sesión */
+  /** Cerrar sesión */
   logout(): void {
-=======
-  private currentUserSubject = new BehaviorSubject<User | null>(this.getStored());
-  currentUser$ = this.currentUserSubject.asObservable();
-
-  private getStored(): User | null {
-    const raw = localStorage.getItem('user');
-    return raw ? JSON.parse(raw) : null;
-  }
-  get currentUserValue(): User | null {
-    return this.currentUserSubject.value;
-  }
-  isLoggedIn(): boolean {
-    return !!this.currentUserSubject.value;
-  }
-
-  // Mock simple: si el email contiene 'admin' => rol ADMIN, si no CLIENT.
-  login(email: string, _password: string) {
-    const role: UserRole = email.includes('admin') ? 'ADMIN' : 'CLIENT';
-    const user: User = { id: 1, email, name: email.split('@')[0], role, token: 'demo' };
-    localStorage.setItem('user', JSON.stringify(user));
-    this.currentUserSubject.next(user);
-  }
-
-  logout() {
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
     localStorage.removeItem('user');
     this.currentUserSubject.next(null);
   }
