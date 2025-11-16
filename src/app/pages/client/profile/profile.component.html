@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 <section class="profile" *ngIf="user; else noSession">
   <div class="profile__card">
     <h1 class="profile__title">Mi perfil</h1>
-    <p class="profile__subtitle">
-      Información básica de tu cuenta Marriott.
-    </p>
+    <p class="profile__subtitle">Información básica de tu cuenta Marriott.</p>
 
     <dl class="profile__info">
       <div>
@@ -19,7 +16,7 @@
 
       <div>
         <dt>Rol</dt>
-        <dd>{{ user.role === 'ADMIN' ? 'Administrador' : 'Cliente' }}</dd>
+        <dd>{{ user.role === "ADMIN" ? "Administrador" : "Cliente" }}</dd>
       </div>
     </dl>
 
@@ -27,9 +24,7 @@
       <button class="btn btn-outline" routerLink="/client/catalog">
         Ir al catálogo
       </button>
-      <button class="btn btn-danger" (click)="logout()">
-        Cerrar sesión
-      </button>
+      <button class="btn btn-danger" (click)="logout()">Cerrar sesión</button>
     </div>
   </div>
 </section>
@@ -45,7 +40,3 @@
     </div>
   </section>
 </ng-template>
-
-=======
-<p>profile works!</p>
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51

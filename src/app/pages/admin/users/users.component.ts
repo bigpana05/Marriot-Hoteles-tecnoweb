@@ -6,7 +6,7 @@ import { User } from '../../../src/app/core/services/auth.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
     name: '',
     email: '',
     password: '',
-    role: 'CLIENT' as 'ADMIN' | 'CLIENT'
+    role: 'CLIENT' as 'ADMIN' | 'CLIENT',
   };
 
   constructor(private adminUserService: AdminUserService) {}
@@ -31,14 +31,14 @@ export class UsersComponent implements OnInit {
   loadUsers(): void {
     this.loading = true;
     this.adminUserService.getUsers().subscribe({
-      next: users => {
+      next: (users) => {
         this.users = users;
         this.loading = false;
       },
       error: () => {
         this.error = 'Error al cargar usuarios';
         this.loading = false;
-      }
+      },
     });
   }
 
@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit {
       name: user.name,
       email: user.email,
       password: '',
-      role: user.role
+      role: user.role,
     };
   }
 
@@ -58,7 +58,7 @@ export class UsersComponent implements OnInit {
       name: '',
       email: '',
       password: '',
-      role: 'CLIENT'
+      role: 'CLIENT',
     });
     this.error = null;
   }
@@ -71,7 +71,7 @@ export class UsersComponent implements OnInit {
       name: this.formModel.name,
       email: this.formModel.email,
       role: this.formModel.role,
-      password: this.formModel.password || 'changeme'
+      password: this.formModel.password || 'changeme',
     };
 
     if (this.formModel.id) {
@@ -81,7 +81,7 @@ export class UsersComponent implements OnInit {
           this.loadUsers();
           this.resetForm(form);
         },
-        error: () => (this.error = 'Error al actualizar usuario')
+        error: () => (this.error = 'Error al actualizar usuario'),
       });
     } else {
       this.adminUserService.createUser(payload).subscribe({
@@ -89,7 +89,7 @@ export class UsersComponent implements OnInit {
           this.loadUsers();
           this.resetForm(form);
         },
-        error: () => (this.error = 'Error al crear usuario')
+        error: () => (this.error = 'Error al crear usuario'),
       });
     }
   }
@@ -100,7 +100,7 @@ export class UsersComponent implements OnInit {
 
     this.adminUserService.deleteUser(user.id).subscribe({
       next: () => this.loadUsers(),
-      error: () => (this.error = 'Error al eliminar usuario')
+      error: () => (this.error = 'Error al eliminar usuario'),
     });
   }
 }

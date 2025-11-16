@@ -17,7 +17,9 @@ export class AuthService {
   private readonly API_URL = 'http://localhost:3000';
 
   /** BehaviorSubject que mantiene el usuario actual */
-  private currentUserSubject = new BehaviorSubject<User | null>(this.loadStoredUser());
+  private currentUserSubject = new BehaviorSubject<User | null>(
+    this.loadStoredUser()
+  );
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -63,7 +65,7 @@ export class AuthService {
 
     const user: User = {
       ...users[0],
-      token: 'fake-jwt-demo' // Token de sesión fake para testing
+      token: 'fake-jwt-demo', // Token de sesión fake para testing
     };
 
     localStorage.setItem('user', JSON.stringify(user));

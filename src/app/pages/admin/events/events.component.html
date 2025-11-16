@@ -1,8 +1,8 @@
-<<<<<<< HEAD
 <section>
   <h1 class="mb-3">Eventos y conferencias</h1>
   <p class="text-muted mb-4">
-    Crea y gestiona eventos asociados a tus hoteles. Desde aquí puedes monitorear la ocupación.
+    Crea y gestiona eventos asociados a tus hoteles. Desde aquí puedes
+    monitorear la ocupación.
   </p>
 
   <div class="row">
@@ -10,7 +10,7 @@
       <div class="card shadow-sm">
         <div class="card-body">
           <h5 class="card-title mb-3">
-            {{ formModel.id ? 'Editar evento' : 'Nuevo evento' }}
+            {{ formModel.id ? "Editar evento" : "Nuevo evento" }}
           </h5>
 
           <form #f="ngForm" (ngSubmit)="save(f)">
@@ -88,10 +88,18 @@
             </div>
 
             <div class="d-flex gap-2">
-              <button class="btn btn-dark btn-sm" type="submit" [disabled]="f.invalid">
-                {{ formModel.id ? 'Guardar cambios' : 'Crear evento' }}
+              <button
+                class="btn btn-dark btn-sm"
+                type="submit"
+                [disabled]="f.invalid"
+              >
+                {{ formModel.id ? "Guardar cambios" : "Crear evento" }}
               </button>
-              <button class="btn btn-outline-secondary btn-sm" type="button" (click)="resetForm(f)">
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                type="button"
+                (click)="resetForm(f)"
+              >
                 Limpiar
               </button>
             </div>
@@ -113,7 +121,7 @@
                   <th>Hotel</th>
                   <th>Fecha</th>
                   <th>Ocupación</th>
-                  <th style="width: 120px;"></th>
+                  <th style="width: 120px"></th>
                 </tr>
               </thead>
               <tbody>
@@ -123,14 +131,21 @@
                   <td>{{ e.date }}</td>
                   <td>{{ occupancy(e) }}%</td>
                   <td class="text-end">
-                    <button class="btn btn-link btn-sm" (click)="edit(e)">Editar</button>
-                    <button class="btn btn-link text-danger btn-sm" (click)="delete(e)">
+                    <button class="btn btn-link btn-sm" (click)="edit(e)">
+                      Editar
+                    </button>
+                    <button
+                      class="btn btn-link text-danger btn-sm"
+                      (click)="delete(e)"
+                    >
                       Eliminar
                     </button>
                   </td>
                 </tr>
                 <tr *ngIf="events.length === 0">
-                  <td colspan="5" class="text-center text-muted">Sin eventos registrados.</td>
+                  <td colspan="5" class="text-center text-muted">
+                    Sin eventos registrados.
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -140,6 +155,3 @@
     </div>
   </div>
 </section>
-=======
-<p>events works!</p>
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51

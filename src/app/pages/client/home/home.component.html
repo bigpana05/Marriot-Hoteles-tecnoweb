@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <section class="hero">
   <div class="hero-content">
     <h1>Bienvenido a Marriott International</h1>
@@ -12,20 +11,10 @@
         name="city"
         placeholder="Ciudad o destino"
       />
-      <input
-        type="date"
-        [(ngModel)]="search.checkIn"
-        name="checkIn"
-      />
-      <input
-        type="date"
-        [(ngModel)]="search.checkOut"
-        name="checkOut"
-      />
+      <input type="date" [(ngModel)]="search.checkIn" name="checkIn" />
+      <input type="date" [(ngModel)]="search.checkOut" name="checkOut" />
       <!-- Por ahora solo navega al catálogo -->
-      <button type="button" routerLink="/client/catalog">
-        Buscar
-      </button>
+      <button type="button" routerLink="/client/catalog">Buscar</button>
     </form>
 
     <div class="cta-group">
@@ -58,7 +47,9 @@
       <div class="info">
         <h4>{{ h.name }}</h4>
         <p>{{ h.city }} • ★ {{ h.rating }}</p>
-        <button type="button" routerLink="/client/catalog">Ver disponibilidad</button>
+        <button type="button" routerLink="/client/catalog">
+          Ver disponibilidad
+        </button>
       </div>
     </article>
   </div>
@@ -66,7 +57,7 @@
 
 <footer class="footer">
   <div class="container">
-    <p>© {{year}} Marriott (Proyecto Tecno Web). Sitio académico.</p>
+    <p>© {{ year }} Marriott (Proyecto Tecno Web). Sitio académico.</p>
     <nav>
       <a routerLink="/client/catalog">Catálogo</a>
       <a routerLink="/client/login">Entrar</a>
@@ -74,6 +65,3 @@
     </nav>
   </div>
 </footer>
-=======
-<p>home works!</p>
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51

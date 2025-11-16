@@ -1,8 +1,8 @@
-<<<<<<< HEAD
 <section>
   <h1 class="mb-3">Catálogo de hoteles</h1>
   <p class="text-muted mb-4">
-    Gestiona los hoteles disponibles: ubicación, tipos de habitaciones, tarifas y disponibilidad.
+    Gestiona los hoteles disponibles: ubicación, tipos de habitaciones, tarifas
+    y disponibilidad.
   </p>
 
   <div class="row">
@@ -10,7 +10,7 @@
       <div class="card shadow-sm">
         <div class="card-body">
           <h5 class="card-title mb-3">
-            {{ formModel.id ? 'Editar hotel' : 'Nuevo hotel' }}
+            {{ formModel.id ? "Editar hotel" : "Nuevo hotel" }}
           </h5>
 
           <form #f="ngForm" (ngSubmit)="save(f)">
@@ -107,10 +107,18 @@
             </div>
 
             <div class="d-flex gap-2">
-              <button class="btn btn-dark btn-sm" type="submit" [disabled]="f.invalid">
-                {{ formModel.id ? 'Guardar cambios' : 'Crear hotel' }}
+              <button
+                class="btn btn-dark btn-sm"
+                type="submit"
+                [disabled]="f.invalid"
+              >
+                {{ formModel.id ? "Guardar cambios" : "Crear hotel" }}
               </button>
-              <button class="btn btn-outline-secondary btn-sm" type="button" (click)="resetForm(f)">
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                type="button"
+                (click)="resetForm(f)"
+              >
                 Limpiar
               </button>
             </div>
@@ -133,7 +141,7 @@
                   <th>Tipos</th>
                   <th>Precio base</th>
                   <th>Disp.</th>
-                  <th style="width: 120px;"></th>
+                  <th style="width: 120px"></th>
                 </tr>
               </thead>
               <tbody>
@@ -144,14 +152,21 @@
                   <td>US$ {{ h.basePrice }}</td>
                   <td>{{ h.availableRooms }}/{{ h.totalRooms }}</td>
                   <td class="text-end">
-                    <button class="btn btn-link btn-sm" (click)="edit(h)">Editar</button>
-                    <button class="btn btn-link text-danger btn-sm" (click)="delete(h)">
+                    <button class="btn btn-link btn-sm" (click)="edit(h)">
+                      Editar
+                    </button>
+                    <button
+                      class="btn btn-link text-danger btn-sm"
+                      (click)="delete(h)"
+                    >
                       Eliminar
                     </button>
                   </td>
                 </tr>
                 <tr *ngIf="hotels.length === 0">
-                  <td colspan="6" class="text-center text-muted">Sin hoteles registrados.</td>
+                  <td colspan="6" class="text-center text-muted">
+                    Sin hoteles registrados.
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -161,6 +176,3 @@
     </div>
   </div>
 </section>
-=======
-<p>hotels works!</p>
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51

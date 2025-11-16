@@ -1,20 +1,15 @@
-<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EventService } from '../../../src/app/core/services/event.service';
 import { HotelService } from '../../../src/app/core/services/hotel.service';
 import { Event } from '../../../src/app/core/models/event.model';
 import { Hotel } from '../../../src/app/core/models/hotel.model';
-=======
-import { Component } from '@angular/core';
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+  styleUrls: ['./events.component.scss'],
 })
-<<<<<<< HEAD
 export class EventsComponent implements OnInit {
   events: Event[] = [];
   hotels: Hotel[] = [];
@@ -28,7 +23,7 @@ export class EventsComponent implements OnInit {
     location: '',
     date: '',
     capacity: 0,
-    attendees: 0
+    attendees: 0,
   };
 
   constructor(
@@ -37,21 +32,21 @@ export class EventsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.hotelService.getHotels().subscribe(h => (this.hotels = h));
+    this.hotelService.getHotels().subscribe((h) => (this.hotels = h));
     this.loadEvents();
   }
 
   loadEvents(): void {
     this.loading = true;
     this.eventService.getEvents().subscribe({
-      next: events => {
+      next: (events) => {
         this.events = events;
         this.loading = false;
       },
       error: () => {
         this.error = 'Error al cargar eventos';
         this.loading = false;
-      }
+      },
     });
   }
 
@@ -67,7 +62,7 @@ export class EventsComponent implements OnInit {
       location: '',
       date: '',
       capacity: 0,
-      attendees: 0
+      attendees: 0,
     });
     this.error = null;
   }
@@ -84,7 +79,7 @@ export class EventsComponent implements OnInit {
           this.loadEvents();
           this.resetForm(f);
         },
-        error: () => (this.error = 'Error al actualizar evento')
+        error: () => (this.error = 'Error al actualizar evento'),
       });
     } else {
       this.eventService.createEvent(payload).subscribe({
@@ -92,7 +87,7 @@ export class EventsComponent implements OnInit {
           this.loadEvents();
           this.resetForm(f);
         },
-        error: () => (this.error = 'Error al crear evento')
+        error: () => (this.error = 'Error al crear evento'),
       });
     }
   }
@@ -102,7 +97,7 @@ export class EventsComponent implements OnInit {
     if (!confirm(`¿Eliminar el evento "${e.name}"?`)) return;
     this.eventService.deleteEvent(e.id).subscribe({
       next: () => this.loadEvents(),
-      error: () => (this.error = 'Error al eliminar evento')
+      error: () => (this.error = 'Error al eliminar evento'),
     });
   }
 
@@ -113,12 +108,8 @@ export class EventsComponent implements OnInit {
 
   /** Devuelve el nombre del hotel asociado al evento (para usar en el template) */
   getHotelName(e: Event): string {
-    const hotel = this.hotels.find(h => h.id === e.hotelId);
+    const hotel = this.hotels.find((h) => h.id === e.hotelId);
     if (!hotel) return 'Hotel';
     return `${hotel.name} (${hotel.city})`;
   }
-=======
-export class EventsComponent {
-
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
 }

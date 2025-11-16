@@ -21,7 +21,6 @@ export class CartService {
   }
 
   total$ = this.items$.pipe(
-    map(items => items.reduce((t, i) => t + i.qty * i.price, 0))
+    map((items) => items.reduce((t, i) => t + i.qty * i.price, 0))
   );
 }
-

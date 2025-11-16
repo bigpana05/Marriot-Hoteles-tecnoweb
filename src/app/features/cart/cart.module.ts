@@ -5,15 +5,8 @@ import { CartRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
 import { CartSummaryComponent } from './pages/cart-summary.component';
 
-
 @NgModule({
-  declarations: [
-    CartComponent,
-    CartSummaryComponent
-  ],
-  imports: [
-    CommonModule,
-    CartRoutingModule
-  ]
+  declarations: [CartComponent, CartSummaryComponent],
+  imports: [CommonModule, CartRoutingModule],
 })
-export class CartModule { }
+export class CartModule {}

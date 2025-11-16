@@ -3,8 +3,8 @@
  * Media queries para diferentes resoluciones de pantalla
  */
 
-@import 'navbar-variables';
-@import 'navbar-breakpoints';
+@import "navbar-variables";
+@import "navbar-breakpoints";
 
 /* Desktop XL - 1920px y mayor */
 @include respond-to-desktop-xl {

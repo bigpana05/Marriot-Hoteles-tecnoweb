@@ -4,7 +4,11 @@
   justify-content: center;
   align-items: center;
   padding: 2rem 1rem;
-  background: linear-gradient(135deg, rgba(0, 75, 141, 0.08), rgba(0, 143, 213, 0.2));
+  background: linear-gradient(
+    135deg,
+    rgba(0, 75, 141, 0.08),
+    rgba(0, 143, 213, 0.2)
+  );
 
   &__card {
     width: min(420px, 100%);

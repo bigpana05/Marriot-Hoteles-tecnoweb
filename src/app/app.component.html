@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- Shell para rutas de CLIENTE -->
 <ng-container *ngIf="!isAdminRoute; else adminShell">
   <app-navbar></app-navbar>
@@ -6,6 +5,11 @@
   <div class="container py-3">
     <router-outlet></router-outlet>
   </div>
+
+  <!-- Elemento invisible para pruebas unitarias que espera el test por defecto -->
+  <span id="app-title" style="display: none">
+    {{ title }} app is running!
+  </span>
 
   <app-footer></app-footer>
 </ng-container>
@@ -15,18 +19,3 @@
   <!-- El AdminComponent ya tiene su propio layout con sidebar -->
   <router-outlet></router-outlet>
 </ng-template>
-
-=======
-<app-navbar></app-navbar>
-
-<div class="container py-3">
-  <router-outlet></router-outlet>
-</div>
-
-<!-- Elemento invisible para pruebas unitarias que espera el test por defecto -->
-<span id="app-title" style="display: none;">
-  {{ title }} app is running!
-</span>
-
-<app-footer></app-footer>
->>>>>>> 7675a6e8aced24013f1797fd54ecc203a5246a51
