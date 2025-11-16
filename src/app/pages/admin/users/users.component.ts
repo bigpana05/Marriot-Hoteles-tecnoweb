@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AdminUserService } from '../../../src/app/core/services/admin-user.service';
-import { User } from '../../../src/app/core/services/auth.service';
+import { AdminUserService } from '../../../core/services/admin-user.service';
+import { User } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-users',
