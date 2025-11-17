@@ -1,0 +1,17 @@
+.catalog {
+  .catalog-title {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+  }
+
+  .catalog-card {
+    border: none;
+    border-radius: 0.75rem;
+
+    .price {
+      font-size: 1.05rem;
+    }
+  }
+}
