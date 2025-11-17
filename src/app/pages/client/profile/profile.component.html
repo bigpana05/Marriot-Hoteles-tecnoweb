@@ -1,33 +1,33 @@
 <section class="profile" *ngIf="user; else noSession">
   <div class="profile__card">
-    <h1 class="profile__title">Mi perfil</h1>
+    <h1 class="profile__title">Welcome, {{ user.name }}!</h1>
     <p class="profile__subtitle">
-      Información básica de tu cuenta Marriott.
+      Basic information of your Marriott account.
     </p>
 
     <dl class="profile__info">
       <div>
-        <dt>Nombre</dt>
+        <dt>Name</dt>
         <dd>{{ user.name }}</dd>
       </div>
 
       <div>
-        <dt>Correo</dt>
+        <dt>Email</dt>
         <dd>{{ user.email }}</dd>
       </div>
 
       <div>
-        <dt>Rol</dt>
-        <dd>{{ user.role === 'ADMIN' ? 'Administrador' : 'Cliente' }}</dd>
+        <dt>Role</dt>
+        <dd>{{ user.role === 'ADMIN' ? 'Administrator' : 'Client' }}</dd>
       </div>
     </dl>
 
     <div class="profile__actions">
       <button class="btn btn-outline" routerLink="/client/catalog">
-        Ir al catálogo
+        Go to Catalog
       </button>
       <button class="btn btn-danger" (click)="logout()">
-        Cerrar sesión
+        Sign out
       </button>
     </div>
   </div>
@@ -36,10 +36,10 @@
 <ng-template #noSession>
   <section class="profile profile--empty">
     <div class="profile__card">
-      <h1>Sesión no iniciada</h1>
-      <p>Debes iniciar sesión para ver tu perfil.</p>
+      <h1>No Session</h1>
+      <p>You must sign in to view your profile.</p>
       <button class="btn btn-primary" routerLink="/client/login">
-        Ir a login
+        Go to Login
       </button>
     </div>
   </section>

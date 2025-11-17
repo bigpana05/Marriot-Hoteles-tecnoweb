@@ -136,6 +136,24 @@
       padding: $spacing-menu-gap 20px;
       flex-shrink: 0;
 
+      .mobile-user-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 16px;
+        text-align: center;
+        font-family: var(--mtt-font-ui);
+        font-size: 14px;
+        color: var(--mtt-text);
+        border-radius: 4px;
+        background-color: #f8f8f8;
+
+        strong {
+          font-weight: 600;
+          margin: 0 4px;
+        }
+      }
+
       .mobile-signin {
         display: flex;
         align-items: center;

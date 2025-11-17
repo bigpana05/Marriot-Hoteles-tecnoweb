@@ -30,6 +30,9 @@ export class NavbarComponent {
   /** Indica si el menú de idioma está abierto */
   isLangMenuOpen = false;
 
+  /** Indica si el dropdown de usuario está abierto */
+  isUserDropdownOpen = false;
+
   /** Idioma actual seleccionado: 'en' (English) o 'es' (Español) */
   currentLang = 'en';
 
@@ -47,6 +50,7 @@ export class NavbarComponent {
    * Cierra sesión y redirige al home del cliente
    */
   logout(): void {
+    this.isUserDropdownOpen = false;
     this.auth.logout();
     this.router.navigate(['/client/home']);
   }
@@ -77,6 +81,20 @@ export class NavbarComponent {
    */
   closeLangMenu(): void {
     this.isLangMenuOpen = false;
+  }
+
+  /**
+   * Abre/cierra el dropdown de usuario
+   */
+  toggleUserDropdown(): void {
+    this.isUserDropdownOpen = !this.isUserDropdownOpen;
+  }
+
+  /**
+   * Cierra el dropdown de usuario
+   */
+  closeUserDropdown(): void {
+    this.isUserDropdownOpen = false;
   }
 
   /**

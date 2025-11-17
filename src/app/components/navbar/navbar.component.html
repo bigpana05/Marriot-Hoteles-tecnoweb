@@ -73,36 +73,78 @@
       <!-- Zona derecha: usuario (desktop) -->
       <div class="user-actions desktop-md">
         <ng-container *ngIf="user; else guestDesktop">
-          <span class="user-greeting">
-            Hola, <strong>{{ user.name }}</strong>
-            <span *ngIf="user.role === 'ADMIN'">(Admin)</span>
-          </span>
+          <!-- Dropdown usuario -->
+          <div class="user-dropdown">
+            <button
+              type="button"
+              class="user-dropdown-trigger"
+              (click)="toggleUserDropdown()"
+              [class.active]="isUserDropdownOpen"
+            >
+              <img class="icon-20" src="assets/icons/user.svg" alt="">
+              <span>{{ user.name }}</span>
+              <span class="dropdown-arrow">▼</span>
+            </button>
 
-          <a
-            *ngIf="user.role === 'CLIENT'"
-            class="signin"
-            routerLink="/client/profile"
-          >
-            <img class="icon-20" src="assets/icons/user.svg" alt="">
-            <span>My profile</span>
-          </a>
+            <!-- Menú desplegable -->
+            <div class="user-dropdown-menu" *ngIf="isUserDropdownOpen">
+              <div class="dropdown-header">
+                <p class="welcome-message">Welcome back, {{ user.name }}!</p>
+                <small *ngIf="user.role === 'ADMIN'" class="admin-badge">Administrator</small>
+                <small *ngIf="user.role === 'CLIENT'" class="client-badge">Guest</small>
+              </div>
 
-          <a
-            *ngIf="user.role === 'ADMIN'"
-            class="signin"
-            routerLink="/admin/dashboard"
-          >
-            <img class="icon-20" src="assets/icons/user.svg" alt="">
-            <span>Admin</span>
-          </a>
+              <div class="dropdown-divider"></div>
 
-          <button
-            type="button"
-            class="btn-logout"
-            (click)="logout()"
-          >
-            Log out
-          </button>
+              <!-- Opciones según rol -->
+              <a
+                *ngIf="user.role === 'CLIENT'"
+                routerLink="/client/profile"
+                class="dropdown-item"
+                (click)="toggleUserDropdown()"
+              >
+                <span>My Profile</span>
+              </a>
+
+              <a
+                *ngIf="user.role === 'CLIENT'"
+                routerLink="/client/cart"
+                class="dropdown-item"
+                (click)="toggleUserDropdown()"
+              >
+                <span>My Cart</span>
+              </a>
+
+              <a
+                *ngIf="user.role === 'ADMIN'"
+                routerLink="/admin/dashboard"
+                class="dropdown-item"
+                (click)="toggleUserDropdown()"
+              >
+                <span>Admin Panel</span>
+              </a>
+
+              <a
+                *ngIf="user.role === 'ADMIN'"
+                routerLink="/admin/users"
+                class="dropdown-item"
+                (click)="toggleUserDropdown()"
+              >
+                <span>Users</span>
+              </a>
+
+              <div class="dropdown-divider"></div>
+
+              <!-- Logout -->
+              <button
+                type="button"
+                class="dropdown-item logout-item"
+                (click)="logout()"
+              >
+                <span>Sign out</span>
+              </button>
+            </div>
+          </div>
         </ng-container>
 
         <ng-template #guestDesktop>
@@ -149,8 +191,8 @@
       <ng-container *ngIf="user; else guestMobile">
         <div class="mobile-user-info">
           <span>
-            Hola, <strong>{{ user.name }}</strong>
-            <span *ngIf="user.role === 'ADMIN'">(Admin)</span>
+            Hello, <strong>{{ user.name }}</strong>
+            <span *ngIf="user.role === 'ADMIN'">(Administrator)</span>
           </span>
         </div>
 
@@ -161,7 +203,7 @@
           (click)="closeMenu()"
         >
           <img class="icon-20" src="assets/icons/user.svg" alt="">
-          <span>My profile</span>
+          <span>My Profile</span>
         </a>
 
         <a
@@ -170,17 +212,9 @@
           routerLink="/admin/dashboard"
           (click)="closeMenu()"
         >
-          <img class="icon-20" src="assets/icons.user.svg" alt="">
-          <span>Admin</span>
+          <img class="icon-20" src="assets/icons/user.svg" alt="">
+          <span>Admin Panel</span>
         </a>
-
-        <button
-          type="button"
-          class="mobile-reserve"
-          (click)="logout(); closeMenu()"
-        >
-          Log out
-        </button>
       </ng-container>
 
       <ng-template #guestMobile>
