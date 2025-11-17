@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,7 @@ import { HotelsComponent } from './pages/admin/hotels/hotels.component';
 import { EventsComponent } from './pages/admin/events/events.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UsersComponent } from './pages/admin/users/users.component';
+import { RegisterComponent } from './pages/client/register/register.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +38,16 @@ import { UsersComponent } from './pages/admin/users/users.component';
     HotelsComponent,
     EventsComponent,
     DashboardComponent,
-    UsersComponent
+    UsersComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

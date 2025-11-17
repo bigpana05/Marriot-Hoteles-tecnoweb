@@ -37,8 +37,7 @@
 html,body {
   background: var(--mtt-bg);
   color: var(--mtt-text);
-  font-family: 'Whitney SSm', system-ui, -apple-system, Segoe UI, Roboto, Arial,
-    sans-serif !important;
+  font-family: var(--mtt-font-ui);
 }
 
 /* contenedor a 1440 centrado (Bootstrap llega a 1320; lo extendemos) */

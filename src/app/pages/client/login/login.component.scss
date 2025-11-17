@@ -1,8 +1,8 @@
-/* === CONTENEDOR GLOBAL === */
+
 .login-page {
-  font-family: var(--mtt-font-ui) !important;
+  font-family: var(--mtt-font-ui);
   letter-spacing: 0.2px;
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - var(--mtt-navbar-h));
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -10,17 +10,17 @@
   background: var(--mtt-bg);
 }
 
-/* === CARD === */
+
 .login-card {
-  width: 850px;
+  font-family: var(--mtt-font-brand);
+  width: 950px;
   background: #fff;
   padding: 70px 90px;
-  border-radius: 0; /* RECTÁNGULO perfect */
+  border-radius: 0;
   border: 1px solid #eee;
-  box-shadow:
-    0px 40px 90px rgba(0, 0, 0, 0.12),
-    0px 10px 25px rgba(0, 0, 0, 0.08);
+ 
 }
+
 
 .login-logo {
   display: flex;
@@ -44,11 +44,11 @@
   font-size: 42px;
   line-height: 1.2;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  color: #333;
 }
 
 .login-subtitle {
-  font-family: var(--mtt-font-ui);
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 25px;
@@ -62,6 +62,7 @@
 }
 
 .login-field input {
+  font-family: var(--mtt-font-ui);
   width: 100%;
   padding: 14px 16px;
   border: 1px solid #aaa;
@@ -76,6 +77,7 @@
 }
 
 .password-toggle {
+  font-family: var(--mtt-font-ui);
   position: absolute;
   right: 16px;
   top: 50%;
@@ -83,7 +85,7 @@
   width: 22px;
   height: 22px;
   background-color: transparent;
-  background-image: url('/assets/icons/eye2.svg'); 
+  background-image: url('/assets/icons/eye2.svg');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -92,9 +94,8 @@
   cursor: pointer;
 }
 
-
 .password-toggle--visible {
-  background-image: url('/assets/icons/eye1.svg'); 
+  background-image: url('/assets/icons/eye1.svg');
 }
 
 
@@ -113,12 +114,14 @@
 
 
 .login-register-text {
+
   font-size: 14px;
   margin-bottom: 30px;
 }
 
 
 .login-button {
+
   width: 280px;
   background: #555;
   padding: 14px;
@@ -130,6 +133,7 @@
   cursor: pointer;
   margin: 0 auto;
   display: block;
+  font-family: var(--mtt-font-ui);
 }
 
 .login-button:disabled {

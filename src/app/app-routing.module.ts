@@ -18,6 +18,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { RoleGuard } from './core/guards/role.guard';
 
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { RegisterComponent } from './pages/client/register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'client/home', pathMatch: 'full' },
@@ -51,7 +52,8 @@ const routes: Routes = [
         data: { role: 'CLIENT' }
       },
 
-      { path: '', redirectTo: 'home', pathMatch: 'full' }
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'register', component: RegisterComponent }
     ]
   },
 
