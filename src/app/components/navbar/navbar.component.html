@@ -73,35 +73,36 @@
       <!-- Zona derecha: usuario (desktop) -->
       <div class="user-actions desktop-md">
         <ng-container *ngIf="user; else guestDesktop">
-          <!-- Dropdown usuario -->
-          <div class="user-dropdown">
+          <!-- Dropdown usuario con Bootstrap -->
+          <div class="dropdown">
             <button
               type="button"
-              class="user-dropdown-trigger"
+              class="btn btn-sm btn-user-dropdown dropdown-toggle"
+              [class.show]="isUserDropdownOpen"
               (click)="toggleUserDropdown()"
-              [class.active]="isUserDropdownOpen"
+              [attr.aria-expanded]="isUserDropdownOpen"
+              [attr.aria-label]="'User menu for ' + user.name"
             >
               <img class="icon-20" src="assets/icons/user.svg" alt="">
-              <span>{{ user.name }}</span>
-              <span class="dropdown-arrow">▼</span>
+              <span class="d-none d-lg-inline">{{ user.name }}</span>
             </button>
 
-            <!-- Menú desplegable -->
-            <div class="user-dropdown-menu" *ngIf="isUserDropdownOpen">
+            <!-- Menú desplegable Bootstrap -->
+            <div class="dropdown-menu" [class.show]="isUserDropdownOpen" (click)="closeUserDropdown()">
+              <!-- Header del dropdown -->
               <div class="dropdown-header">
                 <p class="welcome-message">Welcome back, {{ user.name }}!</p>
                 <small *ngIf="user.role === 'ADMIN'" class="admin-badge">Administrator</small>
-                <small *ngIf="user.role === 'CLIENT'" class="client-badge">Guest</small>
+                <small *ngIf="user.role === 'CLIENT'" class="client-badge">Member</small>
               </div>
 
-              <div class="dropdown-divider"></div>
+              <hr class="dropdown-divider">
 
               <!-- Opciones según rol -->
               <a
                 *ngIf="user.role === 'CLIENT'"
                 routerLink="/client/profile"
                 class="dropdown-item"
-                (click)="toggleUserDropdown()"
               >
                 <span>My Profile</span>
               </a>
@@ -110,7 +111,6 @@
                 *ngIf="user.role === 'CLIENT'"
                 routerLink="/client/cart"
                 class="dropdown-item"
-                (click)="toggleUserDropdown()"
               >
                 <span>My Cart</span>
               </a>
@@ -119,7 +119,6 @@
                 *ngIf="user.role === 'ADMIN'"
                 routerLink="/admin/dashboard"
                 class="dropdown-item"
-                (click)="toggleUserDropdown()"
               >
                 <span>Admin Panel</span>
               </a>
@@ -128,17 +127,16 @@
                 *ngIf="user.role === 'ADMIN'"
                 routerLink="/admin/users"
                 class="dropdown-item"
-                (click)="toggleUserDropdown()"
               >
                 <span>Users</span>
               </a>
 
-              <div class="dropdown-divider"></div>
+              <hr class="dropdown-divider">
 
               <!-- Logout -->
               <button
                 type="button"
-                class="dropdown-item logout-item"
+                class="dropdown-item text-danger fw-500"
                 (click)="logout()"
               >
                 <span>Sign out</span>

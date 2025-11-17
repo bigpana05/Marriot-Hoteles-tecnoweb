@@ -3,229 +3,221 @@
 // ========================================
 // Dropdown menu desplegable para el usuario
 // autenticado con opciones de perfil y logout
+// Basado en Bootstrap 5.3.8 con customizaciones Marriott
 
-.user-dropdown {
+// Contenedor dropdown de Bootstrap
+.dropdown {
   position: relative;
   display: flex;
   align-items: center;
+}
 
-  .user-dropdown-trigger {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-family: 'Whitney SSM', sans-serif;
-    font-size: 0.95rem;
-    color: #2c2c2c;
-    transition: all 0.3s ease;
-    border-radius: 4px;
+// Botón trigger del dropdown personalizado con Bootstrap
+.btn-user-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Whitney SSM', sans-serif;
+  font-size: 0.95rem;
+  color: #2c2c2c;
+  transition: all 0.3s ease;
+  border-radius: 4px;
 
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #000;
+  }
+
+  &.show {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .icon-20 {
+    width: 20px;
+    height: 20px;
+  }
+
+  // Animación de la flecha del dropdown (Bootstrap ::after)
+  &::after {
+    margin-left: 0.25rem;
+    transition: transform 0.3s ease;
+  }
+
+  // Rotación de flecha cuando está abierto
+  &.show::after {
+    transform: rotate(180deg);
+  }
+}
+
+// Menú desplegable Bootstrap personalizado
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 200px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: none;
+  font-family: 'Whitney SSM', sans-serif;
+
+  &.show {
+    display: block;
+    animation: slideDown 0.2s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
     }
-
-    &.active {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    .icon-20 {
-      width: 20px;
-      height: 20px;
-    }
-
-    .dropdown-arrow {
-      font-size: 0.75rem;
-      transition: transform 0.3s ease;
-      display: inline-block;
-      margin-left: 0.25rem;
-    }
-
-    &.active .dropdown-arrow {
-      transform: rotate(180deg);
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  .user-dropdown-menu {
-    position: absolute;
-    top: calc(100% + 0.5rem);
-    right: 0;
-    min-width: 200px;
-    background-color: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    overflow: hidden;
-    animation: slideDown 0.2s ease;
+  // Header del dropdown
+  .dropdown-header {
+    padding: 0.75rem 1rem;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 3px 3px 0 0;
 
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .welcome-message {
+      margin: 0 0 0.5rem;
+      font-weight: 500;
+      color: #2c2c2c;
+      font-size: 0.9rem;
     }
 
+    .admin-badge,
+    .client-badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+
+      &.admin-badge {
+        background-color: #fee;
+        color: #c00;
+      }
+
+      &.client-badge {
+        background-color: #efe;
+        color: #060;
+      }
+    }
+  }
+
+  // Items del dropdown
+  .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #2c2c2c;
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover,
+    &:focus {
+      background-color: #f5f5f5;
+      color: #000;
+    }
+
+    &:active {
+      background-color: #e8e8e8;
+    }
+
+    &.text-danger {
+      font-weight: 500;
+      color: #000000 !important;
+
+      &:hover,
+      &:focus {
+        background-color: #f5f5f5;
+        color: #000000 !important;
+      }
+    }
+  }
+
+  // Dividers
+  .dropdown-divider {
+    margin: 0;
+    border-color: #e0e0e0;
+  }
+}
+
+// Responsive para tablet
+@media (max-width: 768px) {
+  .btn-user-dropdown {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+
+    .icon-20 {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .dropdown-menu {
+    min-width: 180px;
+
     .dropdown-header {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid #e0e0e0;
-      background-color: #f8f8f8;
-
-      .welcome-message {
-        margin: 0 0 0.5rem;
-        font-family: 'Whitney SSM', sans-serif;
-        font-weight: 500;
-        color: #2c2c2c;
-        font-size: 0.9rem;
-      }
-
-      .user-info {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-family: 'Whitney SSM', sans-serif;
-
-        .user-name {
-          font-weight: 600;
-          color: #2c2c2c;
-          font-size: 0.95rem;
-        }
-
-        .role-badge {
-          display: inline-block;
-          padding: 0.25rem 0.5rem;
-          border-radius: 3px;
-          font-size: 0.75rem;
-          font-weight: 500;
-          text-transform: uppercase;
-
-          &.admin {
-            background-color: #fee;
-            color: #c00;
-          }
-
-          &.client {
-            background-color: #efe;
-            color: #060;
-          }
-        }
-      }
+      padding: 0.6rem 0.8rem;
+      font-size: 0.85rem;
     }
 
     .dropdown-item {
-      display: block;
-      width: 100%;
-      padding: 0.75rem 1rem;
-      background-color: transparent;
-      border: none;
-      text-align: left;
-      cursor: pointer;
-      font-family: 'Whitney SSM', sans-serif;
-      font-size: 0.9rem;
-      color: #2c2c2c;
-      text-decoration: none;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background-color: #f5f5f5;
-        color: #000;
-      }
-
-      &:active {
-        background-color: #e8e8e8;
-      }
-
-      &.logout-item {
-        border-top: 1px solid #e0e0e0;
-        color: #000000;
-        font-weight: 500;
-
-        &:hover {
-          background-color: #f5f5f5;
-          color: #000000;
-        }
-      }
-
-      // Cuando está dentro de un <a> tag
-      &[routerLink] {
-        &:hover {
-          background-color: #f5f5f5;
-        }
-      }
-    }
-  }
-}
-
-// Responsive para tablet y mobile
-@media (max-width: 768px) {
-  .user-dropdown {
-    .user-dropdown-trigger {
-      padding: 0.4rem 0.8rem;
-      font-size: 0.9rem;
-
-      .icon-20 {
-        width: 18px;
-        height: 18px;
-      }
-    }
-
-    .user-dropdown-menu {
-      min-width: 180px;
-
-      .dropdown-header,
-      .dropdown-item {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.85rem;
-      }
-    }
-  }
-}
-
-// Responsive para mobile pequeño
-@media (max-width: 480px) {
-  .user-dropdown {
-    .user-dropdown-trigger {
-      padding: 0.3rem 0.6rem;
+      padding: 0.6rem 0.8rem;
       font-size: 0.85rem;
-      gap: 0.3rem;
-
-      .icon-20 {
-        width: 16px;
-        height: 16px;
-      }
-
-      span {
-        display: none;
-      }
-
-      &.active span {
-        display: inline;
-      }
-
-      .dropdown-arrow {
-        margin-left: 0;
-      }
-    }
-
-    .user-dropdown-menu {
-      min-width: 160px;
-      right: auto;
-      left: 0;
-
-      .dropdown-header {
-        padding: 0.5rem 0.6rem;
-      }
-
-      .dropdown-item {
-        padding: 0.5rem 0.6rem;
-        font-size: 0.8rem;
-      }
     }
   }
 }
+
+// Responsive para mobile
+@media (max-width: 480px) {
+  .btn-user-dropdown {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+    gap: 0.3rem;
+
+    .icon-20 {
+      width: 16px;
+      height: 16px;
+    }
+
+    .d-none {
+      display: none !important;
+    }
+  }
+
+  .dropdown-menu {
+    min-width: 160px;
+    right: 0;
+    left: auto;
+
+    .dropdown-header {
+      padding: 0.5rem 0.6rem;
+    }
+
+    .dropdown-item {
+      padding: 0.5rem 0.6rem;
+      font-size: 0.8rem;
+    }
+  }
+}
+
