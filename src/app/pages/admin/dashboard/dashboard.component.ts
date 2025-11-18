@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminUserService } from '../../../src/app/core/services/admin-user.service';
-import { HotelService } from '../../../src/app/core/services/hotel.service';
-import { EventService } from '../../../src/app/core/services/event.service';
-import { User } from '../../../src/app/core/services/auth.service';
-import { Hotel } from '../../../src/app/core/models/hotel.model';
-import { Event } from '../../../src/app/core/models/event.model';
+import { AdminUserService } from '../../../core/services/admin-user.service';
+import { HotelService } from '../../../core/services/hotel.service';
+import { EventService } from '../../../core/services/event.service';
+import { User } from '../../../core/services/auth.service';
+import { Hotel } from '../../../core/models/hotel.model';
+import { Event } from '../../../core/models/event.model';
 
 @Component({
   selector: 'app-dashboard',

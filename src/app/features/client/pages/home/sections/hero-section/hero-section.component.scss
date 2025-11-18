@@ -1,0 +1,551 @@
+// Hero Section con Bootstrap puro + Glassmorphism
+// Figma: 1440x1080, col-lg-4 (26.67%) + col-lg-8 (66.67%)
+
+// ===================================
+// RESOLUCIÓN 1440px (Desktop Principal) - BASE
+// ===================================
+$text-gap-top: 12rem;      // Distancia del título desde arriba
+$text-gap-left: 2rem;      // Distancia horizontal
+$text-gap-bottom: 2rem;    // Distancia del contenido desde abajo
+$arrow-distance-bottom: 400px;  // Posición vertical de la flecha
+$arrow-distance-left: 4rem;   // Posición horizontal de la flecha
+$arrow-size: 35px;              // Tamaño de la flecha
+$title-size: 49px;              // Tamaño del título
+$subtitle-size: 27px;           // Tamaño del subtítulo
+$title-width: 400px;            // Ancho del título
+$title-height: 200px;           // Alto del título
+$subtitle-width: 372px;         // Ancho del subtítulo
+$subtitle-height: 150px;        // Alto del subtítulo
+$title-margin-left: 0;          // Margen izquierdo del título (para mover derecha/izquierda)
+$subtitle-margin-left: 0;       // Margen izquierdo del subtítulo
+$image-width: 100%;             // Ancho de la imagen
+$image-height: 100%;            // Alto de la imagen
+$image-object-fit: cover;       // Cómo se ajusta la imagen (cover, contain, fill, etc)
+
+// ===================================
+// RESOLUCIÓN 1920px (Desktop XL)
+// ===================================
+$text-gap-top-1920: 10rem;
+$text-gap-left-1920: 10rem;
+$arrow-distance-bottom-1920: 480px;
+$arrow-distance-left-1920: 12rem;
+$arrow-size-1920: 45px;
+$title-size-1920: 50px;
+$subtitle-size-1920: 32px;
+$title-width-1920: 450px;
+$title-height-1920: 220px;
+$subtitle-width-1920: 520px;
+$subtitle-height-1920: 170px;
+$title-margin-left-1920: 0;
+$subtitle-margin-left-1920: -50px;
+$image-width-1920: 100%;
+$image-height-1920: 78%;
+$image-object-fit-1920: cover;
+
+// ===================================
+// RESOLUCIÓN 2560px (Desktop Ultra - 4K)
+// ===================================
+$text-gap-top-2560: 14rem;
+$text-gap-left-2560: 14rem;
+$arrow-distance-bottom-2560: 700px;
+$arrow-distance-left-2560: 16rem;
+$arrow-size-2560: 60px;
+$title-size-2560: 70px;
+$subtitle-size-2560: 42px;
+$title-width-2560: 600px;
+$title-height-2560: 280px;
+$subtitle-width-2560: 700px;
+$subtitle-height-2560: 220px;
+$title-margin-left-2560: 0;
+$subtitle-margin-left-2560: -80px;
+$image-width-2560: 100%;
+$image-height-2560: 70%;
+$image-object-fit-2560: cover;
+
+// ===================================
+// RESOLUCIÓN 1024px (Desktop Pequeño)
+// ===================================
+$text-gap-top-1024: 12rem;
+$text-gap-left-1024: 1.5rem;
+$arrow-distance-bottom-1024: 480px;
+$arrow-distance-left-1024: 4rem;
+$arrow-size-1024: 10px;
+$title-size-1024: 36px;
+$subtitle-size-1024: 22px;
+$title-width-1024: 300px;
+$title-height-1024: 200px;
+$subtitle-width-1024: 300px;
+$subtitle-height-1024: 60px;
+$title-margin-left-1024: 1;
+$subtitle-margin-left-1024: 0;
+$image-width-1024: 100%;
+$image-height-1024: 100%;
+$image-object-fit-1024: cover;
+
+// ===================================
+// RESOLUCIÓN 768px (Tablet)
+// ===================================
+$text-gap-top-768: 12rem;
+$text-gap-left-768: 1rem;
+$arrow-distance-bottom-768: 480px;
+$arrow-distance-left-768: 3rem;
+$arrow-size-768: 20px;
+$title-size-768: 32px;
+$subtitle-size-768: 18px;
+$title-width-768: 100%;
+$title-height-768: auto;
+$subtitle-width-768: 100%;
+$subtitle-height-768: auto;
+$title-margin-left-768: 0;
+$subtitle-margin-left-768: 0;
+$image-width-768: 100%;
+$image-height-768: 980px;
+$image-object-fit-768: cover;
+
+// ===================================
+// RESOLUCIÓN 480px (Mobile)
+// ===================================
+$text-gap-top-480: 1.5rem;
+$text-gap-left-480: 1rem;
+$arrow-distance-bottom-480: 15px;
+$arrow-distance-left-480: 1rem;
+$arrow-size-480: 20px;
+$title-size-480: 28px;
+$subtitle-size-480: 14px;
+$title-width-480: 100%;
+$title-height-480: auto;
+$subtitle-width-480: 100%;
+$subtitle-height-480: auto;
+$title-margin-left-480: 0;
+$subtitle-margin-left-480: 0;
+$image-width-480: 100%;
+$image-height-480: 300px;
+$image-object-fit-480: cover;
+
+// Contenedor principal
+.container-fluid {
+  height: 100vh;
+  background-color: #f3eee7;
+}
+
+// Fila sin gutters
+.row {
+  height: 100%;
+}
+
+// Columna izquierda con overlay semitransparente + blur
+.col-lg-4 {
+  background: #f3eee7;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+// Barra absolutamente posicionada con efecto glassmorphism
+.hero-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 214px;
+  height: 900px;
+  background: rgba(222, 206, 188, 0.2);
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+// Contenido por delante de la barra
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding-left: $text-gap-left;
+  padding-right: 2rem;
+  padding-top: $text-gap-top;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+// Título
+.hero-title {
+  font-family: 'Luxurious Roman', serif;
+  font-size: $title-size;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #000000;
+  width: $title-width;
+  height: $title-height;
+  margin: 0;
+  margin-left: $title-margin-left;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+// Subtítulo
+.hero-subtitle {
+  font-family: 'Luxurious Roman', serif;
+  font-size: $subtitle-size;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #6b6b6b;
+  width: $subtitle-width;
+  height: $subtitle-height;
+  margin: 0;
+  margin-left: $subtitle-margin-left;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+// Animación de movimiento vertical de la flecha
+@keyframes float-down {
+  0% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(30px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+// Botón scroll - posición original abajo a la izquierda
+.scroll-indicator {
+  position: absolute;
+  bottom: $arrow-distance-bottom;
+  left: $arrow-distance-left;
+  z-index: 2;
+
+  .scroll-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float-down 2s ease-in-out infinite;
+
+    &:hover {
+      animation: none;
+    }
+
+    .arrow-icon {
+      width: $arrow-size;
+      height: $arrow-size;
+      object-fit: contain;
+    }
+  }
+}
+
+// Columna derecha con imagen
+.col-lg-8 {
+  overflow: hidden;
+}
+
+.hero-img {
+  width: $image-width;
+  height: $image-height;
+  object-fit: $image-object-fit;
+  display: block;
+}
+
+// Responsive
+// ===================================
+// RESOLUCIÓN 2560px (Desktop Ultra - 4K)
+// ===================================
+@media (min-width: 2560px) {
+  .hero-content {
+    padding-left: $text-gap-left-2560;
+    padding-top: $text-gap-top-2560;
+  }
+
+  .hero-title {
+    font-size: $title-size-2560;
+    width: $title-width-2560;
+    height: $title-height-2560;
+    margin-left: $title-margin-left-2560;
+  }
+
+  .hero-subtitle {
+    font-size: $subtitle-size-2560;
+    width: $subtitle-width-2560;
+    height: $subtitle-height-2560;
+    margin-left: $subtitle-margin-left-2560;
+  }
+
+  .scroll-indicator {
+    bottom: $arrow-distance-bottom-2560;
+    left: $arrow-distance-left-2560;
+  }
+
+  .arrow-icon {
+    width: $arrow-size-2560;
+    height: $arrow-size-2560;
+  }
+
+  .hero-img {
+    width: $image-width-2560;
+    height: $image-height-2560;
+    object-fit: $image-object-fit-2560;
+  }
+}
+
+// ===================================
+// RESOLUCIÓN 1920px (Desktop XL)
+// ===================================
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .hero-content {
+    padding-left: $text-gap-left-1920;
+    padding-top: $text-gap-top-1920;
+  }
+
+  .hero-title {
+    font-size: $title-size-1920;
+    width: $title-width-1920;
+    height: $title-height-1920;
+    margin-left: $title-margin-left-1920;
+  }
+
+  .hero-subtitle {
+    font-size: $subtitle-size-1920;
+    width: $subtitle-width-1920;
+    height: $subtitle-height-1920;
+    margin-left: $subtitle-margin-left-1920;
+  }
+
+  .scroll-indicator {
+    bottom: $arrow-distance-bottom-1920;
+    left: $arrow-distance-left-1920;
+  }
+
+  .arrow-icon {
+    width: $arrow-size-1920;
+    height: $arrow-size-1920;
+  }
+
+  .hero-img {
+    width: $image-width-1920;
+    height: $image-height-1920;
+    object-fit: $image-object-fit-1920;
+  }
+
+  .hero-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: 40%;
+    height: 68%;
+    background: rgba(222, 206, 188, 0.2);
+    backdrop-filter: blur(4px);
+    z-index: 1;
+  }
+}
+
+// ===================================
+// RESOLUCIÓN 1024px (Desktop Pequeño)
+// ===================================
+@media (max-width: 1400px) and (min-width: 1024px) {
+  .hero-content {
+    padding-left: $text-gap-left-1024;
+    padding-top: $text-gap-top-1024;
+  }
+
+  .hero-title {
+    font-size: $title-size-1024;
+    width: $title-width-1024;
+    height: $title-height-1024;
+    margin-left: $title-margin-left-1024;
+  }
+
+  .hero-subtitle {
+    font-size: $subtitle-size-1024;
+    width: $subtitle-width-1024;
+    height: $subtitle-height-1024;
+    margin-left: $subtitle-margin-left-1024;
+  }
+
+  .scroll-indicator {
+    bottom: $arrow-distance-bottom-1024;
+    left: $arrow-distance-left-1024;
+  }
+
+  .arrow-icon {
+    width: $arrow-size-1024;
+    height: $arrow-size-1024;
+  }
+
+  .hero-img {
+    width: $image-width-1024;
+    height: $image-height-1024;
+    object-fit: $image-object-fit-1024;
+  }
+}
+
+// ===================================
+// RESOLUCIÓN 768px (Tablet)
+// ===================================
+@media (max-width: 1023px) {
+  .container-fluid {
+    height: 100vh;
+  }
+
+  .row {
+    height: 100%;
+    flex-direction: row;
+  }
+
+  .col-lg-4,
+  .col-lg-8 {
+    height: 100%;
+  }
+
+  .col-lg-4 {
+    width: 33.33%;
+    background: #f3eee7;
+  }
+
+  .col-lg-8 {
+    width: 66.67%;
+    position: relative;
+  }
+
+  .hero-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: 60%;
+    height: 80%;
+    background: rgba(222, 206, 188, 0.2);
+    backdrop-filter: blur(4px);
+    z-index: 1;
+  }
+
+  .hero-img {
+    min-height: 100%;
+  }
+
+  .hero-content {
+    padding-left: $text-gap-left-768;
+    padding-top: $text-gap-top-768;
+    text-align: center;
+    align-items: center;
+  }
+
+  .hero-title {
+    width: $title-width-768;
+    height: $title-height-768;
+    font-size: $title-size-768;
+    margin-left: $title-margin-left-768;
+    justify-content: center;
+  }
+
+  .hero-subtitle {
+    width: $subtitle-width-768;
+    height: $subtitle-height-768;
+    font-size: $subtitle-size-768;
+    margin-left: $subtitle-margin-left-768;
+    justify-content: center;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: $arrow-distance-bottom-768;
+    left: $arrow-distance-left-768;
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .arrow-icon {
+    width: $arrow-size-768;
+    height: $arrow-size-768;
+  }
+
+  .hero-img {
+    min-height: auto;
+    width: $image-width-768;
+    height: $image-height-768;
+    object-fit: $image-object-fit-768;
+  }
+}
+
+// ===================================
+// RESOLUCIÓN 480px (Mobile)
+// ===================================
+@media (max-width: 480px) {
+  .container-fluid {
+    height: auto;
+    min-height: auto;
+  }
+
+  .row {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .col-lg-4,
+  .col-lg-8 {
+    width: 100%;
+    height: auto;
+  }
+
+  .col-lg-4 {
+    order: 2;
+    background: #f3eee7;
+  }
+
+  .col-lg-8 {
+    order: 1;
+    position: relative;
+  }
+
+  .hero-bar {
+    display: none;
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
+  .hero-content {
+    padding-left: $text-gap-left-480;
+    padding-top: $text-gap-top-480;
+    padding-bottom: 2rem;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-title {
+    font-size: $title-size-480;
+    width: $title-width-480;
+    height: $title-height-480;
+    margin-left: $title-margin-left-480;
+  }
+
+  .hero-subtitle {
+    font-size: $subtitle-size-480;
+    width: $subtitle-width-480;
+    height: $subtitle-height-480;
+    margin-left: $subtitle-margin-left-480;
+  }
+
+  .hero-img {
+    width: $image-width-480;
+    height: $image-height-480;
+    object-fit: $image-object-fit-480;
+  }
+}

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { EventService } from '../../../src/app/core/services/event.service';
-import { HotelService } from '../../../src/app/core/services/hotel.service';
-import { Event } from '../../../src/app/core/models/event.model';
-import { Hotel } from '../../../src/app/core/models/hotel.model';
+import { EventService } from '../../../core/services/event.service';
+import { HotelService } from '../../../core/services/hotel.service';
+import { Event } from '../../../core/models/event.model';
+import { Hotel } from '../../../core/models/hotel.model';
 
 @Component({
   selector: 'app-events',

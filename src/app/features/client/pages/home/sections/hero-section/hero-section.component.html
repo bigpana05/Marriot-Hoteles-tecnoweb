@@ -1,0 +1,41 @@
+<section class="container-fluid p-0">
+  <div class="row g-0">
+    <!-- Columna izquierda: Texto (4 columnas) -->
+    <div class="col-lg-4 p-0 position-relative">
+      <!-- Barra absolutamente posicionada -->
+      <div class="hero-bar"></div>
+
+      <!-- Contenido (por delante de la barra) -->
+      <div class="hero-content">
+        <h1 class="hero-title">Discover the World of Marriott International</h1>
+        <p class="hero-subtitle">
+          Experience unforgettable stays, seamless bookings, and exclusive member benefits across our global destinations.
+        </p>
+      </div>
+
+      <!-- Flecha scroll (posicionada de forma independiente) -->
+      <div class="scroll-indicator">
+        <button
+          class="scroll-button"
+          aria-label="Scroll to next section"
+          (click)="scrollToNextSection()"
+        >
+          <img
+            src="assets/icons/arrow-down-2.svg"
+            alt="Scroll down"
+            class="arrow-icon"
+          />
+        </button>
+      </div>
+    </div>
+
+    <!-- Columna derecha: Imagen (8 columnas) -->
+    <div class="col-lg-8 p-0">
+      <img
+        src="assets/background/pag1.png"
+        alt="Discover the World of Marriott International"
+        class="hero-img img-fluid w-100"
+      />
+    </div>
+  </div>
+</section>

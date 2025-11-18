@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { HotelService } from '../../../src/app/core/services/hotel.service';
-import { Hotel } from '../../../src/app/core/models/hotel.model';
+import { HotelService } from '../../../core/services/hotel.service';
+import { Hotel } from '../../../core/models/hotel.model';
 
 @Component({
   selector: 'app-hotels',
