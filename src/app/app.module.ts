@@ -21,6 +21,10 @@ import { HotelsComponent } from './pages/admin/hotels/hotels.component';
 import { EventsComponent } from './pages/admin/events/events.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UsersComponent } from './pages/admin/users/users.component';
+import { HeroSectionComponent } from './pages/client/home/sections/hero-section/hero-section.component';
+import { ExperiencesComponent } from './pages/client/experiences/experiences.component';
+import { OffersComponent } from './pages/client/offers/offers.component';
+import { AboutComponent } from './pages/about/about.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { UsersComponent } from './pages/admin/users/users.component';
     HotelsComponent,
     EventsComponent,
     DashboardComponent,
-    UsersComponent
+    UsersComponent,
+    HeroSectionComponent,
+    ExperiencesComponent,
+    OffersComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
