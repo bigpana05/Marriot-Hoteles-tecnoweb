@@ -8,35 +8,73 @@ import { HotelService } from '../../../src/app/core/services/hotel.service';
   styleUrls: ['./catalog.component.scss'],
 })
 export class CatalogComponent implements OnInit {
-  hotels: Hotel[] = [];
+  // todos los hoteles que vienen del backend
+  private originalHotels: Hotel[] = [];
+
+  // hoteles divididos en páginas (para las tabs)
+  paginatedHotels: Hotel[][] = [];
+  pageSize = 10;
+
+  // búsqueda
+  searchTerm = '';
+
+  // estados de UI
   loading = false;
-  error: string | null = null;
+  error = '';
 
   constructor(private hotelService: HotelService) {}
 
+  showBackToTop = false;
   ngOnInit(): void {
-    this.loadHotels();
-  }
+    window.addEventListener('scroll', () => {
+      this.showBackToTop = window.scrollY > 300; // aparece después de bajar 300px
+    });
 
-  private loadHotels(): void {
     this.loading = true;
-    this.error = null;
 
     this.hotelService.getHotels().subscribe({
       next: (hotels) => {
-        this.hotels = hotels;
         this.loading = false;
+        this.originalHotels = hotels;
+        this.applyFilter(); // crea las pestañas iniciales sin filtro
       },
-      error: (err) => {
-        console.error('Error cargando hoteles', err);
-        this.error =
-          'No se pudo cargar el catálogo de hoteles. Inténtalo nuevamente.';
+      error: () => {
         this.loading = false;
+        this.error = 'No se pudieron cargar los hoteles.';
       },
     });
   }
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
 
-  trackById(index: number, hotel: Hotel): number | string {
-    return hotel.id ?? index;
+  // se llama cada vez que cambia el input de búsqueda
+  onSearchChange(): void {
+    this.applyFilter();
+  }
+
+  // aplica el filtro y vuelve a paginar
+  private applyFilter(): void {
+    const term = this.searchTerm.toLowerCase().trim();
+
+    let filtered: Hotel[] = this.originalHotels;
+
+    if (term) {
+      filtered = this.originalHotels.filter(
+        (hotel) =>
+          hotel.name.toLowerCase().includes(term) ||
+          hotel.city.toLowerCase().includes(term) ||
+          hotel.country.toLowerCase().includes(term)
+      );
+    }
+
+    // volver a construir paginatedHotels en base al filtro
+    this.paginatedHotels = [];
+    for (let i = 0; i < filtered.length; i += this.pageSize) {
+      this.paginatedHotels.push(filtered.slice(i, i + this.pageSize));
+    }
   }
 }

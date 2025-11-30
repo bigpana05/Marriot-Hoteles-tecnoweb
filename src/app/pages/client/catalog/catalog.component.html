@@ -1,70 +1,96 @@
-<section class="catalog">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-      <h1 class="catalog-title mb-1">Catálogo de hoteles</h1>
-      <p class="text-muted mb-0">
-        Explora nuestra selección de hoteles Marriott en Latinoamérica.
-      </p>
+<!-- Si no hay error y ya cargó -->
+<div *ngIf="!loading && !error">
+  <!-- Barra de búsqueda -->
+  <div class="mb-3 w-50">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar hotel, ciudad o país…"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+      />
     </div>
   </div>
 
-  <!-- Estado de carga -->
-  <div *ngIf="loading" class="text-center py-5">
-    <div class="spinner-border" role="status" aria-hidden="true"></div>
-    <p class="mt-3 mb-0 text-muted">Cargando hoteles...</p>
-  </div>
-
-  <!-- Error -->
-  <div *ngIf="!loading && error" class="alert alert-danger">
-    {{ error }}
-  </div>
-
-  <!-- Lista de hoteles -->
-  <div *ngIf="!loading && !error">
-    <div *ngIf="hotels.length; else emptyState" class="row g-4">
-      <div
-        class="col-sm-6 col-lg-4"
-        *ngFor="let hotel of hotels; trackBy: trackById"
+  <!-- Tabs dinámicas -->
+  <ul class="nav nav-tabs mb-3" id="hotelTabs" role="tablist">
+    <li
+      class="nav-item"
+      role="presentation"
+      *ngFor="let group of paginatedHotels; let i = index"
+    >
+      <button
+        class="nav-link"
+        [class.active]="i === 0"
+        id="tab-{{ i }}"
+        data-bs-toggle="tab"
+        [attr.data-bs-target]="'#content-' + i"
+        type="button"
+        role="tab"
       >
-        <div class="card h-100 shadow-sm catalog-card">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title mb-1">{{ hotel.name }}</h5>
-            <p class="card-subtitle text-muted mb-2">
-              {{ hotel.city }}, {{ hotel.country }}
-            </p>
+        {{ i + 1 }}
+      </button>
+    </li>
+  </ul>
 
-            <p class="card-text small mb-2">
-              <strong>Dirección:</strong> {{ hotel.address }}
-            </p>
+  <!-- Contenidos de cada pestaña -->
+  <div class="tab-content">
+    <div
+      *ngFor="let group of paginatedHotels; let i = index"
+      class="tab-pane fade"
+      [class.show]="i === 0"
+      [class.active]="i === 0"
+      id="content-{{ i }}"
+      role="tabpanel"
+    >
+      <div class="hotel-list">
+        <div class="hotel-item" *ngFor="let hotel of group">
+          <div class="card shadow-sm catalog-card h-100">
+            <div class="card-body d-flex flex-column flex-md-row">
+              <div class="hotel-info flex-grow-1">
+                <h5 class="card-title mb-1">{{ hotel.name }}</h5>
+                <p class="card-subtitle text-muted mb-2">
+                  {{ hotel.city }}, {{ hotel.country }}
+                </p>
 
-            <p class="card-text small mb-2">
-              <strong>Tipos de habitación:</strong> {{ hotel.roomTypes }}
-            </p>
+                <p class="card-text small mb-2">
+                  <strong>Dirección:</strong> {{ hotel.address }}
+                </p>
 
-            <p class="card-text mb-3">
-              <strong>Desde:</strong>
-              <span class="price">\${{ hotel.basePrice }}</span> / noche
-            </p>
+                <p class="card-text small mb-2">
+                  <strong>Tipos de habitación:</strong>
+                  {{ hotel.roomTypes }}
+                </p>
 
-            <div
-              class="mt-auto d-flex justify-content-between align-items-center"
-            >
-              <span class="badge bg-light text-dark">
-                {{ hotel.availableRooms }} de {{ hotel.totalRooms }} disponibles
-              </span>
-              <button class="btn btn-dark btn-sm" type="button">
-                Ver detalles
-              </button>
+                <p class="card-text mb-3">
+                  <strong>Desde:</strong>
+                  <span class="price">${{ hotel.basePrice }}</span> / noche
+                </p>
+
+                <div
+                  class="mt-auto d-flex justify-content-between align-items-center"
+                >
+                  <span class="badge bg-light text-dark">
+                    {{ hotel.availableRooms }} de {{ hotel.totalRooms }}
+                    disponibles
+                  </span>
+                  <button class="btn btn-dark btn-sm" type="button">
+                    Ver detalles
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <ng-template #emptyState>
-      <div class="text-center py-5 text-muted">
-        No hay hoteles disponibles en este momento.
-      </div>
-    </ng-template>
   </div>
-</section>
+</div>
+<button
+  *ngIf="showBackToTop"
+  (click)="scrollToTop()"
+  class="btn btn-dark back-to-top"
+>
+  ↑
+</button>
