@@ -1,0 +1,69 @@
+<div class="dropdown-overlay" *ngIf="isOpen" (click)="closeDropdown()"></div>
+
+<div class="rooms-selector-dropdown" *ngIf="isOpen" (click)="$event.stopPropagation()">
+    <div class="dropdown-content">
+        <!-- Rooms -->
+        <div class="selector-item">
+            <div class="label">
+                <span class="title">Rooms</span>
+            </div>
+            <div class="controls">
+                <button class="control-button" [disabled]="rooms <= 1" (click)="decrementRooms()">
+                    -
+                </button>
+                <span class="value">{{ rooms }}</span>
+                <button class="control-button" (click)="incrementRooms()">
+                    +
+                </button>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Adults -->
+        <div class="selector-item">
+            <div class="label">
+                <span class="title">Adults</span>
+                <span class="subtitle">(Max: 8 total guests/room)</span>
+            </div>
+            <div class="controls">
+                <button class="control-button" [disabled]="adults <= 1" (click)="decrementAdults()">
+                    -
+                </button>
+                <span class="value">{{ adults }}</span>
+                <button class="control-button" [disabled]="!canAddGuests" (click)="incrementAdults()">
+                    +
+                </button>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Children -->
+        <div class="selector-item">
+            <div class="label">
+                <span class="title">Children</span>
+                <span class="subtitle">(Max: 8 total guests/room)</span>
+            </div>
+            <div class="controls">
+                <button class="control-button" [disabled]="children <= 0" (click)="decrementChildren()">
+                    -
+                </button>
+                <span class="value">{{ children }}</span>
+                <button class="control-button" [disabled]="!canAddGuests" (click)="incrementChildren()">
+                    +
+                </button>
+            </div>
+        </div>
+
+        <!-- Note -->
+        <div class="note" *ngIf="!canAddGuests">
+            Maximum of {{ maxGuestsPerRoom }} guests per room reached
+        </div>
+
+        <!-- Botones -->
+        <div class="actions">
+            <button class="reset-button" (click)="reset()">Reset</button>
+        </div>
+    </div>
+</div>

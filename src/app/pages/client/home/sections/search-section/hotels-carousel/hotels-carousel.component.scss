@@ -1,0 +1,103 @@
+.hotels-carousel-section {
+    width: 100%;
+    background-color: rgba(181, 168, 154, 0.2);
+    padding: 0 0 4rem 0;
+    overflow: visible !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -1px;
+}
+
+.carousel-container {
+    width: 100%;
+    max-width: 1440px;
+    padding: 0 2rem;
+}
+
+.carousel-track {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    width: 100%;
+    justify-items: center;
+}
+
+.carousel-item {
+    width: 100% !important;
+    max-width: 583px !important;
+    height: 388px !important;
+    min-height: 388px !important;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    background-color: #f0f0f0;
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.hotel-image {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 388px !important;
+    object-fit: cover !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+// Responsive
+@media (max-width: 1024px) {
+    .carousel-track {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .carousel-item {
+        height: 300px !important;
+        min-height: 300px !important;
+    }
+
+    .hotel-image {
+        min-height: 300px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .hotels-carousel-section {
+        padding: 2rem 0;
+    }
+
+    .carousel-container {
+        padding: 0 1rem;
+    }
+
+    .carousel-item {
+        height: 250px !important;
+        min-height: 250px !important;
+    }
+
+    .hotel-image {
+        min-height: 250px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-track {
+        gap: 1rem;
+    }
+
+    .carousel-item {
+        height: 200px !important;
+        min-height: 200px !important;
+    }
+
+    .hotel-image {
+        min-height: 200px !important;
+    }
+}

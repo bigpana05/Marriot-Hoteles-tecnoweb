@@ -1,0 +1,22 @@
+<div class="dropdown-overlay" *ngIf="isOpen" (click)="closeDropdown()"></div>
+
+<div class="destination-dropdown" *ngIf="isOpen" (click)="$event.stopPropagation()">
+    <div class="dropdown-content">
+        <!-- Trending Destinations -->
+        <div class="section">
+            <div class="section-header">
+                <h4>{{ searchQuery ? 'Search Results' : 'Trending Destinations' }}</h4>
+            </div>
+            <div class="destination-list" *ngIf="filteredDestinations.length > 0">
+                <button class="destination-item" *ngFor="let destination of filteredDestinations"
+                    (click)="selectDestination(destination)">
+                    <img src="assets/icons/location.svg" alt="Location" class="item-icon">
+                    <span>{{ destination }}</span>
+                </button>
+            </div>
+            <div class="no-results" *ngIf="filteredDestinations.length === 0">
+                <p>No destinations found for "{{ searchQuery }}"</p>
+            </div>
+        </div>
+    </div>
+</div>

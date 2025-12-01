@@ -25,6 +25,11 @@ import { HeroSectionComponent } from './pages/client/home/sections/hero-section/
 import { ExperiencesComponent } from './pages/client/experiences/experiences.component';
 import { OffersComponent } from './pages/client/offers/offers.component';
 import { AboutComponent } from './pages/about/about.component';
+import { SearchSectionComponent } from './pages/client/home/sections/search-section/search-section.component';
+import { DestinationDropdownComponent } from './pages/client/home/sections/search-section/destination-dropdown/destination-dropdown.component';
+import { DatePickerDropdownComponent } from './pages/client/home/sections/search-section/date-picker-dropdown/date-picker-dropdown.component';
+import { RoomsSelectorComponent } from './pages/client/home/sections/search-section/rooms-selector/rooms-selector.component';
+import { HotelsCarouselComponent } from './pages/client/home/sections/search-section/hotels-carousel/hotels-carousel.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +50,12 @@ import { AboutComponent } from './pages/about/about.component';
     HeroSectionComponent,
     ExperiencesComponent,
     OffersComponent,
-    AboutComponent
+    AboutComponent,
+    SearchSectionComponent,
+    DestinationDropdownComponent,
+    DatePickerDropdownComponent,
+    RoomsSelectorComponent,
+    HotelsCarouselComponent
   ],
   imports: [
     BrowserModule,

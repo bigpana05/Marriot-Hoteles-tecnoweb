@@ -4,23 +4,23 @@
 // ===================================
 // RESOLUCIÓN 1440px (Desktop Principal) - BASE
 // ===================================
-$text-gap-top: 12rem;      // Distancia del título desde arriba
-$text-gap-left: 2rem;      // Distancia horizontal
-$text-gap-bottom: 2rem;    // Distancia del contenido desde abajo
-$arrow-distance-bottom: 400px;  // Posición vertical de la flecha
-$arrow-distance-left: 4rem;   // Posición horizontal de la flecha
-$arrow-size: 35px;              // Tamaño de la flecha
-$title-size: 49px;              // Tamaño del título
-$subtitle-size: 27px;           // Tamaño del subtítulo
-$title-width: 400px;            // Ancho del título
-$title-height: 200px;           // Alto del título
-$subtitle-width: 372px;         // Ancho del subtítulo
-$subtitle-height: 150px;        // Alto del subtítulo
-$title-margin-left: 0;          // Margen izquierdo del título (para mover derecha/izquierda)
-$subtitle-margin-left: 0;       // Margen izquierdo del subtítulo
-$image-width: 100%;             // Ancho de la imagen
-$image-height: 100%;            // Alto de la imagen
-$image-object-fit: cover;       // Cómo se ajusta la imagen (cover, contain, fill, etc)
+$text-gap-top: 12rem; // Distancia del título desde arriba
+$text-gap-left: 2rem; // Distancia horizontal
+$text-gap-bottom: 2rem; // Distancia del contenido desde abajo
+$arrow-distance-bottom: 400px; // Posición vertical de la flecha
+$arrow-distance-left: 4rem; // Posición horizontal de la flecha
+$arrow-size: 35px; // Tamaño de la flecha
+$title-size: 49px; // Tamaño del título
+$subtitle-size: 27px; // Tamaño del subtítulo
+$title-width: 400px; // Ancho del título
+$title-height: 200px; // Alto del título
+$subtitle-width: 372px; // Ancho del subtítulo
+$subtitle-height: 150px; // Alto del subtítulo
+$title-margin-left: 0; // Margen izquierdo del título (para mover derecha/izquierda)
+$subtitle-margin-left: 0; // Margen izquierdo del subtítulo
+$image-width: 100%; // Ancho de la imagen
+$image-height: 100%; // Alto de la imagen
+$image-object-fit: cover; // Cómo se ajusta la imagen (cover, contain, fill, etc)
 
 // ===================================
 // RESOLUCIÓN 1920px (Desktop XL)
@@ -122,14 +122,14 @@ $image-width-480: 100%;
 $image-height-480: 300px;
 $image-object-fit-480: cover;
 
-// Contenedor principal
-.container-fluid {
+// Contenedor principal - Usar :host y height fijo
+:host .container-fluid {
   height: 100vh;
   background-color: #f3eee7;
 }
 
 // Fila sin gutters
-.row {
+:host .row {
   height: 100%;
 }
 
@@ -172,7 +172,7 @@ $image-object-fit-480: cover;
   font-size: $title-size;
   font-weight: 400;
   line-height: 1.2;
-  color: #000000;
+  color: #222222;
   width: $title-width;
   height: $title-height;
   margin: 0;
@@ -190,7 +190,7 @@ $image-object-fit-480: cover;
   font-size: $subtitle-size;
   font-weight: 400;
   line-height: 1.4;
-  color: #6b6b6b;
+  color: #707274;
   width: $subtitle-width;
   height: $subtitle-height;
   margin: 0;
@@ -208,10 +208,12 @@ $image-object-fit-480: cover;
     transform: translateY(0px);
     opacity: 1;
   }
+
   50% {
     transform: translateY(30px);
     opacity: 0.8;
   }
+
   100% {
     transform: translateY(0px);
     opacity: 1;
@@ -397,11 +399,11 @@ $image-object-fit-480: cover;
 // RESOLUCIÓN 768px (Tablet)
 // ===================================
 @media (max-width: 1023px) {
-  .container-fluid {
+  :host .container-fluid {
     height: 100vh;
   }
 
-  .row {
+  :host .row {
     height: 100%;
     flex-direction: row;
   }
@@ -486,12 +488,12 @@ $image-object-fit-480: cover;
 // RESOLUCIÓN 480px (Mobile)
 // ===================================
 @media (max-width: 480px) {
-  .container-fluid {
+  :host .container-fluid {
     height: auto;
     min-height: auto;
   }
 
-  .row {
+  :host .row {
     flex-direction: column;
     height: auto;
   }
