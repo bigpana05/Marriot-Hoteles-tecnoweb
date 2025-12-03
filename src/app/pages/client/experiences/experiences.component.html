@@ -1,0 +1,110 @@
+<div *ngIf="!loading && !error">
+  <div class="mb-3 w-50">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar evento, ciudad o fecha…"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+      />
+    </div>
+  </div>
+
+  <ul class="nav nav-tabs mb-3" id="eventTabs" role="tablist">
+    <li
+      class="nav-item"
+      role="presentation"
+      *ngFor="let group of paginatedevents; let i = index"
+    >
+      <button
+        class="nav-link"
+        [class.active]="i === 0"
+        id="tab-{{ i }}"
+        data-bs-toggle="tab"
+        [attr.data-bs-target]="'#content-' + i"
+        type="button"
+        role="tab"
+      >
+        {{ i + 1 }}
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div
+      *ngFor="let group of paginatedevents; let i = index"
+      class="tab-pane fade"
+      [class.show]="i === 0"
+      [class.active]="i === 0"
+      id="content-{{ i }}"
+      role="tabpanel"
+    >
+      <div class="event-list">
+        <div class="event-item" *ngFor="let event of group">
+          <div class="card shadow-sm catalog-card h-100">
+            <div class="card-body d-flex flex-column flex-md-row">
+              <div class="event-info flex-grow-1">
+                <h5 class="card-title mb-1">
+                  {{ event.name }}
+                </h5>
+
+                <p class="card-subtitle text-muted mb-2">
+                  {{ event.location }}
+                </p>
+
+                <p class="card-text small mb-2">
+                  <strong>Lugar:</strong> {{ event.location }}
+                </p>
+
+                <p class="card-text small mb-2">
+                  <strong>Capacidad:</strong>
+                  {{ event.capacity }} personas
+                </p>
+                <p class="card-text small mb-2">
+                  <strong>Asistentes:</strong>
+                  {{ event.attendees }} personas inscritas
+                </p>
+
+                <div
+                  class="mt-auto d-flex justify-content-between align-items-center"
+                >
+                  <span
+                    class="badge"
+                    [ngClass]="{
+                      'bg-light text-dark':
+                        event.capacity - event.attendees > 0,
+                      'bg-danger text-white':
+                        event.capacity - event.attendees === 0
+                    }"
+                  >
+                    {{
+                      event.capacity - event.attendees > 0
+                        ? event.attendees +
+                          " de " +
+                          event.capacity +
+                          " disponibles"
+                        : "Reserva llena"
+                    }}
+                  </span>
+
+                  <button class="btn btn-dark btn-sm" type="button">
+                    Ver detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button
+  *ngIf="showBackToTop"
+  (click)="scrollToTop()"
+  class="btn btn-dark back-to-top"
+>
+  ↑
+</button>

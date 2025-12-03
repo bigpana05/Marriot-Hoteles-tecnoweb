@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/client/home/home.component';
 import { LoginComponent } from './pages/client/login/login.component';
 import { ProfileComponent } from './pages/client/profile/profile.component';
 import { CatalogComponent } from './pages/client/catalog/catalog.component';
+import { ExperiencesComponent } from './pages/client/experiences/experiences.component';
 import { CartComponent } from './pages/client/cart/cart.component';
 import { ClientComponent } from './pages/client/client.component';
 
@@ -39,7 +40,7 @@ const routes: Routes = [
       { path: 'catalog', component: CatalogComponent },
 
       // TODO: FEATURE-123 - Implementar experiencias como módulo separado
-      { path: 'experiences', component: CatalogComponent },
+      { path: 'experiences', component: ExperiencesComponent },
 
       // TODO: FEATURE-124 - Implementar ofertas exclusivas como módulo separado
       { path: 'offers', component: CatalogComponent },
