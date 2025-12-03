@@ -45,15 +45,24 @@
           <div class="card shadow-sm catalog-card h-100">
             <div class="card-body d-flex flex-column flex-md-row">
               <div class="event-info flex-grow-1">
-                <h5 class="card-title mb-1">
+                <h5
+                  class="card-title mb-1"
+                  [ngStyle]="getHighlightStyle(event.name)"
+                >
                   {{ event.name }}
                 </h5>
 
-                <p class="card-subtitle text-muted mb-2">
+                <p
+                  class="card-subtitle text-muted mb-2"
+                  [ngStyle]="getHighlightStyle(event.location)"
+                >
                   {{ event.location }}
                 </p>
 
-                <p class="card-text small mb-2">
+                <p
+                  class="card-text small mb-2"
+                  [ngStyle]="getHighlightStyle(event.location)"
+                >
                   <strong>Lugar:</strong> {{ event.location }}
                 </p>
 
