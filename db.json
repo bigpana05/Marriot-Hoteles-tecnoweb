@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@demo.cl",
+      "password": "admin",
+      "name": "Administrador",
+      "role": "ADMIN",
+      "token": "admin-token-123"
+    },
+    {
+      "id": "2",
+      "email": "cliente@demo.cl",
+      "password": "cliente",
+      "name": "Cliente Demo",
+      "role": "CLIENT",
+      "token": "client-token-456"
+    }
+  ],
+  "hotels": [
+    {
+      "id": "2",
+      "name": "Marriott Buenos Aires",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "address": "Catalinas, Retiro",
+      "roomTypes": "Standard, Deluxe, Suite",
+      "basePrice": 140,
+      "availableRooms": 20,
+      "totalRooms": 70
+    }
+  ],
+  "events": [
+    {
+      "id": "1",
+      "name": "Conferencia Tech Latam",
+      "hotelId": 1,
+      "location": "Santiago",
+      "date": "2025-07-10",
+      "capacity": 300,
+      "attendees": 220
+    },
+    {
+      "id": "2",
+      "name": "Summit de Turismo",
+      "hotelId": 2,
+      "location": "Buenos Aires",
+      "date": "2025-09-05",
+      "capacity": 200,
+      "attendees": 150
+    },
+    {
+      "id": "3",
+      "name": "Expo Innovación",
+      "hotelId": 3,
+      "location": "Lima",
+      "date": "2025-11-20",
+      "capacity": 250,
+      "attendees": 80
+    }
+  ]
+}

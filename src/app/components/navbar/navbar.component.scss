@@ -1,0 +1,16 @@
+/* src/app/components/navbar/navbar.component.scss */
+
+:host {
+  position: relative; /* Necesario para que el z-index funcione */
+  z-index: 1000;      /* Un número alto para que flote sobre todo lo demás */
+  display: block;     /* Asegura que el componente se comporte como bloque */
+}
+
+/* ... aquí siguen tus @import si los tienes ... */
+@import 'navbar-variables';
+@import 'navbar-base';
+@import 'navbar-responsive';
+@import 'navbar-mobile';
+@import 'navbar-user-dropdown';
+@import 'navbar-breakpoints';
+// @import 'navbar-language-selector'; // Este ya no lo usamos
