@@ -5,7 +5,7 @@
         <!-- Rooms -->
         <div class="selector-item">
             <div class="label">
-                <span class="title">Rooms</span>
+                <span class="title">Habitaciones</span>
             </div>
             <div class="controls">
                 <button class="control-button" [disabled]="rooms <= 1" (click)="decrementRooms()">
@@ -23,8 +23,8 @@
         <!-- Adults -->
         <div class="selector-item">
             <div class="label">
-                <span class="title">Adults</span>
-                <span class="subtitle">(Max: 8 total guests/room)</span>
+                <span class="title">Adultos</span>
+                <span class="subtitle">(Máx: 8 huéspedes/habitación)</span>
             </div>
             <div class="controls">
                 <button class="control-button" [disabled]="adults <= 1" (click)="decrementAdults()">
@@ -42,8 +42,8 @@
         <!-- Children -->
         <div class="selector-item">
             <div class="label">
-                <span class="title">Children</span>
-                <span class="subtitle">(Max: 8 total guests/room)</span>
+                <span class="title">Niños</span>
+                <span class="subtitle">(Máx: 8 huéspedes/habitación)</span>
             </div>
             <div class="controls">
                 <button class="control-button" [disabled]="children <= 0" (click)="decrementChildren()">
@@ -58,12 +58,12 @@
 
         <!-- Note -->
         <div class="note" *ngIf="!canAddGuests">
-            Maximum of {{ maxGuestsPerRoom }} guests per room reached
+            Se alcanzó el máximo de {{ maxGuestsPerRoom }} huéspedes por habitación
         </div>
 
         <!-- Botones -->
         <div class="actions">
-            <button class="reset-button" (click)="reset()">Reset</button>
+            <button class="reset-button" (click)="reset()">Restablecer</button>
         </div>
     </div>
 </div>

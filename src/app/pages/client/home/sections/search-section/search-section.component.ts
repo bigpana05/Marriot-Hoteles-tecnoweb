@@ -36,7 +36,7 @@ export class SearchSectionComponent {
 
   // Obtiene el texto a mostrar en el campo de destino
   get destinationText(): string {
-    return this.selectedDestination || 'Where can we take you?';
+    return this.selectedDestination || '¿A dónde quieres ir?';
   }
 
   // Obtiene el texto a mostrar en el campo de fechas
@@ -46,7 +46,7 @@ export class SearchSectionComponent {
       const checkOut = this.selectedDates.checkOut;
       return `${this.formatDate(checkIn)} - ${this.formatDate(checkOut)}`;
     }
-    return 'Add dates';
+    return 'Agregar fechas';
   }
 
   // Obtiene el número de noches
@@ -65,13 +65,13 @@ export class SearchSectionComponent {
 
   // Obtiene el texto del selector de habitaciones
   get roomsText(): string {
-    return `${this.roomsData.rooms} Room, ${this.roomsData.adults + this.roomsData.children} Guest${this.roomsData.adults + this.roomsData.children > 1 ? 's' : ''}`;
+    return `${this.roomsData.rooms} Habitación, ${this.roomsData.adults + this.roomsData.children} Huésped${this.roomsData.adults + this.roomsData.children > 1 ? 'es' : ''}`;
   }
 
   // Formatea una fecha
   formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
+    return date.toLocaleDateString('es-ES', options);
   }
 
   // Toggle destination dropdown

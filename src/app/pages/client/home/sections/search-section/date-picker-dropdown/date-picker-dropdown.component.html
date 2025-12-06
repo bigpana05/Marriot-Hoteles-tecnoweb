@@ -7,7 +7,7 @@
             <!-- Calendario 1: Mes actual -->
             <div class="calendar">
                 <div class="calendar-header">
-                    <h4>{{ currentMonth | date: 'MMMM yyyy' }}</h4>
+                    <h4>{{ currentMonth | date: 'MMMM yyyy' : '' : 'es-ES' }}</h4>
                 </div>
                 <div class="calendar-grid">
                     <div class="day-name" *ngFor="let day of daysOfWeek">{{ day }}</div>
@@ -23,7 +23,7 @@
             <!-- Calendario 2: Mes siguiente -->
             <div class="calendar">
                 <div class="calendar-header">
-                    <h4>{{ nextMonth | date: 'MMMM yyyy' }}</h4>
+                    <h4>{{ nextMonth | date: 'MMMM yyyy' : '' : 'es-ES' }}</h4>
                 </div>
                 <div class="calendar-grid">
                     <div class="day-name" *ngFor="let day of daysOfWeek">{{ day }}</div>
@@ -39,14 +39,14 @@
 
         <!-- Información de noches -->
         <div class="nights-info" *ngIf="numberOfNights > 0">
-            {{ numberOfNights }} night{{ numberOfNights > 1 ? 's' : '' }}
+            {{ numberOfNights }} noche{{ numberOfNights > 1 ? 's' : '' }}
         </div>
 
         <!-- Botones -->
         <div class="actions">
-            <button class="reset-button" (click)="resetDates()">Reset</button>
+            <button class="reset-button" (click)="resetDates()">Restablecer</button>
             <button class="done-button" [disabled]="!checkInDate || !checkOutDate" (click)="confirmDates()">
-                Done
+                Listo
             </button>
         </div>
     </div>

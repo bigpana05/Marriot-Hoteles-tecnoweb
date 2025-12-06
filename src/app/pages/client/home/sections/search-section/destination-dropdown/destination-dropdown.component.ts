@@ -14,13 +14,13 @@ export class DestinationDropdownComponent {
   // Destinos trending
   trendingDestinations: string[] = [
     'Punta Cana, República Dominicana',
-    'Venice, Italy',
+    'Venecia, Italia',
     'Doha, Qatar',
-    'Dubai, United Arab Emirates',
-    'Mallorca, Spain',
-    'Paris, France',
-    'Tokyo, Japan',
-    'New York City, USA'
+    'Dubái, Emiratos Árabes Unidos',
+    'Mallorca, España',
+    'París, Francia',
+    'Tokio, Japón',
+    'Nueva York, EE. UU.'
   ];
 
   // Getter para destinos filtrados según búsqueda

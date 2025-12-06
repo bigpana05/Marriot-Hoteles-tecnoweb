@@ -16,7 +16,7 @@ export class DatePickerDropdownComponent {
   currentMonth: Date = new Date(2025, 11, 1); // Diciembre 2025
   nextMonth: Date = new Date(2026, 0, 1); // Enero 2026
 
-  daysOfWeek: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  daysOfWeek: string[] = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
   // Genera los días del mes para el calendario
   generateCalendarDays(month: Date): (number | null)[] {

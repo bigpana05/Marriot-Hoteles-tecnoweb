@@ -5,7 +5,7 @@
         <!-- Trending Destinations -->
         <div class="section">
             <div class="section-header">
-                <h4>{{ searchQuery ? 'Search Results' : 'Trending Destinations' }}</h4>
+                <h4>{{ searchQuery ? 'Resultados de búsqueda' : 'Destinos populares' }}</h4>
             </div>
             <div class="destination-list" *ngIf="filteredDestinations.length > 0">
                 <button class="destination-item" *ngFor="let destination of filteredDestinations"
@@ -15,7 +15,7 @@
                 </button>
             </div>
             <div class="no-results" *ngIf="filteredDestinations.length === 0">
-                <p>No destinations found for "{{ searchQuery }}"</p>
+                <p>No se encontraron destinos para "{{ searchQuery }}"</p>
             </div>
         </div>
     </div>

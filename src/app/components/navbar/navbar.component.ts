@@ -27,14 +27,8 @@ export class NavbarComponent {
   /** Indica si el menú móvil está abierto */
   isMenuOpen = false;
 
-  /** Indica si el menú de idioma está abierto */
-  isLangMenuOpen = false;
-
   /** Indica si el dropdown de usuario está abierto */
   isUserDropdownOpen = false;
-
-  /** Idioma actual seleccionado: 'en' (English) o 'es' (Español) */
-  currentLang = 'en';
 
   /** Usuario autenticado actual (o null si invitado) */
   user: User | null = null;
@@ -70,20 +64,6 @@ export class NavbarComponent {
   }
 
   /**
-   * Abre/cierra el dropdown de selector de idioma
-   */
-  toggleLangMenu(): void {
-    this.isLangMenuOpen = !this.isLangMenuOpen;
-  }
-
-  /**
-   * Cierra el dropdown de selector de idioma
-   */
-  closeLangMenu(): void {
-    this.isLangMenuOpen = false;
-  }
-
-  /**
    * Abre/cierra el dropdown de usuario
    */
   toggleUserDropdown(): void {
@@ -95,19 +75,5 @@ export class NavbarComponent {
    */
   closeUserDropdown(): void {
     this.isUserDropdownOpen = false;
-  }
-
-  /**
-   * Cambia el idioma seleccionado
-   * @param lang Código de idioma: 'en' o 'es'
-   * 
-   * TODO: Integrar con LanguageService para cambiar idioma global en toda la aplicación
-   */
-  selectLanguage(lang: string): void {
-    this.currentLang = lang;
-    this.isLangMenuOpen = false;
-    console.log('Idioma seleccionado:', lang);
-    
-    // Próximamente: this.languageService.setLanguage(lang);
   }
 }

@@ -1,4 +1,4 @@
-// Hero Section con Bootstrap puro + Glassmorphism
+﻿// Hero Section con Bootstrap puro + Glassmorphism
 // Figma: 1440x1080, col-lg-4 (26.67%) + col-lg-8 (66.67%)
 
 // ===================================
@@ -12,10 +12,10 @@ $arrow-distance-left: 4rem; // Posición horizontal de la flecha
 $arrow-size: 35px; // Tamaño de la flecha
 $title-size: 49px; // Tamaño del título
 $subtitle-size: 27px; // Tamaño del subtítulo
-$title-width: 400px; // Ancho del título
-$title-height: 200px; // Alto del título
-$subtitle-width: 372px; // Ancho del subtítulo
-$subtitle-height: 150px; // Alto del subtítulo
+$title-width: 450px; // Ancho del título
+$title-height: auto; // Alto del título
+$subtitle-width: 420px; // Ancho del subtítulo
+$subtitle-height: auto; // Alto del subtítulo
 $title-margin-left: 0; // Margen izquierdo del título (para mover derecha/izquierda)
 $subtitle-margin-left: 0; // Margen izquierdo del subtítulo
 $image-width: 100%; // Ancho de la imagen
@@ -73,9 +73,9 @@ $arrow-size-1024: 10px;
 $title-size-1024: 36px;
 $subtitle-size-1024: 22px;
 $title-width-1024: 300px;
-$title-height-1024: 200px;
+$title-height-1024: auto;
 $subtitle-width-1024: 300px;
-$subtitle-height-1024: 60px;
+$subtitle-height-1024: auto;
 $title-margin-left-1024: 1;
 $subtitle-margin-left-1024: 0;
 $image-width-1024: 100%;

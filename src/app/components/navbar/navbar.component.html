@@ -1,4 +1,4 @@
-<nav class="navbar-marriott">
+﻿<nav class="navbar-marriott">
   <div class="container-1440 navbar-inner">
     <!-- Izquierda: logo + divisor -->
     <div class="navbar-left">
@@ -11,78 +11,27 @@
     <!-- Centro: links (solo desktop / laptop) -->
     <div class="navbar-center desktop-md">
       <ul class="nav-links">
-        <li><a routerLink="/client/catalog" routerLinkActive="active">Hotels</a></li>
-        <li><a routerLink="/client/experiences" routerLinkActive="active">Experiences</a></li>
-        <li><a routerLink="/client/offers" routerLinkActive="active">Exclusive Offers</a></li>
-        <li><a routerLink="/about" routerLinkActive="active">About Us</a></li>
+        <li><a routerLink="/client/catalog" routerLinkActive="active">Hoteles</a></li>
+        <li><a routerLink="/client/experiences" routerLinkActive="active">Experiencias</a></li>
+        <li><a routerLink="/client/offers" routerLinkActive="active">Ofertas Exclusivas</a></li>
+        <li><a routerLink="/about" routerLinkActive="active">Nosotros</a></li>
       </ul>
     </div>
 
     <!-- Derecha: idioma, reserva, usuario, login y menú hamburguesa -->
     <div class="navbar-right">
-      <!-- Selector de idioma (desktop) -->
-      <div class="lang-selector desktop-md">
-        <button 
-          type="button" 
-          class="lang-button"
-          (click)="toggleLangMenu()"
-          [class.active]="isLangMenuOpen">
-          <img class="icon-20" src="assets/icons/globe.svg" alt="">
-          <span class="lang-text">EN</span>
-        </button>
-        
-        <div class="lang-menu" *ngIf="isLangMenuOpen">
-          <div class="lang-menu-title">Language</div>
-          <div class="lang-option" (click)="selectLanguage('en')">
-            <span class="lang-name">English</span>
-            <span class="lang-checkmark" *ngIf="currentLang === 'en'">✓</span>
-          </div>
-          <div class="lang-option lang-option-disabled" (click)="$event.preventDefault()">
-            <span class="lang-name">Español</span>
-            <span class="lang-checkmark"></span>
-          </div>
-        </div>
-      </div>
+      <!-- Selector de idioma mobile eliminado -->
 
-      <!-- Selector de idioma mobile -->
-      <div class="lang-selector mobile-lang-button mobile-only">
-        <button 
-          type="button" 
-          class="lang-button"
-          (click)="toggleLangMenu()"
-          [class.active]="isLangMenuOpen">
-          <img class="icon-20" src="assets/icons/globe.svg" alt="">
-          <span class="lang-text">EN</span>
-        </button>
-        
-        <div class="lang-menu" *ngIf="isLangMenuOpen">
-          <div class="lang-menu-title">Language</div>
-          <div class="lang-option" (click)="selectLanguage('en')">
-            <span class="lang-name">English</span>
-            <span class="lang-checkmark" *ngIf="currentLang === 'en'">✓</span>
-          </div>
-          <div class="lang-option lang-option-disabled" (click)="$event.preventDefault()">
-            <span class="lang-name">Español</span>
-            <span class="lang-checkmark"></span>
-          </div>
-        </div>
-      </div>
-
-      <button type="button" class="btn-reserve desktop-md">Reserve</button>
+      <button type="button" class="btn-reserve desktop-md">Reservar</button>
 
       <!-- Zona derecha: usuario (desktop) -->
       <div class="user-actions desktop-md">
         <ng-container *ngIf="user; else guestDesktop">
           <!-- Dropdown usuario con Bootstrap -->
           <div class="dropdown">
-            <button
-              type="button"
-              class="btn btn-sm btn-user-dropdown dropdown-toggle"
-              [class.show]="isUserDropdownOpen"
-              (click)="toggleUserDropdown()"
-              [attr.aria-expanded]="isUserDropdownOpen"
-              [attr.aria-label]="'User menu for ' + user.name"
-            >
+            <button type="button" class="btn btn-sm btn-user-dropdown dropdown-toggle" [class.show]="isUserDropdownOpen"
+              (click)="toggleUserDropdown()" [attr.aria-expanded]="isUserDropdownOpen"
+              [attr.aria-label]="'Menú de usuario para ' + user.name">
               <img class="icon-20" src="assets/icons/user.svg" alt="">
               <span class="d-none d-lg-inline">{{ user.name }}</span>
             </button>
@@ -91,55 +40,35 @@
             <div class="dropdown-menu" [class.show]="isUserDropdownOpen" (click)="closeUserDropdown()">
               <!-- Header del dropdown -->
               <div class="dropdown-header">
-                <p class="welcome-message">Welcome back, {{ user.name }}!</p>
-                <small *ngIf="user.role === 'ADMIN'" class="admin-badge">Administrator</small>
-                <small *ngIf="user.role === 'CLIENT'" class="client-badge">Member</small>
+                <p class="welcome-message">Bienvenido, {{ user.name }}!</p>
+                <small *ngIf="user.role === 'ADMIN'" class="admin-badge">Administrador</small>
+                <small *ngIf="user.role === 'CLIENT'" class="client-badge">Miembro</small>
               </div>
 
               <hr class="dropdown-divider">
 
               <!-- Opciones según rol -->
-              <a
-                *ngIf="user.role === 'CLIENT'"
-                routerLink="/client/profile"
-                class="dropdown-item"
-              >
-                <span>My Profile</span>
+              <a *ngIf="user.role === 'CLIENT'" routerLink="/client/profile" class="dropdown-item">
+                <span>Mi Perfil</span>
               </a>
 
-              <a
-                *ngIf="user.role === 'CLIENT'"
-                routerLink="/client/cart"
-                class="dropdown-item"
-              >
-                <span>My Cart</span>
+              <a *ngIf="user.role === 'CLIENT'" routerLink="/client/cart" class="dropdown-item">
+                <span>Mi Carrito</span>
               </a>
 
-              <a
-                *ngIf="user.role === 'ADMIN'"
-                routerLink="/admin/dashboard"
-                class="dropdown-item"
-              >
-                <span>Admin Panel</span>
+              <a *ngIf="user.role === 'ADMIN'" routerLink="/admin/dashboard" class="dropdown-item">
+                <span>Panel de Admin</span>
               </a>
 
-              <a
-                *ngIf="user.role === 'ADMIN'"
-                routerLink="/admin/users"
-                class="dropdown-item"
-              >
-                <span>Users</span>
+              <a *ngIf="user.role === 'ADMIN'" routerLink="/admin/users" class="dropdown-item">
+                <span>Usuarios</span>
               </a>
 
               <hr class="dropdown-divider">
 
               <!-- Logout -->
-              <button
-                type="button"
-                class="dropdown-item text-danger fw-500"
-                (click)="logout()"
-              >
-                <span>Sign out</span>
+              <button type="button" class="dropdown-item text-danger fw-500" (click)="logout()">
+                <span>Cerrar sesión</span>
               </button>
             </div>
           </div>
@@ -148,17 +77,13 @@
         <ng-template #guestDesktop>
           <a class="signin" routerLink="/client/login">
             <img class="icon-20" src="assets/icons/user.svg" alt="">
-            <span>Sign in or join</span>
+            <span>Ingresar o unirse</span>
           </a>
         </ng-template>
       </div>
 
       <!-- visible en tablet/móvil: botón menú -->
-      <button
-        type="button"
-        class="btn-menu mobile-only"
-        (click)="toggleMenu()"
-        [attr.aria-expanded]="isMenuOpen"
+      <button type="button" class="btn-menu mobile-only" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen"
         aria-label="Open navigation menu">
         <span></span><span></span><span></span>
       </button>
@@ -178,10 +103,10 @@
     </div>
 
     <ul class="mobile-nav-links">
-      <li><a routerLink="/client/catalog" (click)="closeMenu()">Hotels</a></li>
-      <li><a routerLink="/client/experiences" (click)="closeMenu()">Experiences</a></li>
-      <li><a routerLink="/client/offers" (click)="closeMenu()">Exclusive Offers</a></li>
-      <li><a routerLink="/about" (click)="closeMenu()">About Us</a></li>
+      <li><a routerLink="/client/catalog" (click)="closeMenu()">Hoteles</a></li>
+      <li><a routerLink="/client/experiences" (click)="closeMenu()">Experiencias</a></li>
+      <li><a routerLink="/client/offers" (click)="closeMenu()">Ofertas Exclusivas</a></li>
+      <li><a routerLink="/about" (click)="closeMenu()">Nosotros</a></li>
     </ul>
 
     <div class="mobile-actions">
@@ -190,39 +115,29 @@
         <div class="mobile-user-info">
           <span>
             Hello, <strong>{{ user.name }}</strong>
-            <span *ngIf="user.role === 'ADMIN'">(Administrator)</span>
+            <span *ngIf="user.role === 'ADMIN'">(Administrador)</span>
           </span>
         </div>
 
-        <a
-          *ngIf="user.role === 'CLIENT'"
-          class="mobile-signin"
-          routerLink="/client/profile"
-          (click)="closeMenu()"
-        >
+        <a *ngIf="user.role === 'CLIENT'" class="mobile-signin" routerLink="/client/profile" (click)="closeMenu()">
           <img class="icon-20" src="assets/icons/user.svg" alt="">
-          <span>My Profile</span>
+          <span>Mi Perfil</span>
         </a>
 
-        <a
-          *ngIf="user.role === 'ADMIN'"
-          class="mobile-signin"
-          routerLink="/admin/dashboard"
-          (click)="closeMenu()"
-        >
+        <a *ngIf="user.role === 'ADMIN'" class="mobile-signin" routerLink="/admin/dashboard" (click)="closeMenu()">
           <img class="icon-20" src="assets/icons/user.svg" alt="">
-          <span>Admin Panel</span>
+          <span>Panel de Admin</span>
         </a>
       </ng-container>
 
       <ng-template #guestMobile>
         <a class="mobile-signin" routerLink="/client/login" (click)="closeMenu()">
           <img class="icon-20" src="assets/icons/user.svg" alt="">
-          <span>Sign in or join</span>
+          <span>Ingresar o unirse</span>
         </a>
       </ng-template>
 
-      <button type="button" class="mobile-reserve" (click)="closeMenu()">Reserve</button>
+      <button type="button" class="mobile-reserve" (click)="closeMenu()">Reservar</button>
     </div>
   </div>
 </nav>
