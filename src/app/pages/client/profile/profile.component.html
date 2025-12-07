@@ -1,0 +1,46 @@
+<section class="profile" *ngIf="user; else noSession">
+  <div class="profile__card">
+    <h1 class="profile__title">Welcome, {{ user.name }}!</h1>
+    <p class="profile__subtitle">
+      Basic information of your Marriott account.
+    </p>
+
+    <dl class="profile__info">
+      <div>
+        <dt>Name</dt>
+        <dd>{{ user.name }}</dd>
+      </div>
+
+      <div>
+        <dt>Email</dt>
+        <dd>{{ user.email }}</dd>
+      </div>
+
+      <div>
+        <dt>Role</dt>
+        <dd>{{ user.role === 'ADMIN' ? 'Administrator' : 'Client' }}</dd>
+      </div>
+    </dl>
+
+    <div class="profile__actions">
+      <button class="btn btn-outline" routerLink="/client/catalog">
+        Go to Catalog
+      </button>
+      <button class="btn btn-danger" (click)="logout()">
+        Sign out
+      </button>
+    </div>
+  </div>
+</section>
+
+<ng-template #noSession>
+  <section class="profile profile--empty">
+    <div class="profile__card">
+      <h1>No Session</h1>
+      <p>You must sign in to view your profile.</p>
+      <button class="btn btn-primary" routerLink="/client/login">
+        Go to Login
+      </button>
+    </div>
+  </section>
+</ng-template>

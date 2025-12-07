@@ -1,0 +1,59 @@
+/**
+ * Navbar Breakpoints & Mixins
+ * Define puntos de quiebre y utilidades reutilizables para diseño responsive
+ */
+
+// Puntos de quiebre principales
+$breakpoint-desktop-xl: 1920px;
+$breakpoint-desktop-lg: 1440px;
+$breakpoint-desktop: 1024px;
+$breakpoint-tablet: 768px;
+$breakpoint-mobile: 480px;
+
+// Mixins para media queries
+@mixin respond-to-desktop-xl {
+  @media (min-width: $breakpoint-desktop-xl) {
+    @content;
+  }
+}
+
+@mixin respond-to-desktop-lg {
+  @media (max-width: 1919px) and (min-width: $breakpoint-desktop-lg) {
+    @content;
+  }
+}
+
+@mixin respond-to-desktop {
+  @media (max-width: 1439px) and (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+@mixin respond-to-tablet {
+  @media (max-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin respond-to-mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+// Helpers globales para mostrar/ocultar por breakpoint
+.desktop-md {
+  display: flex;
+  
+  @include respond-to-tablet {
+    display: none !important;
+  }
+}
+
+.mobile-only {
+  display: none;
+  
+  @include respond-to-tablet {
+    display: inline-flex !important;
+  }
+}

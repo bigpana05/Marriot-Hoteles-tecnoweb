@@ -1,0 +1,143 @@
+﻿<nav class="navbar-marriott">
+  <div class="container-1440 navbar-inner">
+    <!-- Izquierda: logo + divisor -->
+    <div class="navbar-left">
+      <a class="brand" routerLink="/client/home" aria-label="Marriott International">
+        <img src="assets/brand/marriott-international-logo.svg" alt="Marriott International">
+      </a>
+      <span class="v-divider desktop-md" aria-hidden="true"></span>
+    </div>
+
+    <!-- Centro: links (solo desktop / laptop) -->
+    <div class="navbar-center desktop-md">
+      <ul class="nav-links">
+        <li><a routerLink="/client/catalog" routerLinkActive="active">Hoteles</a></li>
+        <li><a routerLink="/client/experiences" routerLinkActive="active">Experiencias</a></li>
+        <li><a routerLink="/client/offers" routerLinkActive="active">Ofertas Exclusivas</a></li>
+        <li><a routerLink="/about" routerLinkActive="active">Nosotros</a></li>
+      </ul>
+    </div>
+
+    <!-- Derecha: idioma, reserva, usuario, login y menú hamburguesa -->
+    <div class="navbar-right">
+      <!-- Selector de idioma mobile eliminado -->
+
+      <button type="button" class="btn-reserve desktop-md">Reservar</button>
+
+      <!-- Zona derecha: usuario (desktop) -->
+      <div class="user-actions desktop-md">
+        <ng-container *ngIf="user; else guestDesktop">
+          <!-- Dropdown usuario con Bootstrap -->
+          <div class="dropdown">
+            <button type="button" class="btn btn-sm btn-user-dropdown dropdown-toggle" [class.show]="isUserDropdownOpen"
+              (click)="toggleUserDropdown()" [attr.aria-expanded]="isUserDropdownOpen"
+              [attr.aria-label]="'Menú de usuario para ' + user.name">
+              <img class="icon-20" src="assets/icons/user.svg" alt="">
+              <span class="d-none d-lg-inline">{{ user.name }}</span>
+            </button>
+
+            <!-- Menú desplegable Bootstrap -->
+            <div class="dropdown-menu" [class.show]="isUserDropdownOpen" (click)="closeUserDropdown()">
+              <!-- Header del dropdown -->
+              <div class="dropdown-header">
+                <p class="welcome-message">Bienvenido, {{ user.name }}!</p>
+                <small *ngIf="user.role === 'ADMIN'" class="admin-badge">Administrador</small>
+                <small *ngIf="user.role === 'CLIENT'" class="client-badge">Miembro</small>
+              </div>
+
+              <hr class="dropdown-divider">
+
+              <!-- Opciones según rol -->
+              <a *ngIf="user.role === 'CLIENT'" routerLink="/client/profile" class="dropdown-item">
+                <span>Mi Perfil</span>
+              </a>
+
+              <a *ngIf="user.role === 'CLIENT'" routerLink="/client/cart" class="dropdown-item">
+                <span>Mi Carrito</span>
+              </a>
+
+              <a *ngIf="user.role === 'ADMIN'" routerLink="/admin/dashboard" class="dropdown-item">
+                <span>Panel de Admin</span>
+              </a>
+
+              <a *ngIf="user.role === 'ADMIN'" routerLink="/admin/users" class="dropdown-item">
+                <span>Usuarios</span>
+              </a>
+
+              <hr class="dropdown-divider">
+
+              <!-- Logout -->
+              <button type="button" class="dropdown-item text-danger fw-500" (click)="logout()">
+                <span>Cerrar sesión</span>
+              </button>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #guestDesktop>
+          <a class="signin" routerLink="/client/login">
+            <img class="icon-20" src="assets/icons/user.svg" alt="">
+            <span>Ingresar o unirse</span>
+          </a>
+        </ng-template>
+      </div>
+
+      <!-- visible en tablet/móvil: botón menú -->
+      <button type="button" class="btn-menu mobile-only" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen"
+        aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú desplegable para tablet/móvil -->
+  <div class="mobile-menu mobile-only" *ngIf="isMenuOpen">
+    <!-- Header del menú con logo y botón cerrar -->
+    <div class="mobile-menu-header">
+      <a class="mobile-menu-logo" routerLink="/client/home" (click)="closeMenu()">
+        <img src="assets/brand/marriott-international-logo.svg" alt="Marriott International">
+      </a>
+      <button type="button" class="btn-close-menu" (click)="closeMenu()" aria-label="Close menu">
+        ✕
+      </button>
+    </div>
+
+    <ul class="mobile-nav-links">
+      <li><a routerLink="/client/catalog" (click)="closeMenu()">Hoteles</a></li>
+      <li><a routerLink="/client/experiences" (click)="closeMenu()">Experiencias</a></li>
+      <li><a routerLink="/client/offers" (click)="closeMenu()">Ofertas Exclusivas</a></li>
+      <li><a routerLink="/about" (click)="closeMenu()">Nosotros</a></li>
+    </ul>
+
+    <div class="mobile-actions">
+      <!-- Usuario en mobile -->
+      <ng-container *ngIf="user; else guestMobile">
+        <div class="mobile-user-info">
+          <span>
+            Hello, <strong>{{ user.name }}</strong>
+            <span *ngIf="user.role === 'ADMIN'">(Administrador)</span>
+          </span>
+        </div>
+
+        <a *ngIf="user.role === 'CLIENT'" class="mobile-signin" routerLink="/client/profile" (click)="closeMenu()">
+          <img class="icon-20" src="assets/icons/user.svg" alt="">
+          <span>Mi Perfil</span>
+        </a>
+
+        <a *ngIf="user.role === 'ADMIN'" class="mobile-signin" routerLink="/admin/dashboard" (click)="closeMenu()">
+          <img class="icon-20" src="assets/icons/user.svg" alt="">
+          <span>Panel de Admin</span>
+        </a>
+      </ng-container>
+
+      <ng-template #guestMobile>
+        <a class="mobile-signin" routerLink="/client/login" (click)="closeMenu()">
+          <img class="icon-20" src="assets/icons/user.svg" alt="">
+          <span>Ingresar o unirse</span>
+        </a>
+      </ng-template>
+
+      <button type="button" class="mobile-reserve" (click)="closeMenu()">Reservar</button>
+    </div>
+  </div>
+</nav>
