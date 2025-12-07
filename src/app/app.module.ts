@@ -34,6 +34,7 @@ import { DestinationDropdownComponent } from './pages/client/home/sections/searc
 import { DatePickerDropdownComponent } from './pages/client/home/sections/search-section/date-picker-dropdown/date-picker-dropdown.component';
 import { RoomsSelectorComponent } from './pages/client/home/sections/search-section/rooms-selector/rooms-selector.component';
 import { HotelsCarouselComponent } from './pages/client/home/sections/search-section/hotels-carousel/hotels-carousel.component';
+import { HomeOffersExclusiveComponent } from './pages/client/home/sections/home-offers-exclusive/home-offers-exclusive.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { HotelsCarouselComponent } from './pages/client/home/sections/search-sec
     DestinationDropdownComponent,
     DatePickerDropdownComponent,
     RoomsSelectorComponent,
-    HotelsCarouselComponent
+    HotelsCarouselComponent,
+    HomeOffersExclusiveComponent
   ],
   imports: [
     BrowserModule,
