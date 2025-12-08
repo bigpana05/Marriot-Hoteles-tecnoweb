@@ -36,6 +36,7 @@ import { RoomsSelectorComponent } from './pages/client/home/sections/search-sect
 import { HotelsCarouselComponent } from './pages/client/home/sections/search-section/hotels-carousel/hotels-carousel.component';
 import { HomeOffersExclusiveComponent } from './pages/client/home/sections/home-offers-exclusive/home-offers-exclusive.component';
 import { HomeJoinMarriottComponent } from './pages/client/home/sections/home-join-marriott/home-join-marriott.component';
+import { HomeFeaturedHotelsComponent } from './pages/client/home/sections/home-featured-hotels/home-featured-hotels.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { HomeJoinMarriottComponent } from './pages/client/home/sections/home-joi
     RoomsSelectorComponent,
     HotelsCarouselComponent,
     HomeOffersExclusiveComponent,
-    HomeJoinMarriottComponent
+    HomeJoinMarriottComponent,
+    HomeFeaturedHotelsComponent
   ],
   imports: [
     BrowserModule,
