@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Baloo+Tamma+2:wght@400;500;600;700&family=Freeman&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Freeman&display=swap');
 
-.featured-hotels {
-  padding: 30px 0 80px 0;
+.inspiration-journey {
+  padding: 100px 0 80px 0;
   background-color: #F3EEE7;
   font-family: 'Luxurious Roman', serif;
   text-align: center;
   position: relative;
   overflow: hidden;
-  margin-top: 30px;
 
   .container {
     max-width: 1440px;
@@ -19,21 +18,21 @@
 
   .header {
     margin: 0 auto 40px;
-    max-width: 1152px;
+    max-width: 1200px;
     text-align: left;
 
     .title {
       font-family: 'Luxurious Roman', serif;
       font-size: 45px;
       margin-bottom: 10px;
-      color: #1c1c1c;
+      color: #222222;
       font-weight: 400;
     }
 
     .subtitle {
       font-family: 'Luxurious Roman', serif;
-      font-size: 20px;
-      color: #666;
+      font-size: 24px;
+      color: #707274;
       margin-bottom: 0;
       font-weight: 400;
     }
@@ -44,7 +43,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    max-width: 1152px;
+    max-width: 1200px;
     margin: 0 auto;
 
     .nav-btn {
@@ -81,14 +80,14 @@
       }
 
       &.next {
-        right: -50px;
+        right: -70px;
       }
     }
 
     .carousel-track-container {
       overflow: hidden;
       width: 100%;
-      max-width: 1152px;
+      max-width: 1140px;
     }
 
     .carousel-track {
@@ -102,15 +101,16 @@
     }
 
     .carousel-slide {
-      min-width: 364px;
+      min-width: 558px;
+      flex-shrink: 0;
       box-sizing: border-box;
     }
 
-    .hotel-card {
+    .destination-card {
       position: relative;
-      width: 364px;
-      height: 545px;
-      border-radius: 5%;
+      width: 558px;
+      height: 314px;
+      border-radius: 12px;
       overflow: hidden;
       cursor: pointer;
       transition: transform 0.3s ease;
@@ -124,7 +124,7 @@
         width: 100%;
         height: 100%;
 
-        .hotel-image {
+        .destination-image {
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -136,41 +136,32 @@
           left: 0;
           width: 100%;
           padding: 25px;
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
           text-align: left;
-          color: #fff;
+          color: #FFFFFF;
           box-sizing: border-box;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
 
-          .hotel-country {
-            display: block;
-            font-family: 'Baloo Tamma 2', sans-serif;
-            font-size: 16px;
-            color: #fff;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
-          }
-
-          .hotel-name {
+          .destination-name {
             font-family: 'Freeman', sans-serif;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 400;
-            margin-bottom: 0;
-            line-height: 1.4;
-            max-width: 85%;
-            color: #fff;
+            margin: 0;
+            line-height: 1.2;
+            color: #FFFFFF;
           }
 
           .details-link {
-            position: absolute;
-            bottom: 25px;
-            right: 25px;
             transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             img {
-              width: 24px;
-              height: 24px;
+              width: 28px;
+              height: 28px;
             }
 
             &:hover {
@@ -210,33 +201,30 @@
 
 /* 2560px - Escritorio Extra Grande */
 @media (min-width: 1921px) {
-  .featured-hotels {
-    padding: 30px 0;
-    margin-top: 30px;
+  .inspiration-journey {
+    padding: 80px 0 100px 0;
 
     .container {
-      max-width: 1600px;
+      max-width: 1800px;
     }
 
     .header {
-      max-width: 1400px;
+      max-width: 1500px;
 
       .title {
         font-size: 55px;
       }
 
       .subtitle {
-        font-size: 24px;
+        font-size: 28px;
       }
     }
 
     .carousel-container {
-      max-width: 1152px;
-      margin-left: 130px;
-      justify-content: flex-start;
+      max-width: 1500px;
 
       .carousel-track-container {
-        max-width: 1152px;
+        max-width: 1400px;
       }
 
       .nav-btn {
@@ -248,17 +236,41 @@
         }
 
         &.next {
-          right: -60px;
+          right: -80px;
         }
       }
 
       .carousel-slide {
-        min-width: 364px;
+        min-width: 680px;
       }
 
-      .hotel-card {
-        width: 364px;
-        height: 545px;
+      .destination-card {
+        width: 680px;
+        height: 383px;
+
+        .image-container {
+          .card-overlay {
+            padding: 30px;
+
+            .destination-name {
+              font-size: 28px;
+            }
+
+            .details-link img {
+              width: 32px;
+              height: 32px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots-indicator {
+      margin-top: 50px;
+
+      .dot {
+        width: 10px;
+        height: 10px;
       }
     }
   }
@@ -266,80 +278,67 @@
 
 /* 1920px - Escritorio Grande */
 @media (min-width: 1441px) and (max-width: 1920px) {
-  .featured-hotels {
-    padding: 30px 0;
-    margin-top: 60px;
+  .inspiration-journey {
+    padding: 70px 0 90px 0;
 
     .container {
-      max-width: 1500px;
+      max-width: 1600px;
     }
 
     .header {
-      max-width: 1280px;
+      max-width: 1300px;
 
       .title {
         font-size: 50px;
       }
 
       .subtitle {
-        font-size: 22px;
+        font-size: 26px;
       }
     }
 
     .carousel-container {
-      max-width: 1152px;
-      margin-left: 130px;
-      justify-content: flex-start;
+      max-width: 1300px;
 
       .carousel-track-container {
-        max-width: 1152px;
+        max-width: 100%;
       }
 
       .carousel-slide {
-        min-width: 364px;
+        min-width: 588px;
+        flex-shrink: 0;
       }
 
-      .hotel-card {
-        width: 364px;
-        height: 545px;
+      .destination-card {
+        width: 588px;
+        height: 331px;
       }
     }
   }
 }
 
-/* 1200px - Laptop/Escritorio Pequeño */
-@media (max-width: 1200px) {
-  .featured-hotels {
-    margin-top: 30px;
-    padding: 30px 0;
+/* 1440px - Desktop Base */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .inspiration-journey {
+    .carousel-slide {
+      min-width: 558px;
+      flex-shrink: 0;
+    }
 
-    .carousel-container {
-      max-width: 860px;
-
-      .carousel-track-container {
-        max-width: 768px;
-      }
-
-      .carousel-slide {
-        min-width: 364px;
-      }
-
-      .hotel-card {
-        width: 364px;
-        height: 545px;
-      }
+    .destination-card {
+      width: 558px;
+      height: 314px;
     }
   }
 }
 
 /* 1024px - Tablet Horizontal */
-@media (max-width: 1024px) {
-  .featured-hotels {
-    margin-top: 30px;
-    padding: 30px 0;
+@media (min-width: 769px) and (max-width: 1024px) {
+  .inspiration-journey {
+    padding: 50px 0 60px 0;
 
     .header {
-      max-width: 700px;
+      max-width: 900px;
       margin-bottom: 30px;
 
       .title {
@@ -347,113 +346,58 @@
       }
 
       .subtitle {
-        font-size: 18px;
+        font-size: 20px;
       }
     }
 
     .carousel-container {
       max-width: 100%;
       padding: 0 60px;
+      justify-content: center;
 
       .nav-btn {
         width: 50px;
         height: 50px;
 
         &.prev {
-          left: 5px;
+          left: 50px;
         }
 
         &.next {
-          right: 5px;
+          right: 50px;
         }
       }
 
       .carousel-track-container {
         max-width: 660px;
+        overflow: hidden;
+      }
+
+      .carousel-track {
+        gap: 20px;
       }
 
       .carousel-slide {
         min-width: 320px;
+        flex-shrink: 0;
       }
 
-      .hotel-card {
+      .destination-card {
         width: 320px;
-        height: 480px;
-        border-radius: 5%;
-      }
-    }
-  }
-}
-
-/* 768px - Tablet Vertical */
-@media (max-width: 768px) {
-  .featured-hotels {
-    margin-top: 40px;
-    padding: 40px 0;
-
-    .header {
-      max-width: 100%;
-      text-align: center;
-      padding: 0 20px;
-
-      .title {
-        font-size: 32px;
-      }
-
-      .subtitle {
-        font-size: 16px;
-      }
-    }
-
-    .carousel-container {
-      padding: 0 50px;
-
-      .nav-btn {
-        width: 40px;
-        height: 40px;
-
-        &.prev {
-          left: 5px;
-        }
-
-        &.next {
-          right: 5px;
-        }
-      }
-
-      .carousel-track-container {
-        max-width: 620px;
-      }
-
-      .carousel-slide {
-        min-width: 300px;
-      }
-
-      .hotel-card {
-        width: 300px;
-        height: 450px;
-        border-radius: 5%;
+        height: 180px;
+        border-radius: 10px;
 
         .image-container {
           .card-overlay {
             padding: 20px;
 
-            .hotel-country {
-              font-size: 14px;
+            .destination-name {
+              font-size: 22px;
             }
 
-            .hotel-name {
-              font-size: 18px;
-            }
-
-            .details-link {
-              bottom: 20px;
-              right: 20px;
-
-              img {
-                width: 20px;
-                height: 20px;
-              }
+            .details-link img {
+              width: 26px;
+              height: 26px;
             }
           }
         }
@@ -466,11 +410,90 @@
   }
 }
 
+/* 768px - Tablet Vertical (2 items por slide) */
+@media (min-width: 768px) and (max-width: 768px) {
+  .inspiration-journey {
+    padding: 40px 0 50px 0;
+
+    .header {
+      max-width: 100%;
+      text-align: center;
+      padding: 0 20px;
+
+      .title {
+        font-size: 32px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+    }
+
+    .carousel-container {
+      max-width: 100%;
+      padding: 0 50px;
+      justify-content: center;
+
+      .nav-btn {
+        width: 45px;
+        height: 45px;
+
+        &.prev {
+          left: 5px;
+        }
+
+        &.next {
+          right: 5px;
+        }
+      }
+
+      .carousel-track-container {
+        max-width: 620px;
+        overflow: hidden;
+      }
+
+      .carousel-track {
+        gap: 20px;
+      }
+
+      .carousel-slide {
+        min-width: 300px;
+        flex-shrink: 0;
+      }
+
+      .destination-card {
+        width: 300px;
+        height: 169px;
+        border-radius: 8px;
+
+        .image-container {
+          .card-overlay {
+            padding: 18px;
+
+            .destination-name {
+              font-size: 20px;
+            }
+
+            .details-link img {
+              width: 24px;
+              height: 24px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots-indicator {
+      margin-top: 25px;
+    }
+  }
+}
+
 /* 767px y menor - Móvil (1 item por slide) */
 @media (max-width: 767px) {
-  .featured-hotels {
+  .inspiration-journey {
     .carousel-container {
-      padding: 0 40px;
+      padding: 0 50px;
 
       .carousel-track-container {
         max-width: 100%;
@@ -478,14 +501,15 @@
 
       .carousel-slide {
         min-width: 100%;
+        flex-shrink: 0;
         display: flex;
         justify-content: center;
       }
 
-      .hotel-card {
+      .destination-card {
         width: 100%;
-        max-width: 300px;
-        height: 450px;
+        max-width: 280px;
+        height: 158px;
       }
     }
   }
@@ -493,9 +517,8 @@
 
 /* 425px - Móvil Grande */
 @media (max-width: 425px) {
-  .featured-hotels {
-    margin-top: 50px;
-    padding: 30px 0;
+  .inspiration-journey {
+    padding: 35px 0 45px 0;
 
     .header {
       margin-bottom: 25px;
@@ -505,51 +528,43 @@
       }
 
       .subtitle {
-        font-size: 14px;
+        font-size: 16px;
       }
     }
 
     .carousel-container {
-      padding: 0 35px;
+      padding: 0 40px;
 
       .nav-btn {
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
 
         &.prev {
-          left: 3px;
+          left: 5px;
         }
 
         &.next {
-          right: 3px;
+          right: 5px;
         }
       }
 
-      .hotel-card {
+      .destination-card {
+        width: 100%;
         max-width: 280px;
-        height: 420px;
-        border-radius: 5%;
+        height: 158px;
+        border-radius: 8px;
 
         .image-container {
           .card-overlay {
-            padding: 18px;
+            padding: 15px;
 
-            .hotel-country {
-              font-size: 13px;
+            .destination-name {
+              font-size: 18px;
             }
 
-            .hotel-name {
-              font-size: 16px;
-            }
-
-            .details-link {
-              bottom: 18px;
-              right: 18px;
-
-              img {
-                width: 18px;
-                height: 18px;
-              }
+            .details-link img {
+              width: 22px;
+              height: 22px;
             }
           }
         }
@@ -557,7 +572,7 @@
     }
 
     .dots-indicator {
-      margin-top: 25px;
+      margin-top: 22px;
       gap: 8px;
 
       .dot {
@@ -570,9 +585,8 @@
 
 /* 375px - Móvil Mediano */
 @media (max-width: 375px) {
-  .featured-hotels {
-    margin-top: 50px;
-    padding: 25px 0;
+  .inspiration-journey {
+    padding: 30px 0 40px 0;
 
     .header {
       margin-bottom: 20px;
@@ -582,7 +596,69 @@
       }
 
       .subtitle {
-        font-size: 13px;
+        font-size: 14px;
+      }
+    }
+
+    .carousel-container {
+      padding: 0 35px;
+
+      .nav-btn {
+        width: 32px;
+        height: 32px;
+      }
+
+      .carousel-slide {
+        min-width: 100%;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .destination-card {
+        width: 100%;
+        max-width: 250px;
+        height: 141px;
+        border-radius: 6px;
+
+        .image-container {
+          .card-overlay {
+            padding: 12px;
+
+            .destination-name {
+              font-size: 16px;
+            }
+
+            .details-link img {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots-indicator {
+      margin-top: 18px;
+    }
+  }
+}
+
+/* 320px - Móvil Pequeño */
+@media (max-width: 320px) {
+  .inspiration-journey {
+    padding: 25px 0 35px 0;
+
+    .header {
+      margin-bottom: 18px;
+
+      .title {
+        font-size: 22px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        line-height: 1.4;
       }
     }
 
@@ -594,97 +670,30 @@
         height: 28px;
       }
 
-      .hotel-card {
-        max-width: 260px;
-        height: 390px;
-        border-radius: 5%;
+      .carousel-slide {
+        min-width: 100%;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .destination-card {
+        width: 100%;
+        max-width: 220px;
+        height: 124px;
+        border-radius: 5px;
 
         .image-container {
           .card-overlay {
-            padding: 15px;
+            padding: 10px;
 
-            .hotel-country {
-              font-size: 12px;
-            }
-
-            .hotel-name {
-              font-size: 15px;
-            }
-
-            .details-link {
-              bottom: 15px;
-              right: 15px;
-
-              img {
-                width: 16px;
-                height: 16px;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .dots-indicator {
-      margin-top: 20px;
-    }
-  }
-}
-
-/* 320px - Móvil Pequeño */
-@media (max-width: 320px) {
-  .featured-hotels {
-    margin-top: 50px;
-    padding: 20px 0;
-
-    .header {
-      margin-bottom: 18px;
-
-      .title {
-        font-size: 24px;
-      }
-
-      .subtitle {
-        font-size: 12px;
-        line-height: 1.4;
-      }
-    }
-
-    .carousel-container {
-      padding: 0 28px;
-
-      .nav-btn {
-        width: 25px;
-        height: 25px;
-      }
-
-      .hotel-card {
-        max-width: 230px;
-        height: 345px;
-        border-radius: 5%;
-
-        .image-container {
-          .card-overlay {
-            padding: 12px;
-
-            .hotel-country {
-              font-size: 11px;
-              margin-bottom: 3px;
-            }
-
-            .hotel-name {
+            .destination-name {
               font-size: 14px;
-              line-height: 1.3;
             }
 
-            .details-link {
-              bottom: 12px;
-              right: 12px;
-
-              img {
-                width: 14px;
-                height: 14px;
-              }
+            .details-link img {
+              width: 18px;
+              height: 18px;
             }
           }
         }
@@ -692,7 +701,7 @@
     }
 
     .dots-indicator {
-      margin-top: 18px;
+      margin-top: 15px;
       gap: 6px;
 
       .dot {

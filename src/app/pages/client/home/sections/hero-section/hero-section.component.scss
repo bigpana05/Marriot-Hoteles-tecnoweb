@@ -7,7 +7,7 @@
 $text-gap-top: 12rem; // Distancia del título desde arriba
 $text-gap-left: 2rem; // Distancia horizontal
 $text-gap-bottom: 2rem; // Distancia del contenido desde abajo
-$arrow-distance-bottom: 400px; // Posición vertical de la flecha
+$arrow-distance-bottom: 500px; // Posición vertical de la flecha
 $arrow-distance-left: 4rem; // Posición horizontal de la flecha
 $arrow-size: 35px; // Tamaño de la flecha
 $title-size: 49px; // Tamaño del título
@@ -27,15 +27,15 @@ $image-object-fit: cover; // Cómo se ajusta la imagen (cover, contain, fill, et
 // ===================================
 $text-gap-top-1920: 10rem;
 $text-gap-left-1920: 10rem;
-$arrow-distance-bottom-1920: 480px;
+$arrow-distance-bottom-1920: 500px;
 $arrow-distance-left-1920: 12rem;
 $arrow-size-1920: 45px;
 $title-size-1920: 50px;
 $subtitle-size-1920: 32px;
 $title-width-1920: 450px;
-$title-height-1920: 220px;
+$title-height-1920: auto;
 $subtitle-width-1920: 520px;
-$subtitle-height-1920: 170px;
+$subtitle-height-1920: auto;
 $title-margin-left-1920: 0;
 $subtitle-margin-left-1920: -50px;
 $image-width-1920: 100%;
@@ -47,15 +47,15 @@ $image-object-fit-1920: cover;
 // ===================================
 $text-gap-top-2560: 14rem;
 $text-gap-left-2560: 14rem;
-$arrow-distance-bottom-2560: 700px;
+$arrow-distance-bottom-2560: 630px;
 $arrow-distance-left-2560: 16rem;
 $arrow-size-2560: 60px;
 $title-size-2560: 70px;
 $subtitle-size-2560: 42px;
 $title-width-2560: 600px;
-$title-height-2560: 280px;
+$title-height-2560: auto;
 $subtitle-width-2560: 700px;
-$subtitle-height-2560: 220px;
+$subtitle-height-2560: auto;
 $title-margin-left-2560: 0;
 $subtitle-margin-left-2560: -80px;
 $image-width-2560: 100%;
@@ -316,6 +316,7 @@ $image-object-fit-480: cover;
     width: $title-width-1920;
     height: $title-height-1920;
     margin-left: $title-margin-left-1920;
+    margin-bottom: 2rem;
   }
 
   .hero-subtitle {
@@ -323,6 +324,7 @@ $image-object-fit-480: cover;
     width: $subtitle-width-1920;
     height: $subtitle-height-1920;
     margin-left: $subtitle-margin-left-1920;
+    margin-bottom: 5.5rem;
   }
 
   .scroll-indicator {
