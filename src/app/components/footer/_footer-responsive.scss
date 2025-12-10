@@ -1,0 +1,530 @@
+// ============================================
+// Estilos Responsivos del Footer
+// ============================================
+
+@import 'footer-variables';
+
+// 4K (2560px+)
+@include respond-to-4k {
+  .footer {
+    &__container {
+      padding: 80px 200px;
+    }
+
+    &__column-title {
+      font-size: 28px;
+    }
+
+    &__link {
+      font-size: 18px;
+    }
+
+    &__destinations-title {
+      font-size: 28px;
+    }
+
+    &__destinations-arrow {
+      width: 32px;
+      height: 32px;
+    }
+
+    &__destination-link {
+      font-size: 18px;
+    }
+
+    &__social-title {
+      font-size: 28px;
+    }
+
+    &__social-icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    &__copyright-text {
+      font-size: 18px;
+    }
+
+    &__links-grid {
+      gap: 120px;
+    }
+  }
+}
+
+// Desktop XL (1920px - 2559px)
+@include respond-to-desktop-xl {
+  .footer {
+    &__container {
+      padding: 70px 160px;
+    }
+
+    &__column-title {
+      font-size: 24px;
+    }
+
+    &__link {
+      font-size: 16px;
+    }
+
+    &__destinations-title {
+      font-size: 24px;
+    }
+
+    &__destination-link {
+      font-size: 16px;
+    }
+
+    &__social-title {
+      font-size: 24px;
+    }
+
+    &__social-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    &__copyright-text {
+      font-size: 16px;
+    }
+
+    &__links-grid {
+      gap: 100px;
+    }
+  }
+}
+
+// Desktop LG (1440px - 1919px) - Base design
+@include respond-to-desktop-lg {
+  .footer {
+    &__container {
+      padding: 60px 120px;
+    }
+  }
+}
+
+// Desktop (1024px - 1439px)
+@include respond-to-desktop {
+  .footer {
+    &__container {
+      padding: 50px 80px;
+    }
+
+    &__links-grid {
+      gap: 40px;
+    }
+
+    &__column-title {
+      font-size: 20px;
+    }
+
+    &__link {
+      font-size: 13px;
+    }
+
+    &__destinations-title {
+      font-size: 20px;
+    }
+
+    &__destination-link {
+      font-size: 13px;
+    }
+
+    &__social-title {
+      font-size: 20px;
+    }
+
+    &__social-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &__copyright-text {
+      font-size: 13px;
+    }
+  }
+}
+
+// Tablet (768px - 1023px)
+@include respond-to-tablet {
+  .footer {
+    &__container {
+      padding: 40px 40px;
+    }
+
+    &__links-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 60px;
+    }
+
+    &__column-title {
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    &__link {
+      font-size: 13px;
+    }
+
+    &__destinations-title {
+      font-size: 18px;
+    }
+
+    &__destinations-arrow {
+      width: 20px;
+      height: 20px;
+    }
+
+    &__destination-link {
+      font-size: 13px;
+    }
+
+    &__social {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    &__social-title {
+      font-size: 18px;
+    }
+
+    &__social-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &__copyright-text {
+      font-size: 12px;
+    }
+  }
+}
+
+// Mobile Large (425px - 767px)
+@include respond-to-mobile-lg {
+  .footer {
+    &__container {
+      padding: 32px 24px;
+    }
+
+    &__links-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    &__column {
+      border-bottom: 1px solid $color-border;
+      padding-bottom: 20px;
+
+      &:last-child {
+        border-bottom: 1px solid $color-border;
+        padding-bottom: 20px;
+      }
+    }
+
+    &__column-header {
+      cursor: pointer;
+
+      &:hover {
+        .footer__column-title {
+          color: $color-subtitle;
+        }
+      }
+    }
+
+    &__column-arrow {
+      display: block;
+      width: 20px;
+      height: 20px;
+    }
+
+    &__column-title {
+      font-size: 18px;
+      margin-bottom: 0;
+      transition: color $transition-fast;
+    }
+
+    &__column-links {
+      max-height: 0;
+      overflow: hidden;
+      gap: 12px;
+      transition: max-height $transition-normal, padding $transition-normal;
+
+      &--open {
+        max-height: 300px;
+        padding-top: 16px;
+      }
+    }
+
+    &__link {
+      font-size: 13px;
+    }
+
+    &__destinations {
+      padding: 20px 0;
+      border-bottom: 1px solid $color-border;
+    }
+
+    &__destinations-title {
+      font-size: 18px;
+    }
+
+    &__destinations-arrow {
+      width: 20px;
+      height: 20px;
+    }
+
+    &__destinations-content--open {
+      max-height: 400px;
+    }
+
+    &__destinations-list {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    &__destination-link {
+      font-size: 13px;
+    }
+
+    &__social {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+    }
+
+    &__social-title {
+      font-size: 18px;
+    }
+
+    &__social-icons {
+      gap: 20px;
+    }
+
+    &__social-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    &__copyright {
+      padding-top: 20px;
+    }
+
+    &__copyright-text {
+      font-size: 12px;
+    }
+  }
+}
+
+// Mobile (375px - 424px)
+@include respond-to-mobile {
+  .footer {
+    &__container {
+      padding: 28px 20px;
+    }
+
+    &__links-grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    &__column {
+      border-bottom: 1px solid $color-border;
+      padding-bottom: 18px;
+
+      &:last-child {
+        border-bottom: 1px solid $color-border;
+        padding-bottom: 18px;
+      }
+    }
+
+    &__column-header {
+      cursor: pointer;
+
+      &:hover {
+        .footer__column-title {
+          color: $color-subtitle;
+        }
+      }
+    }
+
+    &__column-arrow {
+      display: block;
+      width: 18px;
+      height: 18px;
+    }
+
+    &__column-title {
+      font-size: 16px;
+      margin-bottom: 0;
+      transition: color $transition-fast;
+    }
+
+    &__column-links {
+      max-height: 0;
+      overflow: hidden;
+      gap: 10px;
+      transition: max-height $transition-normal, padding $transition-normal;
+
+      &--open {
+        max-height: 300px;
+        padding-top: 14px;
+      }
+    }
+
+    &__link {
+      font-size: 12px;
+    }
+
+    &__destinations {
+      padding: 18px 0;
+      border-bottom: 1px solid $color-border;
+    }
+
+    &__destinations-title {
+      font-size: 16px;
+    }
+
+    &__destinations-arrow {
+      width: 18px;
+      height: 18px;
+    }
+
+    &__destination-link {
+      font-size: 12px;
+    }
+
+    &__social {
+      padding: 18px 0;
+    }
+
+    &__social-title {
+      font-size: 16px;
+    }
+
+    &__social-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &__copyright {
+      padding-top: 18px;
+    }
+
+    &__copyright-text {
+      font-size: 11px;
+    }
+  }
+}
+
+// Mobile Small (< 375px)
+@include respond-to-mobile-sm {
+  .footer {
+    &__container {
+      padding: 24px 16px;
+    }
+
+    &__links-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    &__column {
+      border-bottom: 1px solid $color-border;
+      padding-bottom: 16px;
+
+      &:last-child {
+        border-bottom: 1px solid $color-border;
+        padding-bottom: 16px;
+      }
+    }
+
+    &__column-header {
+      cursor: pointer;
+
+      &:hover {
+        .footer__column-title {
+          color: $color-subtitle;
+        }
+      }
+    }
+
+    &__column-arrow {
+      display: block;
+      width: 16px;
+      height: 16px;
+    }
+
+    &__column-title {
+      font-size: 15px;
+      margin-bottom: 0;
+      transition: color $transition-fast;
+    }
+
+    &__column-links {
+      max-height: 0;
+      overflow: hidden;
+      gap: 8px;
+      transition: max-height $transition-normal, padding $transition-normal;
+
+      &--open {
+        max-height: 300px;
+        padding-top: 12px;
+      }
+    }
+
+    &__link {
+      font-size: 11px;
+    }
+
+    &__destinations {
+      padding: 16px 0;
+      border-bottom: 1px solid $color-border;
+    }
+
+    &__destinations-title {
+      font-size: 15px;
+    }
+
+    &__destinations-arrow {
+      width: 16px;
+      height: 16px;
+    }
+
+    &__destination-link {
+      font-size: 11px;
+    }
+
+    &__social {
+      padding: 16px 0;
+    }
+
+    &__social-title {
+      font-size: 15px;
+    }
+
+    &__social-icons {
+      gap: 16px;
+    }
+
+    &__social-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    &__copyright {
+      padding-top: 16px;
+    }
+
+    &__copyright-text {
+      font-size: 10px;
+      line-height: 1.4;
+    }
+  }
+}

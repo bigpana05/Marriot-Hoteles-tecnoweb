@@ -1,0 +1,75 @@
+// ============================================
+// Sección de Principales Destinos del Footer
+// ============================================
+
+@import 'footer-variables';
+
+.footer {
+  &__destinations {
+    padding: $spacing-section-gap 0;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__destinations-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      .footer__destinations-title {
+        color: $color-subtitle;
+      }
+    }
+  }
+
+  &__destinations-title {
+    font-family: $font-brand;
+    font-size: $font-size-title;
+    color: $color-title;
+    margin: 0;
+    font-weight: 400;
+    transition: color $transition-fast;
+  }
+
+  &__destinations-arrow {
+    width: $icon-arrow-size;
+    height: $icon-arrow-size;
+    transition: transform $transition-normal;
+    
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__destinations-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height $transition-normal, padding $transition-normal;
+
+    &--open {
+      max-height: 300px;
+      padding-top: 24px;
+    }
+  }
+
+  &__destinations-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 40px;
+  }
+
+  &__destination-link {
+    font-family: $font-brand;
+    font-size: $font-size-subtitle;
+    color: $color-subtitle;
+    text-decoration: none;
+    transition: color $transition-fast;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-title;
+    }
+  }
+}
