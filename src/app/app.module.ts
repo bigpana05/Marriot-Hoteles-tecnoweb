@@ -35,6 +35,7 @@ import { DatePickerDropdownComponent } from './pages/client/home/sections/search
 import { RoomsSelectorComponent } from './pages/client/home/sections/search-section/rooms-selector/rooms-selector.component';
 import { HotelsCarouselComponent } from './pages/client/home/sections/search-section/hotels-carousel/hotels-carousel.component';
 import { HomeOffersExclusiveComponent } from './pages/client/home/sections/home-offers-exclusive/home-offers-exclusive.component';
+import { HomeJoinMarriottComponent } from './pages/client/home/sections/home-join-marriott/home-join-marriott.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { HomeOffersExclusiveComponent } from './pages/client/home/sections/home-
     RoomsSelectorComponent,
     HotelsCarouselComponent,
     HomeOffersExclusiveComponent,
+    HomeJoinMarriottComponent,
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],

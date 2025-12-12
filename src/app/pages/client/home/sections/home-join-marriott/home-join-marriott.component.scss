@@ -1,0 +1,626 @@
+@import url('https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Baloo+Tamma+2:wght@400;500;600;700&display=swap');
+
+.join-marriott {
+    padding: 80px 0;
+    background-color: #F3EEE7;
+
+    .container {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .join-card {
+        width: 1140px;
+        min-height: 376px;
+        background-color: rgba(170, 151, 129, 0.2);
+        border-radius: 12px;
+        padding: 50px 60px;
+        box-sizing: border-box;
+    }
+
+    .content-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        gap: 40px;
+    }
+
+    .left-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+    .text-content {
+        max-width: 400px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-left: 30px;
+
+        .title {
+            font-family: 'Luxurious Roman', serif;
+            font-size: 45px;
+            color: #222222;
+            margin: 0 0 20px 0;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-family: 'Luxurious Roman', serif;
+            font-size: 16px;
+            color: #707274;
+            margin: 0 0 30px 0;
+            line-height: 1.5;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 30px;
+
+        .btn {
+            width: 150px;
+            height: 40px;
+            border-radius: 20px;
+            font-family: 'Luxurious Roman', serif;
+            font-size: 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            outline: none;
+            border: none;
+
+            &:hover {
+                opacity: 0.85;
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .btn-primary {
+            background-color: #222222;
+            color: #FFFFFF;
+        }
+
+        .btn-secondary {
+            background-color: #FFFFFF;
+            color: #222222;
+            border: 1px solid #222222;
+        }
+    }
+
+    // Mostrar botones de escritorio por defecto
+    .buttons-desktop {
+        display: flex;
+    }
+
+    // Ocultar botones móviles por defecto
+    .buttons-mobile {
+        display: none;
+    }
+
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0;
+        position: relative;
+        width: 475px;
+        height: 216px;
+
+        // Línea horizontal (centro)
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 475px;
+            height: 0.5px;
+            background-color: #000000;
+            transform: translateY(-50%);
+        }
+
+        // Línea vertical (centro)
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 0.5px;
+            height: 216px;
+            background-color: #000000;
+            transform: translateX(-50%);
+        }
+
+        .benefit-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+
+            .benefit-icon {
+                width: 36px;
+                height: 30px;
+                margin-bottom: 12px;
+                object-fit: contain;
+            }
+
+            .benefit-label {
+                font-family: 'Baloo Tamma 2', sans-serif;
+                font-size: 13px;
+                color: #222222;
+                font-weight: 500;
+                letter-spacing: 0.5px;
+            }
+        }
+    }
+}
+
+// Pantallas grandes (1921px+)
+@media (min-width: 1921px) {
+    .join-marriott {
+        .join-card {
+            width: 1300px;
+            padding: 60px 80px;
+        }
+
+        .text-content {
+            max-width: 500px;
+
+            .title {
+                font-size: 52px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+        }
+
+        .benefits-grid {
+            width: 550px;
+            height: 250px;
+
+            &::before {
+                width: 550px;
+            }
+
+            &::after {
+                height: 250px;
+            }
+
+            .benefit-item {
+                .benefit-icon {
+                    width: 42px;
+                    height: 36px;
+                }
+
+                .benefit-label {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+// Escritorio (1440px)
+@media (max-width: 1440px) {
+    .join-marriott {
+        .join-card {
+            width: 95%;
+            max-width: 1140px;
+        }
+    }
+}
+
+// Portátil (1200px)
+@media (max-width: 1200px) {
+    .join-marriott {
+        padding: 60px 0;
+
+        .join-card {
+            width: 90%;
+            padding: 40px 50px;
+        }
+
+        .text-content {
+            .title {
+                font-size: 38px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+            }
+        }
+
+        .benefits-grid {
+            width: 420px;
+            height: 190px;
+
+            &::before {
+                width: 420px;
+            }
+
+            &::after {
+                height: 190px;
+            }
+
+            .benefit-item {
+                padding: 15px;
+
+                .benefit-icon {
+                    width: 32px;
+                    height: 26px;
+                }
+
+                .benefit-label {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
+// Tablet horizontal (1024px)
+@media (max-width: 1024px) {
+    .join-marriott {
+        .join-card {
+            padding: 35px 40px;
+        }
+
+        .content-wrapper {
+            gap: 30px;
+        }
+
+        .text-content {
+            max-width: 320px;
+
+            .title {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 25px;
+            }
+
+            .buttons {
+                gap: 10px;
+
+                .btn {
+                    width: 140px;
+                    height: 38px;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .benefits-grid {
+            width: 360px;
+            height: 170px;
+
+            &::before {
+                width: 360px;
+            }
+
+            &::after {
+                height: 170px;
+            }
+
+            .benefit-item {
+                padding: 12px;
+
+                .benefit-icon {
+                    width: 28px;
+                    height: 24px;
+                }
+
+                .benefit-label {
+                    font-size: 11px;
+                }
+            }
+        }
+    }
+}
+
+// Tablet vertical (768px)
+@media (max-width: 768px) {
+    .join-marriott {
+        padding: 50px 0;
+
+        .join-card {
+            padding: 40px 30px;
+            min-height: auto;
+        }
+
+        .content-wrapper {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .text-content {
+            max-width: 100%;
+            margin-left: 0;
+
+            .title {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+            }
+        }
+
+        .buttons {
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .benefits-grid {
+            width: 100%;
+            max-width: 450px;
+            height: 200px;
+            margin: 20px auto 0;
+
+            &::before {
+                width: 100%;
+            }
+
+            &::after {
+                height: 200px;
+            }
+
+            .benefit-item {
+                padding: 15px 25px;
+
+                .benefit-icon {
+                    width: 32px;
+                    height: 28px;
+                }
+
+                .benefit-label {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
+// Móvil grande (425px)
+@media (max-width: 425px) {
+    .join-marriott {
+        padding: 40px 0;
+
+        .container {
+            padding: 0 15px;
+        }
+
+        .join-card {
+            padding: 30px 20px;
+        }
+
+        .content-wrapper {
+            flex-direction: column;
+        }
+
+        .left-section {
+            order: 1;
+            width: 100%;
+        }
+
+        // Ocultar botones de escritorio, mostrar móviles
+        .buttons-desktop {
+            display: none;
+        }
+
+        .buttons-mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            order: 3;
+            margin-top: 20px;
+
+            .btn {
+                width: 160px;
+                height: 40px;
+            }
+        }
+
+        .text-content {
+            .title {
+                font-size: 28px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .benefits-grid {
+            width: 100%;
+            max-width: 340px;
+            height: 180px;
+            order: 2;
+
+            &::before {
+                width: 100%;
+            }
+
+            &::after {
+                height: 180px;
+            }
+
+            .benefit-item {
+                padding: 10px 15px;
+
+                .benefit-icon {
+                    width: 28px;
+                    height: 24px;
+                }
+
+                .benefit-label {
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+}
+
+// Móvil mediano (375px)
+@media (max-width: 375px) {
+    .join-marriott {
+        .join-card {
+            padding: 25px 15px;
+        }
+
+        .left-section {
+            order: 1;
+        }
+
+        .buttons-desktop {
+            display: none;
+        }
+
+        .buttons-mobile {
+            display: flex;
+            order: 3;
+
+            .btn {
+                width: 140px;
+                height: 38px;
+                font-size: 14px;
+            }
+        }
+
+        .text-content {
+            .title {
+                font-size: 24px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+            }
+        }
+
+        .benefits-grid {
+            width: 100%;
+            max-width: 300px;
+            height: 160px;
+            order: 2;
+
+            &::before {
+                width: 100%;
+            }
+
+            &::after {
+                height: 160px;
+            }
+
+            .benefit-item {
+                padding: 8px 10px;
+
+                .benefit-icon {
+                    width: 24px;
+                    height: 20px;
+                }
+
+                .benefit-label {
+                    font-size: 9px;
+                }
+            }
+        }
+    }
+}
+
+// Móvil pequeño (320px)
+@media (max-width: 320px) {
+    .join-marriott {
+        padding: 30px 0;
+
+        .container {
+            padding: 0 10px;
+        }
+
+        .join-card {
+            padding: 20px 12px;
+        }
+
+        .left-section {
+            order: 1;
+        }
+
+        .buttons-desktop {
+            display: none;
+        }
+
+        .buttons-mobile {
+            display: flex;
+            order: 3;
+
+            .btn {
+                width: 130px;
+                height: 36px;
+                font-size: 13px;
+            }
+        }
+
+        .text-content {
+            .title {
+                font-size: 22px;
+            }
+
+            .subtitle {
+                font-size: 12px;
+            }
+        }
+
+        .benefits-grid {
+            width: 100%;
+            max-width: 260px;
+            height: 140px;
+            order: 2;
+
+            &::before {
+                width: 100%;
+            }
+
+            &::after {
+                height: 140px;
+            }
+
+            .benefit-item {
+                padding: 6px 8px;
+
+                .benefit-icon {
+                    width: 22px;
+                    height: 18px;
+                    margin-bottom: 8px;
+                }
+
+                .benefit-label {
+                    font-size: 8px;
+                }
+            }
+        }
+    }
+}
