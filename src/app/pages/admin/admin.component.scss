@@ -1,0 +1,152 @@
+.admin-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  background: #111827;
+  color: #e5e7eb;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.admin-logo__title {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.admin-logo__subtitle {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.admin-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  a {
+    color: #d1d5db;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+
+    &.active,
+    &:hover {
+      background: #1f2937;
+      color: #fff;
+    }
+  }
+}
+
+/* Contenido */
+.admin-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra superior */
+.admin-topbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+
+  &__left {
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    margin: 0 0 0.15rem;
+  }
+
+  &__subtitle {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+/* Info de usuario */
+.admin-user {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  &__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: #111827;
+    color: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  &__role {
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+}
+
+/* Zona principal donde van las páginas admin */
+.admin-main {
+  padding: 1.5rem 2rem;
+}
+
+@media (max-width: 900px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    grid-row: 2;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .admin-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .admin-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
