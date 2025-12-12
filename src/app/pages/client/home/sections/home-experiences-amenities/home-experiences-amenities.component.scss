@@ -1,0 +1,1008 @@
+// Importar fuentes
+@import url('https://fonts.googleapis.com/css2?family=Luxurious+Roman&display=swap');
+
+// ============================================
+// VARIABLES
+// ============================================
+$font-brand: 'Luxurious Roman', serif;
+$color-title: #222222;
+$color-subtitle: #707274;
+$bg-color: #F3EEE7;
+
+// Tamaños para 1440px (base)
+$card-large-width: 450px;
+$card-large-height: 580px;
+$card-small-width: 260px;
+$card-small-height: 320px;
+
+// Tamaños de iconos
+$arrow-large: 27px;
+$arrow-small: 22px;
+
+// Animación
+$animation-duration: 0.5s;
+$animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+// ============================================
+// BASE STYLES
+// ============================================
+.experiences-amenities {
+  background-color: $bg-color;
+  padding: 60px 0 80px;
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+}
+
+// ============================================
+// BACKGROUND OVERLAY BOX
+// ============================================
+.experiences-amenities::before {
+  content: '';
+  position: absolute;
+  top: 55%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 1156px;
+  height: 680px;
+  background-color: #D8CBBD;
+  opacity: 0.2;
+  z-index: 1;
+  pointer-events: none;
+}
+
+// ============================================
+// HEADER - Posicionado arriba a la derecha, centrado sobre las cards pequeñas
+// ============================================
+.header {
+  position: absolute;
+  top: 0;
+  left: calc(#{$card-large-width} + 80px);
+  right: 40px;
+  text-align: center;
+  z-index: 5;
+
+  .title {
+    font-family: $font-brand;
+    font-size: 42px;
+    font-weight: 400;
+    color: $color-title;
+    margin: 0 0 10px 0;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-family: $font-brand;
+    font-size: 20px;
+    font-weight: 400;
+    color: $color-subtitle;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// ============================================
+// CARDS LAYOUT - Grid con 2 columnas
+// ============================================
+.cards-layout {
+  display: grid;
+  grid-template-columns: $card-large-width 1fr;
+  gap: 40px;
+  align-items: start;
+  padding-top: 20px;
+}
+
+// ============================================
+// CARD GRANDE (Izquierda)
+// ============================================
+.card-large-wrapper {
+  position: relative;
+}
+
+// Botón prev posicionado a la izquierda del layout
+.nav-btn.prev {
+  position: absolute;
+  left: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.card-large {
+  width: $card-large-width;
+  transition: transform $animation-duration $animation-easing,
+              opacity $animation-duration $animation-easing;
+
+  &.animating {
+    animation: scaleUp $animation-duration $animation-easing;
+  }
+
+  .card-image-container {
+    width: 100%;
+    height: $card-large-height;
+    overflow: hidden;
+    border-radius: 5%;
+
+    .card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  &:hover .card-image {
+    transform: scale(1.03);
+  }
+
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 20px;
+    padding-right: 10px;
+  }
+
+  .card-text {
+    flex: 1;
+  }
+
+  .card-title {
+    font-family: $font-brand;
+    font-size: 26px;
+    font-weight: 400;
+    color: $color-title;
+    margin: 0 0 8px 0;
+  }
+
+  .card-description {
+    font-family: $font-brand;
+    font-size: 18px;
+    font-weight: 400;
+    color: $color-subtitle;
+    margin: 0;
+    line-height: 1.4;
+    max-width: 350px;
+  }
+
+  .card-arrow {
+    flex-shrink: 0;
+    width: $arrow-large;
+    height: $arrow-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+// ============================================
+// CARDS PEQUEÑAS (Derecha, en fila horizontal centradas)
+// ============================================
+.cards-small-wrapper {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 160px;
+  position: relative;
+}
+
+// Botón next posicionado a la derecha del layout
+.nav-btn.next {
+  position: absolute;
+  right: -50px;
+  top: calc(160px + 160px); 
+  z-index: 10;
+}
+
+.card-small {
+  width: $card-small-width;
+  flex-shrink: 0;
+  transition: transform $animation-duration $animation-easing,
+              opacity $animation-duration $animation-easing;
+
+  &.animating {
+    animation: fadeIn $animation-duration $animation-easing;
+  }
+
+  .card-image-container {
+    width: 100%;
+    height: $card-small-height;
+    overflow: hidden;
+    border-radius: 10%;
+
+    .card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  &:hover .card-image {
+    transform: scale(1.03);
+  }
+
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    gap: 10px;
+  }
+
+  .card-title {
+    font-family: $font-brand;
+    font-size: 20px;
+    font-weight: 400;
+    color: $color-title;
+    margin: 0;
+  }
+
+  .card-description {
+    font-family: $font-brand;
+    font-size: 14px;
+    font-weight: 400;
+    color: $color-subtitle;
+    margin: 6px 0 0 0;
+    line-height: 1.4;
+  }
+
+  .card-arrow {
+    flex-shrink: 0;
+    width: $arrow-small;
+    height: $arrow-small;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+// ============================================
+// NAVIGATION BUTTONS 
+// ============================================
+.nav-btn {
+  background: transparent;
+  border: none;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.3s ease;
+
+  .arrow-icon {
+    width: 100%;
+    height: 100%;
+
+    &.rotated {
+      transform: rotate(180deg);
+    }
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ============================================
+// RESPONSIVE - 1920px
+// ============================================
+@media (min-width: 1920px) {
+  .experiences-amenities::before {
+    width: 1750px !important;
+    height: 800px !important;
+  }
+
+  .container {
+    max-width: 1600px;
+  }
+
+  .header {
+    left: calc(580px + 70px);
+
+    .title {
+      font-size: 52px;
+    }
+
+    .subtitle {
+      font-size: 24px;
+    }
+  }
+
+  .cards-layout {
+    grid-template-columns: 580px 1fr;
+    gap: 0px;
+  }
+
+  .nav-btn.prev {
+    left: -65px;
+  }
+
+  .card-large {
+    width: 580px;
+
+    .card-image-container {
+      height: 700px;
+    }
+
+    .card-title {
+      font-size: 32px;
+    }
+
+    .card-description {
+      font-size: 22px;
+    }
+  }
+
+  .cards-small-wrapper {
+    padding-top: 200px;
+  }
+
+  .nav-btn.next {
+    right: 30px;
+    top: calc(200px + 180px);
+  }
+
+  .card-small {
+    width: 320px;
+
+    .card-image-container {
+      height: 400px;
+    }
+
+    .card-title {
+      font-size: 24px;
+    }
+
+    .card-description {
+      font-size: 16px;
+    }
+  }
+}
+
+// ============================================
+// RESPONSIVE - 2560px
+// ============================================
+@media (min-width: 2560px) {
+  .experiences-amenities::before {
+    width: 2150px;
+    height: 1000px;
+  }
+
+  .container {
+    max-width: 1800px;
+    padding: 0 60px;
+  }
+
+  .header {
+    left: calc(580px + 80px);
+
+    .title {
+      font-size: 52px;
+    }
+
+    .subtitle {
+      font-size: 24px;
+    }
+  }
+
+  .cards-layout {
+    grid-template-columns: 580px 1fr;
+    gap: 3px;
+  }
+
+  .nav-btn.prev {
+    left: -20px;
+  }
+
+  .card-large {
+    width: 580px;
+
+    .card-image-container {
+      height: 720px;
+    }
+
+    .card-title {
+      font-size: 32px;
+    }
+
+    .card-description {
+      font-size: 22px;
+    }
+  }
+
+  .cards-small-wrapper {
+    padding-top: 200px;
+    gap: 25px;
+  }
+
+  .nav-btn.next {
+    right: 80px;
+    top: calc(200px + 180px);
+  }
+
+  .card-small {
+    width: 340px;
+
+    .card-image-container {
+      height: 400px;
+    }
+
+    .card-title {
+      font-size: 24px;
+    }
+
+    .card-description {
+      font-size: 16px;
+    }
+  }
+}
+
+// ============================================
+// RESPONSIVE - 1024px
+// ============================================
+@media (max-width: 1024px) {
+  .experiences-amenities::before {
+    width: 850px;
+    height: 480px;
+  }
+
+  .container {
+    max-width: 900px;
+    padding: 0 40px;
+  }
+
+  .header {
+    left: calc(340px + 50px);
+
+    .title {
+      font-size: 32px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+    }
+  }
+
+  .cards-layout {
+    grid-template-columns: 340px 1fr;
+    gap: 25px;
+  }
+
+  .nav-btn.prev {
+    left: -30px;
+  }
+
+  .card-large {
+    width: 340px;
+
+    .card-image-container {
+      height: 430px;
+    }
+
+    .card-title {
+      font-size: 20px;
+    }
+
+    .card-description {
+      font-size: 15px;
+    }
+  }
+
+  .cards-small-wrapper {
+    padding-top: 120px;
+    gap: 18px;
+  }
+
+  .nav-btn.next {
+    right: -55px;
+    top: calc(120px + 120px);
+  }
+
+  .card-small {
+    width: 200px;
+
+    .card-image-container {
+      height: 240px;
+    }
+
+    .card-title {
+      font-size: 17px;
+    }
+
+    .card-description {
+      font-size: 12px;
+    }
+  }
+
+  .nav-btn {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+// ============================================
+// RESPONSIVE - 768px
+// ============================================
+@media (max-width: 768px) {
+  .experiences-amenities::before {
+    width: 680px;
+    height: 450px;
+  }
+
+  .container {
+    max-width: 650px;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  .header {
+    left: calc(280px + 40px);
+
+    .title {
+      font-size: 28px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+
+  .cards-layout {
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    padding-top: 10px;
+  }
+
+  .nav-btn.prev {
+    left: -45px;
+    top: calc(30px + 260px);
+  }
+
+  .card-large {
+    width: 280px;
+
+    .card-image-container {
+      height: 360px;
+    }
+
+    .card-title {
+      font-size: 18px;
+    }
+
+    .card-description {
+      font-size: 14px;
+    }
+  }
+
+  .cards-small-wrapper {
+    padding-top: 160px;
+    gap: 15px;
+  }
+
+  .nav-btn.next {
+    right: -45px;
+    top: calc(-10px + 260px);
+  }
+
+  .card-small {
+    width: 170px;
+
+    .card-image-container {
+      height: 200px;
+    }
+
+    .card-title {
+      font-size: 15px;
+    }
+
+    .card-description {
+      font-size: 11px;
+    }
+  }
+
+  .nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+// ============================================
+// RESPONSIVE - 425px
+// ============================================
+@media (max-width: 425px) {
+  .experiences-amenities {
+    padding: 40px 0 50px;
+
+    &::before {
+      width: 850px;
+      height: 360px;
+    }
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0 20px 0 30px;
+  }
+
+  .header {
+    position: relative;
+    left: auto;
+    right: auto;
+    text-align: center;
+    margin-bottom: 30px;
+
+    .title {
+      font-size: 28px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+    }
+  }
+
+  .cards-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding-top: 0;
+  }
+
+  .card-large-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 50px;
+    margin-left: -20px;
+  }
+
+  .nav-btn.prev {
+    position: absolute;
+    left: 20px;
+    top: 360px;
+  }
+
+  .card-large {
+    width: 309px;
+    max-width: 309px;
+
+    .card-image-container {
+      height: 444px;
+      border-radius: 5%;
+    }
+
+    .card-title {
+      font-size: 18px;
+    }
+
+    .card-description {
+      font-size: 13px;
+    }
+  }
+
+  .cards-small-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    padding-top: 0;
+    position: relative;
+
+    .nav-btn.next {
+      position: absolute;
+      right: -20px;
+      top: -360px;
+    }
+  }
+
+  .card-small {
+    width: 176px;
+    max-width: 176px;
+
+    .card-image-container {
+      height: 214px;
+      border-radius: 0;
+    }
+
+    .card-title {
+      font-size: 14px;
+    }
+
+    .card-description {
+      font-size: 11px;
+    }
+  }
+
+  .nav-btn {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+// ============================================
+// RESPONSIVE - 375px
+// ============================================
+@media (max-width: 375px) {
+  .experiences-amenities {
+    padding: 40px 0 50px;
+
+    &::before {
+      width: 780px;
+      height: 320px;
+    }
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0 16px 0 26px;
+  }
+
+  .header {
+    position: relative;
+    left: auto;
+    right: auto;
+    text-align: center;
+    margin-bottom: 25px;
+
+    .title {
+      font-size: 26px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+    }
+  }
+
+  .cards-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 0;
+  }
+
+  .card-large-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 45px;
+    margin-left: -10px;
+  }
+
+  .nav-btn.prev {
+    position: absolute;
+    left: 20px;
+    top: 320px;
+  }
+
+  .card-large {
+    width: 260px;
+    max-width: 260px;
+
+    .card-image-container {
+      height: 374px;
+      border-radius: 5%;
+    }
+
+    .card-title {
+      font-size: 17px;
+    }
+
+    .card-description {
+      font-size: 12px;
+    }
+  }
+
+  .cards-small-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 0;
+    position: relative;
+
+    .nav-btn.next {
+      position: absolute;
+      right: -30px;
+      top: -315px;
+    }
+  }
+
+  .card-small {
+    width: 148px;
+    max-width: 148px;
+
+    .card-image-container {
+      height: 180px;
+      border-radius: 0;
+    }
+
+    .card-title {
+      font-size: 13px;
+    }
+
+    .card-description {
+      font-size: 10px;
+    }
+  }
+
+  .nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+// ============================================
+// RESPONSIVE - 320px
+// ============================================
+@media (max-width: 320px) {
+  .experiences-amenities {
+    padding: 30px 0 40px;
+
+    &::before {
+      width: 700px;
+      height: 280px;
+    }
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0 12px 0 22px;
+  }
+
+  .header {
+    position: relative;
+    left: auto;
+    right: auto;
+    text-align: center;
+    margin-bottom: 20px;
+
+    .title {
+      font-size: 24px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+    }
+  }
+
+  .cards-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-top: 0;
+  }
+
+  .card-large-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    margin-left: -10px;
+  }
+
+  .nav-btn.prev {
+    position: absolute;
+    left: 10px;
+    top: 300px;
+  }
+
+  .card-large {
+    width: 220px;
+    max-width: 220px;
+
+    .card-image-container {
+      height: 316px;
+      border-radius: 5%;
+    }
+
+    .card-title {
+      font-size: 15px;
+    }
+
+    .card-description {
+      font-size: 11px;
+    }
+
+    .card-arrow {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .cards-small-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 0;
+    position: relative;
+
+    .nav-btn.next {
+      position: absolute;
+      right: -30px;
+      top: -285px;
+    }
+  }
+
+  .card-small {
+    width: 125px;
+    max-width: 125px;
+
+    .card-image-container {
+      height: 152px;
+      border-radius: 0;
+    }
+
+    .card-title {
+      font-size: 12px;
+    }
+
+    .card-description {
+      font-size: 9px;
+    }
+
+    .card-arrow {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .nav-btn {
+    width: 32px;
+    height: 32px;
+  }
+}
