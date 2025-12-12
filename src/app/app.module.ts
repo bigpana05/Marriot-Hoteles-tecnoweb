@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-
 import { HomeComponent } from './pages/client/home/home.component';
 import { LoginComponent } from './pages/client/login/login.component';
 import { ProfileComponent } from './pages/client/profile/profile.component';
@@ -40,6 +39,7 @@ import { UsersComponent } from './pages/admin/users/users.component';
     UsersComponent,
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
+
   providers: [],
   bootstrap: [AppComponent],
 })

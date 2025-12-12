@@ -12,7 +12,7 @@ export class AdminComponent {
 
   constructor(private auth: AuthService, private router: Router) {
     // Nos suscribimos al usuario actual para mostrar nombre y rol en el panel
-    this.auth.currentUser$.subscribe((u) => (this.user = u));
+    this.auth.currentUser$.subscribe((u: User | null) => (this.user = u));
   }
 
   logout(): void {
