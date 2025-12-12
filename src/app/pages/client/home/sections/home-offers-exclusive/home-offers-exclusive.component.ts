@@ -115,8 +115,8 @@ export class HomeOffersExclusiveComponent implements OnInit, OnDestroy {
 
     /**
      * Calcula el estilo de transformación para el carrusel.
-     * En móvil (1 item), usa porcentajes ya que cada slide ocupa 100% del ancho.
-     * En desktop/tablet (múltiples items), usa píxeles con el ancho del item + gap.
+     * En móvil (1 item), usa porcentajes y se desplaza por grupos completos.
+     * En desktop/tablet (múltiples items), se desplaza de 1 en 1 card.
      * @returns String con el valor CSS translateX.
      */
     get transformStyle(): string {
@@ -124,13 +124,16 @@ export class HomeOffersExclusiveComponent implements OnInit, OnDestroy {
             const percentShift = this.currentSlide * 100;
             return `translateX(-${percentShift}%)`;
         } else {
-            const shift = this.currentSlide * this.itemsPerSlide * (this.itemWidth + this.gap);
+            const shift = this.currentSlide * (this.itemWidth + this.gap);
             return `translateX(-${shift}px)`;
         }
     }
 
     get totalSlides(): number {
-        return Math.ceil(this.offers.length / this.itemsPerSlide);
+        if (this.itemsPerSlide === 1) {
+            return this.offers.length;
+        }
+        return this.offers.length - this.itemsPerSlide + 1;
     }
 
     get slides(): number[] {
