@@ -1,6 +1,8 @@
 <section>
   <h1 class="mb-3">Dashboard</h1>
-  <p class="text-muted mb-4">Resumen general de usuarios, hoteles y eventos.</p>
+  <p class="text-muted mb-4">
+    Resumen general de usuarios, hoteles y eventos.
+  </p>
 
   <div *ngIf="loading">Cargando datos...</div>
 
@@ -10,9 +12,7 @@
         <div class="card-body">
           <h6 class="card-subtitle mb-1 text-muted">Usuarios totales</h6>
           <h3 class="card-title">{{ users.length }}</h3>
-          <p class="mb-0 small">
-            Admins: {{ totalAdmins }} • Clientes: {{ totalClients }}
-          </p>
+          <p class="mb-0 small">Admins: {{ totalAdmins }} • Clientes: {{ totalClients }}</p>
         </div>
       </div>
     </div>
@@ -40,9 +40,7 @@
     <div class="col-md-3 mb-3">
       <div class="card shadow-sm">
         <div class="card-body">
-          <h6 class="card-subtitle mb-1 text-muted">
-            Ocupación promedio eventos
-          </h6>
+          <h6 class="card-subtitle mb-1 text-muted">Ocupación promedio eventos</h6>
           <h3 class="card-title">{{ avgOccupancy }}%</h3>
           <p class="mb-0 small">Asistentes vs capacidad total.</p>
         </div>

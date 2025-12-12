@@ -1,129 +1,95 @@
-.login-page {
-  font-family: var(--mtt-font-ui);
-  letter-spacing: 0.2px;
-  min-height: calc(100vh - var(--mtt-navbar-h));
+.login {
+  min-height: calc(100vh - 160px);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 60px;
-  background: var(--mtt-bg);
-}
-
-.login-card {
-  font-family: var(--mtt-font-brand);
-  width: 950px;
-  background: #fff;
-  padding: 70px 90px;
-  border-radius: 0;
-  border: 1px solid #eee;
-}
-
-.login-logo {
-  display: flex;
-  justify-content: center;
-  margin-top: -10px;
-  margin-bottom: 18px;
-}
-
-.login-logo-icon {
-  width: 48px;
-  height: 48px;
-  background-image: url("/assets/brand/marriott-international-logo-m.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
-
-.login-title {
-  font-family: var(--mtt-font-brand);
-  font-size: 42px;
-  line-height: 1.2;
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-}
-
-.login-subtitle {
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 25px;
-}
-
-.login-field {
-  margin-bottom: 26px;
-  display: flex;
-  flex-direction: column;
-}
-
-.login-field input {
-  font-family: var(--mtt-font-ui);
-  width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  font-size: 15px;
-  font-family: var(--mtt-font-ui);
-}
-
-.password-row {
-  position: relative;
-}
-
-.password-toggle {
-  font-family: var(--mtt-font-ui);
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
-  background-color: transparent;
-  background-image: url("/assets/icons/eye2.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.password-toggle--visible {
-  background-image: url("/assets/icons/eye1.svg");
-}
-
-.login-error {
-  font-size: 13px;
-  color: #c0392b;
-  margin-top: 4px;
-}
-
-.remember-me {
-  display: flex;
   align-items: center;
-  gap: 8px;
-}
+  padding: 2rem 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 75, 141, 0.08),
+    rgba(0, 143, 213, 0.2)
+  );
 
-.login-register-text {
-  font-size: 14px;
-  margin-bottom: 30px;
-}
+  &__card {
+    width: min(420px, 100%);
+    background: #ffffff;
+    padding: 2.5rem 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.1);
+  }
 
-.login-button {
-  width: 280px;
-  background: #555;
-  padding: 14px;
-  border-radius: 6px;
-  font-size: 18px;
-  font-weight: 600;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin: 0 auto;
-  display: block;
-  font-family: var(--mtt-font-ui);
-}
+  &__title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #004b8d;
+    margin-bottom: 0.5rem;
+  }
 
-.login-button:disabled {
-  background: #b1b1b1;
-  cursor: not-allowed;
+  &__subtitle {
+    color: #5f6b7a;
+    margin-bottom: 2rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-weight: 600;
+      color: #2f3b4c;
+    }
+
+    input {
+      padding: 0.85rem 1rem;
+      border-radius: 0.75rem;
+      border: 1px solid #d1d9e6;
+      font-size: 1rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #008fd5;
+        box-shadow: 0 0 0 4px rgba(0, 143, 213, 0.15);
+      }
+    }
+  }
+
+  button {
+    padding: 0.9rem 1.2rem;
+    border-radius: 0.9rem;
+    border: none;
+    background: linear-gradient(135deg, #008fd5, #00b4d8);
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+      box-shadow: none;
+    }
+
+    &:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 1rem 2rem rgba(0, 143, 213, 0.25);
+    }
+  }
+
+  &__error {
+    font-size: 0.85rem;
+    color: #c1121f;
+
+    &--global {
+      text-align: center;
+    }
+  }
 }

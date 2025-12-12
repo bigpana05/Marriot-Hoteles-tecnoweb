@@ -9,7 +9,7 @@ import { Event } from '../../../core/models/event.model';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   users: User[] = [];
@@ -31,31 +31,31 @@ export class DashboardComponent implements OnInit {
   private loadData(): void {
     this.loading = true;
 
-    this.adminUserService.getUsers().subscribe((users) => {
+    this.adminUserService.getUsers().subscribe(users => {
       this.users = users;
     });
 
-    this.hotelService.getHotels().subscribe((hotels) => {
+    this.hotelService.getHotels().subscribe(hotels => {
       this.hotels = hotels;
     });
 
-    this.eventService.getEvents().subscribe((events) => {
+    this.eventService.getEvents().subscribe(events => {
       this.events = events;
       this.loading = false;
     });
   }
 
   get totalAdmins(): number {
-    return this.users.filter((u) => u.role === 'ADMIN').length;
+    return this.users.filter(u => u.role === 'ADMIN').length;
   }
 
   get totalClients(): number {
-    return this.users.filter((u) => u.role === 'CLIENT').length;
+    return this.users.filter(u => u.role === 'CLIENT').length;
   }
 
   get avgOccupancy(): number {
     if (!this.events.length) return 0;
-    const rates = this.events.map((e) =>
+    const rates = this.events.map(e =>
       e.capacity === 0 ? 0 : (e.attendees / e.capacity) * 100
     );
     const sum = rates.reduce((a, b) => a + b, 0);

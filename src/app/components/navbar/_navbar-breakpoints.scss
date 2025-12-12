@@ -44,7 +44,7 @@ $breakpoint-mobile: 480px;
 // Helpers globales para mostrar/ocultar por breakpoint
 .desktop-md {
   display: flex;
-
+  
   @include respond-to-tablet {
     display: none !important;
   }
@@ -52,7 +52,7 @@ $breakpoint-mobile: 480px;
 
 .mobile-only {
   display: none;
-
+  
   @include respond-to-tablet {
     display: inline-flex !important;
   }
