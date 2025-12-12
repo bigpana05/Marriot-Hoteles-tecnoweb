@@ -5,15 +5,12 @@ import { AuthService, User } from '../../core/services/auth.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent {
   user: User | null = null;
 
-  constructor(
-    private auth: AuthService,
-    private router: Router
-  ) {
+  constructor(private auth: AuthService, private router: Router) {
     // Nos suscribimos al usuario actual para mostrar nombre y rol en el panel
     this.auth.currentUser$.subscribe((u: User | null) => (this.user = u));
   }

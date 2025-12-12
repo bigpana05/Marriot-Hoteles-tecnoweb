@@ -5,16 +5,13 @@ import { AuthService, User } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent {
   user: User | null = null;
 
-  constructor(
-    private auth: AuthService,
-    private router: Router
-  ) {
-    this.auth.currentUser$.subscribe(u => (this.user = u));
+  constructor(private auth: AuthService, private router: Router) {
+    this.auth.currentUser$.subscribe((u) => (this.user = u));
   }
 
   get isAdmin(): boolean {

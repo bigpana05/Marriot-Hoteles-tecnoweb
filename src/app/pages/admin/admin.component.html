@@ -33,13 +33,16 @@
           <div class="admin-user__info">
             <span class="admin-user__name">{{ user.name }}</span>
             <span class="admin-user__role">
-              {{ user.role === 'ADMIN' ? 'Administrador' : 'Usuario' }}
+              {{ user.role === "ADMIN" ? "Administrador" : "Usuario" }}
             </span>
           </div>
         </div>
 
         <div class="admin-topbar__actions">
-          <button class="btn btn-outline-secondary btn-sm" (click)="goToClient()">
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            (click)="goToClient()"
+          >
             Ver sitio público
           </button>
           <button class="btn btn-danger btn-sm" (click)="logout()">

@@ -5,12 +5,10 @@
     </div>
 
     <h1 class="login-title">Welcome to Marriott International</h1>
-  
-    <h2 class="login-subtitle">Sign in</h2>
-     
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
 
-      
+    <h2 class="login-subtitle">Sign in</h2>
+
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
       <div class="login-field">
         <label for="email"></label>
         <input
@@ -22,47 +20,50 @@
           #emailModel="ngModel"
           placeholder="Email or member number"
         />
-        <small class="login-error" *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)">
+        <small
+          class="login-error"
+          *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)"
+        >
           Please enter a valid email.
         </small>
       </div>
 
-      
-       <div class="login-field">
-          <label for="password"></label>
+      <div class="login-field">
+        <label for="password"></label>
 
-          <div class="password-row">
-            <input
-              id="password"
-              [type]="showPassword ? 'text' : 'password'"
-              name="password"
-              required
-              minlength="4"
-              [(ngModel)]="password"
-              #passwordModel="ngModel"
-              placeholder="Password"
-            />
+        <div class="password-row">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            name="password"
+            required
+            minlength="4"
+            [(ngModel)]="password"
+            #passwordModel="ngModel"
+            placeholder="Password"
+          />
 
-            <!-- Botón SIN <img>, solo clases -->
-            <button
-              type="button"
-              class="password-toggle"
-              [ngClass]="{ 'password-toggle--visible': showPassword }"
-              (click)="togglePassword()"
-              aria-label="Show or hide password">
-            </button>
-          </div>
-
-          <small
-            class="login-error"
-            *ngIf="passwordModel.invalid && (passwordModel.dirty || passwordModel.touched)">
-            The password must be at least 4 characters.
-          </small>
+          <!-- Botón SIN <img>, solo clases -->
+          <button
+            type="button"
+            class="password-toggle"
+            [ngClass]="{ 'password-toggle--visible': showPassword }"
+            (click)="togglePassword()"
+            aria-label="Show or hide password"
+          ></button>
         </div>
 
+        <small
+          class="login-error"
+          *ngIf="
+            passwordModel.invalid &&
+            (passwordModel.dirty || passwordModel.touched)
+          "
+        >
+          The password must be at least 4 characters.
+        </small>
+      </div>
 
-
-      
       <div class="login-remember-row">
         <label class="remember-me">
           <input type="checkbox" />
@@ -70,24 +71,20 @@
         </label>
       </div>
 
-      
-     <p class="login-register-text">
+      <p class="login-register-text">
         Don’t have an account?
         <a routerLink="/client/register">Register</a>
       </p>
 
-      
       <p class="login-error login-error--global" *ngIf="error">{{ error }}</p>
 
-     
       <button
         type="submit"
         class="login-button"
         [disabled]="loginForm.invalid || loading"
       >
-        {{ loading ? 'Signing in…' : 'Sign in' }}
+        {{ loading ? "Signing in…" : "Sign in" }}
       </button>
-
     </form>
   </div>
 </section>

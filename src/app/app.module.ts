@@ -1,6 +1,6 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
@@ -17,7 +17,6 @@ import { LoginComponent } from './pages/client/login/login.component';
 import { ProfileComponent } from './pages/client/profile/profile.component';
 import { CatalogComponent } from './pages/client/catalog/catalog.component';
 import { CartComponent } from './pages/client/cart/cart.component';
-
 import { ClientComponent } from './pages/client/client.component';
 
 import { AdminComponent } from './pages/admin/admin.component';
@@ -61,13 +60,7 @@ import { HotelsCarouselComponent } from './pages/client/home/sections/search-sec
     RoomsSelectorComponent,
     HotelsCarouselComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-  ],
+  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent],
 })

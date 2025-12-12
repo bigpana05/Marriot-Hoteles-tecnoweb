@@ -6,7 +6,7 @@ import { Hotel } from '../../../core/models/hotel.model';
 @Component({
   selector: 'app-hotels',
   templateUrl: './hotels.component.html',
-  styleUrls: ['./hotels.component.scss']
+  styleUrls: ['./hotels.component.scss'],
 })
 export class HotelsComponent implements OnInit {
   hotels: Hotel[] = [];
@@ -22,7 +22,7 @@ export class HotelsComponent implements OnInit {
     roomTypes: '',
     basePrice: 0,
     availableRooms: 0,
-    totalRooms: 0
+    totalRooms: 0,
   };
 
   constructor(private hotelService: HotelService) {}
@@ -34,14 +34,14 @@ export class HotelsComponent implements OnInit {
   loadHotels(): void {
     this.loading = true;
     this.hotelService.getHotels().subscribe({
-      next: hotels => {
+      next: (hotels) => {
         this.hotels = hotels;
         this.loading = false;
       },
       error: () => {
         this.error = 'Error al cargar hoteles';
         this.loading = false;
-      }
+      },
     });
   }
 
@@ -59,7 +59,7 @@ export class HotelsComponent implements OnInit {
       roomTypes: '',
       basePrice: 0,
       availableRooms: 0,
-      totalRooms: 0
+      totalRooms: 0,
     });
     this.error = null;
   }
@@ -76,7 +76,7 @@ export class HotelsComponent implements OnInit {
           this.loadHotels();
           this.resetForm(f);
         },
-        error: () => (this.error = 'Error al actualizar hotel')
+        error: () => (this.error = 'Error al actualizar hotel'),
       });
     } else {
       this.hotelService.createHotel(payload).subscribe({
@@ -84,7 +84,7 @@ export class HotelsComponent implements OnInit {
           this.loadHotels();
           this.resetForm(f);
         },
-        error: () => (this.error = 'Error al crear hotel')
+        error: () => (this.error = 'Error al crear hotel'),
       });
     }
   }
@@ -94,7 +94,7 @@ export class HotelsComponent implements OnInit {
     if (!confirm(`¿Eliminar el hotel "${h.name}"?`)) return;
     this.hotelService.deleteHotel(h.id).subscribe({
       next: () => this.loadHotels(),
-      error: () => (this.error = 'Error al eliminar hotel')
+      error: () => (this.error = 'Error al eliminar hotel'),
     });
   }
 }

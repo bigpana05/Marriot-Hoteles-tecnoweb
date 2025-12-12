@@ -3,7 +3,7 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
-  UrlTree
+  UrlTree,
 } from '@angular/router';
 import { AuthService, UserRole } from '../services/auth.service';
 
@@ -14,7 +14,11 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean | UrlTree {
     const expectedRole = route.data['role'] as UserRole | undefined;
 
-    if (expectedRole && this.auth.isAuthenticated() && this.auth.hasRole(expectedRole)) {
+    if (
+      expectedRole &&
+      this.auth.isAuthenticated() &&
+      this.auth.hasRole(expectedRole)
+    ) {
       return true;
     }
 

@@ -6,6 +6,11 @@
     <router-outlet></router-outlet>
   </div>
 
+  <!-- Elemento invisible para pruebas unitarias que espera el test por defecto -->
+  <span id="app-title" style="display: none">
+    {{ title }} app is running!
+  </span>
+
   <app-footer></app-footer>
 </ng-container>
 

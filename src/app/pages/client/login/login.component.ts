@@ -6,7 +6,7 @@ import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   email = '';
@@ -16,10 +16,7 @@ export class LoginComponent {
 
   showPassword = false;
 
-  constructor(
-    private auth: AuthService,
-    private router: Router
-  ) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   async onSubmit(form: NgForm): Promise<void> {
     if (form.invalid || this.loading) return;
@@ -37,7 +34,8 @@ export class LoginComponent {
       }
     } catch (err: any) {
       console.error(err);
-      this.error = err?.message || 'No se pudo iniciar sesión. Inténtalo nuevamente.';
+      this.error =
+        err?.message || 'No se pudo iniciar sesión. Inténtalo nuevamente.';
     } finally {
       this.loading = false;
     }
@@ -46,6 +44,6 @@ export class LoginComponent {
     this.showPassword = !this.showPassword;
   }
   goToRegister() {
-  this.router.navigate(['/register']);
+    this.router.navigate(['/register']);
   }
 }

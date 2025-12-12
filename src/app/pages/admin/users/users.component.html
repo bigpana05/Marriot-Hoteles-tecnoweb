@@ -9,7 +9,7 @@
       <div class="card shadow-sm">
         <div class="card-body">
           <h5 class="card-title mb-3">
-            {{ formModel.id ? 'Editar usuario' : 'Nuevo usuario' }}
+            {{ formModel.id ? "Editar usuario" : "Nuevo usuario" }}
           </h5>
 
           <form #f="ngForm" (ngSubmit)="save(f)">
@@ -43,7 +43,9 @@
                 name="password"
                 [(ngModel)]="formModel.password"
                 [required]="!formModel.id"
-                placeholder="{{ formModel.id ? 'Dejar en blanco para mantener' : '' }}"
+                placeholder="{{
+                  formModel.id ? 'Dejar en blanco para mantener' : ''
+                }}"
               />
             </div>
 
@@ -65,10 +67,18 @@
             </div>
 
             <div class="d-flex gap-2">
-              <button class="btn btn-dark btn-sm" type="submit" [disabled]="f.invalid">
-                {{ formModel.id ? 'Guardar cambios' : 'Crear usuario' }}
+              <button
+                class="btn btn-dark btn-sm"
+                type="submit"
+                [disabled]="f.invalid"
+              >
+                {{ formModel.id ? "Guardar cambios" : "Crear usuario" }}
               </button>
-              <button class="btn btn-outline-secondary btn-sm" type="button" (click)="resetForm(f)">
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                type="button"
+                (click)="resetForm(f)"
+              >
                 Limpiar
               </button>
             </div>
@@ -89,7 +99,7 @@
                   <th>Nombre</th>
                   <th>Correo</th>
                   <th>Rol</th>
-                  <th style="width: 120px;"></th>
+                  <th style="width: 120px"></th>
                 </tr>
               </thead>
               <tbody>
@@ -98,14 +108,21 @@
                   <td>{{ u.email }}</td>
                   <td>{{ u.role }}</td>
                   <td class="text-end">
-                    <button class="btn btn-link btn-sm" (click)="edit(u)">Editar</button>
-                    <button class="btn btn-link text-danger btn-sm" (click)="deleteUser(u)">
+                    <button class="btn btn-link btn-sm" (click)="edit(u)">
+                      Editar
+                    </button>
+                    <button
+                      class="btn btn-link text-danger btn-sm"
+                      (click)="deleteUser(u)"
+                    >
                       Eliminar
                     </button>
                   </td>
                 </tr>
                 <tr *ngIf="users.length === 0">
-                  <td colspan="4" class="text-center text-muted">Sin usuarios cargados.</td>
+                  <td colspan="4" class="text-center text-muted">
+                    Sin usuarios cargados.
+                  </td>
                 </tr>
               </tbody>
             </table>
