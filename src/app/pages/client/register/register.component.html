@@ -1,0 +1,118 @@
+<div class="register-page">
+  <div class="register-card">
+    <div class="register-header">
+      <div class="register-logo">
+        <span class="register-logo-icon"></span>
+      </div>
+      <h1>Join our Marriott International Community</h1>
+      <p>
+        Enjoy exclusive member rates, earn points on every stay, and access
+        personalized experiences across our hotels worldwide.
+      </p>
+
+      <span class="signin-text">
+        Already a Member?
+        <a routerLink="/client/login">Sign In</a>
+      </span>
+    </div>
+
+    <!-- FORM -->
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
+      class="register-form"
+    >
+      <!-- FIRST & LAST NAME -->
+      <div class="form-row">
+        <div class="form-field">
+          <label>First Name</label>
+          <input
+            type="text"
+            formControlName="firstName"
+            placeholder="First Name"
+          />
+        </div>
+
+        <div class="form-field">
+          <label>Last Name</label>
+          <input
+            type="text"
+            formControlName="lastName"
+            placeholder="Last Name"
+          />
+        </div>
+      </div>
+
+      <!-- COUNTRY & ZIP -->
+      <div class="form-row">
+        <div class="form-field">
+          <label>Country/Region</label>
+          <div class="select-wrapper">
+            <select formControlName="country">
+              <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+            </select>
+            <span class="select-arrow">▼</span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Zip/Postal Code</label>
+          <input
+            type="text"
+            formControlName="zipCode"
+            placeholder="Zip/Postal Code"
+          />
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="form-row single">
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="Email" />
+        </div>
+      </div>
+
+      <!-- PASSWORDS -->
+      <div class="form-row">
+        <!-- PASSWORD -->
+        <div class="form-field password-field">
+          <label>Password</label>
+          <div class="password-wrapper">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Password"
+            />
+            <button type="button" class="eye-btn" (click)="togglePassword()">
+              👁
+            </button>
+          </div>
+        </div>
+
+        <!-- CONFIRM PASSWORD -->
+        <div class="form-field password-field">
+          <label>Confirm Password</label>
+          <div class="password-wrapper">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              placeholder="Confirm Password"
+            />
+            <button
+              type="button"
+              class="eye-btn"
+              (click)="toggleConfirmPassword()"
+            >
+              👁
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="submit" class="primary-btn">Join Today</button>
+      </div>
+    </form>
+  </div>
+</div>

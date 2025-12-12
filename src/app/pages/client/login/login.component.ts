@@ -14,6 +14,8 @@ export class LoginComponent {
   loading = false;
   error: string | null = null;
 
+  showPassword = false;
+
   constructor(
     private auth: AuthService,
     private router: Router
@@ -39,5 +41,11 @@ export class LoginComponent {
     } finally {
       this.loading = false;
     }
+  }
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+  goToRegister() {
+  this.router.navigate(['/register']);
   }
 }

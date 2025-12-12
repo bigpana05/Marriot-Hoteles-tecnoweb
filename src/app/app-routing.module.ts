@@ -22,6 +22,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { RoleGuard } from './core/guards/role.guard';
 
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { RegisterComponent } from './pages/client/register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'client', pathMatch: 'full' },
@@ -37,8 +38,8 @@ const routes: Routes = [
       { path: 'cart', component: CartComponent },
       { path: 'experiences', component: ExperiencesComponent },
       { path: 'offers', component: OffersComponent },
-      { path: '', redirectTo: 'home', pathMatch: 'full' }
-    ]
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+    ],
   },
 
   {
@@ -51,17 +52,17 @@ const routes: Routes = [
       { path: 'hotels', component: HotelsComponent },
       { path: 'events', component: EventsComponent },
       { path: 'users', component: UsersComponent },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-    ]
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    ],
   },
 
   { path: 'about', component: AboutComponent },
   { path: '404', component: NotFoundComponent },
-  { path: '**', redirectTo: '404' }
+  { path: '**', redirectTo: '404' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
