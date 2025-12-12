@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "email": "admin@demo.cl",
       "password": "admin",
       "name": "Administrador",
@@ -9,7 +9,7 @@
       "token": "admin-token-123"
     },
     {
-      "id": 2,
+      "id": "2",
       "email": "cliente@demo.cl",
       "password": "cliente",
       "name": "Cliente Demo",
@@ -17,21 +17,20 @@
       "token": "client-token-456"
     }
   ],
-
   "hotels": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Marriott Santiago",
       "city": "Santiago",
       "country": "Chile",
       "address": "Av. Kennedy 5741, Las Condes",
       "roomTypes": "Standard, Suite, Ejecutiva",
       "basePrice": 120,
-      "availableRooms": 0,
+      "availableRooms": 30,
       "totalRooms": 80
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Marriott Buenos Aires",
       "city": "Buenos Aires",
       "country": "Argentina",
@@ -42,7 +41,7 @@
       "totalRooms": 70
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Marriott Lima",
       "city": "Lima",
       "country": "Perú",
@@ -51,21 +50,31 @@
       "basePrice": 150,
       "availableRooms": 25,
       "totalRooms": 60
+    },
+    {
+      "id": "f3da",
+      "name": "Papu hotel",
+      "city": "OHAIO",
+      "country": "EEUU",
+      "address": "21 de mayo",
+      "roomTypes": "Cama, Sin cama, anashe",
+      "basePrice": 200,
+      "availableRooms": 5,
+      "totalRooms": 40
     }
   ],
-
   "events": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Conferencia Tech Latam",
       "hotelId": 1,
       "location": "Santiago",
       "date": "2025-07-10",
       "capacity": 300,
-      "attendees": 300
+      "attendees": 220
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Summit de Turismo",
       "hotelId": 2,
       "location": "Buenos Aires",
@@ -74,7 +83,7 @@
       "attendees": 150
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Expo Innovación",
       "hotelId": 3,
       "location": "Lima",

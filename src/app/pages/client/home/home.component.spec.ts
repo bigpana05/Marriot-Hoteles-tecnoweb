@@ -8,8 +8,14 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+<<<<<<< HEAD
       declarations: [HomeComponent],
     }).compileComponents();
+=======
+      declarations: [ HomeComponent ]
+    })
+    .compileComponents();
+>>>>>>> origin/feature/vistas-cliente-implementacion
 
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;

@@ -5,7 +5,7 @@ import { RoomsData } from '../../../../../models/rooms-data.model';
 @Component({
   selector: 'app-search-section',
   templateUrl: './search-section.component.html',
-  styleUrls: ['./search-section.component.scss']
+  styleUrls: ['./search-section.component.scss'],
 })
 export class SearchSectionComponent {
   showDestinationDropdown: boolean = false;
@@ -23,7 +23,7 @@ export class SearchSectionComponent {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize() {
+  onResize(event: Event) {
     this.checkScreenSize();
   }
 
@@ -52,7 +52,10 @@ export class SearchSectionComponent {
   // Obtiene el número de noches
   get numberOfNights(): number {
     if (this.selectedDates.checkIn && this.selectedDates.checkOut) {
-      const diffTime = Math.abs(this.selectedDates.checkOut.getTime() - this.selectedDates.checkIn.getTime());
+      const diffTime = Math.abs(
+        this.selectedDates.checkOut.getTime() -
+          this.selectedDates.checkIn.getTime()
+      );
       return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     }
     return 0;
@@ -60,17 +63,29 @@ export class SearchSectionComponent {
 
   // Verifica si debe mostrar el selector de habitaciones
   get shouldShowRoomsField(): boolean {
-    return !!this.selectedDestination && this.selectedDates.checkIn !== null && this.selectedDates.checkOut !== null;
+    return (
+      !!this.selectedDestination &&
+      this.selectedDates.checkIn !== null &&
+      this.selectedDates.checkOut !== null
+    );
   }
 
   // Obtiene el texto del selector de habitaciones
   get roomsText(): string {
-    return `${this.roomsData.rooms} Habitación, ${this.roomsData.adults + this.roomsData.children} Huésped${this.roomsData.adults + this.roomsData.children > 1 ? 'es' : ''}`;
+    return `${this.roomsData.rooms} Habitación, ${
+      this.roomsData.adults + this.roomsData.children
+    } Huésped${
+      this.roomsData.adults + this.roomsData.children > 1 ? 'es' : ''
+    }`;
   }
 
   // Formatea una fecha
   formatDate(date: Date): string {
-    const options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    };
     return date.toLocaleDateString('es-ES', options);
   }
 
@@ -163,7 +178,7 @@ export class SearchSectionComponent {
     '/assets/brand/hotels/Marriott_International-Castillo_Hotel_Son_Vida-a_Luxury_Collection_Hotel-Mallorca-ref185756.jpg',
     '/assets/brand/hotels/Marriott_International-Marriott_Resort_Palm_Jumeirah-Dubai-ref163347.jpg',
     '/assets/brand/hotels/Marriott_International-Mount_Juliet_Estate-Autograph_Collection-ref187730.jpeg',
-    '/assets/brand/hotels/Marriott_International-W-Algarve-Exterior-ref163410.jpg'
+    '/assets/brand/hotels/Marriott_International-W-Algarve-Exterior-ref163410.jpg',
   ];
 
   currentIndex: number = 0;
@@ -181,7 +196,7 @@ export class SearchSectionComponent {
       // En desktop/tablet, mostrar 2 imágenes
       return [
         this.hotelImages[this.currentIndex],
-        this.hotelImages[(this.currentIndex + 1) % this.hotelImages.length]
+        this.hotelImages[(this.currentIndex + 1) % this.hotelImages.length],
       ];
     }
   }
@@ -220,7 +235,11 @@ export class SearchSectionComponent {
    */
   findHotels(): void {
     // Solo busca si se han seleccionado destino y fechas
-    if (this.selectedDestination && this.selectedDates.checkIn && this.selectedDates.checkOut) {
+    if (
+      this.selectedDestination &&
+      this.selectedDates.checkIn &&
+      this.selectedDates.checkOut
+    ) {
       // TODO: Implementar llamada al servicio de búsqueda
       // this.hotelService.searchHotels(this.selectedDestination, this.selectedDates, this.roomsData)
     }

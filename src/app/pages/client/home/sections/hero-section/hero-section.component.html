@@ -1,26 +1,42 @@
-<section class="hero-section">
-  <div class="hero-overlay"></div>
-  <div class="container h-100">
-    <div
-      class="row h-100 align-items-center justify-content-center text-center"
-    >
-      <div class="col-lg-8">
-        <h1 class="hero-title animate-fade-up">
-          Bienvenido a Marriott International
-        </h1>
-        <p class="hero-subtitle animate-fade-up delay-1">
-          Descubre una nueva forma de viajar con experiencias inolvidables y el
-          confort que mereces.
+<section class="container-fluid p-0">
+  <div class="row g-0">
+    <!-- Columna izquierda: Texto (4 columnas) -->
+    <div class="col-lg-4 p-0 position-relative">
+      <!-- Barra absolutamente posicionada -->
+      <div class="hero-bar"></div>
+
+      <!-- Contenido (por delante de la barra) -->
+      <div class="hero-content">
+        <h1 class="hero-title">Descubre el mundo de Marriott International</h1>
+        <p class="hero-subtitle">
+          Experimenta estancias inolvidables, reservas sin problemas y
+          beneficios exclusivos para miembros en nuestros destinos globales.
         </p>
-        <div class="hero-actions animate-fade-up delay-2">
-          <a routerLink="/client/catalog" class="btn btn-primary btn-lg me-3">
-            Explorar Habitaciones
-          </a>
-          <a routerLink="/client/offers" class="btn btn-outline-light btn-lg">
-            Ver Ofertas
-          </a>
-        </div>
       </div>
+
+      <!-- Flecha scroll (posicionada de forma independiente) -->
+      <div class="scroll-indicator">
+        <button
+          class="scroll-button"
+          aria-label="Scroll to next section"
+          (click)="scrollToNextSection()"
+        >
+          <img
+            src="assets/icons/arrow-down-2.svg"
+            alt="Scroll down"
+            class="arrow-icon"
+          />
+        </button>
+      </div>
+    </div>
+
+    <!-- Columna derecha: Imagen (8 columnas) -->
+    <div class="col-lg-8 p-0">
+      <img
+        src="assets/background/pag1.png"
+        alt="Discover the World of Marriott International"
+        class="hero-img img-fluid w-100"
+      />
     </div>
   </div>
 </section>

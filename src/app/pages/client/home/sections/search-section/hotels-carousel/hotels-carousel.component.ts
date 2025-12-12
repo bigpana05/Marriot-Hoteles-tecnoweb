@@ -3,12 +3,12 @@ import { Component, HostListener } from '@angular/core';
 @Component({
   selector: 'app-hotels-carousel',
   templateUrl: './hotels-carousel.component.html',
-  styleUrls: ['./hotels-carousel.component.scss']
+  styleUrls: ['./hotels-carousel.component.scss'],
 })
 export class HotelsCarouselComponent {
   hotelImages: string[] = [
     '/assets/brand/hotels/Marriott_International-Castillo_Hotel_Son_Vida-a_Luxury_Collection_Hotel-Mallorca-ref185756.jpg',
-    '/assets/brand/hotels/Marriott_International-Marriott_Resort_Palm_Jumeirah-Dubai-ref163347.jpg'
+    '/assets/brand/hotels/Marriott_International-Marriott_Resort_Palm_Jumeirah-Dubai-ref163347.jpg',
   ];
 
   isMobile: boolean = false;
@@ -18,7 +18,7 @@ export class HotelsCarouselComponent {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize() {
+  onResize(event: Event) {
     this.checkScreenSize();
   }
 
