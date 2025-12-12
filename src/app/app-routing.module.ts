@@ -6,8 +6,9 @@ import { HomeComponent } from './pages/client/home/home.component';
 import { LoginComponent } from './pages/client/login/login.component';
 import { ProfileComponent } from './pages/client/profile/profile.component';
 import { CatalogComponent } from './pages/client/catalog/catalog.component';
-import { CartComponent } from './pages/client/cart/cart.component';
 import { ExperiencesComponent } from './pages/client/experiences/experiences.component';
+import { CartComponent } from './pages/client/cart/cart.component';
+
 import { OffersComponent } from './pages/client/offers/offers.component';
 
 import { AdminComponent } from './pages/admin/admin.component';
@@ -35,9 +36,20 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'catalog', component: CatalogComponent },
-      { path: 'cart', component: CartComponent },
+
+      // TODO: FEATURE-123 - Implementar experiencias como módulo separado
       { path: 'experiences', component: ExperiencesComponent },
-      { path: 'offers', component: OffersComponent },
+
+      // TODO: FEATURE-124 - Implementar ofertas exclusivas como módulo separado
+      { path: 'offers', component: CatalogComponent },
+
+      {
+        path: 'cart',
+        component: CartComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: { role: 'CLIENT' },
+      },
+
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

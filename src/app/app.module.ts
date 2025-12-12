@@ -18,6 +18,7 @@ import { ProfileComponent } from './pages/client/profile/profile.component';
 import { CatalogComponent } from './pages/client/catalog/catalog.component';
 import { CartComponent } from './pages/client/cart/cart.component';
 import { ClientComponent } from './pages/client/client.component';
+import { ExperiencesComponent } from './pages/client/experiences/experiences.component';
 
 import { AdminComponent } from './pages/admin/admin.component';
 import { HotelsComponent } from './pages/admin/hotels/hotels.component';
@@ -25,7 +26,6 @@ import { EventsComponent } from './pages/admin/events/events.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { HeroSectionComponent } from './pages/client/home/sections/hero-section/hero-section.component';
-import { ExperiencesComponent } from './pages/client/experiences/experiences.component';
 import { OffersComponent } from './pages/client/offers/offers.component';
 import { AboutComponent } from './pages/about/about.component';
 import { SearchSectionComponent } from './pages/client/home/sections/search-section/search-section.component';
@@ -47,6 +47,7 @@ import { HotelsCarouselComponent } from './pages/client/home/sections/search-sec
     ClientComponent,
     AdminComponent,
     HotelsComponent,
+    ExperiencesComponent,
     EventsComponent,
     DashboardComponent,
     UsersComponent,
