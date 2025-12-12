@@ -1,0 +1,119 @@
+// ============================================
+// Variables del Footer
+// ============================================
+
+// Puntos de quiebre (Breakpoints)
+$breakpoint-4k: 2560px;
+$breakpoint-desktop-xl: 1920px;
+$breakpoint-desktop-lg: 1440px;
+$breakpoint-desktop: 1024px;
+$breakpoint-tablet: 768px;
+$breakpoint-mobile-lg: 425px;
+$breakpoint-mobile: 375px;
+$breakpoint-mobile-sm: 320px;
+
+// Colores
+$color-title: #222222;
+$color-subtitle: #707274;
+$color-background: #FFFFFF;
+$color-border: rgba(0, 0, 0, 0.1);
+$color-black: #000000;
+$color-white: #ffffff;
+
+// Tipografía
+$font-brand: 'Luxurious Roman', serif;
+$font-size-title: 22px;
+$font-size-subtitle: 14px;
+$font-size-copyright: 14px;
+
+// Espaciado (base para 1440px - altura total: 480px)
+$spacing-footer-padding-x: 120px;
+$spacing-footer-padding-y: 40px;
+$spacing-section-gap: 24px;
+$spacing-column-gap: 80px;
+$spacing-link-gap: 8px;
+
+// Tamaños de iconos
+$icon-social-size: 21px;
+$icon-arrow-size: 24px;
+
+// Transiciones
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+
+// ============================================
+// Mixins Responsivos
+// ============================================
+
+@mixin respond-to-4k {
+  @media (min-width: $breakpoint-4k) {
+    @content;
+  }
+}
+
+@mixin respond-to-desktop-xl {
+  @media (min-width: $breakpoint-desktop-xl) and (max-width: ($breakpoint-4k - 1)) {
+    @content;
+  }
+}
+
+@mixin respond-to-desktop-lg {
+  @media (min-width: $breakpoint-desktop-lg) and (max-width: ($breakpoint-desktop-xl - 1)) {
+    @content;
+  }
+}
+
+@mixin respond-to-desktop {
+  @media (min-width: $breakpoint-desktop) and (max-width: ($breakpoint-desktop-lg - 1)) {
+    @content;
+  }
+}
+
+@mixin respond-to-tablet {
+  @media (min-width: $breakpoint-tablet) and (max-width: ($breakpoint-desktop - 1)) {
+    @content;
+  }
+}
+
+@mixin respond-to-mobile-lg {
+  @media (min-width: $breakpoint-mobile-lg) and (max-width: ($breakpoint-tablet - 1)) {
+    @content;
+  }
+}
+
+@mixin respond-to-mobile {
+  @media (min-width: $breakpoint-mobile) and (max-width: ($breakpoint-mobile-lg - 1)) {
+    @content;
+  }
+}
+
+@mixin respond-to-mobile-sm {
+  @media (max-width: ($breakpoint-mobile - 1)) {
+    @content;
+  }
+}
+
+// Queries de ancho máximo para mejora progresiva
+@mixin max-tablet {
+  @media (max-width: ($breakpoint-tablet - 1)) {
+    @content;
+  }
+}
+
+@mixin max-desktop {
+  @media (max-width: ($breakpoint-desktop - 1)) {
+    @content;
+  }
+}
+
+@mixin min-desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+@mixin min-desktop-xl {
+  @media (min-width: $breakpoint-desktop-xl) {
+    @content;
+  }
+}

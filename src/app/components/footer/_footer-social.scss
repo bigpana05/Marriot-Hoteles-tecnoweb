@@ -1,0 +1,58 @@
+// ============================================
+// Sección de Redes Sociales del Footer
+// ============================================
+
+@import 'footer-variables';
+
+.footer {
+  &__social {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: $spacing-section-gap 0;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__social-title {
+    font-family: $font-brand;
+    font-size: $font-size-title;
+    color: $color-title;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  &__social-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity $transition-fast;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__social-icon {
+    width: $icon-social-size;
+    height: $icon-social-size;
+  }
+
+  // Sección de copyright
+  &__copyright {
+    padding-top: $spacing-section-gap;
+    text-align: left;
+  }
+
+  &__copyright-text {
+    font-family: $font-brand;
+    font-size: $font-size-copyright;
+    color: $color-subtitle;
+    margin: 0;
+  }
+}

@@ -1,7 +1,172 @@
-<footer class="bg-light border-top py-3 mt-4 w-100">
-  <div class="d-flex flex-column flex-md-row justify-content-center align-items-center small text-muted px-3 gap-3">
-    <span>© 2024 Marriott – Proyecto Tecnologías Web</span>
-    <span>•</span>
-    <span>Uso académico • Ingeniería Civil en Computación e Informática</span>
+<footer class="footer">
+  <div class="footer__container">
+    <!-- Sección de Grid de Enlaces -->
+    <div class="footer__links-grid">
+      <!-- Nuestra Empresa -->
+      <div class="footer__column">
+        <div class="footer__column-header" (click)="toggleSection('company')">
+          <h3 class="footer__column-title">Nuestra Empresa</h3>
+          <img
+            src="assets/icons/arrow-down.svg"
+            alt="Toggle section"
+            class="footer__column-arrow"
+            [class.footer__column-arrow--open]="openSections['company']"
+          />
+        </div>
+        <nav
+          class="footer__column-links"
+          [class.footer__column-links--open]="openSections['company']"
+        >
+          <a href="#" class="footer__link">Sobre Marriott International</a>
+          <a href="#" class="footer__link">Carreras</a>
+          <a href="#" class="footer__link">Noticias y Prensa</a>
+          <a href="#" class="footer__link">Relaciones con Inversores</a>
+        </nav>
+      </div>
+
+      <!-- Trabaja con Nosotros -->
+      <div class="footer__column">
+        <div class="footer__column-header" (click)="toggleSection('work')">
+          <h3 class="footer__column-title">Trabaja con Nosotros</h3>
+          <img
+            src="assets/icons/arrow-down.svg"
+            alt="Toggle section"
+            class="footer__column-arrow"
+            [class.footer__column-arrow--open]="openSections['work']"
+          />
+        </div>
+        <nav
+          class="footer__column-links"
+          [class.footer__column-links--open]="openSections['work']"
+        >
+          <a href="#" class="footer__link"
+            >Programa de Pequeñas y Medianas Empresas</a
+          >
+          <a href="#" class="footer__link">Profesionales de Viajes</a>
+          <a href="#" class="footer__link">Afiliados</a>
+          <a href="#" class="footer__link">Desarrollo Hotelero</a>
+        </nav>
+      </div>
+
+      <!-- Encuentra Ayuda -->
+      <div class="footer__column">
+        <div class="footer__column-header" (click)="toggleSection('help')">
+          <h3 class="footer__column-title">Encuentra Ayuda</h3>
+          <img
+            src="assets/icons/arrow-down.svg"
+            alt="Toggle section"
+            class="footer__column-arrow"
+            [class.footer__column-arrow--open]="openSections['help']"
+          />
+        </div>
+        <nav
+          class="footer__column-links"
+          [class.footer__column-links--open]="openSections['help']"
+        >
+          <a href="#" class="footer__link">Ayuda y Contáctanos</a>
+          <a href="#" class="footer__link">Buscar Reserva</a>
+          <a href="#" class="footer__link"
+            >Números Telefónicos de Reservas Globales</a
+          >
+          <a href="#" class="footer__link">Garantía de Mejor Tarifa</a>
+        </nav>
+      </div>
+
+      <!-- Privacidad y Términos -->
+      <div class="footer__column">
+        <div class="footer__column-header" (click)="toggleSection('privacy')">
+          <h3 class="footer__column-title">Privacidad y Términos</h3>
+          <img
+            src="assets/icons/arrow-down.svg"
+            alt="Toggle section"
+            class="footer__column-arrow"
+            [class.footer__column-arrow--open]="openSections['privacy']"
+          />
+        </div>
+        <nav
+          class="footer__column-links"
+          [class.footer__column-links--open]="openSections['privacy']"
+        >
+          <a href="#" class="footer__link">Centro de Privacidad</a>
+          <a href="#" class="footer__link">Términos de Uso</a>
+          <a href="#" class="footer__link"
+            >Términos y Condiciones del Programa</a
+          >
+          <a href="#" class="footer__link"
+            >Sostenibilidad en la Cadena de Suministro</a
+          >
+        </nav>
+      </div>
+    </div>
+
+    <!-- Sección de Principales Destinos -->
+    <div class="footer__destinations">
+      <div class="footer__destinations-header" (click)="toggleDestinations()">
+        <h3 class="footer__destinations-title">Principales Destinos</h3>
+        <img
+          src="assets/icons/arrow-down.svg"
+          alt="Toggle destinations"
+          class="footer__destinations-arrow"
+          [class.footer__destinations-arrow--open]="isDestinationsOpen"
+        />
+      </div>
+      <div
+        class="footer__destinations-content"
+        [class.footer__destinations-content--open]="isDestinationsOpen"
+      >
+        <div class="footer__destinations-list">
+          <a
+            *ngFor="let hotel of featuredHotels"
+            href="#"
+            class="footer__destination-link"
+          >
+            {{ hotel.name }}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Redes Sociales -->
+    <div class="footer__social">
+      <h3 class="footer__social-title">Sigue a Marriott International</h3>
+      <div class="footer__social-icons">
+        <a href="#" class="footer__social-link" aria-label="Facebook">
+          <img
+            src="assets/icons/social-media/facebook.svg"
+            alt="Facebook"
+            class="footer__social-icon"
+          />
+        </a>
+        <a href="#" class="footer__social-link" aria-label="Instagram">
+          <img
+            src="assets/icons/social-media/instagram.svg"
+            alt="Instagram"
+            class="footer__social-icon"
+          />
+        </a>
+        <a href="#" class="footer__social-link" aria-label="Twitter">
+          <img
+            src="assets/icons/social-media/twitter.svg"
+            alt="Twitter"
+            class="footer__social-icon"
+          />
+        </a>
+        <a href="#" class="footer__social-link" aria-label="YouTube">
+          <img
+            src="assets/icons/social-media/youtube.svg"
+            alt="YouTube"
+            class="footer__social-icon"
+          />
+        </a>
+      </div>
+    </div>
+
+    <!-- Sección de Copyright -->
+    <div class="footer__copyright">
+      <p class="footer__copyright-text">
+        © 1996 - 2025 Marriott International, Inc. Todos los derechos
+        reservados. Información Propietaria de Marriott.
+      </p>
+    </div>
   </div>
 </footer>

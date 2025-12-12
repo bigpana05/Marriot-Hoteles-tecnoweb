@@ -1,8 +1,10 @@
-footer {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-}
+// ============================================
+// Componente Footer - Estilos Principales
+// ============================================
+// Siguiendo el mismo patrón modular que el componente navbar
+
+@import 'footer-variables';
+@import 'footer-base';
+@import 'footer-destinations';
+@import 'footer-social';
+@import 'footer-responsive';
