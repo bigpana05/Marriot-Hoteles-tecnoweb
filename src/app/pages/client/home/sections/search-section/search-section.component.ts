@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 import { DateRange } from '../../../../../models/date-range.model';
 import { RoomsData } from '../../../../../models/rooms-data.model';
 
@@ -18,7 +19,7 @@ export class SearchSectionComponent {
 
   isMobile: boolean = false;
 
-  constructor() {
+  constructor(private router: Router) {
     this.checkScreenSize();
   }
 
@@ -231,7 +232,7 @@ export class SearchSectionComponent {
 
   /**
    * Busca hoteles según los criterios seleccionados
-   * TODO: Implementar búsqueda real cuando el backend esté disponible
+   * Navega a la página de búsqueda con los parámetros
    */
   findHotels(): void {
     // Solo busca si se han seleccionado destino y fechas
@@ -240,8 +241,17 @@ export class SearchSectionComponent {
       this.selectedDates.checkIn &&
       this.selectedDates.checkOut
     ) {
-      // TODO: Implementar llamada al servicio de búsqueda
-      // this.hotelService.searchHotels(this.selectedDestination, this.selectedDates, this.roomsData)
+      // Navegar a la página de búsqueda con los parámetros
+      this.router.navigate(['/client/search-hotels'], {
+        queryParams: {
+          destination: this.selectedDestination,
+          checkIn: this.selectedDates.checkIn.toISOString(),
+          checkOut: this.selectedDates.checkOut.toISOString(),
+          rooms: this.roomsData.rooms,
+          adults: this.roomsData.adults,
+          children: this.roomsData.children
+        }
+      });
     }
   }
 }

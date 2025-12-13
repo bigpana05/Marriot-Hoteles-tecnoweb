@@ -1,0 +1,152 @@
+<section class="search-hotels-page">
+  <!-- Barra de búsqueda superior -->
+  <div class="search-header">
+    <div class="search-header-content">
+      <!-- Campo Destino -->
+      <div class="search-field">
+        <div class="field-label">
+          <img src="assets/icons/location.svg" alt="Destino" class="field-icon" />
+          <span>DESTINO</span>
+        </div>
+        <div class="field-value">{{ searchDestination || 'Sin destino' }}</div>
+      </div>
+
+      <!-- Separador -->
+      <div class="field-separator"></div>
+
+      <!-- Campo Fechas -->
+      <div class="search-field">
+        <div class="field-label">
+          <img src="assets/icons/date.svg" alt="Fechas" class="field-icon" />
+          <span>FECHAS ({{ numberOfNights }} NOCHE{{ numberOfNights > 1 ? 'S' : '' }})</span>
+        </div>
+        <div class="field-value">{{ datesDisplayText | titlecase }}</div>
+      </div>
+
+      <!-- Separador -->
+      <div class="field-separator"></div>
+
+      <!-- Campo Habitaciones -->
+      <div class="search-field">
+        <div class="field-label">
+          <span>HABIT. Y HUÉSP.</span>
+        </div>
+        <div class="field-value">{{ roomsText }}</div>
+      </div>
+
+      <!-- Botón Actualizar -->
+      <button class="update-search-btn" (click)="performSearch()">
+        Actualizar búsqueda
+      </button>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="search-content">
+    <!-- Barra de filtros -->
+    <div class="filters-bar">
+      <button class="filter-btn all-filters">
+        <img src="assets/icons/filter.svg" alt="Filtros" class="filter-icon" />
+        Todos los filtros
+      </button>
+
+      <button class="filter-btn">Comodidades</button>
+      <button class="filter-btn">Marcas</button>
+
+      <!-- Filtros con checkbox -->
+      <div class="filter-checkboxes">
+        <label
+          *ngFor="let filter of filters"
+          class="filter-checkbox"
+          [class.active]="filter.selected"
+        >
+          <input
+            type="checkbox"
+            [checked]="filter.selected"
+            (change)="onFilterChange(filter.id, $event)"
+          />
+          <span class="checkbox-label">{{ filter.name }} ({{ filter.count }})</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Barra de resultados -->
+    <div class="results-bar">
+      <div class="results-count">
+        <span *ngIf="!isLoading">1 - {{ totalResults }} de {{ totalResults }} Resultados</span>
+        <span *ngIf="isLoading">Buscando...</span>
+      </div>
+
+      <div class="sort-dropdown" (click)="toggleSortDropdown(); $event.stopPropagation()">
+        <span>Ordenar por: {{ sortOptionText }}</span>
+        <img
+          src="assets/icons/chevron-down.svg"
+          alt="Expandir"
+          class="sort-icon"
+          [class.rotated]="showSortDropdown"
+        />
+
+        <!-- Dropdown options -->
+        <div class="sort-options" *ngIf="showSortDropdown">
+          <button
+            class="sort-option"
+            [class.active]="currentSort === 'distance'"
+            (click)="onSortChange('distance'); $event.stopPropagation()"
+          >
+            Distancia
+          </button>
+          <button
+            class="sort-option"
+            [class.active]="currentSort === 'price-low'"
+            (click)="onSortChange('price-low'); $event.stopPropagation()"
+          >
+            Precio: menor a mayor
+          </button>
+          <button
+            class="sort-option"
+            [class.active]="currentSort === 'price-high'"
+            (click)="onSortChange('price-high'); $event.stopPropagation()"
+          >
+            Precio: mayor a menor
+          </button>
+          <button
+            class="sort-option"
+            [class.active]="currentSort === 'rating'"
+            (click)="onSortChange('rating'); $event.stopPropagation()"
+          >
+            Calificación
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de resultados -->
+    <div class="results-list">
+      <!-- Loading state -->
+      <div class="loading-state" *ngIf="isLoading">
+        <div class="spinner"></div>
+        <p>Buscando hoteles disponibles...</p>
+      </div>
+
+      <!-- No results -->
+      <div class="no-results" *ngIf="!isLoading && filteredHotels.length === 0">
+        <img src="assets/icons/search.svg" alt="Sin resultados" class="no-results-icon" />
+        <h3>No se encontraron hoteles</h3>
+        <p>Intenta modificar los filtros o la búsqueda</p>
+      </div>
+
+      <!-- Hotel cards -->
+      <app-hotel-result-card
+        *ngFor="let hotel of filteredHotels"
+        [hotel]="hotel"
+        [numberOfNights]="numberOfNights"
+      ></app-hotel-result-card>
+    </div>
+
+    <!-- Botón de mapa flotante -->
+    <button class="map-btn">
+      <img src="assets/icons/map.svg" alt="Mapa" class="map-icon" />
+      Mapa
+    </button>
+  </div>
+</section>
