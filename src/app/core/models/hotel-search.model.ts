@@ -33,7 +33,7 @@ export interface HotelLocation {
   latitude: number;
   longitude: number;
   nearbyAirports: Airport[];
-  otherTransport: string;
+  otherTransports: OtherTransport[];
 }
 
 /**
@@ -42,6 +42,18 @@ export interface HotelLocation {
 export interface Airport {
   name: string;
   code: string;
+  distance?: string;
+  phone?: string;
+  hasShuttle?: boolean;
+}
+
+/**
+ * Información de otros medios de transporte
+ */
+export interface OtherTransport {
+  type: string;
+  company: string;
+  phone?: string;
 }
 
 /**
@@ -92,6 +104,28 @@ export interface HotelSearchParams {
 export interface SearchFilter {
   id: string;
   name: string;
+  count: number;
+  selected: boolean;
+}
+
+/**
+ * Marca de hotel (para filtro de marcas)
+ */
+export interface HotelBrand {
+  id: string;
+  name: string;
+  logo: string;
+  category: 'luxury' | 'premium' | 'select' | 'longer-stays';
+  selected: boolean;
+}
+
+/**
+ * Comodidad para filtro (diferente a HotelAmenity)
+ */
+export interface FilterAmenity {
+  id: string;
+  name: string;
+  icon: string;
   count: number;
   selected: boolean;
 }

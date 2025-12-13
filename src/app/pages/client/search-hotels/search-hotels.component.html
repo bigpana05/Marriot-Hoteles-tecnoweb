@@ -1,37 +1,79 @@
 <section class="search-hotels-page">
-  <!-- Barra de búsqueda superior -->
-  <div class="search-header">
+  <!-- Barra de búsqueda superior (editable) -->
+  <div class="search-header" [class.scrolled]="isScrolled">
     <div class="search-header-content">
-      <!-- Campo Destino -->
-      <div class="search-field">
+      <!-- Campo Destino (editable) -->
+      <div class="search-field destination-field">
         <div class="field-label">
           <img src="assets/icons/location.svg" alt="Destino" class="field-icon" />
           <span>DESTINO</span>
         </div>
-        <div class="field-value">{{ searchDestination || 'Sin destino' }}</div>
+        <div class="field-value-container">
+          <input
+            type="text"
+            class="field-input"
+            [(ngModel)]="searchDestination"
+            (click)="openDestinationDropdown(); $event.stopPropagation()"
+            (input)="onDestinationInput($event)"
+            placeholder="¿A dónde quieres ir?"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Dropdown de destino -->
+        <app-destination-dropdown
+          [isOpen]="showDestinationDropdown"
+          [searchQuery]="searchDestination"
+          (destinationSelected)="onDestinationSelected($event)"
+          (close)="closeAllDropdowns()"
+        ></app-destination-dropdown>
       </div>
 
       <!-- Separador -->
       <div class="field-separator"></div>
 
-      <!-- Campo Fechas -->
-      <div class="search-field">
-        <div class="field-label">
-          <img src="assets/icons/date.svg" alt="Fechas" class="field-icon" />
-          <span>FECHAS ({{ numberOfNights }} NOCHE{{ numberOfNights > 1 ? 'S' : '' }})</span>
+      <!-- Campo Fechas (editable) -->
+      <div class="search-field dates-field">
+        <div
+          class="field-content clickable"
+          (click)="openDatePicker(); $event.stopPropagation()"
+        >
+          <div class="field-label">
+            <img src="assets/icons/date.svg" alt="Fechas" class="field-icon" />
+            <span>FECHAS ({{ numberOfNights }} NOCHE{{ numberOfNights > 1 ? 'S' : '' }})</span>
+          </div>
+          <div class="field-value">{{ datesText }}</div>
         </div>
-        <div class="field-value">{{ datesDisplayText | titlecase }}</div>
+
+        <!-- Date Picker -->
+        <app-date-picker-dropdown
+          [isOpen]="showDatePicker"
+          (datesSelected)="onDatesSelected($event)"
+          (close)="closeAllDropdowns()"
+        ></app-date-picker-dropdown>
       </div>
 
       <!-- Separador -->
       <div class="field-separator"></div>
 
-      <!-- Campo Habitaciones -->
-      <div class="search-field">
-        <div class="field-label">
-          <span>HABIT. Y HUÉSP.</span>
+      <!-- Campo Habitaciones (editable) -->
+      <div class="search-field rooms-field">
+        <div
+          class="field-content clickable"
+          (click)="openRoomsSelector(); $event.stopPropagation()"
+        >
+          <div class="field-label">
+            <span>HABIT. Y HUÉSP.</span>
+          </div>
+          <div class="field-value">{{ roomsText }}</div>
         </div>
-        <div class="field-value">{{ roomsText }}</div>
+
+        <!-- Rooms Selector -->
+        <app-rooms-selector
+          [isOpen]="showRoomsSelector"
+          (roomsSelected)="onRoomsSelected($event)"
+          (close)="closeAllDropdowns()"
+        ></app-rooms-selector>
       </div>
 
       <!-- Botón Actualizar -->
@@ -45,28 +87,30 @@
   <div class="search-content">
     <!-- Barra de filtros -->
     <div class="filters-bar">
-      <button class="filter-btn all-filters">
+      <button class="filter-btn all-filters" (click)="openFiltersModal('all')">
         <img src="assets/icons/filter.svg" alt="Filtros" class="filter-icon" />
         Todos los filtros
       </button>
 
-      <button class="filter-btn">Comodidades</button>
-      <button class="filter-btn">Marcas</button>
+      <button class="filter-btn" (click)="openFiltersModal('amenities')">Comodidades</button>
+      <button class="filter-btn" (click)="openFiltersModal('brands')">Marcas</button>
 
-      <!-- Filtros con checkbox -->
-      <div class="filter-checkboxes">
-        <label
-          *ngFor="let filter of filters"
-          class="filter-checkbox"
-          [class.active]="filter.selected"
+      <!-- Filtros activos seleccionados (se muestran solo cuando hay selección) -->
+      <div class="active-filters">
+        <button 
+          *ngFor="let amenity of getSelectedAmenities()" 
+          class="active-filter-tag"
+          (click)="onAmenityChange(amenity.id)"
         >
-          <input
-            type="checkbox"
-            [checked]="filter.selected"
-            (change)="onFilterChange(filter.id, $event)"
-          />
-          <span class="checkbox-label">{{ filter.name }} ({{ filter.count }})</span>
-        </label>
+          {{ amenity.name }} ({{ amenity.count }})
+        </button>
+        <button 
+          *ngFor="let brand of getSelectedBrands()" 
+          class="active-filter-tag"
+          (click)="onBrandChange(brand.id)"
+        >
+          {{ brand.name }}
+        </button>
       </div>
     </div>
 
@@ -140,13 +184,103 @@
         *ngFor="let hotel of filteredHotels"
         [hotel]="hotel"
         [numberOfNights]="numberOfNights"
+        [rooms]="roomsData.rooms"
+        [totalGuests]="roomsData.adults + roomsData.children"
       ></app-hotel-result-card>
     </div>
-
-    <!-- Botón de mapa flotante -->
-    <button class="map-btn">
-      <img src="assets/icons/map.svg" alt="Mapa" class="map-icon" />
-      Mapa
-    </button>
   </div>
 </section>
+
+<!-- Modal de Filtros -->
+<div class="filters-modal-overlay" *ngIf="showFiltersModal" (click)="closeFiltersModal()">
+  <div class="filters-modal" (click)="$event.stopPropagation()">
+    <!-- Header del modal -->
+    <div class="modal-header">
+      <h2 class="modal-title">
+        <ng-container *ngIf="filtersModalView === 'all'">Filtros</ng-container>
+        <ng-container *ngIf="filtersModalView === 'amenities'">Comodidades</ng-container>
+        <ng-container *ngIf="filtersModalView === 'brands'">Marcas</ng-container>
+      </h2>
+      <button class="modal-close-btn" (click)="closeFiltersModal()">
+        <span>×</span>
+      </button>
+    </div>
+
+    <!-- Contenido del modal -->
+    <div class="modal-content">
+      <!-- Vista de Comodidades (cuando es 'all' o 'amenities') -->
+      <div class="filter-section" *ngIf="filtersModalView === 'all' || filtersModalView === 'amenities'">
+        <h3 class="section-title" *ngIf="filtersModalView === 'all'">Comodidades</h3>
+        
+        <div class="amenities-grid">
+          <label 
+            *ngFor="let amenity of amenities" 
+            class="amenity-checkbox"
+            [class.selected]="amenity.selected"
+          >
+            <input 
+              type="checkbox" 
+              [checked]="amenity.selected"
+              (change)="onAmenityChange(amenity.id)"
+            />
+            <img [src]="'assets/icons/' + amenity.icon + '.svg'" [alt]="amenity.name" class="amenity-icon" />
+            <span class="amenity-name">{{ amenity.name }} ({{ amenity.count }})</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Vista de Marcas (cuando es 'all' o 'brands') -->
+      <div class="filter-section brands-section" *ngIf="filtersModalView === 'all' || filtersModalView === 'brands'">
+        <h3 class="section-title" *ngIf="filtersModalView === 'all'">Marcas</h3>
+        
+        <!-- Marcas de Lujo -->
+        <div class="brands-category">
+          <div class="category-header">
+            <span class="category-name">LUJO</span>
+            <button class="select-all-btn" (click)="selectAllBrands('luxury')">
+              SELECCIONAR TODO
+            </button>
+          </div>
+          <div class="brands-grid">
+            <button 
+              *ngFor="let brand of getBrandsByCategory('luxury')" 
+              class="brand-card"
+              [class.selected]="brand.selected"
+              (click)="onBrandChange(brand.id)"
+            >
+              <img [src]="brand.logo" [alt]="brand.name" class="brand-logo" />
+              <span class="brand-name">{{ brand.name }}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Marcas Premium -->
+        <div class="brands-category">
+          <div class="category-header">
+            <span class="category-name">PREMIUM</span>
+            <button class="select-all-btn" (click)="selectAllBrands('premium')">
+              SELECCIONAR TODO
+            </button>
+          </div>
+          <div class="brands-grid">
+            <button 
+              *ngFor="let brand of getBrandsByCategory('premium')" 
+              class="brand-card"
+              [class.selected]="brand.selected"
+              (click)="onBrandChange(brand.id)"
+            >
+              <img [src]="brand.logo" [alt]="brand.name" class="brand-logo" />
+              <span class="brand-name">{{ brand.name }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer del modal -->
+    <div class="modal-footer">
+      <button class="clear-btn" (click)="clearFilters()">Borrar</button>
+      <button class="apply-btn" (click)="applyFilters()">Solicitar</button>
+    </div>
+  </div>
+</div>

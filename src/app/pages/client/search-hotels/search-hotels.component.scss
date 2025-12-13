@@ -4,6 +4,7 @@
 .search-hotels-page {
   min-height: 100vh;
   background-color: var(--mtt-bg);
+  padding-top: 24px;
 }
 
 // ================================
@@ -11,21 +12,91 @@
 // ================================
 
 .search-header {
-  background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 20px 0;
   position: sticky;
-  top: var(--mtt-navbar-h);
+  top: 0;
   z-index: 100;
+  padding: 16px 24px;
+  transition: all 0.3s ease;
+
+  // Estado inicial: barra compacta centrada (mismo ancho que filters-bar)
+  &:not(.scrolled) {
+    .search-header-content {
+      max-width: 1152px;
+      margin: 0 auto;
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .search-field {
+      .field-value,
+      .field-input {
+        font-size: 20px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  // Estado al hacer scroll: barra expandida a todo el ancho
+  &.scrolled {
+    padding: 0;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+
+    .search-header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      border-radius: 0;
+      border: none;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .search-field {
+      flex: 0 0 auto;
+      min-width: auto;
+
+      &.destination-field {
+        flex: 0 0 auto;
+        min-width: 220px;
+      }
+
+      &.dates-field {
+        min-width: 180px;
+      }
+
+      &.rooms-field {
+        min-width: 160px;
+      }
+
+      .field-label {
+        font-size: 12px;
+      }
+
+      .field-value,
+      .field-input {
+        font-size: 22px;
+        font-weight: 700;
+      }
+    }
+
+    .update-search-btn {
+      margin-left: 32px;
+      padding: 14px 28px;
+      font-size: 15px;
+    }
+  }
 }
 
 .search-header-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
+  transition: all 0.3s ease;
 }
 
 .search-field {
@@ -33,6 +104,16 @@
   flex-direction: column;
   gap: 4px;
   min-width: 150px;
+  position: relative;
+
+  &.destination-field {
+    min-width: 200px;
+  }
+
+  &.dates-field,
+  &.rooms-field {
+    min-width: 160px;
+  }
 
   .field-label {
     display: flex;
@@ -43,6 +124,7 @@
     color: #707070;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    transition: font-size 0.3s ease;
 
     .field-icon {
       width: 14px;
@@ -51,11 +133,54 @@
     }
   }
 
+  .field-value-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .field-input {
+    font-family: var(--mtt-font-ui);
+    font-size: 20px;
+    font-weight: 700;
+    color: #1c1c1c;
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 4px 0;
+    transition: font-size 0.3s ease;
+
+    &::placeholder {
+      color: #999;
+      font-weight: 400;
+    }
+  }
+
+  .field-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &.clickable {
+      cursor: pointer;
+      padding: 4px 8px;
+      margin: -4px -8px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+
   .field-value {
     font-family: var(--mtt-font-ui);
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 700;
     color: #1c1c1c;
+    transition: font-size 0.3s ease;
   }
 }
 
@@ -76,7 +201,8 @@
   font-weight: 500;
   color: #1c1c1c;
   cursor: pointer;
-  transition: all 0.2s ease;
+  white-space: nowrap;
+  transition: all 0.3s ease;
 
   &:hover {
     background-color: #1c1c1c;
@@ -133,42 +259,37 @@
   }
 }
 
-.filter-checkboxes {
+.active-filters {
   display: flex;
   gap: 12px;
   margin-left: 8px;
+  flex-wrap: wrap;
 }
 
-.filter-checkbox {
+.active-filter-tag {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
+  background-color: #1c1c1c;
+  border: 1px solid #1c1c1c;
   border-radius: 20px;
   font-family: var(--mtt-font-ui);
   font-size: 14px;
-  color: #1c1c1c;
+  color: #fff;
   cursor: pointer;
   transition: all 0.2s ease;
+  white-space: nowrap;
 
   &:hover {
-    border-color: #1c1c1c;
+    background-color: #333;
   }
 
-  &.active {
-    background-color: #1c1c1c;
-    color: #fff;
-    border-color: #1c1c1c;
-  }
-
-  input[type="checkbox"] {
-    display: none;
-  }
-
-  .checkbox-label {
-    white-space: nowrap;
+  &::after {
+    content: '×';
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 4px;
   }
 }
 
@@ -378,18 +499,28 @@
   }
 
   .filters-bar {
-    overflow-x: auto;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     padding-bottom: 16px;
-    -webkit-overflow-scrolling: touch;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    gap: 10px;
   }
 
-  .filter-checkboxes {
-    flex-wrap: nowrap;
+  .filter-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .active-filters {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .active-filter-tag {
+    padding: 8px 12px;
+    font-size: 12px;
   }
 
   .results-bar {
@@ -397,9 +528,333 @@
     align-items: flex-start;
     gap: 12px;
   }
+}
 
-  .map-btn {
-    bottom: 20px;
-    padding: 12px 20px;
+@media (max-width: 480px) {
+  .search-content {
+    padding: 12px;
+  }
+
+  .filters-bar {
+    gap: 8px;
+    padding: 12px 0;
+  }
+
+  .filter-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    
+    &.all-filters {
+      .filter-icon {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+
+  .active-filters {
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .active-filter-tag {
+    padding: 6px 10px;
+    font-size: 11px;
+    max-width: 100%;
+    white-space: normal;
+    text-align: left;
+  }
+
+  .results-bar {
+    padding: 12px 0;
+  }
+
+  .results-count {
+    font-size: 13px;
+  }
+}
+
+// ================================
+// Modal de Filtros
+// ================================
+
+.filters-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.filters-modal {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-title {
+  font-family: var(--mtt-font-ui);
+  font-size: 20px;
+  font-weight: 600;
+  color: #1c1c1c;
+  margin: 0;
+}
+
+.modal-close-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #707070;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #1c1c1c;
+  }
+}
+
+.modal-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.filter-section {
+  margin-bottom: 32px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.section-title {
+  font-family: var(--mtt-font-ui);
+  font-size: 18px;
+  font-weight: 600;
+  color: #1c1c1c;
+  margin: 0 0 16px 0;
+}
+
+// Grilla de comodidades
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.amenity-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  .amenity-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .amenity-name {
+    font-family: var(--mtt-font-ui);
+    font-size: 14px;
+    color: #1c1c1c;
+  }
+
+  &:hover {
+    border-color: #1c1c1c;
+  }
+
+  &.selected {
+    border-color: #1c1c1c;
+    background-color: #f9f9f9;
+  }
+}
+
+// Sección de marcas
+.brands-section {
+  .brands-category {
+    margin-bottom: 24px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.category-name {
+  font-family: var(--mtt-font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  color: #707070;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.select-all-btn {
+  font-family: var(--mtt-font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  color: #704e36;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #1c1c1c;
+  }
+}
+
+// Grilla de marcas
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.brand-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 16px;
+  min-height: 100px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  .brand-logo {
+    max-width: 80px;
+    max-height: 40px;
+    object-fit: contain;
+  }
+
+  .brand-name {
+    font-family: var(--mtt-font-ui);
+    font-size: 11px;
+    font-weight: 500;
+    color: #666;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  &:hover {
+    border-color: #1c1c1c;
+  }
+
+  &.selected {
+    border-color: #1c1c1c;
+    border-width: 2px;
+    background-color: #f9f9f9;
+  }
+}
+
+// Footer del modal
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.clear-btn {
+  font-family: var(--mtt-font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  color: #1c1c1c;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.apply-btn {
+  font-family: var(--mtt-font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #1c1c1c;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 32px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #333;
+  }
+}
+
+// Responsive del modal
+@media (max-width: 768px) {
+  .filters-modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .filters-modal {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .amenities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brands-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

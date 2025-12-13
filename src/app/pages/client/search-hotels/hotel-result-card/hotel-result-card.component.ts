@@ -13,6 +13,8 @@ import { HotelSearchResult } from '../../../../core/models/hotel-search.model';
 export class HotelResultCardComponent {
   @Input() hotel!: HotelSearchResult;
   @Input() numberOfNights: number = 1;
+  @Input() rooms: number = 1;
+  @Input() totalGuests: number = 1;
 
   // Estado del carrusel de imágenes
   currentImageIndex = 0;
@@ -22,6 +24,19 @@ export class HotelResultCardComponent {
 
   // Imagen principal seleccionada en la galería
   selectedGalleryImage = 0;
+
+  // Estado de expansión de aeropuertos
+  expandedAirport: string | null = null;
+
+  /**
+   * Obtiene la imagen de galería seleccionada actualmente
+   */
+  get currentGallery(): { title: string; imageUrl: string } {
+    if (this.hotel?.galleries && this.hotel.galleries.length > this.selectedGalleryImage) {
+      return this.hotel.galleries[this.selectedGalleryImage];
+    }
+    return { title: '', imageUrl: '' };
+  }
 
   /**
    * Obtiene la imagen actual del carrusel
@@ -100,10 +115,50 @@ export class HotelResultCardComponent {
   }
 
   /**
-   * Formatea el precio por noche
+   * Calcula el precio dinámico por noche basado en habitaciones y huéspedes
+   * Fórmula: precioBase * habitaciones * (1 + (huéspedes - 1) * 0.1)
+   */
+  get calculatedPricePerNight(): number {
+    const basePrice = this.hotel.pricePerNight;
+    const guestMultiplier = 1 + (this.totalGuests - 1) * 0.1;
+    return Math.round(basePrice * this.rooms * guestMultiplier);
+  }
+
+  /**
+   * Calcula el precio total de la estancia
+   */
+  get totalPrice(): number {
+    return this.calculatedPricePerNight * this.numberOfNights;
+  }
+
+  /**
+   * Formatea el precio por noche (dinámico)
    */
   get formattedPrice(): string {
-    return `${this.hotel.pricePerNight} ${this.hotel.currency}`;
+    return `${this.calculatedPricePerNight} ${this.hotel.currency}`;
+  }
+
+  /**
+   * Formatea el precio total de la estancia
+   */
+  get formattedTotalPrice(): string {
+    return `${this.totalPrice} ${this.hotel.currency}`;
+  }
+
+  /**
+   * Toggle para expandir/colapsar detalles de aeropuerto
+   * @param code - Código del aeropuerto
+   */
+  toggleAirport(code: string): void {
+    this.expandedAirport = this.expandedAirport === code ? null : code;
+  }
+
+  /**
+   * Verifica si un aeropuerto está expandido
+   * @param code - Código del aeropuerto
+   */
+  isAirportExpanded(code: string): boolean {
+    return this.expandedAirport === code;
   }
 
   /**
@@ -120,7 +175,12 @@ export class HotelResultCardComponent {
       spa: 'assets/icons/spa.svg',
       events: 'assets/icons/events.svg',
       accessible: 'assets/icons/accessible.svg',
-      tea: 'assets/icons/tea.svg'
+      tea: 'assets/icons/tea.svg',
+      parking: 'assets/icons/parking.svg',
+      atm: 'assets/icons/atm.svg',
+      kitchen: 'assets/icons/kitchen.svg',
+      exchange: 'assets/icons/exchange.svg',
+      storage: 'assets/icons/storage.svg'
     };
     return iconMap[iconName] || 'assets/icons/check.svg';
   }

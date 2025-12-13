@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -7,7 +7,9 @@ import {
   HotelSearchResult,
   HotelSearchParams,
   SearchFilter,
-  SortOption
+  SortOption,
+  HotelBrand,
+  FilterAmenity
 } from '../../../core/models/hotel-search.model';
 import { DateRange } from '../../../models/date-range.model';
 import { RoomsData } from '../../../models/rooms-data.model';
@@ -38,8 +40,31 @@ export class SearchHotelsComponent implements OnInit, OnDestroy {
   currentSort: SortOption = 'distance';
   showSortDropdown = false;
 
+  // Estado de los dropdowns de búsqueda
+  showDestinationDropdown = false;
+  showDatePicker = false;
+  showRoomsSelector = false;
+
+  // Estado del scroll para animación de la barra
+  isScrolled = false;
+
+  // Estado del modal de filtros
+  showFiltersModal = false;
+  filtersModalView: 'all' | 'amenities' | 'brands' = 'all';
+  brands: HotelBrand[] = [];
+  amenities: FilterAmenity[] = [];
+
   // Subject para manejo de suscripciones
   private destroy$ = new Subject<void>();
+
+  /**
+   * Detecta el scroll para cambiar el estado de la barra de búsqueda
+   */
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    // Activar el estado scrolled después de 50px de scroll
+    this.isScrolled = window.scrollY > 50;
+  }
 
   constructor(
     private searchHotelService: SearchHotelService,
@@ -48,6 +73,8 @@ export class SearchHotelsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadFilters();
+    this.loadBrands();
+    this.loadAmenities();
     this.parseQueryParams();
   }
 
@@ -101,6 +128,122 @@ export class SearchHotelsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Carga las marcas disponibles
+   */
+  private loadBrands(): void {
+    this.searchHotelService.getBrands()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(brands => {
+        this.brands = brands;
+      });
+  }
+
+  /**
+   * Carga las comodidades disponibles para filtrar
+   */
+  private loadAmenities(): void {
+    this.searchHotelService.getAmenities()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(amenities => {
+        this.amenities = amenities;
+      });
+  }
+
+  /**
+   * Abre el modal de filtros
+   * @param view - Vista a mostrar (all, amenities, brands)
+   */
+  openFiltersModal(view: 'all' | 'amenities' | 'brands' = 'all'): void {
+    this.filtersModalView = view;
+    this.showFiltersModal = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  /**
+   * Cierra el modal de filtros
+   */
+  closeFiltersModal(): void {
+    this.showFiltersModal = false;
+    document.body.style.overflow = '';
+  }
+
+  /**
+   * Maneja el cambio de una comodidad en el modal
+   * @param amenityId - ID de la comodidad
+   */
+  onAmenityChange(amenityId: string): void {
+    const index = this.amenities.findIndex(a => a.id === amenityId);
+    if (index !== -1) {
+      this.amenities[index].selected = !this.amenities[index].selected;
+      this.searchHotelService.updateAmenity(amenityId, this.amenities[index].selected);
+      this.amenities = [...this.amenities];
+    }
+  }
+
+  /**
+   * Maneja el cambio de una marca en el modal
+   * @param brandId - ID de la marca
+   */
+  onBrandChange(brandId: string): void {
+    const index = this.brands.findIndex(b => b.id === brandId);
+    if (index !== -1) {
+      this.brands[index].selected = !this.brands[index].selected;
+      this.searchHotelService.updateBrand(brandId, this.brands[index].selected);
+      this.brands = [...this.brands];
+    }
+  }
+
+  /**
+   * Selecciona todas las marcas de una categoría
+   * @param category - Categoría de marcas
+   */
+  selectAllBrands(category: 'luxury' | 'premium'): void {
+    this.searchHotelService.selectAllBrandsByCategory(category);
+    this.brands = this.brands.map(b =>
+      b.category === category ? { ...b, selected: true } : b
+    );
+  }
+
+  /**
+   * Aplica los filtros seleccionados y cierra el modal
+   */
+  applyFilters(): void {
+    this.closeFiltersModal();
+    this.applyFiltersAndSort();
+  }
+
+  /**
+   * Limpia todos los filtros
+   */
+  clearFilters(): void {
+    this.searchHotelService.clearAllFilters();
+    this.brands = this.brands.map(b => ({ ...b, selected: false }));
+    this.amenities = this.amenities.map(a => ({ ...a, selected: false }));
+    this.filters = this.filters.map(f => ({ ...f, selected: false }));
+  }
+
+  /**
+   * Obtiene las marcas filtradas por categoría
+   */
+  getBrandsByCategory(category: 'luxury' | 'premium'): HotelBrand[] {
+    return this.brands.filter(b => b.category === category);
+  }
+
+  /**
+   * Obtiene las amenidades seleccionadas para mostrar en la barra
+   */
+  getSelectedAmenities(): FilterAmenity[] {
+    return this.amenities.filter(a => a.selected);
+  }
+
+  /**
+   * Obtiene las marcas seleccionadas para mostrar en la barra
+   */
+  getSelectedBrands(): HotelBrand[] {
+    return this.brands.filter(b => b.selected);
+  }
+
+  /**
    * Ejecuta la búsqueda de hoteles
    */
   performSearch(): void {
@@ -140,13 +283,28 @@ export class SearchHotelsComponent implements OnInit, OnDestroy {
   private applyFiltersAndSort(): void {
     let results = [...this.hotels];
 
-    // Aplicar filtros
-    const selectedFilters = this.filters.filter(f => f.selected);
-    if (selectedFilters.length > 0) {
+    // Filtrar por amenidades seleccionadas (el hotel debe tener TODAS las amenidades seleccionadas)
+    const selectedAmenities = this.amenities.filter(a => a.selected);
+    if (selectedAmenities.length > 0) {
       results = results.filter(hotel => {
-        return selectedFilters.every(filter => {
-          const amenity = hotel.amenities.find(a => a.id === filter.id);
-          return amenity?.available;
+        return selectedAmenities.every(selectedAmenity => {
+          const hotelAmenity = hotel.amenities.find(a => a.id === selectedAmenity.id);
+          return hotelAmenity?.available === true;
+        });
+      });
+    }
+
+    // Filtrar por marcas seleccionadas (el hotel debe ser de UNA de las marcas seleccionadas)
+    const selectedBrands = this.brands.filter(b => b.selected);
+    if (selectedBrands.length > 0) {
+      results = results.filter(hotel => {
+        return selectedBrands.some(selectedBrand => {
+          const brandNameMap: { [key: string]: string } = {
+            'jw-marriott': 'JW Marriott',
+            'w-hotels': 'W Hotels',
+            'le-meridien': 'Le Méridien'
+          };
+          return hotel.brand === brandNameMap[selectedBrand.id];
         });
       });
     }
@@ -257,5 +415,99 @@ export class SearchHotelsComponent implements OnInit, OnDestroy {
    */
   closeSortDropdown(): void {
     this.showSortDropdown = false;
+  }
+
+  /**
+   * Cierra todos los dropdowns al hacer clic fuera
+   */
+  @HostListener('document:click')
+  onDocumentClick(): void {
+    this.closeAllDropdowns();
+  }
+
+  /**
+   * Cierra todos los dropdowns
+   */
+  closeAllDropdowns(): void {
+    this.showDestinationDropdown = false;
+    this.showDatePicker = false;
+    this.showRoomsSelector = false;
+    this.showSortDropdown = false;
+  }
+
+  /**
+   * Abre el dropdown de destino
+   */
+  openDestinationDropdown(): void {
+    this.showDestinationDropdown = true;
+    this.showDatePicker = false;
+    this.showRoomsSelector = false;
+  }
+
+  /**
+   * Abre el date picker
+   */
+  openDatePicker(): void {
+    this.showDestinationDropdown = false;
+    this.showDatePicker = true;
+    this.showRoomsSelector = false;
+  }
+
+  /**
+   * Abre el selector de habitaciones
+   */
+  openRoomsSelector(): void {
+    this.showDestinationDropdown = false;
+    this.showDatePicker = false;
+    this.showRoomsSelector = true;
+  }
+
+  /**
+   * Maneja la selección de destino
+   */
+  onDestinationSelected(destination: string): void {
+    this.searchDestination = destination;
+    this.showDestinationDropdown = false;
+  }
+
+  /**
+   * Maneja input en campo destino
+   */
+  onDestinationInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchDestination = input.value;
+  }
+
+  /**
+   * Maneja la selección de fechas
+   */
+  onDatesSelected(dates: DateRange): void {
+    this.searchDates = dates;
+    this.showDatePicker = false;
+  }
+
+  /**
+   * Maneja la selección de habitaciones
+   */
+  onRoomsSelected(roomsData: RoomsData): void {
+    this.roomsData = roomsData;
+    this.showRoomsSelector = false;
+  }
+
+  /**
+   * Obtiene el texto de fechas para mostrar
+   */
+  get datesText(): string {
+    if (this.searchDates.checkIn && this.searchDates.checkOut) {
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric'
+      };
+      const checkIn = this.searchDates.checkIn.toLocaleDateString('es-ES', options);
+      const checkOut = this.searchDates.checkOut.toLocaleDateString('es-ES', options);
+      return `${checkIn} - ${checkOut}`;
+    }
+    return 'Agregar fechas';
   }
 }
