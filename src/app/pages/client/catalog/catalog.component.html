@@ -30,12 +30,12 @@
           </div>
 
           <p class="card-text text-muted small">
-            <i class="bi bi-geo-alt-fill text-primary"></i> {{ hotel.city }},
-            {{ hotel.country }}
+            <i class="bi bi-geo-alt-fill text-primary"></i> {{ hotel.location?.city }},
+            {{ hotel.location?.country }}
           </p>
 
           <p class="card-text small">
-            <strong>Tipos de habitación:</strong> {{ hotel.roomTypes }}
+            <strong>Habitaciones:</strong> {{ hotel.totalRooms || 'N/A' }}
           </p>
 
           <hr />

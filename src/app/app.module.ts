@@ -41,6 +41,13 @@ import { HomeExperiencesAmenitiesComponent } from './pages/client/home/sections/
 import { HomeInspirationComponent } from './pages/client/home/sections/home-inspiration/home-inspiration.component';
 import { SearchHotelsComponent } from './pages/client/search-hotels/search-hotels.component';
 import { HotelResultCardComponent } from './pages/client/search-hotels/hotel-result-card/hotel-result-card.component';
+import { ReserveHotelsComponent } from './pages/client/reserve-hotels/reserve-hotels.component';
+import { CompleteBookingComponent } from './pages/client/complete-booking/complete-booking.component';
+import { AvailabilityCalendarComponent } from './pages/client/availability-calendar/availability-calendar.component';
+import { BookingConfirmationComponent } from './pages/client/booking-confirmation/booking-confirmation.component';
+import { MyReservationsComponent } from './pages/client/my-reservations/my-reservations.component';
+import { GuestReservationsComponent } from './pages/client/guest-reservations/guest-reservations.component';
+import { AdminBookingsComponent } from './pages/admin/bookings/bookings.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +81,13 @@ import { HotelResultCardComponent } from './pages/client/search-hotels/hotel-res
     HomeInspirationComponent,
     SearchHotelsComponent,
     HotelResultCardComponent,
+    ReserveHotelsComponent,
+    CompleteBookingComponent,
+    AvailabilityCalendarComponent,
+    BookingConfirmationComponent,
+    MyReservationsComponent,
+    GuestReservationsComponent,
+    AdminBookingsComponent,
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],

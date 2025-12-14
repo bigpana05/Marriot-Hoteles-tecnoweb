@@ -32,7 +32,7 @@
                 required
               >
                 <option *ngFor="let h of hotels" [ngValue]="h.id">
-                  {{ h.name }} ({{ h.city }})
+                  {{ h.name }} ({{ h.location?.city }})
                 </option>
               </select>
             </div>

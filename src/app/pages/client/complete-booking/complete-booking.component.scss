@@ -1,0 +1,1056 @@
+// Variables
+$bg-main: #f3eee7;
+$bg-white: #ffffff;
+$text-dark: #1a1a1a;
+$text-mid: #494949;
+$text-light: #707274;
+$border-color: #d9d9d9;
+$primary-dark: #1a1a1a;
+$accent-orange: #c96c00;
+$success-green: #28a745;
+
+// Mixins
+@mixin font-brand {
+  font-family: 'Luxurious Roman', serif;
+}
+
+@mixin font-ui {
+  font-family: 'Whitney SSm', system-ui, -apple-system, sans-serif;
+}
+
+// Reserva confirmada
+.booking-confirmed {
+  min-height: 100vh;
+  background-color: $bg-main;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  @include font-ui;
+
+  &__content {
+    background-color: $bg-white;
+    border-radius: 12px;
+    padding: 48px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  &__icon {
+    font-size: 72px;
+    color: $success-green;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    @include font-brand;
+    font-size: 32px;
+    color: $text-dark;
+    margin: 0 0 16px;
+  }
+
+  &__message {
+    font-size: 16px;
+    color: $text-mid;
+    margin-bottom: 32px;
+    line-height: 1.6;
+
+    strong {
+      color: $text-dark;
+    }
+  }
+
+  &__details {
+    background-color: $bg-main;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 32px;
+    text-align: left;
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid $border-color;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .label {
+        color: $text-light;
+        font-size: 14px;
+      }
+
+      .value {
+        color: $text-dark;
+        font-size: 14px;
+        font-weight: 500;
+
+        &.total {
+          font-size: 18px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+
+    .btn-secondary {
+      padding: 14px 28px;
+      background: none;
+      border: 1px solid $border-color;
+      border-radius: 28px;
+      font-size: 14px;
+      color: $text-mid;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: $text-dark;
+        color: $text-dark;
+      }
+    }
+  }
+}
+
+// Contenedor de la página
+.complete-booking-page {
+  min-height: 100vh;
+  background-color: $bg-main;
+  @include font-ui;
+}
+
+// Encabezado del hotel (reutilizado)
+.hotel-header {
+  display: flex;
+  justify-content: center;
+  padding: 24px 48px;
+  background-color: $bg-white;
+  border-bottom: 1px solid $border-color;
+
+  &__content {
+    text-align: center;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 8px;
+
+    .brand-text {
+      font-family: 'Whitney SSm', system-ui, -apple-system, sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      color: $text-mid;
+    }
+
+    .hotel-name {
+      @include font-brand;
+      font-size: 28px;
+      font-weight: 400;
+      color: $text-dark;
+      margin: 0;
+      text-transform: uppercase;
+    }
+  }
+
+  .hotel-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    font-size: 13px;
+    color: $text-mid;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      i {
+        font-size: 11px;
+      }
+    }
+
+    .hotel-rating i {
+      color: $text-dark;
+    }
+  }
+}
+
+// Barra de resumen
+.summary-bar {
+  background-color: $bg-white;
+  border-bottom: 1px solid $border-color;
+  padding: 16px 48px;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: $text-light;
+  }
+
+  &__value {
+    font-size: 15px;
+    color: $text-dark;
+    font-weight: 500;
+  }
+
+  &__divider {
+    width: 1px;
+    height: 40px;
+    background-color: $border-color;
+  }
+
+  &__timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $accent-orange;
+    font-size: 14px;
+
+    i {
+      font-size: 16px;
+    }
+  }
+}
+
+// Contenido principal
+.booking-content {
+  padding: 32px 48px;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    @include font-brand;
+    font-size: 28px;
+    font-weight: 400;
+    color: $text-dark;
+    margin: 0 0 32px;
+  }
+}
+
+// Diseño
+.booking-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  align-items: start;
+}
+
+// Secciones del formulario
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-section {
+  background-color: $bg-white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: $text-dark;
+    margin: 0 0 8px;
+  }
+
+  &__subtitle {
+    font-size: 13px;
+    color: $text-light;
+    margin: 0 0 20px;
+  }
+}
+
+// Elementos del formulario
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &--full {
+    grid-column: 1 / -1;
+  }
+
+  &--card {
+    flex: 2;
+  }
+
+  &--expiry {
+    flex: 1;
+  }
+
+  label {
+    font-size: 13px;
+    color: $text-mid;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    .optional {
+      color: $text-light;
+      font-weight: 400;
+      font-size: 11px;
+    }
+
+    .member-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background-color: #d4edda;
+      color: #155724;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+
+      i {
+        font-size: 10px;
+      }
+    }
+  }
+
+  .form-control {
+    padding: 12px 16px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    font-size: 15px;
+    color: $text-dark;
+    transition: border-color 0.2s ease;
+    @include font-ui;
+
+    &:focus {
+      outline: none;
+      border-color: $text-dark;
+    }
+
+    &::placeholder {
+      color: $text-light;
+    }
+
+    &:disabled {
+      background-color: #f5f5f5;
+      color: $text-light;
+      cursor: not-allowed;
+    }
+
+    &.member-field {
+      background-color: #e8f5e9;
+      border-color: $success-green;
+      color: #2e7d32;
+      font-weight: 600;
+    }
+  }
+
+  // Estilo específico para input de número de miembro readonly
+  input.form-control:read-only:not(:disabled) {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    font-weight: 600;
+    border-color: $success-green;
+  }
+
+  select.form-control {
+    appearance: none;
+    background-color: $bg-white;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23707274' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+
+    // Resetear estilos que no aplican a selects
+    &:read-only {
+      background-color: $bg-white;
+      color: $text-dark;
+      font-weight: normal;
+    }
+  }
+}
+
+.form-note {
+  font-size: 12px;
+  color: $text-light;
+  margin: 8px 0 16px;
+  font-style: italic;
+}
+
+.form-privacy {
+  font-size: 13px;
+  color: $text-mid;
+  margin-top: 16px;
+
+  .link {
+    color: $text-dark;
+    text-decoration: underline;
+
+    &:hover {
+      color: $accent-orange;
+    }
+  }
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  input[type="checkbox"] {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  label {
+    font-size: 14px;
+    color: $text-mid;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+}
+
+.form-divider {
+  border: none;
+  border-top: 1px solid $border-color;
+  margin: 20px 0;
+}
+
+// Métodos de pago
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: $text-mid;
+  }
+
+  &.selected {
+    border-color: $text-dark;
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  &__label {
+    font-size: 15px;
+    color: $text-dark;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .click-to-pay-logo {
+      height: 20px;
+    }
+  }
+}
+
+.card-form {
+  .form-row {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+// Sección Bonvoy
+.bonvoy-section {
+  .bonvoy-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+
+    .bonvoy-logo {
+      height: 48px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .bonvoy-benefits-text {
+      font-size: 15px;
+      color: $text-dark;
+      line-height: 1.5;
+
+      strong {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .member-status {
+    background-color: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+
+    .member-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: $success-green;
+      font-weight: 600;
+      margin-bottom: 8px;
+
+      i {
+        font-size: 18px;
+      }
+    }
+
+    .member-benefits-text {
+      font-size: 14px;
+      color: $text-mid;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+
+  .join-section {
+    .form-checkbox label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+
+      i.bi-check2 {
+        color: $success-green;
+        font-size: 16px;
+        margin-top: 2px;
+      }
+    }
+  }
+
+  .member-password {
+    margin: 16px 0;
+    padding: 20px;
+    background-color: $bg-white;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+
+    .form-control {
+      &.is-valid {
+        border-color: $success-green;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 20px;
+        padding-right: 40px;
+      }
+
+      &.is-invalid {
+        border-color: #dc3545;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='5' fill='none' stroke='%23dc3545' stroke-width='1'/%3e%3cline x1='4' y1='4' x2='8' y2='8' stroke='%23dc3545' stroke-width='1.5'/%3e%3cline x1='8' y1='4' x2='4' y2='8' stroke='%23dc3545' stroke-width='1.5'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 20px;
+        padding-right: 40px;
+      }
+    }
+
+    .password-hint {
+      display: block;
+      font-size: 12px;
+      color: $accent-orange;
+      margin-top: 4px;
+    }
+
+    .password-error {
+      color: #dc3545;
+      font-size: 13px;
+      margin: 8px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      i {
+        font-size: 14px;
+      }
+    }
+
+    .password-success {
+      color: $success-green;
+      font-size: 13px;
+      margin: 8px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      i {
+        font-size: 14px;
+      }
+    }
+
+    .password-note {
+      font-size: 13px;
+      color: $text-light;
+      margin: 12px 0 0;
+      line-height: 1.5;
+
+      strong {
+        color: $text-dark;
+      }
+    }
+
+    .btn-create-account {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 16px;
+      padding: 12px 24px;
+      background-color: $accent-orange;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      @include font-ui;
+
+      &:hover:not(:disabled) {
+        background-color: darken($accent-orange, 8%);
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+      i {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+// Notificación de registro
+.registration-toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 9999;
+  animation: slideIn 0.3s ease;
+
+  &.success .toast-content {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+
+    i {
+      color: $success-green;
+    }
+  }
+
+  &.error .toast-content {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+
+    i {
+      color: #dc3545;
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    border: 1px solid;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+
+    i {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    span {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      padding: 4px;
+      cursor: pointer;
+      opacity: 0.7;
+      margin-left: auto;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      i {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.terms-text {
+  font-size: 13px;
+  color: $text-mid;
+  line-height: 1.6;
+  margin-top: 16px;
+
+  .link {
+    color: $text-dark;
+    text-decoration: underline;
+
+    &:hover {
+      color: $accent-orange;
+    }
+  }
+}
+
+// Mensajes del hotel y cancelación
+.hotel-messages,
+.cancellation-policy {
+  .form-section__title {
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 14px;
+    color: $text-mid;
+    line-height: 1.6;
+    margin: 0 0 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Acciones del formulario
+.form-actions {
+  background-color: $bg-white;
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  .terms-checkbox {
+    margin-bottom: 0;
+  }
+
+  .btn-reserve {
+    width: 100%;
+    max-width: 300px;
+    padding: 16px 32px;
+    background-color: $primary-dark;
+    color: $bg-white;
+    border: none;
+    border-radius: 28px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    @include font-ui;
+
+    &:hover:not(:disabled) {
+      background-color: lighten($primary-dark, 10%);
+    }
+
+    &:disabled {
+      background-color: $text-light;
+      cursor: not-allowed;
+    }
+
+    .spinner-border-sm {
+      width: 16px;
+      height: 16px;
+      border-width: 2px;
+      margin-right: 8px;
+    }
+  }
+}
+
+// Sidebar
+.booking-sidebar {
+  position: sticky;
+  top: 24px;
+}
+
+.sidebar-card {
+  background-color: $bg-white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  &__image {
+    width: 100%;
+    height: 200px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    padding: 20px;
+  }
+
+  .room-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-dark;
+    margin: 0 0 8px;
+    line-height: 1.4;
+  }
+
+  .details-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 13px;
+    color: $text-mid;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: $text-dark;
+    }
+  }
+
+  .stay-info {
+    margin: 20px 0;
+
+    p {
+      font-size: 14px;
+      color: $text-mid;
+      margin: 0 0 4px;
+    }
+
+    .stay-dates {
+      font-weight: 500;
+      color: $text-dark;
+    }
+  }
+
+  .edit-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    color: $accent-orange;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    i {
+      font-size: 12px;
+    }
+  }
+
+  .sidebar-divider {
+    border: none;
+    border-top: 1px solid $border-color;
+    margin: 20px 0;
+  }
+
+  .price-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .price-label {
+      font-size: 13px;
+      color: $text-mid;
+      text-decoration: underline;
+    }
+
+    .price-total {
+      text-align: right;
+
+      .price-amount {
+        display: block;
+        font-size: 24px;
+        font-weight: 600;
+        color: $text-dark;
+      }
+
+      .price-currency {
+        font-size: 12px;
+        color: $text-light;
+      }
+    }
+  }
+}
+
+// Utility
+.btn-primary-dark {
+  padding: 14px 32px;
+  background-color: $primary-dark;
+  color: $bg-white;
+  border: none;
+  border-radius: 28px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: lighten($primary-dark, 10%);
+  }
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-sidebar {
+    position: static;
+    order: -1;
+  }
+
+  .sidebar-card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+
+    &__image {
+      height: 100%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hotel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 24px;
+  }
+
+  .summary-bar {
+    padding: 16px 24px;
+    overflow-x: auto;
+
+    &__container {
+      min-width: max-content;
+    }
+  }
+
+  .booking-content {
+    padding: 24px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-card {
+    grid-template-columns: 1fr;
+
+    &__image {
+      height: 180px;
+    }
+  }
+
+  .card-form .form-row {
+    flex-direction: column;
+  }
+
+  .bonvoy-section .bonvoy-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .bonvoy-benefits {
+      flex-wrap: wrap;
+    }
+  }
+
+  .booking-confirmed__actions {
+    flex-direction: column;
+  }
+}

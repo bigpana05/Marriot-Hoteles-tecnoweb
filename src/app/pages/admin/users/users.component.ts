@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit {
 
   // Modelo del formulario
   formModel = {
-    id: null as number | null,
+    id: null as number | string | null,
     name: '',
     email: '',
     password: '',

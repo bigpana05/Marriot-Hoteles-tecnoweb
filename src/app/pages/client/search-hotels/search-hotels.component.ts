@@ -510,4 +510,24 @@ export class SearchHotelsComponent implements OnInit, OnDestroy {
     }
     return 'Agregar fechas';
   }
+
+  /**
+   * Obtiene la fecha de check-in formateada para pasar a la reserva
+   */
+  get formattedCheckIn(): string {
+    if (this.searchDates.checkIn) {
+      return this.searchDates.checkIn.toISOString().split('T')[0];
+    }
+    return '';
+  }
+
+  /**
+   * Obtiene la fecha de check-out formateada para pasar a la reserva
+   */
+  get formattedCheckOut(): string {
+    if (this.searchDates.checkOut) {
+      return this.searchDates.checkOut.toISOString().split('T')[0];
+    }
+    return '';
+  }
 }
