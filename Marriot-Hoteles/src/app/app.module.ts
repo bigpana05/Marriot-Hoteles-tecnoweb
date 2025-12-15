@@ -1,0 +1,54 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './pages/client/home/home.component';
+import { LoginComponent } from './pages/client/login/login.component';
+import { ProfileComponent } from './pages/client/profile/profile.component';
+import { CatalogComponent } from './pages/client/catalog/catalog.component';
+import { CartComponent } from './pages/client/cart/cart.component';
+
+import { ClientComponent } from './pages/client/client.component';
+import { ReactiveFormsModule } from '@angular/forms'; 
+import { AdminComponent } from './pages/admin/admin.component';
+import { HotelsComponent } from './pages/admin/hotels/hotels.component';
+import { EventsComponent } from './pages/admin/events/events.component';
+import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { UsersComponent } from './pages/admin/users/users.component';
+import { RegisterComponent } from './pages/client/register/register.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    FooterComponent,
+    HomeComponent,
+    LoginComponent,
+    ProfileComponent,
+    CatalogComponent,
+    CartComponent,
+    ClientComponent,
+    AdminComponent,
+    HotelsComponent,
+    EventsComponent,
+    DashboardComponent,
+    UsersComponent,
+    RegisterComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

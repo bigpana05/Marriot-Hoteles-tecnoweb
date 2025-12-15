@@ -1,0 +1,16 @@
+<!-- Shell para rutas de CLIENTE -->
+<ng-container *ngIf="!isAdminRoute; else adminShell">
+  <app-navbar></app-navbar>
+
+  <div class="container py-3">
+    <router-outlet></router-outlet>
+  </div>
+
+  <app-footer></app-footer>
+</ng-container>
+
+<!-- Shell para rutas de ADMIN -->
+<ng-template #adminShell>
+  <!-- El AdminComponent ya tiene su propio layout con sidebar -->
+  <router-outlet></router-outlet>
+</ng-template>
