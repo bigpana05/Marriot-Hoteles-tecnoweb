@@ -45,10 +45,10 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
   // Modal de detalles de habitación
   selectedRoom: Room | null = null;
   showRoomDetailsModal = false;
-  currentRoomImageIndex = 0;
+
 
   // Estado del carrusel para cada habitación (por room.id)
-  roomImageIndices: { [key: number]: number } = {};
+  roomImageIndices: { [key: string]: number } = {};
 
   // Estado de autenticación
   isLoggedIn = false;
@@ -57,6 +57,31 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
   showMemberRateModal = false;
   pendingRoom: Room | null = null;
   pendingRateId: string = '';
+
+  /**
+   * Obtiene el logo de la marca según el hotel
+   */
+  get brandLogo(): { type: 'text' | 'image', value: string, class?: string } {
+    if (!this.hotel) return { type: 'text', value: '' };
+
+    const name = this.hotel.name.toLowerCase();
+
+    if (name.includes('le royal méridien') || name.includes('le meridien')) {
+      return {
+        type: 'image',
+        value: 'assets/brand/hotels/Le-Royal-Meridien/le-meridien-logo.png',
+        class: 'brand-logo-img'
+      };
+    } else if (name.includes('jw marriott')) {
+      return {
+        type: 'image',
+        value: 'assets/brand/hotels/JW-Venice/jw-marriott-logo.svg',
+        class: 'brand-logo-img'
+      };
+    } else {
+      return { type: 'text', value: 'W HOTELS' };
+    }
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -122,7 +147,7 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
       tomorrow.setDate(tomorrow.getDate() + 1);
       const dayAfter = new Date(today);
       dayAfter.setDate(dayAfter.getDate() + 3);
-      
+
       this.checkIn = tomorrow.toISOString().split('T')[0];
       this.checkOut = dayAfter.toISOString().split('T')[0];
       this.numberOfNights = 2;
@@ -247,15 +272,15 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
    */
   private updateActiveFilters(): void {
     this.activeFilters = [];
-    
+
     this.filterOptions.roomTypes.filter(t => t.selected).forEach(t => {
       this.activeFilters.push({ type: 'roomType', value: t.id, label: t.name });
     });
-    
+
     this.filterOptions.bedTypes.filter(t => t.selected).forEach(t => {
       this.activeFilters.push({ type: 'bedType', value: t.id, label: t.name });
     });
-    
+
     this.filterOptions.views.filter(t => t.selected).forEach(t => {
       this.activeFilters.push({ type: 'view', value: t.id, label: t.name });
     });
@@ -347,7 +372,8 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
    */
   openRoomDetails(room: Room): void {
     this.selectedRoom = room;
-    this.currentRoomImageIndex = 0;
+
+
     this.showRoomDetailsModal = true;
   }
 
@@ -359,36 +385,7 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
     this.selectedRoom = null;
   }
 
-  /**
-   * Navega a la imagen anterior en el modal
-   */
-  prevRoomImage(): void {
-    if (!this.selectedRoom) return;
-    if (this.currentRoomImageIndex > 0) {
-      this.currentRoomImageIndex--;
-    } else {
-      this.currentRoomImageIndex = this.selectedRoom.images.length - 1;
-    }
-  }
 
-  /**
-   * Navega a la siguiente imagen en el modal
-   */
-  nextRoomImage(): void {
-    if (!this.selectedRoom) return;
-    if (this.currentRoomImageIndex < this.selectedRoom.images.length - 1) {
-      this.currentRoomImageIndex++;
-    } else {
-      this.currentRoomImageIndex = 0;
-    }
-  }
-
-  /**
-   * Selecciona una imagen específica
-   */
-  goToRoomImage(index: number): void {
-    this.currentRoomImageIndex = index;
-  }
 
   // ========== SELECCIÓN DE TARIFA ==========
 
@@ -416,10 +413,35 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
   private proceedWithRate(room: Room, rate: RoomRate): void {
     if (!this.hotel) return;
 
+    // Verificar disponibilidad REAL por fechas
+    this.bookingService.checkAvailability(this.hotelId, room.id, this.checkIn, this.checkOut, this.numberOfRooms)
+      .subscribe(isAvailable => {
+        if (!isAvailable) {
+          // Si no hay disponibilidad para estas fechas, redirigir al calendario de esta habitación
+          this.router.navigate(['/client/hotel', this.hotelId, 'availability'], {
+            queryParams: {
+              roomId: room.id,
+              checkIn: this.checkIn,
+              checkOut: this.checkOut,
+              rooms: this.numberOfRooms,
+              adults: this.adults,
+              children: this.children,
+              nights: this.numberOfNights
+            }
+          });
+        } else {
+          // Si hay disponibilidad, proceder a la reserva
+          this.performBookingNavigation(room, rate);
+        }
+      });
+  }
+
+  private performBookingNavigation(room: Room, rate: RoomRate): void {
+
     // Guardar el resumen de la reserva
     this.bookingService.setBookingSummary({
-      hotelName: this.hotel.name,
-      hotelBrand: this.hotel.brand,
+      hotelName: this.hotel!.name,
+      hotelBrand: this.hotel!.brand,
       roomName: room.name,
       roomImage: room.images[0],
       rateName: rate.name,

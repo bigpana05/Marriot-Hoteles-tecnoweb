@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { FeaturedHotel } from '../../../../../core/models/featured-hotel.model';
 import { HotelService } from '../../../../../core/services/hotel.service';
 
@@ -33,18 +34,21 @@ export class HomeFeaturedHotelsComponent implements OnInit, OnDestroy {
     {
       id: 1,
       name: 'JW Marriott Venice Resort & Spa',
+      city: 'Venice',
       country: 'ITALY',
       imageUrl: 'assets/brand/featured-hotels/Marriott_International-JW_Marriott_Venice_Resort-amp-SPA-JW_Facade-ref161796.jpg'
     },
     {
       id: 2,
       name: 'W Hotel Barcelona',
+      city: 'Barcelona',
       country: 'SPAIN',
       imageUrl: 'assets/brand/featured-hotels/Marriott_International-W_Hotel_Barcelona-ref163110.jpg'
     },
     {
       id: 3,
       name: 'Le Royal Meridien Doha',
+      city: 'Doha',
       country: 'QATAR',
       imageUrl: 'assets/brand/featured-hotels/Marriott_International-Le_Royal_Meridien_Doha-Exterior-ref163191.jpg'
     }
@@ -57,7 +61,10 @@ export class HomeFeaturedHotelsComponent implements OnInit, OnDestroy {
 
   private resizeListener: () => void;
 
-  constructor(private hotelService: HotelService) {
+  constructor(
+    private hotelService: HotelService,
+    private router: Router
+  ) {
     this.resizeListener = () => this.checkScreenSize();
   }
 
@@ -79,10 +86,11 @@ export class HomeFeaturedHotelsComponent implements OnInit, OnDestroy {
           this.featuredHotels = hotels.map(h => ({
             id: typeof h.id === 'string' ? parseInt(h.id, 10) : (h.id || 0),
             name: h.name,
+            city: h.location?.city || '',
             country: h.location?.country?.toUpperCase() || '',
             imageUrl: h.images?.[0] || 'assets/brand/featured-hotels/default-hotel.jpg'
           }));
-          
+
           // Duplicar para el carrusel si hay pocos hoteles
           if (this.featuredHotels.length < 3) {
             const original = [...this.featuredHotels];
@@ -185,5 +193,28 @@ export class HomeFeaturedHotelsComponent implements OnInit, OnDestroy {
    */
   goToSlide(index: number): void {
     this.currentSlide = index;
+  }
+  /**
+   * Navega a la búsqueda con el nombre del hotel seleccionado y fechas predeterminadas (hoy - mañana)
+   */
+  onHotelClick(hotel: FeaturedHotel): void {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    // Formatear fechas manualmente (YYYY-MM-DD)
+    const checkIn = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+    const checkOut = `${tomorrow.getFullYear()}-${(tomorrow.getMonth() + 1).toString().padStart(2, '0')}-${tomorrow.getDate().toString().padStart(2, '0')}`;
+
+    // Destino completo
+    const destination = `${hotel.name}, ${hotel.city}, ${hotel.country}`;
+
+    this.router.navigate(['/client/search-hotels'], {
+      queryParams: {
+        destination: destination,
+        checkIn: checkIn,
+        checkOut: checkOut
+      }
+    });
   }
 }

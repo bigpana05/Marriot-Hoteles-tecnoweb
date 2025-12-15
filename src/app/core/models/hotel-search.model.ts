@@ -19,6 +19,8 @@ export interface HotelSearchResult {
   propertyInfo: HotelPropertyInfo;
   amenities: HotelAmenity[];
   galleries: HotelGallery[];
+  availableRooms?: number;
+  totalRooms?: number;
 }
 
 /**

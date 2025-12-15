@@ -23,6 +23,9 @@ import { HotelsComponent } from './pages/admin/hotels/hotels.component';
 import { EventsComponent } from './pages/admin/events/events.component';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { AdminBookingsComponent } from './pages/admin/bookings/bookings.component';
+import { AdminRoomsComponent } from './pages/admin/rooms/admin-rooms/admin-rooms.component';
+import { AdminRoomOccupancyComponent } from './pages/admin/rooms/admin-room-occupancy/admin-room-occupancy.component';
+
 
 import { AboutComponent } from './pages/about/about.component';
 
@@ -67,6 +70,8 @@ const routes: Routes = [
       { path: 'events', component: EventsComponent },
       { path: 'users', component: UsersComponent },
       { path: 'bookings', component: AdminBookingsComponent },
+      { path: 'rooms', component: AdminRoomsComponent },
+      { path: 'room-occupancy', component: AdminRoomOccupancyComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
@@ -80,4 +85,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

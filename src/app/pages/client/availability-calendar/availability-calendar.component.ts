@@ -1,24 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, forkJoin, combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HotelSearchResult } from '../../../core/models/hotel-search.model';
+import { Room } from '../../../core/models/room.model';
 import { SearchHotelService } from '../../../core/services/search-hotel.service';
 import { BookingService } from '../../../core/services/booking.service';
-
-interface CalendarDay {
-  date: Date;
-  dayNumber: number;
-  isCurrentMonth: boolean;
-  isAvailable: boolean;
-  price: number | null;
-  isSelected: boolean;
-  isPast: boolean;
-}
-
-interface CalendarWeek {
-  days: CalendarDay[];
-}
+import { CalendarDay, CalendarWeek } from '../../../core/models/calendar.model';
+import { Booking } from '../../../core/models/booking.model';
 
 /**
  * Componente de calendario de disponibilidad
@@ -35,6 +24,13 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
   // Datos del hotel
   hotelId: number = 0;
   hotel: HotelSearchResult | null = null;
+
+  // Habitación específica (si se proporciona roomId)
+  roomId: number | string | null = null;
+  selectedRoom: Room | null = null;
+
+  // Reservas activas
+  activeBookings: Booking[] = [];
 
   // Parámetros de búsqueda
   numberOfRooms: number = 1;
@@ -59,7 +55,7 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
     private router: Router,
     private searchHotelService: SearchHotelService,
     private bookingService: BookingService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadRouteParams();
@@ -74,68 +70,116 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
    * Carga los parámetros de la ruta
    */
   private loadRouteParams(): void {
-    this.route.params
+    combineLatest([
+      this.route.paramMap,
+      this.route.queryParams
+    ])
       .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        this.hotelId = +params['id'];
-        this.loadHotelData();
-      });
+      .subscribe(([params, queryParams]) => {
+        // 1. Params de ruta (ID Hotel) - usar paramMap para más seguridad
+        const id = params.get('id');
+        if (id) {
+          this.hotelId = +id;
+        }
 
-    this.route.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        this.numberOfRooms = +params['rooms'] || 1;
-        this.adults = +params['adults'] || 1;
-        this.children = +params['children'] || 0;
-        this.numberOfNights = +params['nights'] || 1;
-        
-        // Cargar el mes actual o el especificado
-        if (params['month'] && params['year']) {
-          this.currentMonth = new Date(+params['year'], +params['month'] - 1, 1);
+        // 2. Query Params
+        this.numberOfRooms = +queryParams['rooms'] || 1;
+        this.adults = +queryParams['adults'] || 1;
+        this.children = +queryParams['children'] || 0;
+        this.numberOfNights = +queryParams['nights'] || 1;
+
+        // Capturar roomId
+        if (queryParams['roomId']) {
+          this.roomId = queryParams['roomId'];
+        } else {
+          this.roomId = null;
+        }
+
+        // Capturar fechas
+        if (queryParams['checkIn']) {
+          const checkInDate = new Date(queryParams['checkIn']);
+          this.selectedDate = checkInDate;
+          this.currentMonth = new Date(checkInDate.getFullYear(), checkInDate.getMonth(), 1);
+        } else if (queryParams['month'] && queryParams['year']) {
+          this.currentMonth = new Date(+queryParams['year'], +queryParams['month'] - 1, 1);
         } else {
           this.currentMonth = new Date();
         }
-        
-        this.generateCalendar();
+
+        // Cargar datos SOLO cuando tengamos el ID del hotel listo
+        if (this.hotelId) {
+          this.loadHotelData();
+        }
       });
   }
 
   /**
-   * Carga los datos del hotel
+   * Carga los datos del hotel y las reservas
+   * Si hay roomId, carga específicamente esa habitación y sus reservas
    */
   private loadHotelData(): void {
-    this.searchHotelService.getHotelById(this.hotelId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(hotel => {
-        this.hotel = hotel ?? null;
-        this.isLoading = false;
-      });
+    this.isLoading = true;
+
+    // Si hay roomId, cargar bookings del hotel y filtrar localmente para asegurar consistencia de tipos
+    if (this.roomId) {
+      forkJoin({
+        hotel: this.searchHotelService.getHotelById(this.hotelId),
+        room: this.bookingService.getRoomById(this.roomId), // ID como string o number, el servicio soporta ambos
+        bookings: this.bookingService.getActiveBookings(this.hotelId) // Cargar todas las reservas (para filtrar localmente)
+      })
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(({ hotel, room, bookings }) => {
+          this.hotel = hotel ?? null;
+          this.selectedRoom = room;
+
+          // Filtrar reservas localmente permitiendo comparacion flexible (==) entre string y number
+          // Esto soluciona que activeBookings esté vacío si roomId es string "3" y en DB es number 3
+          this.activeBookings = (bookings || []).filter(b => b.roomId == this.roomId);
+
+          this.isLoading = false;
+          this.generateCalendar();
+        });
+    } else {
+      // Cargar todas las reservas del hotel (modo general)
+      forkJoin({
+        hotel: this.searchHotelService.getHotelById(this.hotelId),
+        bookings: this.bookingService.getActiveBookings(this.hotelId)
+      })
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(({ hotel, bookings }) => {
+          this.hotel = hotel ?? null;
+          this.activeBookings = bookings || [];
+          this.isLoading = false;
+          this.generateCalendar();
+        });
+    }
   }
 
   /**
    * Genera el calendario del mes actual
    */
   private generateCalendar(): void {
+    if (!this.hotel) return;
+
     this.calendarWeeks = [];
-    
     const year = this.currentMonth.getFullYear();
     const month = this.currentMonth.getMonth();
-    
+
     // Primer día del mes
     const firstDay = new Date(year, month, 1);
     // Último día del mes
     const lastDay = new Date(year, month + 1, 0);
-    
-    // Día de la semana del primer día (0 = domingo, ajustamos para lunes = 0)
+
+    // Día de la semana del primer día (Lunes = 0)
     let startDay = firstDay.getDay() - 1;
     if (startDay < 0) startDay = 6;
-    
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     let currentWeek: CalendarDay[] = [];
-    
-    // Días del mes anterior para llenar la primera semana
+
+    // Días del mes anterior
     const prevMonth = new Date(year, month, 0);
     for (let i = startDay - 1; i >= 0; i--) {
       const dayNum = prevMonth.getDate() - i;
@@ -149,15 +193,16 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
         isPast: true
       });
     }
-    
+
     // Días del mes actual
     for (let day = 1; day <= lastDay.getDate(); day++) {
       const date = new Date(year, month, day);
+      date.setHours(0, 0, 0, 0);
       const isPast = date < today;
-      
-      // Simular disponibilidad (en producción vendría de la API)
-      const availability = this.getSimulatedAvailability(date, isPast);
-      
+
+      // Calcular disponibilidad REAL
+      const availability = this.calculateAvailability(date, isPast);
+
       currentWeek.push({
         date: date,
         dayNumber: day,
@@ -167,15 +212,14 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
         isSelected: this.selectedDate?.getTime() === date.getTime(),
         isPast: isPast
       });
-      
-      // Si completamos una semana, crear nueva
+
       if (currentWeek.length === 7) {
         this.calendarWeeks.push({ days: currentWeek });
         currentWeek = [];
       }
     }
-    
-    // Días del mes siguiente para completar la última semana
+
+    // Completar última semana
     if (currentWeek.length > 0) {
       let nextDay = 1;
       while (currentWeek.length < 7) {
@@ -195,40 +239,89 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Simula la disponibilidad de una fecha
-   * En producción esto vendría del backend
+   * Calcula la disponibilidad real basada en reservas y capacidad
+   * Si hay habitación específica, usa room.available como capacidad
+   * Si no, usa hotel.availableRooms (modo general)
    */
-  private getSimulatedAvailability(date: Date, isPast: boolean): { isAvailable: boolean; price: number | null } {
+  private calculateAvailability(date: Date, isPast: boolean): { isAvailable: boolean; price: number | null } {
     if (isPast) {
       return { isAvailable: false, price: null };
     }
-    
-    // Simular algunas fechas no disponibles (ej: primeros 4 días después de hoy)
-    const today = new Date();
-    const diffDays = Math.floor((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-    
-    if (diffDays < 4) {
-      return { isAvailable: false, price: null };
+
+    if (!this.hotel) return { isAvailable: false, price: null };
+
+    // Capacidad según el modo (habitación específica o hotel general)
+    let totalCapacity: number;
+    if (this.selectedRoom) {
+      // Modo habitación específica: usar inventario de la habitación
+      totalCapacity = this.selectedRoom.available || 0;
+    } else {
+      // Modo general: usar capacidad del hotel
+      totalCapacity = this.hotel.availableRooms || 0;
     }
-    
-    // Simular precios variables
+
+    // Contar cuántas habitaciones están ocupadas en esta fecha específica
+    const occupiedRooms = this.activeBookings.reduce((sum, booking) => {
+      let bStart: Date;
+      if (booking.checkIn.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        const [y, m, d] = booking.checkIn.split('-').map(Number);
+        bStart = new Date(y, m - 1, d);
+      } else {
+        bStart = new Date(booking.checkIn);
+      }
+
+      let bEnd: Date;
+      if (booking.checkOut.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        const [y, m, d] = booking.checkOut.split('-').map(Number);
+        bEnd = new Date(y, m - 1, d);
+      } else {
+        bEnd = new Date(booking.checkOut);
+      }
+
+      // Normalizar a medianoche
+      bStart.setHours(0, 0, 0, 0);
+      bEnd.setHours(0, 0, 0, 0);
+
+      // Si es el día 14, loguear para debug
+      if (date.getDate() === 14 && date.getMonth() === 11) { // 11 es Diciembre
+        // console.log('Checking day 14 Dec against booking:', booking.id, bStart, bEnd, date >= bStart && date < bEnd);
+      }
+
+      // Si la fecha actual está dentro del rango [checkIn, checkOut)
+      if (date >= bStart && date < bEnd) {
+        return sum + booking.rooms;
+      }
+      return sum;
+    }, 0);
+
+    // Debug para el día 14
+    if (date.getDate() === 14 && date.getMonth() === 11) {
+      console.log('Day 14 Dec: Occupied:', occupiedRooms, 'Capacity:', totalCapacity, 'Available:', (totalCapacity - occupiedRooms) >= this.numberOfRooms);
+      console.log('Active Bookings:', this.activeBookings);
+    }
+
+    // Calcular disponibilidad restante
+    const remainingRooms = totalCapacity - occupiedRooms;
+
+    // Verificar si hay suficientes para la solicitud actual
+    const isAvailable = remainingRooms >= this.numberOfRooms;
+
+    // Precio: usar el de la habitación si está disponible, o el del hotel
+    let price: number;
+    if (this.selectedRoom && this.selectedRoom.rates && this.selectedRoom.rates.length > 0) {
+      // Usar el precio de la primera tarifa de la habitación
+      price = this.selectedRoom.rates[0].pricePerNight;
+    } else {
+      price = this.hotel.pricePerNight;
+    }
+
+    // Ajuste simple de precio fin de semana
     const dayOfWeek = date.getDay();
-    let price = this.basePrice;
-    
-    // Fines de semana más caros
     if (dayOfWeek === 5 || dayOfWeek === 6) {
-      price = this.basePrice + 38; // €342
+      price = Math.round(price * 1.15); // +15% findes
     }
-    
-    // Algunos días especiales más caros
-    if (date.getDate() === 11) {
-      price = this.basePrice + 61; // €365
-    }
-    if (date.getDate() === 12) {
-      price = this.basePrice + 95; // €399
-    }
-    
-    return { isAvailable: true, price: price };
+
+    return { isAvailable, price: isAvailable ? price : null };
   }
 
   /**
@@ -259,9 +352,9 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
    * Obtiene el nombre del mes actual
    */
   get monthName(): string {
-    return this.currentMonth.toLocaleDateString('es-ES', { 
-      month: 'long', 
-      year: 'numeric' 
+    return this.currentMonth.toLocaleDateString('es-ES', {
+      month: 'long',
+      year: 'numeric'
     }).replace(/^\w/, c => c.toUpperCase());
   }
 
@@ -284,7 +377,7 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
    */
   selectDate(day: CalendarDay): void {
     if (!day.isAvailable || !day.isCurrentMonth) return;
-    
+
     this.selectedDate = day.date;
     this.generateCalendar(); // Actualizar selección visual
   }
@@ -294,11 +387,11 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
    */
   continue(): void {
     if (!this.selectedDate) return;
-    
+
     // Calcular fecha de salida
     const checkOut = new Date(this.selectedDate);
     checkOut.setDate(checkOut.getDate() + this.numberOfNights);
-    
+
     // Guardar parámetros de búsqueda
     this.bookingService.setSearchParams({
       checkIn: this.formatDate(this.selectedDate),
@@ -307,7 +400,7 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
       adults: this.adults,
       children: this.children
     });
-    
+
     // Navegar a selección de habitaciones
     this.router.navigate(['/client/hotel', this.hotelId, 'rooms'], {
       queryParams: {
@@ -324,7 +417,11 @@ export class AvailabilityCalendarComponent implements OnInit, OnDestroy {
    * Formatea una fecha a YYYY-MM-DD
    */
   private formatDate(date: Date): string {
-    return date.toISOString().split('T')[0];
+    // Usar formato local
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   /**

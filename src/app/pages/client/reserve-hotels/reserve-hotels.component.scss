@@ -44,10 +44,13 @@ $accent-orange: #c96c00;
       color: $text-mid;
     }
 
-    .brand-logo {
-      height: 40px;
+    .brand-logo,
+    .brand-logo-img {
+      height: 60px;
       width: auto;
       object-fit: contain;
+      max-width: 250px;
+      margin-bottom: 8px;
     }
   }
 
@@ -552,167 +555,6 @@ $accent-orange: #c96c00;
   }
 }
 
-// Modal de detalles de habitación
-.room-details-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1050;
-  padding: 24px;
-
-  &__content {
-    background-color: $bg-white;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 900px;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 24px;
-    border-bottom: 1px solid $border-color;
-
-    h2 {
-      font-size: 18px;
-      font-weight: 500;
-      color: $text-dark;
-      margin: 0;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 20px;
-      color: $text-mid;
-      cursor: pointer;
-
-      &:hover {
-        color: $text-dark;
-      }
-    }
-  }
-
-  &__gallery {
-    .gallery-main {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background-color: #1a1a1a;
-
-      &__image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .gallery-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 48px;
-        height: 48px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border: none;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 20px;
-        transition: background-color 0.2s ease;
-
-        &:hover {
-          background-color: $bg-white;
-        }
-
-        &--prev {
-          left: 16px;
-        }
-
-        &--next {
-          right: 16px;
-        }
-      }
-
-      .gallery-indicators {
-        position: absolute;
-        bottom: 16px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 8px;
-
-        .indicator {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          background-color: rgba(255, 255, 255, 0.5);
-          cursor: pointer;
-          transition: background-color 0.2s ease;
-
-          &.active {
-            background-color: $bg-white;
-          }
-
-          &:hover {
-            background-color: rgba(255, 255, 255, 0.8);
-          }
-        }
-      }
-    }
-  }
-
-  &__amenities {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    padding: 24px;
-
-    .amenity-section {
-      h4 {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        color: $text-dark;
-        margin: 0 0 12px;
-
-        i {
-          font-size: 16px;
-        }
-      }
-
-      ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-
-        li {
-          font-size: 13px;
-          color: $text-mid;
-          line-height: 1.6;
-          padding: 2px 0;
-
-          &.wifi-note {
-            color: $accent-orange;
-            font-style: italic;
-          }
-        }
-      }
-    }
-  }
-}
 
 // Modal de filtros
 .filters-modal {

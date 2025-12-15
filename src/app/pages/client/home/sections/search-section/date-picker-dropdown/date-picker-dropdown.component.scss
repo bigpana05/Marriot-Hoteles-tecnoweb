@@ -110,6 +110,16 @@
         background-color: #e0e0e0;
         border-radius: 0;
     }
+
+    &.disabled {
+        color: #cccccc;
+        cursor: not-allowed;
+        pointer-events: none;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
 }
 
 // Información de noches

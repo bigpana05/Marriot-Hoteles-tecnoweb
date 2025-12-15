@@ -4,15 +4,6 @@ import { AuthService, User } from '../../core/services/auth.service';
 
 /**
  * NavbarComponent
-<<<<<<< HEAD
- * * Gestiona la barra de navegación principal de la aplicación.
- * * Responsabilidades:
- * - Mostrar/ocultar menú hamburguesa en mobile y tablet
- * - Proporcionar enlaces de navegación y autenticación
- * - Botón de reserva
- * * Propiedades reactivas:
- * - isMenuOpen: Estado del menú móvil
-=======
  * 
  * Gestiona la barra de navegación principal de la aplicación.
  * 
@@ -26,7 +17,6 @@ import { AuthService, User } from '../../core/services/auth.service';
  * - isMenuOpen: Estado del menú móvil
  * - isLangMenuOpen: Estado del dropdown de idioma
  * - currentLang: Idioma actual seleccionado
->>>>>>> origin/feature/vistas-cliente-implementacion
  */
 @Component({
   selector: 'app-navbar',

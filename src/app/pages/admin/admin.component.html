@@ -10,6 +10,8 @@
       <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
       <a routerLink="/admin/users" routerLinkActive="active">Usuarios</a>
       <a routerLink="/admin/hotels" routerLinkActive="active">Hoteles</a>
+      <a routerLink="/admin/rooms" routerLinkActive="active">Habitaciones</a>
+      <a routerLink="/admin/room-occupancy" routerLinkActive="active">Ocupación</a>
       <a routerLink="/admin/bookings" routerLinkActive="active">Reservas</a>
       <a routerLink="/admin/events" routerLinkActive="active">Eventos</a>
     </nav>
@@ -40,10 +42,7 @@
         </div>
 
         <div class="admin-topbar__actions">
-          <button
-            class="btn btn-outline-secondary btn-sm"
-            (click)="goToClient()"
-          >
+          <button class="btn btn-outline-secondary btn-sm" (click)="goToClient()">
             Ver sitio público
           </button>
           <button class="btn btn-danger btn-sm" (click)="logout()">

@@ -43,6 +43,7 @@ $success-green: #28a745;
     .brand-logo {
       height: 40px;
       width: auto;
+      filter: invert(1) brightness(0); // Convierte blanco a negro
     }
   }
 
@@ -63,7 +64,8 @@ $success-green: #28a745;
       font-size: 13px;
       color: $text-mid;
 
-      span, a {
+      span,
+      a {
         display: flex;
         align-items: center;
         gap: 4px;
@@ -194,23 +196,26 @@ $success-green: #28a745;
   &__btn {
     width: 32px;
     height: 32px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: none;
-    border: 1px solid $border-color;
+    background: none; // Sin fondo
+    border: 1px solid #999999;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:hover {
-      border-color: $text-dark;
-      background-color: $bg-main;
+      border-color: #000000;
+      background-color: #f3eee7; // Sutil fondo al hover solamente
     }
 
-    i {
-      font-size: 14px;
-      color: $text-dark;
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: #000000 !important; // Negro forzado
+      display: block;
     }
   }
 
@@ -314,7 +319,7 @@ $success-green: #28a745;
 
   &.past {
     background-color: #fafafa;
-    
+
     .day-number {
       color: $text-light;
     }
@@ -322,7 +327,7 @@ $success-green: #28a745;
 
   &.unavailable {
     cursor: not-allowed;
-    
+
     .day-number {
       color: $text-light;
     }

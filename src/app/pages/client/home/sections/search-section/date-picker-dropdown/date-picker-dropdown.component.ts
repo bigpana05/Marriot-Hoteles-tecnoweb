@@ -52,6 +52,8 @@ export class DatePickerDropdownComponent {
 
   // Selecciona una fecha
   selectDate(day: number, month: Date): void {
+    if (this.isDisabled(day, month)) return;
+
     const selectedDate = new Date(month.getFullYear(), month.getMonth(), day);
 
     if (!this.checkInDate || (this.checkInDate && this.checkOutDate)) {
@@ -128,5 +130,14 @@ export class DatePickerDropdownComponent {
       return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     }
     return 0;
+  }
+  // Verifica si un día está deshabilitado (es una fecha pasada)
+  isDisabled(day: number, month: Date): boolean {
+    if (!day) return true;
+    const date = new Date(month.getFullYear(), month.getMonth(), day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Resetear hora para comparar solo fecha
+
+    return date < today;
   }
 }

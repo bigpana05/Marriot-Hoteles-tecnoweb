@@ -59,11 +59,12 @@
       "basePrice": 641,
       "currency": "EUR",
       "images": [
-        "assets/brand/hotels/W-Barcelona/wh-bcnwh-w-barcelona-23064_Wide-Hor-_1_.png",
-        "assets/brand/hotels/W-Barcelona/wh-bcnwh-w-barcelona-23896_Wide-Hor-_1_.png",
-        "assets/brand/hotels/W-Barcelona/wh-bcnwh-w-barcelona-27524_Wide-Hor-_1_.png",
-        "assets/brand/hotels/W-Barcelona/wh-bcnwh-cool-corner-01--31202-61312_Wide-Hor.png",
-        "assets/brand/hotels/W-Barcelona/wh-bcnwh-fabulous-twin-02-41661_Wide-Hor.png"
+        "assets\\brand\\featured-hotels\\Marriott_International-W_Hotel_Barcelona-ref163110.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\wh-bcnwh-w-barcelona-23064_Wide-Hor-_1_.png",
+        "assets\\brand\\hotels\\W-Barcelona\\wh-bcnwh-w-barcelona-27524_Wide-Hor-_1_.png",
+        "assets\\brand\\hotels\\W-Barcelona\\wh-bcnwh-cool-corner-01--31202-61312_Wide-Hor.png",
+        "assets\\brand\\hotels\\W-Barcelona\\bcnwh-wet-9829-hor-wide.png",
+        "assets\\brand\\hotels\\W-Barcelona\\wh-bcnwh-wonderful-sky-twin3-29561-33716_Wide-Hor.png"
       ],
       "galleries": [
         {
@@ -261,17 +262,17 @@
           "available": false
         }
       ],
-      "totalRooms": 80,
-      "availableRooms": 1,
+      "totalRooms": 3,
+      "availableRooms": 3,
       "isActive": true,
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-12-14T05:53:14.189Z"
+      "updatedAt": "2025-12-14T21:50:03.973Z"
     },
     {
       "id": "2",
       "name": "JW Marriott Venice Resort & Spa",
       "brand": "JW Marriott",
-      "brandLogo": "assets/brand/hotels/JW-Venice/jw-marriott-logo.png",
+      "brandLogo": "assets\\brand\\hotels\\JW-Venice\\jw-marriott-logo.svg",
       "language": "Inglés",
       "description": "Explore Venecia, Italia, desde el JW Marriott Venice Resort & Spa con vistas al Gran Canal",
       "rating": 4.6,
@@ -279,7 +280,11 @@
       "basePrice": 550,
       "currency": "EUR",
       "images": [
-        "assets\\brand\\featured-hotels\\Marriott_International-JW_Marriott_Venice_Resort-amp-SPA-JW_Facade-ref161796.jpg"
+        "assets\\brand\\featured-hotels\\Marriott_International-JW_Marriott_Venice_Resort-amp-SPA-JW_Facade-ref161796.jpg",
+        "assets\\brand\\hotels\\JW-Venice\\vcejw-isola-3097-hor-wide.png",
+        "assets\\brand\\hotels\\JW-Venice\\jw-vcejw-jw-roseto-entrance-19744-62059_Wide-Hor.png",
+        "assets\\brand\\hotels\\JW-Venice\\vcejw-exterior-0181-hor-wide.png",
+        "assets\\brand\\hotels\\JW-Venice\\jw-vcejw-family-premium-room-36862_Wide-Hor.png"
       ],
       "galleries": [
         {
@@ -479,7 +484,7 @@
       "availableRooms": 20,
       "isActive": true,
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-12-14T05:15:00.571Z"
+      "updatedAt": "2025-12-14T15:00:40.181Z"
     },
     {
       "id": "3",
@@ -493,9 +498,11 @@
       "basePrice": 705,
       "currency": "QAR",
       "images": [
-        "assets/brand/hotels/Le-Royal-Meridien/md-dohmd-exterior---hotel-48418_Wide-Hor.png",
-        "assets/brand/hotels/Le-Royal-Meridien/md-dohmd-dohmd-exterior-33508_Wide-Hor.png",
-        "assets/brand/hotels/Le-Royal-Meridien/md-dohmd-king-vend-me-room-20879_Wide-Hor.png"
+        "assets\\brand\\featured-hotels\\Marriott_International-Le_Royal_Meridien_Doha-Exterior-ref163191.jpg",
+        "assets\\brand\\hotels\\Le-Royal-Meridien\\md-dohmd-dohmd-exterior-33508_Wide-Hor.png",
+        "assets\\brand\\hotels\\Le-Royal-Meridien\\md-dohmd-explorer-suite-39543_Wide-Hor.png",
+        "assets\\brand\\hotels\\Le-Royal-Meridien\\md-dohmd-exterior---hotel-48418_Wide-Hor.png",
+        "assets\\brand\\hotels\\Le-Royal-Meridien\\md-dohmd-exterior---residences-26402_Wide-Hor.png"
       ],
       "galleries": [
         {
@@ -530,9 +537,9 @@
         "country": "Catar",
         "postalCode": "4010",
         "phone": "+9 744-141-6000",
-        "latitude": 25.43,
-        "longitude": 51.49,
-        "distanceFromCenter": 0,
+        "latitude": 25.40626,
+        "longitude": 51.518681,
+        "distanceFromCenter": 13.5,
         "nearbyAirports": [
           {
             "name": "Hamad International Airport",
@@ -624,26 +631,91 @@
           "name": "Bar/Lounge",
           "icon": "bar",
           "available": true
+        },
+        {
+          "id": "spa",
+          "name": "Spa con servicio completo",
+          "icon": "spa",
+          "available": false
+        },
+        {
+          "id": "pets",
+          "name": "Se aceptan mascotas",
+          "icon": "pets",
+          "available": false
+        },
+        {
+          "id": "room-service",
+          "name": "Servicio a la habitación 24h",
+          "icon": "room-service",
+          "available": false
+        },
+        {
+          "id": "business",
+          "name": "Centro de negocios",
+          "icon": "business",
+          "available": false
+        },
+        {
+          "id": "concierge",
+          "name": "Servicio de conserjería",
+          "icon": "concierge",
+          "available": false
+        },
+        {
+          "id": "laundry",
+          "name": "Lavandería/Tintorería",
+          "icon": "laundry",
+          "available": false
+        },
+        {
+          "id": "atm",
+          "name": "Cajero automático/ATM",
+          "icon": "atm",
+          "available": false
+        },
+        {
+          "id": "airport-shuttle",
+          "name": "Transporte al aeropuerto",
+          "icon": "airport-shuttle",
+          "available": false
+        },
+        {
+          "id": "ev-charging",
+          "name": "Cargador para vehículos eléctricos",
+          "icon": "ev-charging",
+          "available": false
+        },
+        {
+          "id": "kids-club",
+          "name": "Club infantil",
+          "icon": "kids-club",
+          "available": false
         }
       ],
       "totalRooms": 60,
       "availableRooms": 25,
       "isActive": true,
-      "createdAt": "2025-01-01T00:00:00.000Z"
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-12-14T15:47:51.574Z"
     },
     {
       "id": "3429",
       "name": "Le Méridien Barcelona",
       "brand": "Le Méridien",
       "brandLogo": "assets\\brand\\hotels\\Le-Royal-Meridien\\le-meridien-logo.png",
-      "language": "Español",
+      "language": "Inglés",
       "description": "Alójese en Le Méridien Barcelona y descubra los lugares de interés del centro de Barcelona, España.",
       "rating": 4.3,
       "reviewCount": 1363,
       "basePrice": 234,
       "currency": "EUR",
       "images": [
-        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-lm-bcn-ago2023-17008-03440_Classic-Hor.jpg"
+        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-lm-bcn-ago2023-17008-03440_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-facade-las-ramblas-26530-46120_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-hub-longitude-bar--12313-97652_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-panoramic-suite-36646_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-deluxe-room-26285_Classic-Hor.jpg"
       ],
       "galleries": [
         {
@@ -678,8 +750,8 @@
         "country": "España",
         "postalCode": "08001",
         "phone": "+3493-318-6200",
-        "latitude": null,
-        "longitude": 0,
+        "latitude": 41.383552,
+        "longitude": 2.170554,
         "distanceFromCenter": 0.5,
         "nearbyAirports": [
           {
@@ -840,7 +912,7 @@
       "availableRooms": 2,
       "isActive": true,
       "createdAt": "2025-12-14T05:30:14.921Z",
-      "updatedAt": "2025-12-14T05:31:47.060Z"
+      "updatedAt": "2025-12-14T15:34:29.217Z"
     }
   ],
   "events": [
@@ -988,294 +1060,211 @@
           "isMemberRate": false
         }
       ],
-      "available": 0
+      "available": 1
+    },
+    {
+      "id": "2",
+      "hotelId": "1",
+      "name": "2 camas individuales, Vista al mar Mediterráneo, Habitación Fabulous.",
+      "type": "premium",
+      "bedType": "double",
+      "view": "sea",
+      "maxCapacity": 2,
+      "size": "40m²/430ft²",
+      "images": [
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\2-camas-individuales-Vista-al-mar-Mediterráneo\\wh-bcnwh-fabulous-twin-01--11692-96488_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\2-camas-individuales-Vista-al-mar-Mediterráneo\\wh-bcnwh-twin-guest-room-01--26152-61954_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\2-camas-individuales-Vista-al-mar-Mediterráneo\\wh-bcnwh-guest-room-amenities-40061_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\2-camas-individuales-Vista-al-mar-Mediterráneo\\bcnwh-skyroom-view-4181-hor-clsc.png"
+      ],
+      "available": 2,
+      "rates": [
+        {
+          "id": "standard",
+          "name": "Tarifa Estándar",
+          "description": "cancelación gratuita",
+          "pricePerNight": 400,
+          "currency": "EUR",
+          "isMemberRate": false,
+          "memberDiscount": 15
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 420,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad",
+          "Check-in móvil",
+          "Desayuno incluido"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 2,
+          "sofaBed": false,
+          "extraBedsAllowed": false,
+          "cribsAllowed": 0,
+          "maxCribsOrExtraBeds": 0,
+          "beddingDetails": []
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Habitación para no fumadores",
+          "Vista panorámica"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Bata"
+        ],
+        "furnitureAndDecor": [
+          "Sofá"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía"
+        ],
+        "internetAndPhones": {
+          "phones": 1,
+          "phoneFeatures": [],
+          "internetAccess": "Standard",
+          "wifiNote": "El acceso a WiFi es gratis para Socios."
+        },
+        "entertainment": [
+          "Cable/satélite",
+          "Smart TV"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo",
+          "Vista al mar",
+          "Las habitaciones se renovaron en 2018",
+          "El hotel se construyó en 2009"
+        ],
+        "parkingAndTransport": [
+          "Personal para estacionar gratis"
+        ],
+        "hotelServices": [
+          "Servicio de apertura de cama"
+        ]
+      }
+    },
+    {
+      "id": "3",
+      "hotelId": "1",
+      "name": "1 cama tamaño King, Vista limitada, Habitación Cozy",
+      "type": "standard",
+      "bedType": "king",
+      "view": "limited",
+      "maxCapacity": 2,
+      "size": "39m²/420ft²",
+      "images": [
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\1-cama-king-habitacion-coozy\\wh-bcnwh-cozy-king-01-21205_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\1-cama-king-habitacion-coozy\\wh-bcnwh-cozy-king-02-31984_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\1-cama-king-habitacion-coozy\\wh-bcnwh-guest-room-amenities-40061_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\1-cama-king-habitacion-coozy\\wh-bcnwh-wonderful-king-02-14718_Classic-Hor.jpg"
+      ],
+      "available": 1,
+      "rates": [
+        {
+          "id": "member-flexible",
+          "name": "Tarifa flexible para socios",
+          "description": "Tarifa especial para miembros de Marriott Bonvoy",
+          "pricePerNight": 370,
+          "currency": "EUR",
+          "isMemberRate": true,
+          "memberDiscount": 15
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 390,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 2,
+          "sofaBed": false,
+          "extraBedsAllowed": true,
+          "cribsAllowed": 1,
+          "maxCribsOrExtraBeds": 1,
+          "beddingDetails": [
+            "Colchón con cubierta tipo almohada",
+            "Colchón de plumas",
+            "Edredón"
+          ]
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Habitación para no fumadores"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Secador de cabello",
+          "Bata",
+          "Pantuflas"
+        ],
+        "furnitureAndDecor": [
+          "Escritorio, para escribir / trabajar, tomacorriente",
+          "Sofá"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía",
+          "Mini-bar, con cargo"
+        ],
+        "internetAndPhones": {
+          "phones": 1,
+          "phoneFeatures": [
+            "Teléfono inalámbrico",
+            "Correo de voz",
+            "Teléfono con altavoz"
+          ],
+          "internetAccess": "Acceso inalámbrico a Internet de cortesía",
+          "wifiNote": "El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy"
+        },
+        "entertainment": [
+          "Habitación de alta tecnología con equipos listos para conexión",
+          "Cable/satélite"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo"
+        ],
+        "parkingAndTransport": [
+          "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
+        ],
+        "hotelServices": [
+          "Gimnasio en las instalaciones",
+          "Servicio de apertura de cama"
+        ]
+      }
     }
   ],
   "bookings": [
     {
-      "id": "6a63",
-      "hotelId": 2,
-      "roomId": 1,
+      "id": "4472",
+      "hotelId": 1,
+      "roomId": 3,
       "rateId": "member-flexible",
-      "checkIn": "2025-12-02",
-      "checkOut": "2025-12-03",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "adasd",
-        "lastName": "asda",
-        "email": "asdasd",
-        "memberNumber": "sadas",
-        "sendSmsConfirmation": true,
-        "country": "España",
-        "postalCode": "asdasd",
-        "city": "asdas",
-        "addressLine1": "asdas",
-        "addressLine2": "sad"
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "4234324234",
-        "expiryMonth": "01",
-        "expiryYear": "2027",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "4234"
-      },
-      "userId": "2",
-      "guestId": null,
-      "confirmationCode": "MRB6A632025",
-      "isMember": true,
-      "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "rateName": "Tarifa flexible para socios",
-      "nights": 1,
-      "pricePerNight": 735,
-      "totalPrice": 735,
-      "currency": "EUR",
-      "status": "CANCELLED",
-      "createdAt": "2025-12-14T02:10:54.396Z",
-      "cancelledAt": "2025-12-14T03:15:21.601Z"
-    },
-    {
-      "id": "94dc",
-      "hotelId": 2,
-      "roomId": 1,
-      "rateId": "member-flexible",
-      "checkIn": "2025-12-03",
-      "checkOut": "2025-12-04",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "Cliente",
-        "lastName": "Demo",
-        "email": "cliente@demo.cl",
-        "memberNumber": "",
-        "sendSmsConfirmation": false,
-        "country": "España",
-        "postalCode": "1000000",
-        "city": "asdasd",
-        "addressLine1": "asdasdas",
-        "addressLine2": ""
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "23423423232",
-        "expiryMonth": "05",
-        "expiryYear": "2028",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "3232"
-      },
-      "userId": null,
-      "guestId": null,
-      "confirmationCode": "MRB94DC2025",
-      "isMember": false,
-      "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "rateName": "Tarifa flexible para socios",
-      "nights": 1,
-      "pricePerNight": 735,
-      "totalPrice": 735,
-      "currency": "EUR",
-      "status": "CONFIRMED",
-      "createdAt": "2025-12-14T02:37:03.892Z"
-    },
-    {
-      "id": "1f44",
-      "hotelId": 2,
-      "roomId": 1,
-      "rateId": "member-flexible",
-      "checkIn": "2025-12-03",
-      "checkOut": "2025-12-04",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "Cliente",
-        "lastName": "Demo",
-        "email": "cliente@demo.cl",
-        "memberNumber": "123",
-        "sendSmsConfirmation": false,
-        "country": "España",
-        "postalCode": "asdasd",
-        "city": "sadasd",
-        "addressLine1": "sadasd",
-        "addressLine2": "asdasd"
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "1234124234",
-        "expiryMonth": "10",
-        "expiryYear": "2032",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "4234"
-      },
-      "isMember": true,
-      "userId": "2",
-      "guestId": null,
-      "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "rateName": "Tarifa flexible para socios",
-      "pricePerNight": 735,
-      "totalPrice": 735,
-      "currency": "EUR",
-      "confirmationCode": "MRBE5IK7N2025",
-      "nights": 1,
-      "status": "CONFIRMED",
-      "createdAt": "2025-12-14T03:22:35.580Z"
-    },
-    {
-      "id": "2445",
-      "hotelId": 2,
-      "roomId": 1,
-      "rateId": "member-flexible",
-      "checkIn": "2025-12-03",
-      "checkOut": "2025-12-04",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "prueba",
-        "lastName": "prueba",
-        "email": "sadasd",
-        "memberNumber": "",
-        "sendSmsConfirmation": false,
-        "country": "España",
-        "postalCode": "1000000",
-        "city": "asdas",
-        "addressLine1": "asdasd",
-        "addressLine2": "as"
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "12423341212",
-        "expiryMonth": "09",
-        "expiryYear": "2031",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "1212"
-      },
-      "isMember": false,
-      "userId": null,
-      "guestId": null,
-      "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "rateName": "Tarifa flexible para socios",
-      "pricePerNight": 735,
-      "totalPrice": 735,
-      "currency": "EUR",
-      "confirmationCode": "MRB3LW7EU2025",
-      "nights": 1,
-      "status": "CONFIRMED",
-      "createdAt": "2025-12-14T03:29:21.144Z"
-    },
-    {
-      "id": "a4b4",
-      "hotelId": 2,
-      "roomId": 1,
-      "rateId": "member-flexible",
-      "checkIn": "2025-12-03",
-      "checkOut": "2025-12-05",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "prueba1",
-        "lastName": "1",
-        "email": "prueba@gmail.com",
-        "memberNumber": "",
-        "sendSmsConfirmation": false,
-        "country": "España",
-        "postalCode": "sadasd",
-        "city": "asdasd",
-        "addressLine1": "sadas",
-        "addressLine2": "asd"
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "123412412",
-        "expiryMonth": "03",
-        "expiryYear": "2025",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "2412"
-      },
-      "isMember": false,
-      "userId": null,
-      "guestId": null,
-      "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "rateName": "Tarifa flexible para socios",
-      "pricePerNight": 735,
-      "totalPrice": 1470,
-      "currency": "EUR",
-      "confirmationCode": "MRB0S2IFB2025",
-      "nights": 2,
-      "status": "CONFIRMED",
-      "createdAt": "2025-12-14T03:31:27.447Z"
-    },
-    {
-      "id": "1385",
-      "hotelId": 2,
-      "roomId": 1,
-      "rateId": "member-flexible",
-      "checkIn": "2025-12-02",
-      "checkOut": "2025-12-03",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "asdas",
-        "lastName": "dasdasd",
-        "email": "sadasd",
-        "memberNumber": "sadas",
-        "sendSmsConfirmation": false,
-        "country": "España",
-        "postalCode": "sadasd",
-        "city": "sad",
-        "addressLine1": "asdsa",
-        "addressLine2": ""
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "12312312",
-        "expiryMonth": "03",
-        "expiryYear": "2027",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "2312"
-      },
-      "isMember": true,
-      "userId": null,
-      "guestId": null,
-      "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "rateName": "Tarifa flexible para socios",
-      "pricePerNight": 735,
-      "totalPrice": 735,
-      "currency": "EUR",
-      "confirmationCode": "MRBFRIZ5S2025",
-      "nights": 1,
-      "status": "CONFIRMED",
-      "createdAt": "2025-12-14T03:36:10.753Z"
-    },
-    {
-      "id": "9cc5",
-      "hotelId": 2,
-      "roomId": 1,
-      "rateId": "member-flexible",
-      "checkIn": "2025-12-03",
-      "checkOut": "2025-12-05",
+      "checkIn": "2025-12-14",
+      "checkOut": "2025-12-15",
       "rooms": 1,
       "adults": 1,
       "children": 0,
@@ -1286,88 +1275,42 @@
         "memberNumber": "BON123456",
         "sendSmsConfirmation": false,
         "country": "España",
-        "postalCode": "1000000",
-        "city": "sdasd",
-        "addressLine1": "asdasd",
-        "addressLine2": "asd"
+        "postalCode": "asdasd",
+        "city": "asdas",
+        "addressLine1": "sadsadas",
+        "addressLine2": ""
       },
       "paymentInfo": {
         "method": "credit-card",
-        "cardNumber": "3123123",
-        "expiryMonth": "09",
-        "expiryYear": "2030",
+        "cardNumber": "12344",
+        "expiryMonth": "04",
+        "expiryYear": "2025",
         "acceptTerms": true,
         "receivePromotions": true,
         "shareData": true,
-        "cardLastFour": "3123"
+        "cardLastFour": "2344"
       },
       "isMember": true,
       "userId": "2",
       "guestId": null,
       "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
+      "roomName": "1 cama tamaño King, Vista limitada, Habitación Cozy",
       "rateName": "Tarifa flexible para socios",
-      "pricePerNight": 735,
-      "totalPrice": 1470,
+      "pricePerNight": 370,
+      "totalPrice": 370,
       "currency": "EUR",
-      "confirmationCode": "MRB1XGH1I2025",
-      "nights": 2,
-      "status": "CONFIRMED",
-      "createdAt": "2025-12-14T03:50:02.567Z"
-    },
-    {
-      "id": "3c86",
-      "hotelId": 2,
-      "roomId": 1,
-      "rateId": "flexible",
-      "checkIn": "2025-12-04",
-      "checkOut": "2025-12-05",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "prueba2",
-        "lastName": "asdas",
-        "email": "prueba@gmail.com",
-        "memberNumber": "",
-        "sendSmsConfirmation": false,
-        "country": "España",
-        "postalCode": "asdasd",
-        "city": "asdsad",
-        "addressLine1": "asd",
-        "addressLine2": ""
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "1231231",
-        "expiryMonth": "09",
-        "expiryYear": "2029",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "1231"
-      },
-      "isMember": false,
-      "userId": null,
-      "guestId": null,
-      "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "rateName": "Tarifa flexible",
-      "pricePerNight": 750,
-      "totalPrice": 750,
-      "currency": "EUR",
-      "confirmationCode": "MRBTWSE0R2025",
+      "confirmationCode": "MRBRJY5VN2025",
       "nights": 1,
       "status": "CONFIRMED",
-      "createdAt": "2025-12-14T03:51:18.382Z"
+      "createdAt": "2025-12-14T23:39:39.942Z"
     },
     {
-      "id": "45c3",
-      "hotelId": 2,
+      "id": "4cfc",
+      "hotelId": 1,
       "roomId": 1,
-      "rateId": "flexible",
-      "checkIn": "2025-12-02",
-      "checkOut": "2025-12-04",
+      "rateId": "member-flexible",
+      "checkIn": "2025-12-14",
+      "checkOut": "2025-12-15",
       "rooms": 1,
       "adults": 1,
       "children": 0,
@@ -1378,172 +1321,34 @@
         "memberNumber": "BON123457",
         "sendSmsConfirmation": false,
         "country": "España",
-        "postalCode": "asdasd",
-        "city": "asdasd",
-        "addressLine1": "sadsad",
+        "postalCode": "sadsad",
+        "city": "sadsa",
+        "addressLine1": "sada",
         "addressLine2": "asdas"
       },
       "paymentInfo": {
         "method": "credit-card",
-        "cardNumber": "12312312",
+        "cardNumber": "124214",
         "expiryMonth": "08",
-        "expiryYear": "2031",
+        "expiryYear": "2030",
         "acceptTerms": true,
         "receivePromotions": true,
         "shareData": true,
-        "cardLastFour": "2312"
+        "cardLastFour": "4214"
       },
       "isMember": true,
       "userId": "4cbe",
       "guestId": null,
       "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "rateName": "Tarifa flexible",
-      "pricePerNight": 750,
-      "totalPrice": 1500,
-      "currency": "EUR",
-      "confirmationCode": "MRBZJQZVS2025",
-      "nights": 2,
-      "status": "CONFIRMED",
-      "createdAt": "2025-12-14T03:58:29.412Z"
-    },
-    {
-      "id": "7623",
-      "hotelId": 2,
-      "roomId": 1,
-      "rateId": "flexible",
-      "checkIn": "2025-12-04",
-      "checkOut": "2025-12-06",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "prueba",
-        "lastName": "4",
-        "email": "prueba1@gmail.com",
-        "memberNumber": "BON123458",
-        "sendSmsConfirmation": false,
-        "country": "España",
-        "postalCode": "dasdsa",
-        "city": "sadasd",
-        "addressLine1": "asdas",
-        "addressLine2": "sadas"
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "123123",
-        "expiryMonth": "02",
-        "expiryYear": "2026",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "3123"
-      },
-      "isMember": true,
-      "userId": "97b7",
-      "guestId": null,
-      "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "rateName": "Tarifa flexible",
-      "pricePerNight": 750,
-      "totalPrice": 1500,
-      "currency": "EUR",
-      "confirmationCode": "MRBUG47PL2025",
-      "nights": 2,
-      "status": "CONFIRMED",
-      "createdAt": "2025-12-14T04:06:48.059Z"
-    },
-    {
-      "id": "0dc6",
-      "hotelId": 2,
-      "roomId": 1,
-      "rateId": "flexible",
-      "checkIn": "2025-12-03",
-      "checkOut": "2025-12-05",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "sefsdfsd",
-        "lastName": "asdas",
-        "email": "sad",
-        "memberNumber": "",
-        "sendSmsConfirmation": false,
-        "country": "España",
-        "postalCode": "12312",
-        "city": "asdasd",
-        "addressLine1": "asdas",
-        "addressLine2": ""
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "123123",
-        "expiryMonth": "03",
-        "expiryYear": "2026",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "3123"
-      },
-      "isMember": false,
-      "userId": null,
-      "guestId": null,
-      "hotelName": "W Barcelona",
-      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "rateName": "Tarifa flexible",
-      "pricePerNight": 750,
-      "totalPrice": 1500,
-      "currency": "EUR",
-      "confirmationCode": "MRBDJRTWF2025",
-      "nights": 2,
-      "status": "CONFIRMED",
-      "createdAt": "2025-12-14T04:07:29.172Z"
-    },
-    {
-      "id": "ab75",
-      "hotelId": 1,
-      "roomId": 1,
-      "rateId": "member-flexible",
-      "checkIn": "2025-12-03",
-      "checkOut": "2025-12-04",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "prueba3",
-        "lastName": "sadsad",
-        "email": "prueba@gmail.com",
-        "memberNumber": "BON123457",
-        "sendSmsConfirmation": false,
-        "country": "España",
-        "postalCode": "asdasd",
-        "city": "asdasd",
-        "addressLine1": "sadasd",
-        "addressLine2": ""
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "123123",
-        "expiryMonth": "02",
-        "expiryYear": "2026",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "3123"
-      },
-      "isMember": true,
-      "userId": "4cbe",
-      "guestId": null,
-      "hotelName": "JW Marriott Venice Resort & Spa",
       "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
       "rateName": "Tarifa flexible para socios",
       "pricePerNight": 735,
       "totalPrice": 735,
       "currency": "EUR",
-      "confirmationCode": "MRBGH9HRN2025",
+      "confirmationCode": "MRBCCASZ32025",
       "nights": 1,
       "status": "CONFIRMED",
-      "createdAt": "2025-12-14T05:54:05.266Z"
+      "createdAt": "2025-12-15T00:00:07.257Z"
     }
   ]
 }

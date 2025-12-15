@@ -89,6 +89,11 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
   cancellationDate: string = '';
   cancellationFee: number = 0;
 
+  // Timer de reserva
+  timerMinutes = 15;
+  timerSeconds = 0;
+  private timerInterval: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -108,9 +113,13 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
     this.loadBookingSummary();
     this.checkAuthStatus();
     this.calculateCancellationPolicy();
+    this.startTimer();
   }
 
   ngOnDestroy(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -241,7 +250,7 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
    * Valida el formulario
    */
   isFormValid(): boolean {
-    const guestValid = 
+    const guestValid =
       this.guestInfo.firstName.trim() !== '' &&
       this.guestInfo.lastName.trim() !== '' &&
       this.guestInfo.email.trim() !== '' &&
@@ -250,11 +259,11 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
       this.guestInfo.city.trim() !== '' &&
       this.guestInfo.addressLine1.trim() !== '';
 
-    const paymentValid = 
-      this.paymentInfo.method === 'credit-card' 
+    const paymentValid =
+      this.paymentInfo.method === 'credit-card'
         ? (this.paymentInfo.cardNumber?.trim() !== '' &&
-           this.paymentInfo.expiryMonth !== '' &&
-           this.paymentInfo.expiryYear !== '')
+          this.paymentInfo.expiryMonth !== '' &&
+          this.paymentInfo.expiryYear !== '')
         : true;
 
     return guestValid && paymentValid && this.paymentInfo.acceptTerms;
@@ -271,7 +280,7 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
     // Obtener usuario actual y parámetros de búsqueda
     const searchParams = this.bookingService.getSearchParams();
     const currentUser = this.authService.getCurrentUser();
-    
+
     const bookingData = {
       hotelId: this.hotelId,
       roomId: this.roomId,
@@ -353,17 +362,17 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
    */
   validatePasswords(): boolean {
     this.passwordError = '';
-    
+
     if (this.memberPassword.length < 8) {
       this.passwordError = 'La contraseña debe tener al menos 8 caracteres';
       return false;
     }
-    
+
     if (this.memberPassword !== this.memberConfirmPassword) {
       this.passwordError = 'Las contraseñas no coinciden';
       return false;
     }
-    
+
     return true;
   }
 
@@ -401,7 +410,7 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
         this.guestInfo.memberNumber = newUser.bonvoyNumber || '';
         this.showRegistrationSuccess = true;
         this.registrationMessage = `¡Cuenta creada exitosamente! Tu número de miembro es: ${newUser.bonvoyNumber}`;
-        
+
         setTimeout(() => {
           this.showRegistrationSuccess = false;
         }, 5000);
@@ -421,5 +430,39 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
   closeRegistrationMessage(): void {
     this.showRegistrationSuccess = false;
     this.showRegistrationError = false;
+  }
+
+  /**
+   * Inicia el contador de tiempo de reserva
+   */
+  private startTimer(): void {
+    this.timerInterval = setInterval(() => {
+      if (this.timerSeconds > 0) {
+        this.timerSeconds--;
+      } else {
+        if (this.timerMinutes > 0) {
+          this.timerMinutes--;
+          this.timerSeconds = 59;
+        } else {
+          // Tiempo expirado
+          clearInterval(this.timerInterval);
+          this.handleTimerExpiration();
+        }
+      }
+    }, 1000);
+  }
+
+  /**
+   * Maneja la expiración del tiempo de reserva
+   */
+  private handleTimerExpiration(): void {
+    alert('El tiempo de reserva ha expirado. Por favor, selecciona la habitación nuevamente.');
+    // Redirigir a la selección de habitaciones del hotel
+    // Se usa queryParams si el bookingSummary tiene roomId, aunque lo ideal es volver al listado
+    if (this.hotelId) {
+      this.router.navigate(['/client/hotel', this.hotelId, 'rooms']);
+    } else {
+      this.router.navigate(['/client/search-hotels']);
+    }
   }
 }

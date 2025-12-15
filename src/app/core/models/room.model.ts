@@ -3,8 +3,8 @@
  * Representa los tipos de habitaciones disponibles en cada hotel
  */
 export interface Room {
-  id: number;
-  hotelId: number;
+  id: number | string;
+  hotelId: number | string;
   name: string;
   type: RoomType;
   bedType: BedType;

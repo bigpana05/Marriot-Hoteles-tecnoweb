@@ -300,7 +300,7 @@ export class SearchHotelService {
   private amenitiesSubject = new BehaviorSubject<FilterAmenity[]>(this.availableAmenities);
   private sortOptionSubject = new BehaviorSubject<SortOption>('distance');
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Convierte un Hotel de db.json a HotelSearchResult
@@ -346,7 +346,9 @@ export class SearchHotelService {
       galleries: hotel.galleries?.map(g => ({
         title: g.title,
         imageUrl: g.imageUrl
-      })) || []
+      })) || [],
+      totalRooms: hotel.totalRooms,
+      availableRooms: hotel.availableRooms
     };
   }
 
@@ -402,13 +404,13 @@ export class SearchHotelService {
     if (!destination) return hotels;
 
     const searchTerm = destination.toLowerCase().trim();
-    
+
     return hotels
       .filter(hotel => {
         const hotelName = hotel.name.toLowerCase();
         const hotelCity = hotel.location.city.toLowerCase();
         const hotelCountry = hotel.location.country.toLowerCase();
-        
+
         // Buscar si el nombre del hotel contiene el término de búsqueda
         if (hotelName.includes(searchTerm)) {
           return true;
@@ -425,29 +427,25 @@ export class SearchHotelService {
         if (hotelCountry.includes(searchTerm) || searchTerm.includes(hotelCountry)) {
           return true;
         }
-        // Buscar si alguna palabra del término coincide con ciudad o país
-        const searchWords = searchTerm.split(/[,\s]+/).filter(w => w.length > 2);
-        for (const word of searchWords) {
-          if (hotelCity.includes(word) || hotelCountry.includes(word) || hotelName.includes(word)) {
-            return true;
-          }
-        }
+        // El bucle de palabras individuales es demasiado permisivo y causa resultados irrelevantes
+        // (ej: buscar "Le Royal Méridien..." muestra "Le Méridien Barcelona" por la palabra "Méridien")
+        // Se elimina para priorizar coincidencias de frase completa o ubicación específica.
         return false;
       })
       .map(hotel => {
         // Calcular distancia según tipo de búsqueda
         let distance = hotel.distanceFromDestination;
-        
+
         // Si busca el hotel específico, distancia es la original (cercana)
         if (searchTerm.includes(hotel.name.toLowerCase())) {
-          distance = hotel.distanceFromDestination;
-        } 
+          distance = 0;
+        }
         // Si busca la ciudad, mostrar distancia desde el centro
         else if (searchTerm.includes(hotel.location.city.toLowerCase())) {
           // Distancia desde el centro de la ciudad
           distance = this.getDistanceFromCityCenter(hotel);
         }
-        
+
         return { ...hotel, distanceFromDestination: distance };
       });
   }
@@ -462,7 +460,7 @@ export class SearchHotelService {
       'barcelona': { 2: 2.6 },    // W Barcelona está a 2.6km del centro de Barcelona
       'lusail': { 3: 2.3 }        // Le Royal Méridien está a 2.3km del centro de Lusail
     };
-    
+
     const city = hotel.location.city.toLowerCase();
     return cityDistances[city]?.[hotel.id] || hotel.distanceFromDestination;
   }
@@ -545,7 +543,7 @@ export class SearchHotelService {
     const brands = this.brandsSubject.value.map(b => ({ ...b, selected: false }));
     const amenities = this.amenitiesSubject.value.map(a => ({ ...a, selected: false }));
     const filters = this.filtersSubject.value.map(f => ({ ...f, selected: false }));
-    
+
     this.brandsSubject.next(brands);
     this.amenitiesSubject.next(amenities);
     this.filtersSubject.next(filters);
@@ -632,6 +630,9 @@ export class SearchHotelService {
    * @returns Observable con el hotel encontrado o undefined
    */
   getHotelById(hotelId: number): Observable<HotelSearchResult | undefined> {
-    return of(this.mockHotels.find(h => h.id === hotelId)).pipe(delay(200));
+    return this.http.get<Hotel>(`${this.apiUrl}/hotels/${hotelId}`).pipe(
+      map(hotel => this.hotelToSearchResult(hotel)),
+      catchError(() => of(this.mockHotels.find(h => h.id === hotelId)))
+    );
   }
 }

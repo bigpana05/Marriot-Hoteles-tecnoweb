@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject, of, forkJoin } from 'rxjs';
 import { map, tap, catchError, switchMap } from 'rxjs/operators';
 import { Room, RoomFilterOptions } from '../models/room.model';
 import { Booking, CreateBookingDTO, BookingSummary } from '../models/booking.model';
+import { Hotel } from '../models/hotel.model';
 
 /**
  * Servicio para gestión de reservas de hoteles
@@ -29,7 +30,7 @@ export class BookingService {
   } | null>(null);
   searchParams$ = this.searchParams.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Genera un código de confirmación único
@@ -62,7 +63,7 @@ export class BookingService {
    * @param roomId - ID de la habitación
    * @returns Observable con la habitación
    */
-  getRoomById(roomId: number): Observable<Room | null> {
+  getRoomById(roomId: number | string): Observable<Room | null> {
     return this.http.get<Room>(`${this.API_URL}/rooms/${roomId}`).pipe(
       catchError(error => {
         console.error('Error al obtener habitación:', error);
@@ -99,7 +100,7 @@ export class BookingService {
    */
   createBooking(bookingData: CreateBookingDTO): Observable<Booking> {
     const confirmationCode = this.generateConfirmationCode();
-    
+
     const booking: Omit<Booking, 'id'> = {
       ...bookingData,
       confirmationCode,
@@ -116,11 +117,9 @@ export class BookingService {
       createdAt: new Date().toISOString()
     };
 
-    // Crear reserva y reducir disponibilidad
+    // Crear reserva
     return this.http.post<Booking>(`${this.API_URL}/bookings`, booking).pipe(
       tap((createdBooking) => {
-        // Reducir disponibilidad de la habitación
-        this.updateRoomAvailability(bookingData.roomId, -bookingData.rooms).subscribe();
         // Limpiar el resumen de reserva después de confirmar
         this.clearBookingSummary();
       })
@@ -128,7 +127,7 @@ export class BookingService {
   }
 
   /**
-   * Cancela una reserva y devuelve el cupo de la habitación
+   * Cancela una reserva
    * @param bookingId - ID de la reserva
    * @returns Observable con la reserva cancelada
    */
@@ -142,17 +141,206 @@ export class BookingService {
         return this.http.patch<Booking>(`${this.API_URL}/bookings/${bookingId}`, {
           status: 'CANCELLED',
           cancelledAt: new Date().toISOString()
-        }).pipe(
-          tap(cancelledBooking => {
-            // Devolver el cupo de la habitación
-            if (cancelledBooking) {
-              this.updateRoomAvailability(booking.roomId, booking.rooms).subscribe();
-            }
-          })
-        );
+        });
       }),
       catchError(error => {
         console.error('Error al cancelar reserva:', error);
+        return of(null);
+      })
+    );
+  }
+
+  /**
+   * Verifica la disponibilidad de una habitación específica para un rango de fechas
+   * @param hotelId - ID del hotel (ya no se usa, mantenido por compatibilidad)
+   * @param roomId - ID del tipo de habitación específico
+   * @param checkIn - Fecha de entrada (YYYY-MM-DD)
+   * @param checkOut - Fecha de salida (YYYY-MM-DD)
+   * @param roomsNeeded - Número de habitaciones necesarias
+   * @returns Observable<boolean> - true si hay disponibilidad
+   */
+  checkAvailability(hotelId: number, roomId: number | string, checkIn: string, checkOut: string, roomsNeeded: number): Observable<boolean> {
+    return forkJoin({
+      // 1. Obtenemos la habitación específica para saber su inventario (room.available)
+      room: this.http.get<Room>(`${this.API_URL}/rooms/${roomId}`),
+      // 2. Obtenemos las reservas confirmadas para ESTE tipo de habitación específico
+      bookings: this.http.get<Booking[]>(`${this.API_URL}/bookings?roomId=${roomId}&status=CONFIRMED`)
+    }).pipe(
+      map(({ room, bookings }) => {
+        if (!room) return false;
+
+        // Inventario total de este tipo de habitación
+        const roomCapacity = room.available || 0;
+
+        // Si no hay inventario configurado, no hay disponibilidad
+        if (roomCapacity <= 0) return false;
+
+        // Parsear fecha inicio solicitud
+        let reqStart: Date;
+        if (checkIn.match(/^\d{4}-\d{2}-\d{2}$/)) {
+          const [y, m, d] = checkIn.split('-').map(Number);
+          reqStart = new Date(y, m - 1, d);
+        } else {
+          reqStart = new Date(checkIn);
+        }
+
+        // Parsear fecha fin solicitud
+        let reqEnd: Date;
+        if (checkOut.match(/^\d{4}-\d{2}-\d{2}$/)) {
+          const [y, m, d] = checkOut.split('-').map(Number);
+          reqEnd = new Date(y, m - 1, d);
+        } else {
+          reqEnd = new Date(checkOut);
+        }
+
+        // Normalizar a medianoche
+        reqStart.setHours(0, 0, 0, 0);
+        reqEnd.setHours(0, 0, 0, 0);
+
+        let maxOccupancy = 0;
+
+        // Iterar por cada día de la estancia (excepto el día de salida)
+        for (let d = new Date(reqStart); d < reqEnd; d.setDate(d.getDate() + 1)) {
+          const currentDate = new Date(d);
+
+          // Filtrar reservas de ESTA habitación que ocupan este día específico
+          const activeBookings = bookings.filter(b => {
+            let bStart: Date, bEnd: Date;
+
+            // Parsear checkIn de la reserva
+            if (b.checkIn.match(/^\d{4}-\d{2}-\d{2}$/)) {
+              const [y, m, dd] = b.checkIn.split('-').map(Number);
+              bStart = new Date(y, m - 1, dd);
+            } else {
+              bStart = new Date(b.checkIn);
+            }
+
+            // Parsear checkOut de la reserva
+            if (b.checkOut.match(/^\d{4}-\d{2}-\d{2}$/)) {
+              const [y, m, dd] = b.checkOut.split('-').map(Number);
+              bEnd = new Date(y, m - 1, dd);
+            } else {
+              bEnd = new Date(b.checkOut);
+            }
+
+            bStart.setHours(0, 0, 0, 0);
+            bEnd.setHours(0, 0, 0, 0);
+
+            // Lógica de ocupación: [Start, End) - el día de salida ya está libre
+            return currentDate >= bStart && currentDate < bEnd;
+          });
+
+          // Sumar habitaciones ocupadas de ESTE TIPO en este día
+          const occupiedRooms = activeBookings.reduce((sum, b) => sum + (b.rooms || 1), 0);
+
+          if (occupiedRooms > maxOccupancy) {
+            maxOccupancy = occupiedRooms;
+          }
+        }
+
+        // Si (Inventario de la habitación - Ocupación Máxima) es suficiente, hay disponibilidad
+        return (roomCapacity - maxOccupancy) >= roomsNeeded;
+      }),
+      catchError(error => {
+        console.error('Error al verificar disponibilidad:', error);
+        return of(false);
+      })
+    );
+  }
+
+  /**
+   * Obtiene todas las reservas activas (confirmadas) para un hotel
+   * @param hotelId - ID del hotel
+   */
+  getActiveBookings(hotelId: number): Observable<Booking[]> {
+    return this.http.get<Booking[]>(`${this.API_URL}/bookings?hotelId=${hotelId}&status=CONFIRMED`);
+  }
+
+  /**
+   * Obtiene las reservas activas para una habitación específica
+   * @param roomId - ID de la habitación
+   */
+  getActiveBookingsByRoom(roomId: number | string): Observable<Booking[]> {
+    return this.http.get<Booking[]>(`${this.API_URL}/bookings?roomId=${roomId}&status=CONFIRMED`);
+  }
+
+  /**
+   * Verifica disponibilidad de una habitación para una fecha específica
+   * Útil para el calendario
+   * @param roomId - ID de la habitación
+   * @param date - Fecha a verificar
+   * @returns Observable con info de disponibilidad
+   */
+  checkRoomAvailabilityForDate(roomId: number | string, date: Date): Observable<{ available: boolean; occupiedCount: number; totalCapacity: number }> {
+    return forkJoin({
+      room: this.http.get<Room>(`${this.API_URL}/rooms/${roomId}`),
+      bookings: this.http.get<Booking[]>(`${this.API_URL}/bookings?roomId=${roomId}&status=CONFIRMED`)
+    }).pipe(
+      map(({ room, bookings }) => {
+        if (!room) return { available: false, occupiedCount: 0, totalCapacity: 0 };
+
+        const totalCapacity = room.available || 0;
+        const targetDate = new Date(date);
+        targetDate.setHours(0, 0, 0, 0);
+
+        // Contar habitaciones ocupadas en esta fecha
+        const occupiedCount = bookings.reduce((sum, b) => {
+          let bStart: Date, bEnd: Date;
+
+          if (b.checkIn.match(/^\d{4}-\d{2}-\d{2}$/)) {
+            const [y, m, d] = b.checkIn.split('-').map(Number);
+            bStart = new Date(y, m - 1, d);
+          } else {
+            bStart = new Date(b.checkIn);
+          }
+
+          if (b.checkOut.match(/^\d{4}-\d{2}-\d{2}$/)) {
+            const [y, m, d] = b.checkOut.split('-').map(Number);
+            bEnd = new Date(y, m - 1, d);
+          } else {
+            bEnd = new Date(b.checkOut);
+          }
+
+          bStart.setHours(0, 0, 0, 0);
+          bEnd.setHours(0, 0, 0, 0);
+
+          if (targetDate >= bStart && targetDate < bEnd) {
+            return sum + (b.rooms || 1);
+          }
+          return sum;
+        }, 0);
+
+        return {
+          available: (totalCapacity - occupiedCount) > 0,
+          occupiedCount,
+          totalCapacity
+        };
+      }),
+      catchError(() => of({ available: false, occupiedCount: 0, totalCapacity: 0 }))
+    );
+  }
+
+  /**
+   * Actualiza la disponibilidad global del hotel
+   * @param hotelId - ID del hotel
+   * @param change - Cambio en la disponibilidad (+/-)
+   */
+  updateHotelAvailability(hotelId: number, change: number): Observable<any> {
+    // Primero obtener el hotel actual
+    return this.http.get<any>(`${this.API_URL}/hotels/${hotelId}`).pipe(
+      switchMap(hotel => {
+        if (!hotel) return of(null);
+
+        const currentAvailable = hotel.availableRooms || 0;
+        const newAvailable = Math.max(0, currentAvailable + change);
+
+        // Actualizar solo el campo availableRooms
+        return this.http.patch(`${this.API_URL}/hotels/${hotelId}`, {
+          availableRooms: newAvailable
+        });
+      }),
+      catchError(error => {
+        console.error('Error al actualizar disponibilidad del hotel:', error);
         return of(null);
       })
     );
@@ -223,7 +411,7 @@ export class BookingService {
    */
   getBookingsByEmail(email: string): Observable<Booking[]> {
     return this.http.get<Booking[]>(`${this.API_URL}/bookings`).pipe(
-      map(bookings => bookings.filter(b => 
+      map(bookings => bookings.filter(b =>
         b.guestInfo?.email?.toLowerCase() === email.toLowerCase()
       )),
       catchError(error => {
@@ -238,7 +426,7 @@ export class BookingService {
    */
   getAllBookings(): Observable<Booking[]> {
     return this.http.get<Booking[]>(`${this.API_URL}/bookings`).pipe(
-      map(bookings => bookings.sort((a, b) => 
+      map(bookings => bookings.sort((a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       )),
       catchError(error => {
@@ -254,10 +442,10 @@ export class BookingService {
    * @returns Observable con lista de reservas
    */
   getBookings(userId?: number): Observable<Booking[]> {
-    const url = userId 
-      ? `${this.API_URL}/bookings?userId=${userId}` 
+    const url = userId
+      ? `${this.API_URL}/bookings?userId=${userId}`
       : `${this.API_URL}/bookings`;
-    
+
     return this.http.get<Booking[]>(url).pipe(
       catchError(error => {
         console.error('Error al obtener reservas:', error);
@@ -375,7 +563,15 @@ export class BookingService {
    * @returns Fecha formateada (ej: "Mar., 10 mar., 2026")
    */
   formatDisplayDate(dateString: string): string {
-    const date = new Date(dateString);
+    let date: Date;
+    // Si es formato YYYY-MM-DD, parsear manualmente como local
+    if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      const [year, month, day] = dateString.split('-').map(Number);
+      date = new Date(year, month - 1, day);
+    } else {
+      date = new Date(dateString);
+    }
+
     const options: Intl.DateTimeFormatOptions = {
       weekday: 'short',
       day: 'numeric',
@@ -383,5 +579,43 @@ export class BookingService {
       year: 'numeric'
     };
     return date.toLocaleDateString('es-ES', options);
+  }
+  /**
+   * Crea una nueva habitación
+   * @param room - Datos de la habitación
+   */
+  createRoom(room: Room): Observable<Room> {
+    return this.http.post<Room>(`${this.API_URL}/rooms`, room).pipe(
+      catchError(error => {
+        console.error('Error al crear habitación:', error);
+        throw error;
+      })
+    );
+  }
+
+  /**
+   * Actualiza una habitación existente
+   * @param room - Datos de la habitación con ID
+   */
+  updateRoom(room: Room): Observable<Room> {
+    return this.http.put<Room>(`${this.API_URL}/rooms/${room.id}`, room).pipe(
+      catchError(error => {
+        console.error('Error al actualizar habitación:', error);
+        throw error;
+      })
+    );
+  }
+
+  /**
+   * Elimina una habitación por ID
+   * @param id - ID de la habitación
+   */
+  deleteRoom(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}/rooms/${id}`).pipe(
+      catchError(error => {
+        console.error('Error al eliminar habitación:', error);
+        throw error;
+      })
+    );
   }
 }

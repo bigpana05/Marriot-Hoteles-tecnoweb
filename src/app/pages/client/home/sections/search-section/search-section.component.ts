@@ -55,7 +55,7 @@ export class SearchSectionComponent {
     if (this.selectedDates.checkIn && this.selectedDates.checkOut) {
       const diffTime = Math.abs(
         this.selectedDates.checkOut.getTime() -
-          this.selectedDates.checkIn.getTime()
+        this.selectedDates.checkIn.getTime()
       );
       return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     }
@@ -73,11 +73,9 @@ export class SearchSectionComponent {
 
   // Obtiene el texto del selector de habitaciones
   get roomsText(): string {
-    return `${this.roomsData.rooms} Habitación, ${
-      this.roomsData.adults + this.roomsData.children
-    } Huésped${
-      this.roomsData.adults + this.roomsData.children > 1 ? 'es' : ''
-    }`;
+    return `${this.roomsData.rooms} Habitación, ${this.roomsData.adults + this.roomsData.children
+      } Huésped${this.roomsData.adults + this.roomsData.children > 1 ? 'es' : ''
+      }`;
   }
 
   // Formatea una fecha
@@ -241,17 +239,30 @@ export class SearchSectionComponent {
       this.selectedDates.checkIn &&
       this.selectedDates.checkOut
     ) {
+      const checkInStr = this.formatDateForUrl(this.selectedDates.checkIn);
+      const checkOutStr = this.formatDateForUrl(this.selectedDates.checkOut);
+
       // Navegar a la página de búsqueda con los parámetros
       this.router.navigate(['/client/search-hotels'], {
         queryParams: {
           destination: this.selectedDestination,
-          checkIn: this.selectedDates.checkIn.toISOString(),
-          checkOut: this.selectedDates.checkOut.toISOString(),
+          checkIn: checkInStr,
+          checkOut: checkOutStr,
           rooms: this.roomsData.rooms,
           adults: this.roomsData.adults,
           children: this.roomsData.children
         }
       });
     }
+  }
+
+  /**
+   * Formatea una fecha a string YYYY-MM-DD usando hora local
+   */
+  private formatDateForUrl(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }
