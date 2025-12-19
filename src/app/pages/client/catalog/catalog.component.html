@@ -1,58 +1,38 @@
-<div class="container py-5">
-  <div class="row mb-4">
-    <div class="col-12 text-center">
-      <h2 class="display-5 fw-bold text-primary">Nuestros Hoteles</h2>
-      <p class="text-muted">
-        Descubre destinos exclusivos para tu próxima estancia
+<section class="hotels-catalog">
+  <!-- Header de la sección -->
+  <div class="catalog-header">
+    <h1 class="main-title">Nuestros Hoteles</h1>
+    <p class="subtitle">
+      Descubre destinos exclusivos y experiencias únicas en nuestra colección de hoteles de lujo
+    </p>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="catalog-container">
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Cargando hoteles...</p>
+    </div>
+
+    <!-- Grid de hoteles -->
+    <div class="hotels-grid" *ngIf="!isLoading && hotels.length > 0">
+      <app-hotel-card *ngFor="let hotel of hotels" [hotel]="hotel">
+      </app-hotel-card>
+    </div>
+
+    <!-- Estado vacío -->
+    <div class="empty-state" *ngIf="!isLoading && hotels.length === 0">
+      <div class="empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 21h18M5 21V7l8-4 8 4v14M9 21v-8h6v8" />
+          <path d="M10 9h4M10 12h4" />
+        </svg>
+      </div>
+      <h3 class="empty-title">No hay hoteles disponibles</h3>
+      <p class="empty-text">
+        En este momento no encontramos hoteles disponibles. Por favor, intenta más tarde.
       </p>
     </div>
   </div>
-
-  <div class="row g-4">
-    <div class="col-md-6 col-lg-4" *ngFor="let hotel of hotels">
-      <div class="card h-100 shadow-sm border-0 hotel-card">
-        <img src="assets/brand/hotels/Marriott_International-W-Algarve-Exterior-ref163410.jpg" class="card-img-top"
-          alt="{{ hotel.name }}" style="height: 200px; object-fit: cover" />
-
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start mb-2">
-            <h5 class="card-title fw-bold text-dark mb-0">{{ hotel.name }}</h5>
-            <span class="badge bg-success" *ngIf="hotel.availableRooms > 0">Disponible</span>
-            <span class="badge bg-danger" *ngIf="hotel.availableRooms === 0">Agotado</span>
-          </div>
-
-          <p class="card-text text-muted small">
-            <i class="bi bi-geo-alt-fill text-primary"></i> {{ hotel.location?.city }},
-            {{ hotel.location?.country }}
-          </p>
-
-          <p class="card-text small">
-            <strong>Habitaciones disponibles:</strong> {{ hotel.availableRooms !== undefined ? hotel.availableRooms :
-            'N/A' }}
-          </p>
-
-          <hr />
-
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <span class="text-muted small">Desde</span>
-              <h4 class="text-primary fw-bold mb-0">
-                ${{ hotel.basePrice }}
-                <small class="fs-6 text-muted">/noche</small>
-              </h4>
-            </div>
-            <button class="btn btn-outline-primary" [disabled]="hotel.availableRooms === 0">
-              Ver Detalles
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-12 text-center py-5" *ngIf="hotels.length === 0">
-      <div class="alert alert-info">
-        No se encontraron hoteles disponibles en este momento.
-      </div>
-    </div>
-  </div>
-</div>
+</section>
