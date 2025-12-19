@@ -1,6 +1,6 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
@@ -14,6 +14,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './pages/client/home/home.component';
 import { LoginComponent } from './pages/client/login/login.component';
+import { RegisterComponent } from './pages/client/register/register.component';
 import { ProfileComponent } from './pages/client/profile/profile.component';
 import { CatalogComponent } from './pages/client/catalog/catalog.component';
 import { CartComponent } from './pages/client/cart/cart.component';
@@ -60,6 +61,7 @@ import { HotelCardComponent } from './pages/client/catalog/hotel-card/hotel-card
     FooterComponent,
     HomeComponent,
     LoginComponent,
+    RegisterComponent,
     ProfileComponent,
     CatalogComponent,
     CartComponent,
@@ -98,7 +100,7 @@ import { HotelCardComponent } from './pages/client/catalog/hotel-card/hotel-card
     AdminRoomOccupancyComponent,
     HotelCardComponent,
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule, AppRoutingModule],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent],
 })

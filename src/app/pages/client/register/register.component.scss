@@ -1,3 +1,6 @@
+/* ===================================
+   REGISTER PAGE - Estilo Marriott
+   =================================== */
 
 .register-page {
   font-family: var(--mtt-font-ui);
@@ -6,108 +9,135 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 60px;
+  padding: 50px 20px;
   background: var(--mtt-bg);
 }
 
-
 .register-card {
-  font-family: var(--mtt-font-brand);
-  width: 950px;
+  width: 100%;
+  max-width: 900px;
   background: #fff;
-  padding: 70px 90px;
+  padding: 50px 70px;
   border-radius: 0;
-  border: 1px solid #eee;
+  border: 1px solid #e5e5e5;
 }
 
-.register-header {
-  text-align: center;
-  margin-bottom: 30px;
+/* Logo Marriott */
+.register-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-
-.register-header .logo {
-  font-family: var(--mtt-font-brand); 
-  font-size: 42px;
-  margin-bottom: 10px;
+.register-logo-icon {
+  width: 48px;
+  height: 48px;
+  background-image: url('/assets/brand/marriott-international-logo-m.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
-
-.register-header h1 {
+/* Título - Solo este usa Luxurious Roman */
+.register-title {
   font-family: var(--mtt-font-brand);
-  font-size: 32px;
+  font-size: 28px;
+  font-weight: 400;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 16px;
   line-height: 1.3;
-  color: #333;
-  margin-bottom: 10px;
 }
 
-
-.register-header p {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 8px;
-}
-
-.signin-text {
+/* Descripción */
+.register-description {
+  font-family: var(--mtt-font-ui);
   font-size: 13px;
-  color: #666;
+  color: #555;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.6;
+
+  strong {
+    color: #707274;
+  }
 }
 
-.signin-text a {
-  font-weight: 600;
-  text-decoration: none;
-  color: #333;
+/* Enlace a login */
+.signin-link {
+  font-family: var(--mtt-font-ui);
+  font-size: 13px;
+  color: #555;
+  text-align: center;
+  margin-bottom: 28px;
+
+  a {
+    color: #1a1a1a;
+    font-weight: 600;
+    text-decoration: underline;
+
+    &:hover {
+      color: #707274;
+    }
+  }
 }
 
-
+/* Formulario */
 .register-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-
+/* Filas del formulario */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 20px;
 }
 
 .form-row.single {
   grid-template-columns: 1fr;
 }
 
-
+/* Campos del formulario */
 .form-field {
   display: flex;
   flex-direction: column;
-  font-size: 13px;
 }
 
 .form-field label {
-  margin-bottom: 6px;
-  color: #444;
+  font-family: var(--mtt-font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #707274;
+  margin-bottom: 8px;
+  text-transform: uppercase;
 }
-
 
 .form-field input,
 .form-field select {
   width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  font-size: 15px;
+  padding: 12px 14px;
+  border: 1px solid #bbb;
+  border-radius: 0;
+  font-size: 14px;
   font-family: var(--mtt-font-ui);
   background-color: #fff;
-  outline: none;
+  transition: border-color 0.2s ease;
+
+  &::placeholder {
+    color: #999;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #666;
+  }
 }
 
-.form-field input:focus,
-.form-field select:focus {
-  border-color: #666;
-}
-
-
+/* Wrapper para select */
 .select-wrapper {
   position: relative;
 }
@@ -117,6 +147,7 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  padding-right: 36px;
 }
 
 .select-wrapper .select-arrow {
@@ -129,82 +160,110 @@
   color: #555;
 }
 
-/* PASSWORD (ojo similar al login) */
+/* Contenedor de contraseña */
 .password-wrapper {
   position: relative;
   display: flex;
   align-items: center;
+
+  input {
+    width: 100%;
+    padding-right: 50px;
+  }
 }
 
-.password-wrapper input {
-  width: 100%;
-  padding-right: 40px;
-}
-
-/* Puedes usar el mismo icono de ojo que en login si quieres */
+/* Botón de ojo */
 .eye-btn {
   position: absolute;
-  right: 14px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
-  background-color: transparent;
+  background: transparent;
   border: none;
-  padding: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  padding: 0;
 
-  /* si luego quieres usar SVG en vez del emoji, puedes hacer:
-  background-image: url('/assets/icons/eye2.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  */
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
-/* BOTÓN “Join Today” (basado en login-button) */
+.eye-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+}
+
+/* Mensajes de error - Solo en ROJO */
+.field-error {
+  display: block;
+  color: #dc3545;
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 13px;
+  text-align: center;
+  padding: 12px;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 4px;
+}
+
+/* Fila del botón */
 .btn-row {
   display: flex;
   justify-content: center;
-  margin-top: 28px;
+  margin-top: 20px;
 }
 
-.primary-btn {
+/* Botón de envío */
+.submit-btn {
   width: 280px;
-  background: #555;
   padding: 14px;
-  border-radius: 6px;
-  font-size: 18px;
+  background: #555555;
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
   font-weight: 600;
   color: #fff;
-  border: none;
-  cursor: pointer;
   font-family: var(--mtt-font-ui);
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    background: #999999;
+    cursor: not-allowed;
+  }
 }
 
-/* RESPONSIVE */
+/* Responsive */
 @media (max-width: 768px) {
   .register-card {
     padding: 40px 24px;
-    width: 100%;
   }
 
   .form-row {
     grid-template-columns: 1fr;
   }
-}
-.register-logo {
-  display: flex;
-  justify-content: center;
-  margin-top: -10px;
-  margin-bottom: 18px;
+
+  .register-title {
+    font-size: 24px;
+  }
 }
 
-.register-logo-icon {
-  width: 48px;
-  height: 48px;
-  background-image: url('/assets/brand/marriott-international-logo-m.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
+@media (max-width: 480px) {
+  .submit-btn {
+    width: 100%;
+  }
 }
