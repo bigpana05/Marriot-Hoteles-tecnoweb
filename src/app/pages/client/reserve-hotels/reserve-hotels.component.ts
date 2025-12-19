@@ -22,7 +22,7 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
 
   // Datos del hotel
   hotel: HotelSearchResult | null = null;
-  hotelId: number = 0;
+  hotelId: number | string = 0;
 
   // Habitaciones
   rooms: Room[] = [];
@@ -122,7 +122,8 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
     this.route.params
       .pipe(takeUntil(this.destroy$))
       .subscribe(params => {
-        this.hotelId = +params['id'];
+        // No forzar a número con '+' pq los IDs pueden ser strings alfanuméricos
+        this.hotelId = params['id'];
         this.loadHotelData();
         this.loadRooms();
       });

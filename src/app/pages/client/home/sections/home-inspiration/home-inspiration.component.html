@@ -13,12 +13,12 @@
       <div class="carousel-track-container">
         <div class="carousel-track" [style.transform]="transformStyle" [class.mobile-mode]="itemsPerSlide === 1">
           <div class="carousel-slide" *ngFor="let destination of destinations; let i = index">
-            <div class="destination-card">
+            <div class="destination-card" (click)="exploreDestination(destination)" style="cursor: pointer;">
               <div class="image-container">
                 <img [src]="destination.imageUrl" [alt]="destination.name" class="destination-image">
                 <div class="card-overlay">
                   <h3 class="destination-name">{{ destination.name }}</h3>
-                  <a href="#" class="details-link" aria-label="Ver detalles del destino">
+                  <a href="javascript:void(0)" class="details-link" aria-label="Ver detalles del destino">
                     <img src="assets/icons/arrow-white.svg" alt="Detalles">
                   </a>
                 </div>
@@ -34,13 +34,8 @@
     </div>
 
     <div class="dots-indicator">
-      <span
-        *ngFor="let slide of slides; let i = index"
-        class="dot"
-        [class.active]="i === currentSlide"
-        (click)="goToSlide(i)"
-        role="button"
-        [attr.aria-label]="'Ir a la diapositiva ' + (i + 1)">
+      <span *ngFor="let slide of slides; let i = index" class="dot" [class.active]="i === currentSlide"
+        (click)="goToSlide(i)" role="button" [attr.aria-label]="'Ir a la diapositiva ' + (i + 1)">
       </span>
     </div>
   </div>

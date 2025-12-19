@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, of, forkJoin } from 'rxjs';
 import { map, tap, catchError, switchMap } from 'rxjs/operators';
@@ -46,14 +46,86 @@ export class BookingService {
 
   /**
    * Obtiene las habitaciones disponibles de un hotel
-   * @param hotelId - ID del hotel
+   * @param hotelId - ID del hotel (numero o string)
    * @returns Observable con lista de habitaciones
    */
-  getRoomsByHotelId(hotelId: number): Observable<Room[]> {
+  getRoomsByHotelId(hotelId: number | string): Observable<Room[]> {
     return this.http.get<Room[]>(`${this.API_URL}/rooms?hotelId=${hotelId}`).pipe(
       catchError(error => {
         console.error('Error al obtener habitaciones:', error);
         return of([]);
+      })
+    );
+  }
+
+  // ... (otros métodos)
+
+  /**
+   * Calcula el número total de habitaciones disponibles de un hotel para una fecha específica
+   * Suma la disponibilidad de todos los tipos de habitaciones considerando las reservas activas
+   * @param hotelId - ID del hotel
+   * @param date - Fecha a verificar (por defecto hoy)
+   * @returns Observable con el número de habitaciones disponibles
+   */
+  getAvailableRoomsForHotelOnDate(hotelId: number | string, date?: Date): Observable<number> {
+    const targetDate = date || new Date();
+    targetDate.setHours(0, 0, 0, 0);
+
+    return forkJoin({
+      // Obtener todas las habitaciones del hotel
+      rooms: this.getRoomsByHotelId(hotelId),
+      // Obtener todas las reservas confirmadas del hotel
+      bookings: this.http.get<Booking[]>(`${this.API_URL}/bookings?hotelId=${hotelId}&status=CONFIRMED`)
+    }).pipe(
+      map(({ rooms, bookings }) => {
+        let totalAvailable = 0;
+
+        // Para cada tipo de habitación del hotel
+        rooms.forEach(room => {
+          const roomCapacity = room.available || 0;
+
+          // Filtrar reservas de ESTA habitación que ocupan la fecha objetivo
+          const occupiedCount = bookings
+            .filter(b => {
+              // Solo considerar reservas de este tipo de habitación (comparación segura a string)
+              if (String(b.roomId) !== String(room.id)) return false;
+
+              let bStart: Date, bEnd: Date;
+
+              // Parsear checkIn de la reserva
+              if (b.checkIn.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                const [y, m, d] = b.checkIn.split('-').map(Number);
+                bStart = new Date(y, m - 1, d);
+              } else {
+                bStart = new Date(b.checkIn);
+              }
+
+              // Parsear checkOut de la reserva
+              if (b.checkOut.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                const [y, m, d] = b.checkOut.split('-').map(Number);
+                bEnd = new Date(y, m - 1, d);
+              } else {
+                bEnd = new Date(b.checkOut);
+              }
+
+              bStart.setHours(0, 0, 0, 0);
+              bEnd.setHours(0, 0, 0, 0);
+
+              // Lógica de ocupación: [Start, End) - el día de salida ya está libre
+              return targetDate >= bStart && targetDate < bEnd;
+            })
+            .reduce((sum, b) => sum + (b.rooms || 1), 0);
+
+          // Sumar las habitaciones disponibles de este tipo
+          const availableOfThisType = Math.max(0, roomCapacity - occupiedCount);
+          totalAvailable += availableOfThisType;
+        });
+
+        return totalAvailable;
+      }),
+      catchError(error => {
+        console.error('Error al calcular disponibilidad del hotel:', error);
+        return of(0);
       })
     );
   }
@@ -159,7 +231,7 @@ export class BookingService {
    * @param roomsNeeded - Número de habitaciones necesarias
    * @returns Observable<boolean> - true si hay disponibilidad
    */
-  checkAvailability(hotelId: number, roomId: number | string, checkIn: string, checkOut: string, roomsNeeded: number): Observable<boolean> {
+  checkAvailability(hotelId: number | string, roomId: number | string, checkIn: string, checkOut: string, roomsNeeded: number): Observable<boolean> {
     return forkJoin({
       // 1. Obtenemos la habitación específica para saber su inventario (room.available)
       room: this.http.get<Room>(`${this.API_URL}/rooms/${roomId}`),
@@ -619,73 +691,4 @@ export class BookingService {
     );
   }
 
-  /**
-   * Calcula el número total de habitaciones disponibles de un hotel para una fecha específica
-   * Suma la disponibilidad de todos los tipos de habitaciones considerando las reservas activas
-   * @param hotelId - ID del hotel
-   * @param date - Fecha a verificar (por defecto hoy)
-   * @returns Observable con el número de habitaciones disponibles
-   */
-  getAvailableRoomsForHotelOnDate(hotelId: number, date?: Date): Observable<number> {
-    const targetDate = date || new Date();
-    targetDate.setHours(0, 0, 0, 0);
-
-    return forkJoin({
-      // Obtener todas las habitaciones del hotel
-      rooms: this.getRoomsByHotelId(hotelId),
-      // Obtener todas las reservas confirmadas del hotel
-      bookings: this.http.get<Booking[]>(`${this.API_URL}/bookings?hotelId=${hotelId}&status=CONFIRMED`)
-    }).pipe(
-      map(({ rooms, bookings }) => {
-        let totalAvailable = 0;
-
-        // Para cada tipo de habitación del hotel
-        rooms.forEach(room => {
-          const roomCapacity = room.available || 0;
-
-          // Filtrar reservas de ESTA habitación que ocupan la fecha objetivo
-          const occupiedCount = bookings
-            .filter(b => {
-              // Solo considerar reservas de este tipo de habitación
-              if (b.roomId !== room.id) return false;
-
-              let bStart: Date, bEnd: Date;
-
-              // Parsear checkIn de la reserva
-              if (b.checkIn.match(/^\d{4}-\d{2}-\d{2}$/)) {
-                const [y, m, d] = b.checkIn.split('-').map(Number);
-                bStart = new Date(y, m - 1, d);
-              } else {
-                bStart = new Date(b.checkIn);
-              }
-
-              // Parsear checkOut de la reserva
-              if (b.checkOut.match(/^\d{4}-\d{2}-\d{2}$/)) {
-                const [y, m, d] = b.checkOut.split('-').map(Number);
-                bEnd = new Date(y, m - 1, d);
-              } else {
-                bEnd = new Date(b.checkOut);
-              }
-
-              bStart.setHours(0, 0, 0, 0);
-              bEnd.setHours(0, 0, 0, 0);
-
-              // Lógica de ocupación: [Start, End) - el día de salida ya está libre
-              return targetDate >= bStart && targetDate < bEnd;
-            })
-            .reduce((sum, b) => sum + (b.rooms || 1), 0);
-
-          // Sumar las habitaciones disponibles de este tipo
-          const availableOfThisType = Math.max(0, roomCapacity - occupiedCount);
-          totalAvailable += availableOfThisType;
-        });
-
-        return totalAvailable;
-      }),
-      catchError(error => {
-        console.error('Error al calcular disponibilidad del hotel:', error);
-        return of(0);
-      })
-    );
-  }
 }

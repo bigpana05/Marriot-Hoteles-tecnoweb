@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Destination } from '../../../../../core/models/destination.model';
 
 // Constantes para breakpoints responsive
@@ -57,7 +58,7 @@ export class HomeInspirationComponent implements OnInit, OnDestroy {
 
   private resizeListener: () => void;
 
-  constructor() {
+  constructor(private router: Router) {
     this.resizeListener = () => this.checkScreenSize();
   }
 
@@ -68,6 +69,38 @@ export class HomeInspirationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     window.removeEventListener('resize', this.resizeListener);
+  }
+
+  /**
+   * Navega a la búsqueda de hoteles para el destino seleccionado
+   * @param destination Destino seleccionado
+   */
+  exploreDestination(destination: Destination): void {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const checkIn = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+    const checkOut = `${tomorrow.getFullYear()}-${(tomorrow.getMonth() + 1).toString().padStart(2, '0')}-${tomorrow.getDate().toString().padStart(2, '0')}`;
+
+    let searchDestination = destination.name;
+    // Mapeo de nombres para mejorar la precisión de búsqueda
+    if (searchDestination === 'Dubái') {
+      searchDestination = 'Dúbai, Emiratos Árabes Unidos';
+    } else if (searchDestination === 'Alemania, Múnich') {
+      searchDestination = 'Múnich, Alemania';
+    }
+
+    this.router.navigate(['/client/search-hotels'], {
+      queryParams: {
+        destination: searchDestination,
+        checkIn: checkIn,
+        checkOut: checkOut,
+        rooms: 1,
+        adults: 1,
+        children: 0
+      }
+    });
   }
 
   /**

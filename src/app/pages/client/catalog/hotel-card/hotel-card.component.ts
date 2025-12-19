@@ -31,7 +31,9 @@ export class HotelCardComponent implements OnInit {
             return;
         }
 
-        const hotelId = typeof this.hotel.id === 'string' ? parseInt(this.hotel.id, 10) : this.hotel.id;
+        // Usamos el ID directamente, ya que el servicio soporta string | number
+        // y json-server puede usar IDs alfanuméricos como "5b79"
+        const hotelId = this.hotel.id;
         const today = new Date();
 
         this.bookingService.getAvailableRoomsForHotelOnDate(hotelId, today)

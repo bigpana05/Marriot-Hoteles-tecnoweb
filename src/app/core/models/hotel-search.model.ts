@@ -3,7 +3,7 @@
  * Incluye toda la información necesaria para mostrar en las cards de resultados
  */
 export interface HotelSearchResult {
-  id: number;
+  id: number | string;
   name: string;
   brand: string;
   brandLogo: string;
