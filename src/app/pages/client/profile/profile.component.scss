@@ -1,84 +1,441 @@
+/* ===================================
+   PROFILE PAGE - Estilo Marriott
+   =================================== */
+
 .profile {
-  display: flex;
-  justify-content: center;
-  padding: 3rem 1rem;
+  min-height: calc(100vh - var(--mtt-navbar-h));
+  padding: 60px 20px;
+  background: var(--mtt-bg);
+  font-family: var(--mtt-font-ui);
 
   &--empty {
-    min-height: 50vh;
-    align-items: center;
-  }
-
-  &__card {
-    max-width: 600px;
-    width: 100%;
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-  }
-
-  &__title {
-    font-size: 1.6rem;
-    margin-bottom: 0.25rem;
-  }
-
-  &__subtitle {
-    margin-bottom: 1.5rem;
-    color: #666;
-  }
-
-  &__info {
-    margin: 0 0 1.5rem;
-    display: grid;
-    gap: 0.75rem;
-
-    dt {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #888;
-    }
-
-    dd {
-      margin: 0;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-  }
-
-  &__actions {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
   }
 }
 
-.btn {
-  border-radius: 999px;
-  padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  background: #fff;
+.profile-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Cabecera de bienvenida */
+.profile-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.profile-welcome {
+  font-family: var(--mtt-font-brand);
+  font-size: 38px;
+  color: #222222;
+  margin: 0 0 8px 0;
+  font-weight: 400;
+}
+
+.profile-subtitle {
+  font-family: var(--mtt-font-ui);
+  font-size: 14px;
+  color: #707274;
+  margin: 0;
+}
+
+/* Alertas */
+.alert {
+  padding: 14px 18px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: center;
+
+  &.alert-success {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+  }
+
+  &.alert-error {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+  }
+}
+
+/* Tarjeta de miembro */
+.member-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+}
+
+.member-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.member-card-title {
+  font-family: var(--mtt-font-brand);
+  font-size: 22px;
+  color: #222222;
+  margin: 0;
+  font-weight: 400;
+}
+
+.member-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #BF6700;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+.member-badge-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.member-badge-number {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  font-family: monospace;
+}
+
+/* Tarjeta de información */
+.info-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+}
+
+.info-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.info-card-title {
+  font-family: var(--mtt-font-ui);
+  font-size: 18px;
+  color: #222222;
+  margin: 0;
+  font-weight: 600;
+}
+
+.btn-edit {
+  background: transparent;
+  border: 1px solid #222222;
+  color: #222222;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  font-family: var(--mtt-font-ui);
+
+  &:hover {
+    background: #222222;
+    color: #ffffff;
+  }
+}
+
+/* Grid de información */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #707274;
+}
+
+.info-value {
+  font-size: 15px;
+  color: #222222;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Formulario de edición */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #707274;
+}
+
+.form-input {
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: var(--mtt-font-ui);
+  transition: border-color 0.2s ease;
+
+  &::placeholder {
+    color: #999;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #888;
+  }
+
+  &:disabled {
+    background: #f5f5f5;
+    color: #888;
+    cursor: not-allowed;
+  }
+}
+
+.form-hint {
+  font-size: 12px;
+  color: #707274;
+  font-style: italic;
+}
+
+/* Wrapper de contraseña con icono de ojo */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 100%;
+    padding-right: 50px;
+  }
+}
+
+.eye-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.eye-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* Botones */
+.btn {
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--mtt-font-ui);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
 
   &.btn-primary {
-    background: #111;
-    color: #fff;
-    border-color: #111;
+    background: #555555;
+    color: #ffffff;
+
+    &:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+
+    &:disabled {
+      background: #999999;
+      cursor: not-allowed;
+    }
   }
 
-  &.btn-outline {
+  &.btn-secondary {
     background: transparent;
-  }
+    border: 1px solid #222222;
+    color: #222222;
 
-  &.btn-danger {
-    background: #000000;
-    border-color: #000000;
-    color: #fff;
+    &:hover:not(:disabled) {
+      background: #f5f5f5;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* Acciones rápidas */
+.quick-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 12px 28px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--mtt-font-ui);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.action-btn-outline {
+    background: #ffffff;
+    border: 1px solid #000000;
+    color: #000000;
 
     &:hover {
       background: #000000;
-      border-color: #000000;
+      color: #ffffff;
+    }
+  }
+
+  &.action-btn-danger {
+    background: #000000;
+    border: 1px solid #000000;
+    color: #ffffff;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+}
+
+/* Estado vacío */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.empty-title {
+  font-family: var(--mtt-font-brand);
+  font-size: 32px;
+  color: #222222;
+  margin: 0 0 12px 0;
+  font-weight: 400;
+}
+
+.empty-text {
+  font-size: 14px;
+  color: #707274;
+  margin: 0 0 28px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile {
+    padding: 40px 16px;
+  }
+
+  .profile-welcome {
+    font-size: 28px;
+  }
+
+  .member-card,
+  .info-card {
+    padding: 24px 20px;
+  }
+
+  .info-grid,
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .member-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .quick-actions {
+    flex-direction: column;
+
+    .action-btn {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-welcome {
+    font-size: 24px;
+  }
+
+  .member-card-title {
+    font-size: 18px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+
+    .btn {
+      width: 100%;
     }
   }
 }
