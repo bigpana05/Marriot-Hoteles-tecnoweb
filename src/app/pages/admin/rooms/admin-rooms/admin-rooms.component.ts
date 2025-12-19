@@ -373,13 +373,14 @@ export class AdminRoomsComponent implements OnInit {
   }
 
   // --- Toggle de amenidades ---
-  isAmenitySelected(category: keyof typeof this.availableAmenities, amenity: string): boolean {
+  // --- Toggle de amenidades ---
+  isAmenitySelected(category: string, amenity: string): boolean {
     const amenities = this.formModel.amenities;
     if (!amenities || !amenities[category]) return false;
     return amenities[category].includes(amenity);
   }
 
-  toggleAmenity(category: keyof typeof this.availableAmenities, amenity: string): void {
+  toggleAmenity(category: string, amenity: string): void {
     const amenities = this.formModel.amenities;
     if (!amenities[category]) {
       amenities[category] = [];
