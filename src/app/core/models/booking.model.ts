@@ -29,12 +29,15 @@ export interface Booking {
   userId?: string | null;
   guestId?: string | null;
   confirmationCode: string;
+  checkInStatus?: 'PENDING' | 'COMPLETED';
+  checkInCompletedAt?: string;
+  checkInData?: CheckInData;
 }
 
 /**
  * Estados posibles de una reserva
  */
-export type BookingStatus = 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED';
+export type BookingStatus = 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED' | 'CHECKED_IN';
 
 /**
  * Información del huésped
@@ -113,4 +116,17 @@ export interface BookingSummary {
   pricePerNight: number;
   totalPrice: number;
   currency: string;
+}
+
+/**
+ * Datos del check-in digital anticipado
+ */
+export interface CheckInData {
+  estimatedArrivalTime: string;
+  floorPreference?: 'high' | 'low' | 'none';
+  specialRequests?: string;
+  acceptedPolicies: boolean;
+  identificationNumber?: string;
+  vehiclePlate?: string;
+  completedAt: string;
 }

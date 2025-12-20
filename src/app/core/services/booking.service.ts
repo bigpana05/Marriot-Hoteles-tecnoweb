@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, of, forkJoin } from 'rxjs';
 import { map, tap, catchError, switchMap } from 'rxjs/operators';
 import { Room, RoomFilterOptions } from '../models/room.model';
-import { Booking, CreateBookingDTO, BookingSummary } from '../models/booking.model';
+import { Booking, CreateBookingDTO, BookingSummary, CheckInData } from '../models/booking.model';
 import { Hotel } from '../models/hotel.model';
 
 /**
@@ -686,6 +686,135 @@ export class BookingService {
     return this.http.delete<void>(`${this.API_URL}/rooms/${id}`).pipe(
       catchError(error => {
         console.error('Error al eliminar habitación:', error);
+        throw error;
+      })
+    );
+  }
+
+  /**
+   * Verifica si una reserva puede hacer check-in digital
+   * Disponible desde 48h hasta 2h antes del check-in
+   * @param booking - Reserva a verificar
+   * @returns Objeto con canCheckIn y reason opcional
+   */
+  canPerformCheckIn(booking: Booking): { canCheckIn: boolean; reason?: string } {
+    // Solo reservas confirmadas pueden hacer check-in
+    if (booking.status !== 'CONFIRMED') {
+      return { canCheckIn: false, reason: 'Solo reservas confirmadas pueden hacer check-in digital' };
+    }
+
+    // Si ya se hizo check-in
+    if (booking.checkInStatus === 'COMPLETED') {
+      return { canCheckIn: false, reason: 'El check-in ya fue completado' };
+    }
+
+    const now = new Date();
+
+    // Parsear la fecha de check-in correctamente para evitar problemas de zona horaria
+    let checkInDate: Date;
+    if (booking.checkIn.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      const [year, month, day] = booking.checkIn.split('-').map(Number);
+      checkInDate = new Date(year, month - 1, day, 15, 0, 0); // Asumimos check-in a las 15:00
+    } else {
+      checkInDate = new Date(booking.checkIn);
+    }
+
+    // Para desarrollo: aceptar cualquier fecha futura
+    const diffMs = checkInDate.getTime() - now.getTime();
+    const hoursUntilCheckIn = diffMs / (1000 * 60 * 60);
+
+    // Si ya pasó la fecha de check-in
+    if (hoursUntilCheckIn < 0) {
+      return { canCheckIn: false, reason: 'La fecha de check-in ya pasó' };
+    }
+
+    // Ventana de check-in: desde 48h hasta 2h antes
+    const maxHours = 48;
+    const minHours = 2;
+
+    if (hoursUntilCheckIn > maxHours) {
+      return { canCheckIn: false, reason: `El check-in digital estará disponible ${Math.floor(hoursUntilCheckIn - maxHours)} horas antes` };
+    }
+
+    if (hoursUntilCheckIn < minHours) {
+      return { canCheckIn: false, reason: 'El check-in digital ya no está disponible. Dirígete a recepción.' };
+    }
+
+    return { canCheckIn: true };
+  }
+
+  /**
+   * Obtiene información detallada sobre la disponibilidad del check-in
+   * @param booking - Reserva a verificar
+   */
+  getCheckInAvailability(booking: Booking): {
+    isAvailable: boolean;
+    opensIn?: string;
+    closesIn?: string;
+    reason?: string
+  } {
+    const checkResult = this.canPerformCheckIn(booking);
+
+    if (!checkResult.canCheckIn) {
+      return {
+        isAvailable: false,
+        reason: checkResult.reason
+      };
+    }
+
+    const now = new Date();
+
+    // Parsear la fecha de check-in correctamente
+    let checkInDate: Date;
+    if (booking.checkIn.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      const [year, month, day] = booking.checkIn.split('-').map(Number);
+      checkInDate = new Date(year, month - 1, day, 15, 0, 0);
+    } else {
+      checkInDate = new Date(booking.checkIn);
+    }
+
+    const diffMs = checkInDate.getTime() - now.getTime();
+    const hoursUntilCheckIn = diffMs / (1000 * 60 * 60);
+
+    return {
+      isAvailable: true,
+      closesIn: `${Math.floor(hoursUntilCheckIn - 2)} horas`
+    };
+  }
+
+  /**
+   * Ejecuta el check-in digital para una reserva
+   * @param bookingId - ID de la reserva
+   * @param checkInData - Datos del formulario de check-in
+   * @returns Observable con la reserva actualizada
+   */
+  performCheckIn(bookingId: number | string, checkInData: CheckInData): Observable<Booking> {
+    return this.getBookingById(bookingId).pipe(
+      switchMap(booking => {
+        if (!booking) {
+          throw new Error('Reserva no encontrada');
+        }
+
+        const canCheckIn = this.canPerformCheckIn(booking);
+        if (!canCheckIn.canCheckIn) {
+          throw new Error(canCheckIn.reason || 'No se puede realizar el check-in');
+        }
+
+        // Actualizar la reserva con los datos del check-in
+        const updatedBooking: Partial<Booking> = {
+          checkInStatus: 'COMPLETED',
+          checkInCompletedAt: new Date().toISOString(),
+          checkInData: {
+            ...checkInData,
+            completedAt: new Date().toISOString()
+          },
+          status: 'CHECKED_IN'
+        };
+
+        return this.http.patch<Booking>(`${this.API_URL}/bookings/${bookingId}`, updatedBooking);
+      }),
+      catchError(error => {
+        console.error('Error al realizar check-in:', error);
         throw error;
       })
     );

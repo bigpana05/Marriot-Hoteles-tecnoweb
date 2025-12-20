@@ -217,6 +217,11 @@ $danger-red: #d32f2f;
     background: #e3f2fd;
     color: #1565c0;
   }
+
+  &.status-checkedin {
+    background: #fff4e6;
+    color: #BF6700;
+  }
 }
 
 // Cuerpo de la reserva
@@ -340,6 +345,30 @@ $danger-red: #d32f2f;
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+}
+
+.btn-checkin {
+  padding: 0.625rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: #BF6700;
+  color: white;
+  border: 1px solid #BF6700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: #A05600;
+    border-color: #A05600;
   }
 }
 

@@ -17,6 +17,7 @@ import { AvailabilityCalendarComponent } from './pages/client/availability-calen
 import { BookingConfirmationComponent } from './pages/client/booking-confirmation/booking-confirmation.component';
 import { MyReservationsComponent } from './pages/client/my-reservations/my-reservations.component';
 import { GuestReservationsComponent } from './pages/client/guest-reservations/guest-reservations.component';
+import { DigitalCheckinComponent } from './pages/client/digital-checkin/digital-checkin.component';
 
 import { AdminComponent } from './pages/admin/admin.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
@@ -57,6 +58,7 @@ const routes: Routes = [
       { path: 'hotel/:id/booking', component: CompleteBookingComponent },
       { path: 'booking-confirmation/:code', component: BookingConfirmationComponent },
       { path: 'my-reservations', component: MyReservationsComponent, canActivate: [AuthGuard] },
+      { path: 'check-in/:confirmationCode', component: DigitalCheckinComponent },
       { path: 'guest-reservations', component: GuestReservationsComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
