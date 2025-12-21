@@ -1,0 +1,239 @@
+<div class="group-request-container">
+    <!-- Loading state -->
+    <div *ngIf="loading && !hotel" class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando...</p>
+    </div>
+
+    <!-- Error state -->
+    <div *ngIf="error && !hotel" class="error-state">
+        <p>{{ error }}</p>
+        <button class="btn btn-primary" routerLink="/client/groups">Volver a búsqueda</button>
+    </div>
+
+    <!-- Formulario -->
+    <div *ngIf="hotel" class="request-layout">
+        <!-- Columna izquierda: Formulario -->
+        <div class="request-form">
+            <h1>Solicitar Cotización de Grupo</h1>
+            <p class="subtitle">Complete los detalles de su evento para recibir una propuesta personalizada</p>
+
+            <form #requestForm="ngForm" (ngSubmit)="submitRequest()">
+                <!-- Información del evento -->
+                <section class="form-section">
+                    <h2>Información del Evento</h2>
+
+                    <div class="form-group">
+                        <label for="eventName">Nombre del evento *</label>
+                        <input type="text" id="eventName" name="eventName" [(ngModel)]="eventName" required
+                            class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventType">Tipo de evento *</label>
+                        <select id="eventType" name="eventType" [(ngModel)]="eventType" required class="form-control">
+                            <option *ngFor="let type of eventTypes" [value]="type.id">{{ type.name }}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="checkIn">Check-in *</label>
+                            <input type="date" id="checkIn" name="checkIn" [(ngModel)]="checkIn" required
+                                class="form-control" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="checkOut">Check-out *</label>
+                            <input type="date" id="checkOut" name="checkOut" [(ngModel)]="checkOut" required
+                                class="form-control" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rooms">Número de habitaciones *</label>
+                            <input type="number" id="rooms" name="rooms" [(ngModel)]="rooms" min="10" required
+                                class="form-control" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="attendees">Número de asistentes *</label>
+                            <input type="number" id="attendees" name="attendees" [(ngModel)]="attendees" min="1"
+                                required class="form-control" disabled>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Datos de contacto -->
+                <section class="form-section">
+                    <h2>Datos de Contacto</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Nombre *</label>
+                            <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" required
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Apellido *</label>
+                            <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" required
+                                class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Correo electrónico *</label>
+                            <input type="email" id="email" name="email" [(ngModel)]="email" required
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Teléfono *</label>
+                            <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Empresa (opcional)</label>
+                        <input type="text" id="company" name="company" [(ngModel)]="company" class="form-control">
+                    </div>
+                </section>
+
+                <!-- Dirección -->
+                <section class="form-section">
+                    <h2>Dirección</h2>
+
+                    <div class="address-type-selector">
+                        <label class="radio-option">
+                            <input type="radio" name="addressType" value="business" [(ngModel)]="addressType">
+                            <span>Negocios</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="addressType" value="personal" [(ngModel)]="addressType">
+                            <span>Personal</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group" *ngIf="addressType === 'business'">
+                        <label for="companyName">Nombre de la compañía *</label>
+                        <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName"
+                            [required]="addressType === 'business'" class="form-control">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="addressLine1">Dirección *</label>
+                            <input type="text" id="addressLine1" name="addressLine1" [(ngModel)]="addressLine1" required
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="addressLine2">Dirección línea 2</label>
+                            <input type="text" id="addressLine2" name="addressLine2" [(ngModel)]="addressLine2"
+                                class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">País/Región *</label>
+                            <input type="text" id="country" name="country" [(ngModel)]="country" required
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city">Ciudad *</label>
+                            <input type="text" id="city" name="city" [(ngModel)]="city" required class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="state">Estado/Provincia</label>
+                            <input type="text" id="state" name="state" [(ngModel)]="state" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postalCode">Código postal *</label>
+                            <input type="text" id="postalCode" name="postalCode" [(ngModel)]="postalCode" required
+                                class="form-control">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Error message -->
+                <div *ngIf="error" class="alert alert-danger">
+                    {{ error }}
+                </div>
+
+                <!-- Botones -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" routerLink="/client/groups">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!requestForm.valid || loading">
+                        {{ loading ? 'Enviando...' : 'Enviar Solicitud' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Columna derecha: Resumen -->
+        <aside class="request-summary">
+            <div class="summary-card">
+                <h3>Resumen de la Solicitud</h3>
+
+                <div class="hotel-info">
+                    <img [src]="hotel.images[0]" [alt]="hotel.name" class="hotel-image"
+                        *ngIf="hotel.images && hotel.images.length > 0">
+                    <h4>{{ hotel.name }}</h4>
+                    <p>{{ hotel.city }}, {{ hotel.country }}</p>
+                </div>
+
+                <div class="summary-details">
+                    <div class="detail-row">
+                        <span>Check-in:</span>
+                        <strong>{{ checkIn | date:'mediumDate' }}</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Check-out:</span>
+                        <strong>{{ checkOut | date:'mediumDate' }}</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Noches:</span>
+                        <strong>{{ nights }}</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Habitaciones:</span>
+                        <strong>{{ rooms }}</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>Asistentes:</span>
+                        <strong>{{ attendees }}</strong>
+                    </div>
+                </div>
+
+                <div class="summary-pricing">
+                    <div class="price-row">
+                        <span>Subtotal:</span>
+                        <span>{{ subtotal | number:'1.2-2' }} {{ hotel.currency }}</span>
+                    </div>
+                    <div class="price-row discount">
+                        <span>Descuento ({{ discount }}%):</span>
+                        <span>-{{ (subtotal * discount / 100) | number:'1.2-2' }} {{ hotel.currency }}</span>
+                    </div>
+                    <div class="price-row total">
+                        <strong>Total estimado:</strong>
+                        <strong>{{ estimatedTotal | number:'1.2-2' }} {{ hotel.currency }}</strong>
+                    </div>
+                </div>
+
+                <div class="summary-note">
+                    <p><small>* Este es un presupuesto estimado. El precio final puede variar según disponibilidad y
+                            servicios adicionales.</small></p>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService, User } from '../../../core/services/auth.service';
+import { GroupBookingService } from '../../../core/services/group-booking.service';
+import { GroupBooking } from '../../../core/models/group-booking.model';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +18,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   errorMessage: string | null = null;
   successMessage: string | null = null;
   private destroy$ = new Subject<void>();
+
+  // Solicitudes grupales
+  groupRequests: GroupBooking[] = [];
+  loadingGroupRequests = false;
 
   // Campos editables
   editFirstName = '';
@@ -37,7 +43,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private groupBookingService: GroupBookingService
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +54,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe(user => {
         this.user = user;
         this.initializeEditFields();
+        if (user?.email) {
+          this.loadGroupRequests(user.email);
+        }
+      });
+  }
+
+  // Cargar solicitudes grupales del usuario
+  private loadGroupRequests(email: string): void {
+    this.loadingGroupRequests = true;
+    this.groupBookingService.getGroupBookingsByEmail(email)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: requests => {
+          this.groupRequests = requests.sort((a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+          this.loadingGroupRequests = false;
+        },
+        error: () => {
+          this.loadingGroupRequests = false;
+        }
       });
   }
 
@@ -239,5 +267,40 @@ export class ProfileComponent implements OnInit, OnDestroy {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/client/login']);
+  }
+
+  // Obtener texto del estado de solicitud grupal
+  getStatusText(status: string): string {
+    const statusMap: Record<string, string> = {
+      'PENDING': 'Pendiente',
+      'APPROVED': 'Aprobada',
+      'REJECTED': 'Rechazada'
+    };
+    return statusMap[status] || status;
+  }
+
+  // Obtener clase CSS para el estado
+  getStatusClass(status: string): string {
+    const classMap: Record<string, string> = {
+      'PENDING': 'status-pending',
+      'APPROVED': 'status-approved',
+      'REJECTED': 'status-rejected'
+    };
+    return classMap[status] || '';
+  }
+
+  // Formatear fecha para mostrar
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    });
+  }
+
+  // Navegar a búsqueda de grupos
+  goToGroupSearch(): void {
+    this.router.navigate(['/client/groups']);
   }
 }

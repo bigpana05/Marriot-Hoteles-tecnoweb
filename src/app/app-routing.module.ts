@@ -18,6 +18,9 @@ import { BookingConfirmationComponent } from './pages/client/booking-confirmatio
 import { MyReservationsComponent } from './pages/client/my-reservations/my-reservations.component';
 import { GuestReservationsComponent } from './pages/client/guest-reservations/guest-reservations.component';
 import { DigitalCheckinComponent } from './pages/client/digital-checkin/digital-checkin.component';
+import { GroupSearchComponent } from './pages/client/group-search/group-search.component';
+import { GroupRequestComponent } from './pages/client/group-request/group-request.component';
+import { GroupConfirmationComponent } from './pages/client/group-confirmation/group-confirmation.component';
 
 import { AdminComponent } from './pages/admin/admin.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
@@ -27,7 +30,8 @@ import { UsersComponent } from './pages/admin/users/users.component';
 import { AdminBookingsComponent } from './pages/admin/bookings/bookings.component';
 import { AdminRoomsComponent } from './pages/admin/rooms/admin-rooms/admin-rooms.component';
 import { AdminRoomOccupancyComponent } from './pages/admin/rooms/admin-room-occupancy/admin-room-occupancy.component';
-
+import { GroupHotelsComponent } from './pages/admin/group-hotels/group-hotels.component';
+import { GroupRequestsComponent } from './pages/admin/group-requests/group-requests.component';
 
 import { AboutComponent } from './pages/about/about.component';
 
@@ -60,6 +64,9 @@ const routes: Routes = [
       { path: 'my-reservations', component: MyReservationsComponent, canActivate: [AuthGuard] },
       { path: 'check-in/:confirmationCode', component: DigitalCheckinComponent },
       { path: 'guest-reservations', component: GuestReservationsComponent },
+      { path: 'groups', component: GroupSearchComponent },
+      { path: 'groups/request/:id', component: GroupRequestComponent },
+      { path: 'groups/confirmation/:code', component: GroupConfirmationComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },
@@ -77,6 +84,8 @@ const routes: Routes = [
       { path: 'bookings', component: AdminBookingsComponent },
       { path: 'rooms', component: AdminRoomsComponent },
       { path: 'room-occupancy', component: AdminRoomOccupancyComponent },
+      { path: 'group-hotels', component: GroupHotelsComponent },
+      { path: 'group-requests', component: GroupRequestsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

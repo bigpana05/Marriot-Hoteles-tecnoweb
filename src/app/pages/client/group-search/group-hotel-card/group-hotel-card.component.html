@@ -1,0 +1,190 @@
+<article class="hotel-card">
+    <!-- Contenido principal de la tarjeta -->
+    <div class="card-content">
+        <!-- Carrusel de imágenes -->
+        <div class="image-carousel">
+            <div class="carousel-container">
+                <img [src]="currentImage" [alt]="hotel?.name" class="hotel-image" />
+
+                <!-- Logo de la marca -->
+                <div class="brand-logo" *ngIf="hotel?.brandLogo">
+                    <img [src]="hotel?.brandLogo" [alt]="hotel?.brand" />
+                </div>
+
+                <!-- Controles del carrusel -->
+                <button class="carousel-btn prev" (click)="prevImage(); $event.stopPropagation()">
+                    <img src="assets/icons/chevron-left.svg" alt="Anterior" />
+                </button>
+                <button class="carousel-btn next" (click)="nextImage(); $event.stopPropagation()">
+                    <img src="assets/icons/chevron-right.svg" alt="Siguiente" />
+                </button>
+
+                <!-- Indicadores -->
+                <div class="carousel-indicators">
+                    <button *ngFor="let image of hotel?.images; let i = index" class="indicator"
+                        [class.active]="i === currentImageIndex"
+                        (click)="goToImage(i); $event.stopPropagation()"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información del hotel -->
+        <div class="hotel-info">
+            <div class="info-header">
+                <h2 class="hotel-name">{{ hotel?.name }}</h2>
+            </div>
+
+            <div class="hotel-rating">
+                <span class="rating-star">★</span>
+                <span class="rating-value">{{ hotel?.rating }}</span>
+                <span class="rating-reviews">({{ hotel?.reviewCount }} opiniones)</span>
+                <span class="rating-separator">|</span>
+                <span class="hotel-distance">
+                    <img src="assets/icons/location.svg" alt="Ubicación" class="distance-icon" />
+                    {{ hotel?.distanceToAirport }}
+                </span>
+            </div>
+
+            <p class="hotel-description">{{ hotel?.overview }}</p>
+
+            <div class="hotel-capacity-info">
+                <div class="capacity-item">
+                    <strong>Salones de eventos/reuniones:</strong>
+                    <span>{{ hotel?.eventRooms }}</span>
+                </div>
+                <div class="capacity-item">
+                    <strong>Espacio total para eventos:</strong>
+                    <span>{{ hotel?.totalEventSpace }} metros cuadrados</span>
+                </div>
+                <div class="capacity-item">
+                    <strong>Habitaciones:</strong>
+                    <span>{{ hotel?.totalRooms }}</span>
+                </div>
+                <div class="capacity-item">
+                    <strong>Habitación más amplia:</strong>
+                    <span>{{ hotel?.largestRoom }} metros cuadrados</span>
+                </div>
+            </div>
+
+            <button class="view-details-btn" (click)="toggleDetails()">
+                <span>Ver detalles del hotel</span>
+                <img src="assets/icons/arrow-right.svg" alt="Ver más" class="details-arrow" />
+            </button>
+
+            <!-- Botón Solicitar Reserva -->
+            <div class="rfp-section">
+                <button class="rfp-btn" (click)="onRequestReservation()">
+                    Solicitar Reserva Grupal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de detalles desplegable -->
+    <div class="details-panel" *ngIf="showDetails">
+        <div class="details-content">
+            <!-- Botón cerrar -->
+            <button class="close-details-btn" (click)="closeDetails()">
+                <img src="assets/icons/close.svg" alt="Cerrar" />
+            </button>
+
+            <!-- Header del hotel -->
+            <div class="details-header">
+                <h2 class="details-title">{{ hotel?.name }}</h2>
+                <p class="details-address">{{ hotel?.address }}, {{ hotel?.city }}, {{ hotel?.country }}</p>
+                <div class="details-rating">
+                    <span class="rating-star">★</span>
+                    <span class="rating-value">{{ hotel?.rating }}</span>
+                    <span class="rating-reviews">({{ hotel?.reviewCount }} opiniones)</span>
+                    <span class="rating-separator">|</span>
+                    <span class="hotel-distance">
+                        <img src="assets/icons/location.svg" alt="Ubicación" class="distance-icon" />
+                        {{ getFormattedAirportDistance() }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Galería de imágenes -->
+            <div class="details-gallery" *ngIf="hotel?.galleries?.length">
+                <div class="gallery-main">
+                    <img [src]="currentGallery.imageUrl" [alt]="currentGallery.label" class="gallery-main-image" />
+                    <div class="gallery-main-label">
+                        {{ currentGallery.label }}
+                    </div>
+                </div>
+                <div class="gallery-thumbnails">
+                    <div *ngFor="let gallery of hotel?.galleries; let i = index" class="gallery-thumb"
+                        [class.active]="i === selectedGalleryImage" (click)="selectGalleryImage(i)"
+                        [style.display]="i === 0 ? 'none' : 'block'">
+                        <img [src]="gallery.imageUrl" [alt]="gallery.label" />
+                        <div class="thumb-label">
+                            {{ gallery.label }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visión general -->
+            <div class="details-section">
+                <h3 class="section-title">Visión general</h3>
+                <p class="general-info-text">
+                    {{ hotel?.overview }}
+                </p>
+            </div>
+
+            <!-- Comodidades -->
+            <div class="details-section amenities-section">
+                <h3 class="section-title">Comodidades</h3>
+                <div class="amenities-grid">
+                    <div *ngFor="let amenity of getAvailableAmenities()" class="amenity-item">
+                        <img [src]="getAmenityIcon(amenity.id)" [alt]="amenity.name" class="amenity-icon" />
+                        <span>{{ amenity.name }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Equipamiento y Servicios -->
+            <div class="details-section equipment-section">
+                <h3 class="section-title">Equipamiento y Servicios</h3>
+                <div *ngFor="let equip of hotel?.equipment" class="equipment-category">
+                    <h4 class="equipment-category-title">{{ getEquipmentCategoryLabel(equip.category) }}</h4>
+                    <div class="equipment-items">
+                        <div *ngFor="let item of equip.items" class="equipment-item">
+                            <i class="bi bi-check-circle-fill equipment-check"></i>
+                            <span>{{ item }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mapa -->
+            <div class="details-section location-section">
+                <h3 class="section-title">Ubicación</h3>
+                <div class="location-content">
+                    <div class="location-address">
+                        <p class="address-text">
+                            {{ hotel?.address }}<br />
+                            {{ hotel?.city }}, {{ hotel?.country }}
+                        </p>
+                    </div>
+                    <div class="location-map">
+                        <div class="map-placeholder">
+                            <span class="map-label">Mapa</span>
+                            <div class="map-fallback">
+                                <img src="assets/icons/map.svg" alt="Mapa" />
+                                <span>{{ hotel?.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer del panel -->
+            <div class="details-footer">
+                <button class="continue-btn" (click)="onRequestReservation()">
+                    Solicitar Reserva Grupal
+                </button>
+            </div>
+        </div>
+    </div>
+</article>

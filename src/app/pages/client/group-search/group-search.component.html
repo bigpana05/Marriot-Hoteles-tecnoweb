@@ -1,0 +1,119 @@
+<section class="group-search-page">
+    <!-- Hero Section con título -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Hoteles para Grupos y Eventos</h1>
+            <p class="subtitle">Encuentra el espacio perfecto para tu evento corporativo, reunión o celebración</p>
+        </div>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-header">
+        <div class="search-header-content">
+            <!-- Campo Destino -->
+            <div class="search-field destination-field">
+                <div class="field-label">
+                    <span>Destino</span>
+                </div>
+                <div class="field-value-container">
+                    <input type="text" class="field-input" [(ngModel)]="searchCity"
+                        (click)="openDestinationDropdown(); $event.stopPropagation()"
+                        placeholder="¿Dónde te gustaría celebrar tu evento?" autocomplete="off" />
+                </div>
+
+                <!-- Dropdown de destino -->
+                <app-destination-dropdown [isOpen]="showDestinationsDropdown" [searchQuery]="searchCity"
+                    [customDestinations]="groupDestinations" (destinationSelected)="onDestinationSelected($event)"
+                    (close)="closeAllDropdowns()">
+                </app-destination-dropdown>
+            </div>
+
+            <!-- Separador -->
+            <div class="field-separator"></div>
+
+            <!-- Campo Fechas -->
+            <div class="search-field dates-field">
+                <div class="field-content clickable" (click)="openDatePicker(); $event.stopPropagation()">
+                    <div class="field-label">
+                        <span>FECHAS ({{ numberOfNights }} NOCHE{{ numberOfNights > 1 ? 'S' : '' }})</span>
+                    </div>
+                    <div class="field-value">{{ datesText }}</div>
+                </div>
+
+                <!-- Date Picker -->
+                <app-date-picker-dropdown [isOpen]="showDatePicker" (datesSelected)="onDatesSelected($event)"
+                    (close)="closeAllDropdowns()"></app-date-picker-dropdown>
+            </div>
+
+            <!-- Separador -->
+            <div class="field-separator"></div>
+
+            <!-- Campo Habitaciones -->
+            <div class="search-field rooms-field">
+                <div class="field-label">
+                    <span>Habitaciones</span>
+                </div>
+                <input type="number" class="field-input-small" [(ngModel)]="minRooms" min="10"
+                    placeholder="Número de h..." />
+            </div>
+
+            <!-- Separador -->
+            <div class="field-separator"></div>
+
+            <!-- Campo Asistentes -->
+            <div class="search-field attendees-field">
+                <div class="field-label">
+                    <span>Asistentes</span>
+                </div>
+                <input type="number" class="field-input-small" [(ngModel)]="minAttendees" min="1"
+                    placeholder="Número de asistent..." />
+            </div>
+
+            <!-- Botón Buscar -->
+            <button class="search-btn" (click)="applyFilters()" [disabled]="isSearching">
+                <span *ngIf="isSearching" class="btn-spinner"></span>
+                <span *ngIf="!isSearching">{{ hasSearched ? 'Actualizar búsqueda' : 'Buscar' }}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="search-content">
+        <!-- Loading state -->
+        <div *ngIf="loading" class="loading-state">
+            <div class="spinner"></div>
+            <p>Cargando hoteles...</p>
+        </div>
+
+        <!-- Error state -->
+        <div *ngIf="error && !loading" class="error-state">
+            <p>{{ error }}</p>
+            <button class="btn btn-primary" (click)="loadHotels()">Reintentar</button>
+        </div>
+
+        <!-- Resultados -->
+        <div *ngIf="!loading && !error">
+            <!-- Contador de resultados -->
+            <div class="results-header">
+                <p class="hotels-count">
+                    <span *ngIf="filteredHotels.length === 0">No se encontraron hoteles</span>
+                    <span *ngIf="filteredHotels.length > 0">1-{{ filteredHotels.length }} de {{ filteredHotels.length }}
+                        Hoteles</span>
+                </p>
+            </div>
+
+            <!-- Lista de hoteles con cards estilo reserve-hotels -->
+            <div class="hotels-list">
+                <app-group-hotel-card *ngFor="let hotel of filteredHotels" [hotel]="hotel"
+                    [searchParams]="currentSearchParams" (selectHotel)="selectHotel($event)">
+                </app-group-hotel-card>
+            </div>
+
+            <!-- Empty state -->
+            <div *ngIf="filteredHotels.length === 0" class="empty-state">
+                <h3>No se encontraron hoteles</h3>
+                <p>Intenta ajustar los filtros de búsqueda</p>
+            </div>
+        </div>
+    </div>
+</section>

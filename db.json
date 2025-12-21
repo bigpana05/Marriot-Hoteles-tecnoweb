@@ -2884,5 +2884,418 @@
         "completedAt": "2025-12-20T02:13:05.346Z"
       }
     }
+  ],
+  "groupHotels": [
+    {
+      "id": "fa50",
+      "name": "The St. Regis Cairo",
+      "brand": "St. Regis",
+      "brandLogo": "assets\\brand\\hotels\\The St. Regis Cairo\\St. Regis Hotels Logo Vector.svg .png",
+      "address": "1189 Nile Corniche, Downtown Cairo, Egipto",
+      "city": "Cairo",
+      "country": "Egipto",
+      "rating": 4.7,
+      "reviewCount": 702,
+      "distanceToAirport": "24,0 km",
+      "airportCode": "CAI",
+      "images": [
+        "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-exterior-9911-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-childrens-club-4603-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-library-9925-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-la-zisa-terrace-9923-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-la-zisa-9924-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-roselite-boardroom-4607-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-roselite-boardroom-4606-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-porte-cochere-9945-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*"
+      ],
+      "galleries": [
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-exterior-9911-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Fachada"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-porte-cochere-9945-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Entrada Vehicular"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-suite-king-bedroom-9979-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Suite The St. Regis - Dormitorio"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-suite-master-bedroom-9978-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Suite Royal - Dormitorio principal"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/caixr-king-guestroom-9567:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Habitación Deluxe"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-roselite-boardroom-4607-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Sala de juntas Roselite"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/CAIXR/caixr-la-zisa-terrace-9923-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Restaurante La Zisa - Terraza"
+        }
+      ],
+      "overview": "Idealmente situado en la frontera del Nilo en el centro de El Cairo, con vistas a los monumentos históricos de la isla de Zamalek, el hotel está a poca distancia del Museo Egipcio, galerías de arte y varias atracciones reconocidas.",
+      "totalRooms": 410,
+      "eventRooms": 23,
+      "totalEventSpace": 2913,
+      "largestRoom": 990,
+      "pricePerNight": 500,
+      "currency": "EUR",
+      "amenities": [
+        {
+          "id": "wifi",
+          "name": "Wi-Fi gratuito",
+          "icon": "wifi",
+          "available": true
+        },
+        {
+          "id": "pool",
+          "name": "Piscina",
+          "icon": "pool",
+          "available": true
+        },
+        {
+          "id": "gym",
+          "name": "Gimnasio",
+          "icon": "gym",
+          "available": true
+        },
+        {
+          "id": "restaurant",
+          "name": "Restaurante en las instalaciones",
+          "icon": "restaurant",
+          "available": false
+        },
+        {
+          "id": "parking",
+          "name": "Estacionamiento",
+          "icon": "parking",
+          "available": true
+        },
+        {
+          "id": "room-service",
+          "name": "Servicio a la habitación",
+          "icon": "room-service",
+          "available": true
+        },
+        {
+          "id": "airport-shuttle",
+          "name": "Servicio de traslado entre el aeropuerto y el hotel",
+          "icon": "airport-shuttle",
+          "available": false
+        },
+        {
+          "id": "parking-free",
+          "name": "Estacionamiento gratis",
+          "icon": "parking",
+          "available": false
+        },
+        {
+          "id": "car-rental",
+          "name": "Oficina de alquiler de automóviles",
+          "icon": "car",
+          "available": false
+        },
+        {
+          "id": "golf",
+          "name": "Golf",
+          "icon": "golf",
+          "available": true
+        },
+        {
+          "id": "spa",
+          "name": "Spa con servicio completo",
+          "icon": "spa",
+          "available": false
+        },
+        {
+          "id": "event-space",
+          "name": "Espacio para eventos y reuniones",
+          "icon": "event",
+          "available": true
+        },
+        {
+          "id": "meeting-organizer",
+          "name": "Organizador de reuniones certificado",
+          "icon": "organizer",
+          "available": true
+        },
+        {
+          "id": "resort",
+          "name": "Resort",
+          "icon": "resort",
+          "available": true
+        }
+      ],
+      "equipment": [
+        {
+          "category": "business",
+          "items": [
+            "Computadoras"
+          ]
+        },
+        {
+          "category": "meeting",
+          "items": [
+            "Panel con pantalla LCD",
+            "Proyector con diapositivas",
+            "Micrófono",
+            "Escenario"
+          ]
+        },
+        {
+          "category": "services",
+          "items": [
+            "Electricista",
+            "Guardia de seguridad"
+          ]
+        },
+        {
+          "category": "internet",
+          "items": [
+            "Sala de reuniones, Wireless, Wired"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bada",
+      "name": "JW Marriott Marquis Hotel Dubai",
+      "brand": "JW Marriott",
+      "brandLogo": "assets\\brand\\hotels\\JW-Venice\\jw-marriott-logo.svg",
+      "address": "Sheikh Zayed Road, Business Bay Dubái, Emiratos Árabes Unidos, 121000",
+      "city": "Dubái",
+      "country": "Emiratos Árabes Unidos",
+      "rating": 4.6,
+      "reviewCount": 6371,
+      "distanceToAirport": "16,0 km",
+      "images": [
+        "https://cache.marriott.com/content/dam/marriott-renditions/DXBJW/dxbjw-exterior-0210-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/is/image/marriotts7prod/jw-dxbjw-tan-cha-37957:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/is/image/marriotts7prod/jw-dxbjw-kitchen6-19597:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/DXBJW/dxbjw-ballroom-0208-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/DXBJW/dxbjw-meeting-0207-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/is/image/marriotts7prod/jw-dxbjw-jw-garden-lifestyle-18400:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/is/image/marriotts7prod/jw-dxbjw-jw-garden-32735:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/DXBJW/dxbjw-king-deluxe-9679-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com/is/image/marriotts7prod/jw-dxbjw-executive-twin-room-22418:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*"
+      ],
+      "galleries": [
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/DXBJW/dxbjw-exterior-0210-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Vista nocturna del exterior del hotel"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/DXBJW/dxbjw-exterior-0209-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Vista diurna del exterior del hotel"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/DXBJW/dxbjw-suite-0114-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Penthouse en Dubái"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/DXBJW/dxbjw-king-deluxe-9679-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Habitación Deluxe con cama tamaño King y vistas al mar"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/jw-dxbjw-executive-twin-room-22418:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Dos camas individuales, habitación, vista a la ciudad"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/DXBJW/dxbjw-ballroom-0208-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Salón Dubai"
+        },
+        {
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/DXBJW/dxbjw-meeting-0207-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=665px:*",
+          "label": "Salón para eventos del hotel de Dubái"
+        }
+      ],
+      "overview": "El JW Marriott Marquis Hotel Dubai está ubicado en dos torres en el centro de la ciudad y ofrece alojamiento de lujo con servicio a la habitación las 24 horas y una vista inmejorable. El hotel también ofrece un spa, una piscina al aire libre, muchos restaurantes y elegantes lugares para eventos.\n",
+      "totalRooms": 1831,
+      "eventRooms": 34,
+      "totalEventSpace": 10063,
+      "largestRoom": 1872,
+      "pricePerNight": 300,
+      "currency": "USD",
+      "amenities": [
+        {
+          "id": "wifi",
+          "name": "Wi-Fi gratuito",
+          "icon": "wifi",
+          "available": true
+        },
+        {
+          "id": "pool",
+          "name": "Piscina",
+          "icon": "pool",
+          "available": true
+        },
+        {
+          "id": "gym",
+          "name": "Gimnasio",
+          "icon": "gym",
+          "available": true
+        },
+        {
+          "id": "restaurant",
+          "name": "Restaurante en las instalaciones",
+          "icon": "restaurant",
+          "available": true
+        },
+        {
+          "id": "parking",
+          "name": "Estacionamiento",
+          "icon": "parking",
+          "available": true
+        },
+        {
+          "id": "room-service",
+          "name": "Servicio a la habitación",
+          "icon": "room-service",
+          "available": true
+        },
+        {
+          "id": "airport-shuttle",
+          "name": "Servicio de traslado entre el aeropuerto y el hotel",
+          "icon": "airport-shuttle",
+          "available": true
+        },
+        {
+          "id": "parking-free",
+          "name": "Estacionamiento gratis",
+          "icon": "parking",
+          "available": false
+        },
+        {
+          "id": "car-rental",
+          "name": "Oficina de alquiler de automóviles",
+          "icon": "car",
+          "available": false
+        },
+        {
+          "id": "golf",
+          "name": "Golf",
+          "icon": "golf",
+          "available": false
+        },
+        {
+          "id": "spa",
+          "name": "Spa con servicio completo",
+          "icon": "spa",
+          "available": false
+        },
+        {
+          "id": "event-space",
+          "name": "Espacio para eventos y reuniones",
+          "icon": "event",
+          "available": true
+        },
+        {
+          "id": "meeting-organizer",
+          "name": "Organizador de reuniones certificado",
+          "icon": "organizer",
+          "available": true
+        },
+        {
+          "id": "resort",
+          "name": "Resort",
+          "icon": "resort",
+          "available": false
+        }
+      ],
+      "equipment": [
+        {
+          "category": "business",
+          "items": [
+            "Computadoras"
+          ]
+        },
+        {
+          "category": "meeting",
+          "items": [
+            "Equipo AV",
+            "Panel con pantalla LCD",
+            "Proyector con diapositivas",
+            "Micrófono",
+            "Dispositivos para encuestas",
+            "Escenario"
+          ]
+        },
+        {
+          "category": "services",
+          "items": [
+            "Guardia de seguridad",
+            "Técnico de AV"
+          ]
+        },
+        {
+          "category": "internet",
+          "items": [
+            "Sala de reuniones, Wireless, Wired"
+          ]
+        }
+      ],
+      "airportCode": "DXB"
+    }
+  ],
+  "groupBookings": [
+    {
+      "id": "413d",
+      "eventName": "Reunion ejecutiva",
+      "eventType": "business",
+      "hotelId": "fa50",
+      "hotelName": "The St. Regis Cairo",
+      "checkIn": "2026-01-21",
+      "checkOut": "2026-01-24",
+      "rooms": 10,
+      "attendees": 20,
+      "contactInfo": {
+        "firstName": "Cliente",
+        "lastName": "Demo",
+        "email": "cliente@demo.cl",
+        "phone": "23423423",
+        "company": "Brand"
+      },
+      "pricePerNight": 500,
+      "userId": "2",
+      "status": "APPROVED",
+      "discount": 15,
+      "estimatedTotal": 12750,
+      "createdAt": "2025-12-21T02:26:53.084Z",
+      "confirmationCode": "GRPB58Q9JGXFO",
+      "adminNotes": "Aprobado",
+      "reviewedAt": "2025-12-21T02:27:29.452Z"
+    },
+    {
+      "id": "941c",
+      "eventName": "Reunion ejecutiva",
+      "eventType": "business",
+      "hotelId": "fa50",
+      "hotelName": "The St. Regis Cairo",
+      "checkIn": "2025-12-22",
+      "checkOut": "2025-12-23",
+      "rooms": 11,
+      "attendees": 23,
+      "contactInfo": {
+        "firstName": "Cliente",
+        "lastName": "Demo",
+        "email": "cliente@demo.cl",
+        "phone": "1234123",
+        "company": ""
+      },
+      "pricePerNight": 500,
+      "userId": "2",
+      "status": "APPROVED",
+      "discount": 15,
+      "estimatedTotal": 4675,
+      "createdAt": "2025-12-21T04:50:48.521Z",
+      "confirmationCode": "GRPUM109G2RQ7",
+      "adminNotes": "",
+      "reviewedAt": "2025-12-21T04:51:16.342Z"
+    }
   ]
 }

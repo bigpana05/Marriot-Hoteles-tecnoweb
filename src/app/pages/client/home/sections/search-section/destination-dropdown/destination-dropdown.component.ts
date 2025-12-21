@@ -8,10 +8,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class DestinationDropdownComponent {
   @Input() isOpen: boolean = false;
   @Input() searchQuery: string = '';
+  @Input() customDestinations: string[] = []; // Para pasar destinos personalizados
   @Output() destinationSelected = new EventEmitter<string>();
   @Output() close = new EventEmitter<void>();
 
-  // Destinos disponibles (ciudades y hoteles)
+  // Destinos disponibles (ciudades y hoteles) - por defecto
   trendingDestinations: string[] = [
     'Venecia, Italia',
     'Barcelona, España',
@@ -23,11 +24,16 @@ export class DestinationDropdownComponent {
 
   // Getter para destinos filtrados según búsqueda
   get filteredDestinations(): string[] {
+    // Usar destinos personalizados si están disponibles, sino usar los por defecto
+    const destinations = this.customDestinations.length > 0
+      ? this.customDestinations
+      : this.trendingDestinations;
+
     if (!this.searchQuery || this.searchQuery.trim() === '') {
-      return this.trendingDestinations;
+      return destinations;
     }
     const query = this.searchQuery.toLowerCase();
-    return this.trendingDestinations.filter(dest =>
+    return destinations.filter(dest =>
       dest.toLowerCase().includes(query)
     );
   }
