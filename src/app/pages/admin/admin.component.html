@@ -1,0 +1,61 @@
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-logo">
+      <span class="admin-logo__title">Marriott Admin</span>
+      <span class="admin-logo__subtitle">Panel de control</span>
+    </div>
+
+    <nav class="admin-menu">
+      <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/admin/users" routerLinkActive="active">Usuarios</a>
+      <a routerLink="/admin/hotels" routerLinkActive="active">Hoteles</a>
+      <a routerLink="/admin/rooms" routerLinkActive="active">Habitaciones</a>
+      <a routerLink="/admin/room-occupancy" routerLinkActive="active">Ocupación</a>
+      <a routerLink="/admin/bookings" routerLinkActive="active">Reservas</a>
+      
+      <a routerLink="/admin/coupons" routerLinkActive="active">Cupones</a>
+      
+      <a routerLink="/admin/group-hotels" routerLinkActive="active">Hoteles Grupales</a>
+      <a routerLink="/admin/group-requests" routerLinkActive="active">Solicitudes Grupales</a>
+      <a routerLink="/admin/events" routerLinkActive="active">Eventos</a>
+    </nav>
+  </aside>
+
+  <main class="admin-content">
+    <header class="admin-topbar">
+      <div class="admin-topbar__left">
+        <h1 class="admin-topbar__title">Panel de administración</h1>
+        <p class="admin-topbar__subtitle">
+          Gestiona usuarios, catálogo de hoteles, eventos y promociones.
+        </p>
+      </div>
+
+      <div class="admin-topbar__right" *ngIf="user">
+        <div class="admin-user">
+          <div class="admin-user__avatar">
+            {{ user.name.charAt(0) | uppercase }}
+          </div>
+          <div class="admin-user__info">
+            <span class="admin-user__name">{{ user.name }}</span>
+            <span class="admin-user__role">
+              {{ user.role === "ADMIN" ? "Administrador" : "Usuario" }}
+            </span>
+          </div>
+        </div>
+
+        <div class="admin-topbar__actions">
+          <button class="btn btn-outline-secondary btn-sm" (click)="goToClient()">
+            Ver sitio público
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="logout()">
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="admin-main">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

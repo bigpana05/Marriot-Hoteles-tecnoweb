@@ -1,0 +1,429 @@
+<section class="admin-rooms">
+    <div class="page-header">
+        <h1>Gestión de Habitaciones</h1>
+        <p class="text-muted">Administra las habitaciones de tus hoteles.</p>
+    </div>
+
+    <!-- Mensajes -->
+    <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show">
+        {{ successMessage }}
+        <button type="button" class="btn-close" (click)="successMessage = null"></button>
+    </div>
+    <div *ngIf="error" class="alert alert-danger alert-dismissible fade show">
+        {{ error }}
+        <button type="button" class="btn-close" (click)="error = null"></button>
+    </div>
+
+    <!-- Selector de Hotel -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <label class="form-label fw-bold">Seleccionar Hotel</label>
+            <select class="form-select" [ngModel]="selectedHotelId" (ngModelChange)="onHotelSelect($event)">
+                <option [ngValue]="null" disabled>-- Selecciona un hotel --</option>
+                <option *ngFor="let hotel of hotels" [ngValue]="hotel.id">{{ hotel.name }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div *ngIf="selectedHotelId" class="row">
+        <!-- Formulario Principal -->
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow-sm" *ngIf="showForm">
+                <div class="card-header">
+                    <h5 class="mb-0">{{ isEditing ? 'Editar: ' + formModel.name : 'Nueva Habitación' }}</h5>
+                </div>
+
+                <!-- Navegación de secciones -->
+                <div class="section-nav">
+                    <button type="button" [class.active]="activeSection === 'basic'"
+                        (click)="setActiveSection('basic')">
+                        <i class="bi bi-house"></i> Información Básica
+                    </button>
+                    <button type="button" [class.active]="activeSection === 'rates'"
+                        (click)="setActiveSection('rates')">
+                        <i class="bi bi-currency-euro"></i> Tarifas
+                    </button>
+                    <button type="button" [class.active]="activeSection === 'amenities'"
+                        (click)="setActiveSection('amenities')">
+                        <i class="bi bi-check2-circle"></i> Comodidades
+                        <span class="badge bg-primary ms-1">{{ getSelectedAmenitiesCount() }}</span>
+                    </button>
+                    <button type="button" [class.active]="activeSection === 'images'"
+                        (click)="setActiveSection('images')">
+                        <i class="bi bi-images"></i> Imágenes
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <form #f="ngForm" (ngSubmit)="saveRoom(f)">
+
+                        <!-- SECCIÓN: Información Básica -->
+                        <div *ngIf="activeSection === 'basic'" class="form-section">
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <label class="form-label">Nombre de la Habitación *</label>
+                                    <input class="form-control" name="name" [(ngModel)]="formModel.name" required
+                                        placeholder="Ej: 1 cama tamaño King, Vista limitada, Suite Studio">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Tamaño</label>
+                                    <input class="form-control" name="size" [(ngModel)]="formModel.size"
+                                        placeholder="Ej: 60m²/646ft²">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Tipo de Habitación *</label>
+                                    <select class="form-select" name="type" [(ngModel)]="formModel.type" required>
+                                        <option *ngFor="let t of roomTypes" [value]="t.value">{{ t.label }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Tipo de Cama *</label>
+                                    <select class="form-select" name="bedType" [(ngModel)]="formModel.bedType" required>
+                                        <option *ngFor="let b of bedTypes" [value]="b.value">{{ b.label }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Vista *</label>
+                                    <select class="form-select" name="view" [(ngModel)]="formModel.view" required>
+                                        <option *ngFor="let v of viewTypes" [value]="v.value">{{ v.label }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Capacidad Máxima</label>
+                                    <input type="number" class="form-control" name="maxCapacity"
+                                        [(ngModel)]="formModel.maxCapacity" min="1" max="10">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Habitaciones Disponibles</label>
+                                    <input type="number" class="form-control" name="available"
+                                        [(ngModel)]="formModel.available" min="0">
+                                </div>
+                            </div>
+
+                            <h6 class="section-title mt-4">Camas y Ropa de Cama</h6>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="sofaBed" name="sofaBed"
+                                            [(ngModel)]="formModel.amenities.bedsAndLinens.sofaBed">
+                                        <label class="form-check-label" for="sofaBed">Incluye Sofá Cama</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="extraBeds" name="extraBeds"
+                                            [(ngModel)]="formModel.amenities.bedsAndLinens.extraBedsAllowed">
+                                        <label class="form-check-label" for="extraBeds">Permite Camas Extra</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Cunas Permitidas</label>
+                                    <input type="number" class="form-control" name="cribsAllowed"
+                                        [(ngModel)]="formModel.amenities.bedsAndLinens.cribsAllowed" min="0">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Máx. Cunas/Camas Extra</label>
+                                    <input type="number" class="form-control" name="maxCribs"
+                                        [(ngModel)]="formModel.amenities.bedsAndLinens.maxCribsOrExtraBeds" min="0">
+                                </div>
+                            </div>
+
+                            <h6 class="section-title mt-4">Internet y Teléfonos</h6>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Acceso a Internet</label>
+                                    <input class="form-control" name="internetAccess"
+                                        [(ngModel)]="formModel.amenities.internetAndPhones.internetAccess"
+                                        placeholder="Ej: Acceso inalámbrico a Internet de cortesía">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">N° de Teléfonos</label>
+                                    <input type="number" class="form-control" name="phones"
+                                        [(ngModel)]="formModel.amenities.internetAndPhones.phones" min="0">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Nota sobre WiFi</label>
+                                <input class="form-control" name="wifiNote"
+                                    [(ngModel)]="formModel.amenities.internetAndPhones.wifiNote"
+                                    placeholder="Ej: El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy">
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN: Tarifas -->
+                        <div *ngIf="activeSection === 'rates'" class="form-section">
+                            <h6 class="section-title">Tarifa para Socios (Member Rate)</h6>
+                            <p class="text-muted small mb-3">Precio exclusivo para miembros de Marriott Bonvoy</p>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Precio por Noche (EUR) *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">€</span>
+                                        <input type="number" class="form-control" name="memberPrice"
+                                            [(ngModel)]="formModel.rates[0].pricePerNight" min="0" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Descuento (%)</label>
+                                    <input type="number" class="form-control" name="memberDiscount"
+                                        [(ngModel)]="formModel.rates[0].memberDiscount" min="0" max="100">
+                                </div>
+                            </div>
+
+                            <h6 class="section-title mt-4">Tarifa Estándar</h6>
+                            <p class="text-muted small mb-3">Precio para público general</p>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Precio por Noche (EUR) *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">€</span>
+                                        <input type="number" class="form-control" name="standardPrice"
+                                            [(ngModel)]="formModel.rates[1].pricePerNight" min="0" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <label class="form-label">Descripción de la Tarifa</label>
+                                    <input class="form-control" name="standardDescription"
+                                        [(ngModel)]="formModel.rates[1].description"
+                                        placeholder="Ej: Cancelación gratuita hasta 2 días antes">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN: Comodidades -->
+                        <div *ngIf="activeSection === 'amenities'" class="form-section">
+
+                            <!-- Beneficios Especiales -->
+                            <h6 class="section-title">Beneficios Especiales</h6>
+                            <div class="amenities-grid mb-4">
+                                <div *ngFor="let amenity of availableAmenities.specialBenefits" class="amenity-item"
+                                    [class.active]="isAmenitySelected('specialBenefits', amenity)"
+                                    (click)="toggleAmenity('specialBenefits', amenity)">
+                                    <span>{{ amenity }}</span>
+                                    <i class="bi bi-check-circle-fill check-icon"
+                                        *ngIf="isAmenitySelected('specialBenefits', amenity)"></i>
+                                </div>
+                            </div>
+
+                            <!-- Características de la Habitación -->
+                            <h6 class="section-title">Características de la Habitación</h6>
+                            <div class="amenities-grid mb-4">
+                                <div *ngFor="let amenity of availableAmenities.roomFeatures" class="amenity-item"
+                                    [class.active]="isAmenitySelected('roomFeatures', amenity)"
+                                    (click)="toggleAmenity('roomFeatures', amenity)">
+                                    <span>{{ amenity }}</span>
+                                    <i class="bi bi-check-circle-fill check-icon"
+                                        *ngIf="isAmenitySelected('roomFeatures', amenity)"></i>
+                                </div>
+                            </div>
+
+                            <!-- Características del Baño -->
+                            <h6 class="section-title">Características del Baño</h6>
+                            <div class="amenities-grid mb-4">
+                                <div *ngFor="let amenity of availableAmenities.bathroomFeatures" class="amenity-item"
+                                    [class.active]="isAmenitySelected('bathroomFeatures', amenity)"
+                                    (click)="toggleAmenity('bathroomFeatures', amenity)">
+                                    <span>{{ amenity }}</span>
+                                    <i class="bi bi-check-circle-fill check-icon"
+                                        *ngIf="isAmenitySelected('bathroomFeatures', amenity)"></i>
+                                </div>
+                            </div>
+
+                            <!-- Mobiliario y Decoración -->
+                            <h6 class="section-title">Mobiliario y Decoración</h6>
+                            <div class="amenities-grid mb-4">
+                                <div *ngFor="let amenity of availableAmenities.furnitureAndDecor" class="amenity-item"
+                                    [class.active]="isAmenitySelected('furnitureAndDecor', amenity)"
+                                    (click)="toggleAmenity('furnitureAndDecor', amenity)">
+                                    <span>{{ amenity }}</span>
+                                    <i class="bi bi-check-circle-fill check-icon"
+                                        *ngIf="isAmenitySelected('furnitureAndDecor', amenity)"></i>
+                                </div>
+                            </div>
+
+                            <!-- Comidas y Bebidas -->
+                            <h6 class="section-title">Comidas y Bebidas</h6>
+                            <div class="amenities-grid mb-4">
+                                <div *ngFor="let amenity of availableAmenities.foodAndBeverages" class="amenity-item"
+                                    [class.active]="isAmenitySelected('foodAndBeverages', amenity)"
+                                    (click)="toggleAmenity('foodAndBeverages', amenity)">
+                                    <span>{{ amenity }}</span>
+                                    <i class="bi bi-check-circle-fill check-icon"
+                                        *ngIf="isAmenitySelected('foodAndBeverages', amenity)"></i>
+                                </div>
+                            </div>
+
+                            <!-- Entretenimiento -->
+                            <h6 class="section-title">Entretenimiento</h6>
+                            <div class="amenities-grid mb-4">
+                                <div *ngFor="let amenity of availableAmenities.entertainment" class="amenity-item"
+                                    [class.active]="isAmenitySelected('entertainment', amenity)"
+                                    (click)="toggleAmenity('entertainment', amenity)">
+                                    <span>{{ amenity }}</span>
+                                    <i class="bi bi-check-circle-fill check-icon"
+                                        *ngIf="isAmenitySelected('entertainment', amenity)"></i>
+                                </div>
+                            </div>
+
+                            <!-- Servicios del Hotel -->
+                            <h6 class="section-title">Servicios del Hotel</h6>
+                            <div class="amenities-grid mb-4">
+                                <div *ngFor="let amenity of availableAmenities.hotelServices" class="amenity-item"
+                                    [class.active]="isAmenitySelected('hotelServices', amenity)"
+                                    (click)="toggleAmenity('hotelServices', amenity)">
+                                    <span>{{ amenity }}</span>
+                                    <i class="bi bi-check-circle-fill check-icon"
+                                        *ngIf="isAmenitySelected('hotelServices', amenity)"></i>
+                                </div>
+                            </div>
+
+                            <!-- Aspectos Destacados -->
+                            <h6 class="section-title">Aspectos Destacados del Hotel</h6>
+                            <div class="amenities-grid mb-4">
+                                <div *ngFor="let amenity of availableAmenities.hotelHighlights" class="amenity-item"
+                                    [class.active]="isAmenitySelected('hotelHighlights', amenity)"
+                                    (click)="toggleAmenity('hotelHighlights', amenity)">
+                                    <span>{{ amenity }}</span>
+                                    <i class="bi bi-check-circle-fill check-icon"
+                                        *ngIf="isAmenitySelected('hotelHighlights', amenity)"></i>
+                                </div>
+                            </div>
+
+                            <!-- Estacionamiento y Transporte -->
+                            <h6 class="section-title">Estacionamiento y Transporte</h6>
+                            <div class="amenities-grid mb-4">
+                                <div *ngFor="let amenity of availableAmenities.parkingAndTransport" class="amenity-item"
+                                    [class.active]="isAmenitySelected('parkingAndTransport', amenity)"
+                                    (click)="toggleAmenity('parkingAndTransport', amenity)">
+                                    <span>{{ amenity }}</span>
+                                    <i class="bi bi-check-circle-fill check-icon"
+                                        *ngIf="isAmenitySelected('parkingAndTransport', amenity)"></i>
+                                </div>
+                            </div>
+
+                            <!-- Accesibilidad -->
+                            <h6 class="section-title">Accesibilidad</h6>
+                            <div class="amenities-grid mb-4">
+                                <div *ngFor="let amenity of availableAmenities.accessibility" class="amenity-item"
+                                    [class.active]="isAmenitySelected('accessibility', amenity)"
+                                    (click)="toggleAmenity('accessibility', amenity)">
+                                    <span>{{ amenity }}</span>
+                                    <i class="bi bi-check-circle-fill check-icon"
+                                        *ngIf="isAmenitySelected('accessibility', amenity)"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN: Imágenes -->
+                        <div *ngIf="activeSection === 'images'" class="form-section">
+                            <h6 class="section-title">Imágenes de la Habitación</h6>
+                            <p class="text-muted small mb-3">Agrega URLs de las imágenes que se mostrarán en el carrusel
+                            </p>
+
+                            <div class="images-preview mb-3">
+                                <div *ngFor="let img of formModel.images; let i = index" class="image-item">
+                                    <img [src]="img" alt="Imagen habitación">
+                                    <button type="button" class="btn-remove" (click)="removeImage(i)"><i
+                                            class="bi bi-x"></i></button>
+                                </div>
+                                <div *ngIf="formModel.images?.length === 0" class="no-images">
+                                    <i class="bi bi-images"></i>
+                                    <span>Sin imágenes</span>
+                                </div>
+                            </div>
+
+                            <div class="row add-item-row">
+                                <div class="col-md-9 mb-2">
+                                    <input class="form-control form-control-sm" [(ngModel)]="newImageUrl"
+                                        name="newImageUrl"
+                                        placeholder="URL de la imagen (ej: assets/brand/hotels/W-Barcelona/Rooms/...)">
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button type="button" class="btn btn-sm btn-outline-primary w-100"
+                                        (click)="addImage()">
+                                        <i class="bi bi-plus"></i> Agregar imagen
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones de acción -->
+                        <div class="form-actions mt-4">
+                            <button class="btn btn-dark" type="submit" [disabled]="f.invalid">
+                                <i class="bi" [ngClass]="isEditing ? 'bi-check-lg' : 'bi-plus-lg'"></i>
+                                {{ isEditing ? 'Guardar cambios' : 'Crear habitación' }}
+                            </button>
+                            <button class="btn btn-outline-secondary" type="button" (click)="resetForm(f)">
+                                {{ isEditing ? 'Cancelar edición' : 'Limpiar formulario' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Botón para agregar nueva habitación -->
+            <div *ngIf="!showForm" class="text-center py-4">
+                <button class="btn btn-primary btn-lg" (click)="addNewRoom()">
+                    <i class="bi bi-plus-lg me-2"></i> Nueva Habitación
+                </button>
+            </div>
+        </div>
+
+        <!-- Lista de habitaciones -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">Habitaciones Registradas ({{ rooms.length }})</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div *ngIf="isLoading" class="text-center py-4">
+                        <div class="spinner-border spinner-border-sm" role="status"></div>
+                        <span class="ms-2">Cargando...</span>
+                    </div>
+
+                    <div *ngIf="!isLoading" class="rooms-list">
+                        <div *ngFor="let room of rooms" class="room-list-item"
+                            [class.active]="room.id === formModel.id">
+                            <div class="room-info">
+                                <div class="room-thumb" *ngIf="room.images?.length">
+                                    <img [src]="room.images[0]" alt="Habitación">
+                                </div>
+                                <div class="room-details">
+                                    <h6>{{ room.name }}</h6>
+                                    <small class="text-muted">{{ room.type }} • {{ room.bedType }} • {{ room.view
+                                        }}</small>
+                                    <div class="room-meta">
+                                        <span class="price">{{ room.rates?.[0]?.currency }} {{
+                                            room.rates?.[0]?.pricePerNight }}</span>
+                                        <span class="capacity"><i class="bi bi-people"></i> {{ room.maxCapacity
+                                            }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="room-actions">
+                                <button class="btn btn-sm btn-outline-primary" (click)="editRoom(room)" title="Editar">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" (click)="deleteRoom(room)"
+                                    title="Eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="rooms.length === 0" class="text-center py-4 text-muted">
+                            <i class="bi bi-door-closed fs-1 d-block mb-2"></i>
+                            No hay habitaciones registradas
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

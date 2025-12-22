@@ -1,0 +1,141 @@
+/**
+ * Navbar Base Styles
+ * Estilos generales de la barra de navegación
+ */
+
+@import 'navbar-variables';
+@import 'navbar-breakpoints';
+
+/* Navbar main container */
+.navbar-marriott {
+  background: $color-white;
+  box-shadow: 0 1px 0 $color-border;
+}
+
+/* Fila principal: logo | links | acciones - Grid layout */
+.navbar-inner {
+  height: var(--mtt-navbar-h);
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: clamp(16px, 3vw, 32px);
+  padding-left: $spacing-navbar-padding-lg;
+}
+
+/* Sección izquierda: logo + divisor */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 28px);
+  flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: $font-ui;
+
+  img {
+    height: clamp(100px, 3vw, 32px);
+    width: auto;
+    display: block;
+    max-width: 100%;
+    object-fit: contain;
+  }
+}
+
+.v-divider {
+  width: 1px;
+  height: 24px;
+  background: $color-divider;
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+/* Sección centro: navegación (solo desktop) */
+.navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: clamp(20px, 3vw, 50px);
+  flex-shrink: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--mtt-text);
+    font-family: $font-ui;
+    font-size: clamp(15px, 1.2vw, 18px);
+    font-weight: 100;
+    font-style: normal;
+    line-height: 1;
+    padding: 8px 0;
+    cursor: pointer;
+
+    &.active {
+      border-bottom: 2px solid var(--mtt-text);
+    }
+  }
+}
+
+/* Sección derecha: acciones */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 20px);
+  flex-shrink: 0;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+/* Botón Reserve */
+.btn-reserve {
+  padding: clamp(8px, 1.2vw, 12px) clamp(20px, 2.5vw, 48px);
+  border-radius: $radius-pill;
+  background: $color-black;
+  color: $color-white;
+  border: 0;
+  font-weight: 100;
+  font-family: $font-ui;
+  font-size: clamp(18px, 1.2vw, 18px);
+  font-style: regular;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Sign in link */
+.signin {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--mtt-text);
+  font-family: $font-ui;
+  font-size: clamp(13px, 1.1vw, 16px);
+  font-style: regular;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  img {
+    width: 20px;
+    height: 20px;
+    display: block;
+    flex-shrink: 0;
+  }
+}

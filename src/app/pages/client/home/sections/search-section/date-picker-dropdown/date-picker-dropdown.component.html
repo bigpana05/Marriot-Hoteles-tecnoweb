@@ -1,0 +1,57 @@
+<div class="dropdown-overlay" *ngIf="isOpen" (click)="closeDropdown()"></div>
+
+<div class="date-picker-dropdown" *ngIf="isOpen" (click)="$event.stopPropagation()">
+    <div class="dropdown-content">
+        <!-- Calendarios -->
+        <div class="calendars-container">
+            <!-- Calendario 1: Mes actual -->
+            <div class="calendar">
+                <div class="calendar-header">
+                    <h4>{{ currentMonth | date: 'MMMM yyyy' : '' : 'es-ES' }}</h4>
+                </div>
+                <div class="calendar-grid">
+                    <div class="day-name" *ngFor="let day of daysOfWeek">{{ day }}</div>
+                    <div class="day-cell" *ngFor="let day of currentMonthDays" [class.empty]="!day"
+                        [class.selected]="day ? isSelected(day, currentMonth) : false"
+                        [class.in-range]="day ? isInRange(day, currentMonth) : false"
+                        [class.clickable]="day && !isDisabled(day, currentMonth)"
+                        [class.disabled]="day && isDisabled(day, currentMonth)"
+                        (click)="day && !isDisabled(day, currentMonth) && selectDate(day, currentMonth)">
+                        {{ day }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendario 2: Mes siguiente -->
+            <div class="calendar">
+                <div class="calendar-header">
+                    <h4>{{ nextMonth | date: 'MMMM yyyy' : '' : 'es-ES' }}</h4>
+                </div>
+                <div class="calendar-grid">
+                    <div class="day-name" *ngFor="let day of daysOfWeek">{{ day }}</div>
+                    <div class="day-cell" *ngFor="let day of nextMonthDays" [class.empty]="!day"
+                        [class.selected]="day ? isSelected(day, nextMonth) : false"
+                        [class.in-range]="day ? isInRange(day, nextMonth) : false"
+                        [class.clickable]="day && !isDisabled(day, nextMonth)"
+                        [class.disabled]="day && isDisabled(day, nextMonth)"
+                        (click)="day && !isDisabled(day, nextMonth) && selectDate(day, nextMonth)">
+                        {{ day }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información de noches -->
+        <div class="nights-info" *ngIf="numberOfNights > 0">
+            {{ numberOfNights }} noche{{ numberOfNights > 1 ? 's' : '' }}
+        </div>
+
+        <!-- Botones -->
+        <div class="actions">
+            <button class="reset-button" (click)="resetDates()">Restablecer</button>
+            <button class="done-button" [disabled]="!checkInDate || !checkOutDate" (click)="confirmDates()">
+                Listo
+            </button>
+        </div>
+    </div>
+</div>

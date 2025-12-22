@@ -1,0 +1,44 @@
+<section class="featured-hotels">
+  <div class="container">
+    <div class="header">
+      <h2 class="title">Hoteles Destacados</h2>
+      <p class="subtitle">Explora nuestros hoteles más populares, ofreciendo comodidad excepcional, amenidades modernas
+        y experiencias inolvidables.</p>
+    </div>
+
+    <div class="carousel-container">
+      <button class="nav-btn prev" (click)="prevSlide()" aria-label="Hoteles anteriores">
+        <img src="assets/icons/arrow-grey.svg" alt="Anterior" class="arrow-icon rotated">
+      </button>
+
+      <div class="carousel-track-container">
+        <div class="carousel-track" [style.transform]="transformStyle" [class.mobile-mode]="itemsPerSlide === 1">
+          <div class="carousel-slide" *ngFor="let hotel of featuredHotels; let i = index">
+            <div class="hotel-card">
+              <div class="image-container" (click)="onHotelClick(hotel)" style="cursor: pointer;">
+                <img [src]="hotel.imageUrl" [alt]="hotel.name" class="hotel-image">
+                <div class="card-overlay">
+                  <span class="hotel-country">{{ hotel.country }}</span>
+                  <h3 class="hotel-name">{{ hotel.name }}</h3>
+                  <button class="details-link" aria-label="Ver detalles del hotel">
+                    <img src="assets/icons/arrow-white.svg" alt="Detalles">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="nav-btn next" (click)="nextSlide()" aria-label="Siguientes hoteles">
+        <img src="assets/icons/arrow-grey.svg" alt="Siguiente" class="arrow-icon">
+      </button>
+    </div>
+
+    <div class="dots-indicator">
+      <span *ngFor="let slide of slides; let i = index" class="dot" [class.active]="i === currentSlide"
+        (click)="goToSlide(i)" role="button" [attr.aria-label]="'Ir a la diapositiva ' + (i + 1)">
+      </span>
+    </div>
+  </div>
+</section>

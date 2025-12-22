@@ -1,0 +1,283 @@
+<!-- Página de selección de habitaciones -->
+<div class="reserve-hotels-page">
+  <!-- Header del hotel -->
+  <header class="hotel-header" *ngIf="hotel">
+    <div class="hotel-header__brand">
+      <img *ngIf="brandLogo.type === 'image'" [src]="brandLogo.value" [alt]="hotel.name" [class]="brandLogo.class">
+      <span *ngIf="brandLogo.type === 'text'" class="brand-text">{{ brandLogo.value }}</span>
+    </div>
+    <div class="hotel-header__info">
+      <h1 class="hotel-name">{{ hotel.name }}</h1>
+      <div class="hotel-meta">
+        <span class="hotel-address">
+          <i class="bi bi-geo-alt-fill"></i>
+          {{ hotel.location?.address }}, {{ hotel.location?.city }}, {{ hotel.location?.postalCode }} {{
+          hotel.location?.country }}
+        </span>
+        <span class="hotel-phone">
+          <i class="bi bi-telephone-fill"></i>
+          {{ hotel.location?.phone }}
+        </span>
+        <span class="hotel-rating">
+          <i class="bi bi-star-fill"></i>
+          {{ hotel.rating }} ({{ hotel.reviewCount | number:'1.0-0':'es-ES' }} opiniones)
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra de fechas y huéspedes -->
+  <section class="booking-bar">
+    <div class="booking-bar__container">
+      <div class="booking-bar__item">
+        <span class="booking-bar__label">FECHAS DE ESTANCIA ({{ numberOfNights }} NOCHES)</span>
+        <span class="booking-bar__value">
+          {{ formatDate(checkIn) }} → {{ formatDate(checkOut) }}
+          <i class="bi bi-chevron-down"></i>
+        </span>
+      </div>
+      <div class="booking-bar__divider"></div>
+      <div class="booking-bar__item">
+        <span class="booking-bar__label">HABITACIONES Y HUÉSPEDES</span>
+        <span class="booking-bar__value">
+          {{ guestsText }}
+          <i class="bi bi-chevron-down"></i>
+        </span>
+      </div>
+      <button class="booking-bar__update-btn" (click)="goBack()">Actualizar</button>
+    </div>
+  </section>
+
+  <!-- Contenido principal -->
+  <main class="rooms-content">
+    <h2 class="rooms-content__title">SELECCIONA UNA HABITACIÓN Y TARIFA</h2>
+
+    <!-- Tabs de tarifas (simplificado) -->
+    <div class="rate-tabs">
+      <button class="rate-tabs__tab rate-tabs__tab--active">
+        <span class="tab-name">Tarifas estándar</span>
+        <span class="tab-price" *ngIf="filteredRooms.length > 0 && filteredRooms[0].rates.length > 0">
+          Desde {{ filteredRooms[0].rates[0].pricePerNight }} {{ filteredRooms[0].rates[0].currency }}/Noche
+        </span>
+      </button>
+    </div>
+
+    <!-- Barra de filtros -->
+    <div class="filters-bar">
+      <button class="filters-bar__btn" (click)="openFiltersModal()">
+        <i class="bi bi-sliders"></i>
+        Todos los filtros
+      </button>
+      <div class="filters-bar__dropdown">
+        <button class="filters-bar__dropdown-btn">
+          Tipo de alojamiento
+          <i class="bi bi-chevron-down"></i>
+        </button>
+      </div>
+      <div class="filters-bar__dropdown">
+        <button class="filters-bar__dropdown-btn">
+          Tipo de cama
+          <i class="bi bi-chevron-down"></i>
+        </button>
+      </div>
+      <div class="filters-bar__dropdown">
+        <button class="filters-bar__dropdown-btn">
+          Vista
+          <i class="bi bi-chevron-down"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filtros activos -->
+    <div class="active-filters" *ngIf="activeFilters.length > 0">
+      <span class="active-filters__tag" *ngFor="let filter of activeFilters" (click)="removeFilter(filter)">
+        {{ filter.label }}
+        <i class="bi bi-x"></i>
+      </span>
+      <button class="active-filters__clear" (click)="clearAllFilters()">
+        Limpiar todos
+      </button>
+    </div>
+
+    <!-- Contador de habitaciones -->
+    <div class="rooms-count">
+      <span class="rooms-count__number">{{ roomTypesCount }}</span>
+      <span class="rooms-count__text">Tipo de habitación disponible</span>
+    </div>
+
+    <!-- Cargando -->
+    <div class="rooms-loading" *ngIf="isLoading">
+      <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p>Buscando habitaciones disponibles...</p>
+    </div>
+
+    <!-- Sin resultados -->
+    <div class="rooms-empty" *ngIf="!isLoading && filteredRooms.length === 0">
+      <i class="bi bi-building-x"></i>
+      <h3>No hay habitaciones disponibles</h3>
+      <p>Intenta modificar los filtros o las fechas de tu búsqueda</p>
+      <button class="btn-primary-dark" (click)="goBack()">Volver a buscar</button>
+    </div>
+
+    <!-- Lista de habitaciones -->
+    <div class="rooms-list" *ngIf="!isLoading && filteredRooms.length > 0">
+      <div class="room-card" *ngFor="let room of filteredRooms">
+        <!-- Galería de imágenes -->
+        <div class="room-card__gallery">
+          <div class="room-card__carousel">
+            <img [src]="getCurrentRoomImage(room)" [alt]="room.name" class="room-card__image">
+            <div class="room-card__carousel-indicators">
+              <button *ngFor="let img of room.images; let i = index" class="indicator"
+                [class.active]="i === getRoomImageIndex(room)" (click)="goToRoomCardImage(room, i)">
+              </button>
+            </div>
+            <button class="carousel-nav carousel-nav--prev" (click)="prevRoomCardImage(room); $event.stopPropagation()">
+              <img src="assets/icons/chevron-left.svg" alt="Anterior" />
+            </button>
+            <button class="carousel-nav carousel-nav--next" (click)="nextRoomCardImage(room); $event.stopPropagation()">
+              <img src="assets/icons/chevron-right.svg" alt="Siguiente" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Información de la habitación -->
+        <div class="room-card__info">
+          <div class="room-card__header">
+            <h3 class="room-card__name">{{ room.name }}</h3>
+            <button class="room-card__details-link" (click)="openRoomDetails(room)">
+              Detalles de la habitación
+            </button>
+          </div>
+
+          <!-- Tarifas -->
+          <div class="room-card__rates">
+            <div class="rate-row" *ngFor="let rate of room.rates">
+              <div class="rate-row__info">
+                <span class="rate-row__name">
+                  {{ rate.name }}
+                  <i class="bi bi-info-circle" *ngIf="rate.isMemberRate"></i>
+                </span>
+                <button class="rate-row__details-link">Detalles de tarifas</button>
+              </div>
+              <div class="rate-row__pricing">
+                <div class="rate-row__price">
+                  <span class="price-amount">{{ rate.pricePerNight }}</span>
+                  <span class="price-currency">{{ rate.currency }}</span>
+                  <span class="price-unit">Promedio / Noche</span>
+                </div>
+                <div class="rate-row__total">
+                  {{ calculateTotalForRate(rate.pricePerNight) }} Total por habitación
+                </div>
+              </div>
+              <button class="rate-row__select-btn" (click)="selectRate(room, rate.id)">
+                Escoger
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal de detalles de habitación -->
+<app-room-details-modal *ngIf="showRoomDetailsModal && selectedRoom" [room]="selectedRoom"
+  (closeModal)="closeRoomDetails()">
+</app-room-details-modal>
+
+<!-- Modal de filtros -->
+<div class="filters-modal" *ngIf="showFiltersModal" (click)="closeFiltersModal()">
+  <div class="filters-modal__content" (click)="$event.stopPropagation()">
+    <div class="filters-modal__header">
+      <h3>Todos los filtros</h3>
+      <button class="close-btn" (click)="closeFiltersModal()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <div class="filters-modal__body">
+      <!-- Tipo de alojamiento -->
+      <div class="filter-group">
+        <h4>Tipo de alojamiento</h4>
+        <div class="filter-options">
+          <label class="filter-option" *ngFor="let type of filterOptions.roomTypes" [class.selected]="type.selected">
+            <input type="checkbox" [checked]="type.selected" (change)="toggleRoomTypeFilter(type)">
+            <span>{{ type.name }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Tipo de cama -->
+      <div class="filter-group">
+        <h4>Tipo de cama</h4>
+        <div class="filter-options">
+          <label class="filter-option" *ngFor="let bed of filterOptions.bedTypes" [class.selected]="bed.selected">
+            <input type="checkbox" [checked]="bed.selected" (change)="toggleBedTypeFilter(bed)">
+            <span>{{ bed.name }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Vista -->
+      <div class="filter-group">
+        <h4>Vista</h4>
+        <div class="filter-options">
+          <label class="filter-option" *ngFor="let view of filterOptions.views" [class.selected]="view.selected">
+            <input type="checkbox" [checked]="view.selected" (change)="toggleViewFilter(view)">
+            <span>{{ view.name }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="filters-modal__footer">
+      <button class="btn-secondary" (click)="clearAllFilters()">Limpiar todo</button>
+      <button class="btn-primary-dark" (click)="closeFiltersModal()">Aplicar filtros</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Tarifa para socios -->
+<div class="member-rate-modal" *ngIf="showMemberRateModal" (click)="closeMemberRateModal()">
+  <div class="member-rate-modal__content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeMemberRateModal()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    <div class="member-rate-modal__icon">
+      <img src="assets/brand/marriott-international-logo-m.svg" alt="Marriott Bonvoy" class="bonvoy-logo">
+    </div>
+
+    <h2>Tarifa exclusiva para socios</h2>
+
+    <p class="member-rate-modal__message">
+      La <strong>Tarifa flexible para socios</strong> está disponible únicamente para miembros de Marriott Bonvoy.
+    </p>
+
+    <p class="member-rate-modal__benefits">
+      Únete gratis y disfruta de beneficios exclusivos:
+    </p>
+
+    <ul class="member-rate-modal__benefits-list">
+      <li><i class="bi bi-check-circle-fill"></i> Tarifas exclusivas para socios</li>
+      <li><i class="bi bi-check-circle-fill"></i> WiFi gratis en todos los hoteles</li>
+      <li><i class="bi bi-check-circle-fill"></i> Check-in móvil</li>
+      <li><i class="bi bi-check-circle-fill"></i> Acumula puntos en cada estancia</li>
+    </ul>
+
+    <div class="member-rate-modal__actions">
+      <button class="btn-primary-dark" (click)="goToLogin()">
+        Iniciar sesión
+      </button>
+      <button class="btn-secondary" (click)="goToRegister()">
+        Registrarse gratis
+      </button>
+    </div>
+
+    <p class="member-rate-modal__note">
+      O selecciona la <strong>Tarifa flexible</strong> sin necesidad de ser miembro.
+    </p>
+  </div>
+</div>

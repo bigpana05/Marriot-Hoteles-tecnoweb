@@ -1,0 +1,438 @@
+<div class="booking-confirmed" *ngIf="bookingConfirmed">
+  <div class="booking-confirmed__content">
+    <div class="booking-confirmed__icon">
+      <i class="bi bi-check-circle-fill"></i>
+    </div>
+    <h1>¡Reserva confirmada!</h1>
+    <p class="booking-confirmed__message">
+      Tu reserva ha sido procesada exitosamente. Hemos enviado un correo de confirmación a
+      <strong>{{ guestInfo.email }}</strong>
+    </p>
+
+    <div class="booking-confirmed__details" *ngIf="bookingSummary">
+      <div class="detail-row">
+        <span class="label">Hotel:</span>
+        <span class="value">{{ bookingSummary.hotelName }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Habitación:</span>
+        <span class="value">{{ bookingSummary.roomName }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Fechas:</span>
+        <span class="value">{{ stayDatesText }}</span>
+      </div>
+      
+      <div class="detail-row" *ngIf="confirmedBooking && (confirmedBooking.discountAmount || 0) > 0">
+        <span class="label">Descuento:</span>
+        <span class="value text-success">-{{ confirmedBooking.discountAmount }} {{ bookingSummary.currency }}</span>
+      </div>
+      
+      <div class="detail-row">
+        <span class="label">Total Pagado:</span>
+        <span class="value total">{{ confirmedBooking ? confirmedBooking.totalPrice : finalPrice }} {{ bookingSummary.currency }}</span>
+      </div>
+    </div>
+
+    <div class="booking-confirmed__actions">
+      <button class="btn-secondary" (click)="viewMyBookings()">Ver mis reservas</button>
+      <button class="btn-primary-dark" (click)="goToHome()">Volver al inicio</button>
+    </div>
+  </div>
+</div>
+
+<div class="complete-booking-page" *ngIf="!bookingConfirmed">
+  <header class="hotel-header" *ngIf="hotel">
+    <div class="hotel-header__content">
+      <div class="hotel-header__top">
+        <span class="brand-text">W HOTELS</span>
+        <h1 class="hotel-name">{{ hotel.name }}</h1>
+      </div>
+      <div class="hotel-meta">
+        <span class="hotel-address">
+          <i class="bi bi-geo-alt-fill"></i>
+          {{ hotel.location?.address }}, {{ hotel.location?.city }}, {{ hotel.location?.postalCode }} {{
+          hotel.location?.country }}
+        </span>
+        <span class="hotel-phone">
+          <i class="bi bi-telephone-fill"></i>
+          {{ hotel.location?.phone }}
+        </span>
+        <span class="hotel-rating">
+          <i class="bi bi-star-fill"></i>
+          {{ hotel.rating }} ({{ hotel.reviewCount | number:'1.0-0':'es-ES' }} opiniones)
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <section class="summary-bar" *ngIf="bookingSummary">
+    <div class="summary-bar__container">
+      <div class="summary-bar__item">
+        <span class="summary-bar__label">FECHAS DE ESTANCIA</span>
+        <span class="summary-bar__value">{{ stayDatesText }}</span>
+      </div>
+      <div class="summary-bar__divider"></div>
+      <div class="summary-bar__item">
+        <span class="summary-bar__label">ESTANCIA TOTAL</span>
+        <span class="summary-bar__value">{{ finalPrice }} {{ bookingSummary.currency }}</span>
+      </div>
+      <div class="summary-bar__timer">
+        <i class="bi bi-clock"></i>
+        <span>Habitación(es) reservada(s) para {{ timerMinutes | number:'2.0-0' }}:{{ timerSeconds | number:'2.0-0'
+          }}</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="booking-content">
+    <div class="booking-content__container">
+      <h2 class="booking-content__title">Completa tu reserva</h2>
+
+      <div class="booking-layout">
+        <div class="booking-form">
+          <section class="form-section">
+            <h3 class="form-section__title">Información del huésped</h3>
+            <p class="form-section__subtitle">Todos los campos son obligatorios a menos que se indique lo contrario</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">Nombre</label>
+                <input type="text" id="firstName" [(ngModel)]="guestInfo.firstName" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Apellido</label>
+                <input type="text" id="lastName" [(ngModel)]="guestInfo.lastName" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Dirección de correo electrónico</label>
+                <input type="email" id="email" [(ngModel)]="guestInfo.email" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="memberNumber">
+                  Número de miembro
+                  <span class="optional" *ngIf="!isLoggedIn">(Inicia sesión para usar tu número)</span>
+                  <span class="member-badge" *ngIf="isLoggedIn && isMember">
+                    <i class="bi bi-check-circle-fill"></i> Miembro
+                  </span>
+                </label>
+                <input type="text" id="memberNumber" [(ngModel)]="guestInfo.memberNumber" class="form-control"
+                  [class.member-field]="isLoggedIn && isMember" [disabled]="!isLoggedIn"
+                  [readonly]="isLoggedIn && isMember" [placeholder]="isLoggedIn ? '' : 'Debes iniciar sesión'">
+              </div>
+            </div>
+
+            <p class="form-note">
+              Nota: para recibir crédito por esta estancia, es necesario que el nombre del huésped coincida
+              con el nombre del titular de la cuenta de Marriott Bonvoy.
+            </p>
+          </section>
+
+          <section class="form-section">
+            <div class="form-row">
+              <div class="form-group form-group--full">
+                <label for="country">País/Región</label>
+                <select id="country" [(ngModel)]="guestInfo.country" class="form-control" required>
+                  <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="postalCode">Código postal</label>
+                <input type="text" id="postalCode" [(ngModel)]="guestInfo.postalCode" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="city">Ciudad</label>
+                <input type="text" id="city" [(ngModel)]="guestInfo.city" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="addressLine1">Línea de dirección 1</label>
+                <input type="text" id="addressLine1" [(ngModel)]="guestInfo.addressLine1" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="addressLine2">Línea de dirección 2 <span class="optional">(Opcional)</span></label>
+                <input type="text" id="addressLine2" [(ngModel)]="guestInfo.addressLine2" class="form-control"
+                  placeholder="Opcional">
+              </div>
+            </div>
+
+            <p class="form-privacy">
+              Valoramos su privacidad. Vea nuestra
+              <a href="#" class="link">Declaración global de privacidad</a>.
+            </p>
+          </section>
+
+          <section class="form-section">
+            <h3 class="form-section__title">Información sobre pago</h3>
+            <p class="form-section__subtitle">Se debe presentar una forma de pago válida durante el registro de llegada.
+            </p>
+
+            <div class="card-form">
+              <div class="form-row">
+                <div class="form-group form-group--card">
+                  <label for="cardNumber">Número de tarjeta de crédito / débito</label>
+                  <input type="text" id="cardNumber" [(ngModel)]="paymentInfo.cardNumber" class="form-control"
+                    placeholder="•••• •••• •••• ••••" maxlength="19" required>
+                </div>
+                <div class="form-group form-group--expiry">
+                  <label for="expiryMonth">Mes de caducidad</label>
+                  <select id="expiryMonth" [(ngModel)]="paymentInfo.expiryMonth" class="form-control" required>
+                    <option value="">Mes</option>
+                    <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+                  </select>
+                </div>
+                <div class="form-group form-group--expiry">
+                  <label for="expiryYear">Año de caducidad</label>
+                  <select id="expiryYear" [(ngModel)]="paymentInfo.expiryYear" class="form-control" required>
+                    <option value="">Año</option>
+                    <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section bonvoy-section">
+            <div class="bonvoy-header">
+              <img src="assets/brand/marriott-international-logo-m.svg" alt="Marriott Bonvoy" class="bonvoy-logo">
+              <div class="bonvoy-benefits-text">
+                <strong>WiFi gratis + registro check-in móvil + nuestras tarifas para socios más bajas en todo
+                  momento</strong>
+              </div>
+            </div>
+
+            <div class="member-status" *ngIf="isLoggedIn">
+              <div class="member-badge">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Eres miembro de Marriott Bonvoy</span>
+              </div>
+              <p class="member-benefits-text">
+                Los beneficios de miembro se aplicarán automáticamente a tu reserva: WiFi gratis, check-in móvil y
+                tarifas exclusivas para socios.
+              </p>
+            </div>
+
+            <div class="join-section" *ngIf="!isLoggedIn">
+              <div class="form-checkbox">
+                <input type="checkbox" id="joinBonvoy" [(ngModel)]="wantsToJoin">
+                <label for="joinBonvoy">
+                  <i class="bi bi-check2"></i>
+                  Únase al instante a Marriott Bonvoy y disfrute de los beneficios con cada estancia
+                </label>
+              </div>
+
+              <div class="member-password" *ngIf="wantsToJoin">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" [(ngModel)]="memberPassword" (input)="validatePasswords()"
+                      class="form-control" [class.is-invalid]="passwordError && memberPassword.length > 0"
+                      [class.is-valid]="!passwordError && memberPassword.length >= 8" placeholder="Mínimo 8 caracteres"
+                      required>
+                    <small class="password-hint" *ngIf="memberPassword.length > 0 && memberPassword.length < 8">
+                      {{ 8 - memberPassword.length }} caracteres más necesarios
+                    </small>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirmPassword">Confirmar contraseña</label>
+                    <input type="password" id="confirmPassword" [(ngModel)]="memberConfirmPassword"
+                      (input)="validatePasswords()" class="form-control"
+                      [class.is-invalid]="passwordError && memberConfirmPassword.length > 0"
+                      [class.is-valid]="!passwordError && memberPassword === memberConfirmPassword && memberConfirmPassword.length > 0"
+                      required>
+                  </div>
+                </div>
+                <p class="password-error" *ngIf="passwordError">
+                  <i class="bi bi-exclamation-circle"></i> {{ passwordError }}
+                </p>
+                <p class="password-success"
+                  *ngIf="!passwordError && memberPassword.length >= 8 && memberPassword === memberConfirmPassword">
+                  <i class="bi bi-check-circle"></i> Contraseñas válidas
+                </p>
+                <p class="password-note">
+                  Se usará tu correo electrónico <strong>{{ guestInfo.email || '(ingresa tu correo arriba)' }}</strong>
+                  y nombre <strong>{{ guestInfo.firstName }} {{ guestInfo.lastName }}</strong> para crear tu cuenta.
+                </p>
+
+                <button type="button" class="btn-create-account" (click)="registerMember()"
+                  [disabled]="passwordError || memberPassword.length < 8 || memberPassword !== memberConfirmPassword || !guestInfo.firstName || !guestInfo.lastName || !guestInfo.email">
+                  <i class="bi bi-person-plus-fill"></i>
+                  Crear cuenta Marriott Bonvoy
+                </button>
+              </div>
+
+              <div class="form-checkbox">
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">Recordarme (recomendado solo para computadoras privadas).</label>
+              </div>
+            </div>
+
+            <hr class="form-divider">
+
+            <div class="form-checkbox">
+              <input type="checkbox" id="receivePromotions" [(ngModel)]="paymentInfo.receivePromotions">
+              <label for="receivePromotions">
+                Me gustaría recibir comunicaciones personalizadas, incluidas ofertas, detalles sobre promociones
+                y productos relacionados con viajes del Grupo Marriott por correo electrónico.
+              </label>
+            </div>
+
+            <div class="form-checkbox">
+              <input type="checkbox" id="shareData" [(ngModel)]="paymentInfo.shareData">
+              <label for="shareData">
+                Me gustaría que el Grupo Marriott comparta mis Datos personales con licenciatarios autorizados,
+                tal como se define en la Declaración de privacidad global, para poder recibir ofertas y marketing
+                por correo electrónico.
+              </label>
+            </div>
+
+            <p class="terms-text">
+              Al hacer una reserva, acepto los
+              <a href="#" class="link">Términos de uso de Marriott</a>.
+              También reconozco la declaración de privacidad de Marriott que se encuentra en el
+              <a href="#" class="link">Centro de privacidad</a>
+              y el aviso de
+              <a href="#" class="link">incentivo financiero de California</a>.
+            </p>
+          </section>
+
+          <div class="registration-toast" *ngIf="showRegistrationSuccess || showRegistrationError"
+            [class.success]="showRegistrationSuccess" [class.error]="showRegistrationError">
+            <div class="toast-content">
+              <i class="bi" [class.bi-check-circle-fill]="showRegistrationSuccess"
+                [class.bi-x-circle-fill]="showRegistrationError"></i>
+              <span>{{ registrationMessage }}</span>
+              <button class="toast-close" (click)="closeRegistrationMessage()">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+          </div>
+
+          <section class="form-section hotel-messages">
+            <h3 class="form-section__title">MENSAJES DEL HOTEL</h3>
+            <p>
+              Aviso importante: del 13 de octubre de 2025 hasta finales de abril de 2026, el hotel estará en proceso
+              de renovación que afectará a algunas habitaciones y suites. Los espacios públicos permanecerán abiertos.
+              Agradecemos su comprensión.
+            </p>
+            <p>
+              Se requiere una identificación física (documento de identidad para la UE o pasaporte para el resto del
+              mundo)
+              al momento del registro. La tarjeta de crédito utilizada para el prepago debe ser presentada por el
+              titular.
+            </p>
+          </section>
+
+          <section class="form-section cancellation-policy">
+            <h3 class="form-section__title">POLÍTICA DE CANCELACIÓN</h3>
+            <p>
+              Podrá cancelar su reserva sin cargo hasta las 23:59 h, hora local del hotel, del {{ cancellationDate }}
+              (2 día(s) antes de la llegada). Si anula su reserva después de la fecha límite, aplicaremos una tarifa
+              de {{ cancellationFee }} {{ bookingSummary?.currency }}.
+            </p>
+          </section>
+
+          <div class="form-actions">
+            <div class="form-checkbox terms-checkbox">
+              <input type="checkbox" id="acceptTerms" [(ngModel)]="paymentInfo.acceptTerms" required>
+              <label for="acceptTerms">
+                <strong>Acepto los términos y condiciones</strong>
+              </label>
+            </div>
+
+            <button class="btn-reserve" [disabled]="!isFormValid() || isSubmitting" (click)="submitBooking()">
+              <span *ngIf="!isSubmitting">Reservar ahora</span>
+              <span *ngIf="isSubmitting">
+                <span class="spinner-border spinner-border-sm" role="status"></span>
+                Procesando...
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <aside class="booking-sidebar" *ngIf="bookingSummary">
+          <div class="sidebar-card">
+            <div class="sidebar-card__image">
+              <img [src]="bookingSummary.roomImage" [alt]="bookingSummary.roomName">
+            </div>
+
+            <div class="sidebar-card__content">
+              <h4 class="room-name">{{ bookingSummary.roomName }}</h4>
+              <button class="details-link" (click)="openRoomDetails()">Detalles de la habitación</button>
+
+              <div class="stay-info">
+                <p class="stay-dates">{{ stayDatesText }}</p>
+                <p class="stay-details">{{ bookingSummary.rooms }} habitación, {{ bookingSummary.adults }} Adulto</p>
+                <p class="rate-name">{{ bookingSummary.rateName }}</p>
+              </div>
+
+              <button class="edit-link" (click)="editStayDetails()">
+                <i class="bi bi-arrow-left"></i>
+                Editar detalles de la estancia
+              </button>
+
+              <hr class="sidebar-divider">
+
+              <div class="coupon-section mb-4">
+                <label class="form-label small fw-bold text-uppercase" style="font-size: 0.8rem; color: #555;">¿Tienes un cupón?</label>
+                
+                <div class="input-group mb-2 d-flex gap-1" *ngIf="!appliedCoupon">
+                  <input type="text" class="form-control form-control-sm" placeholder="Código" 
+                         [(ngModel)]="couponCode" (keyup.enter)="applyCoupon()" 
+                         style="border-radius: 4px;">
+                  <button class="btn btn-dark btn-sm" (click)="applyCoupon()" style="border-radius: 4px;">Aplicar</button>
+                </div>
+
+                <div class="applied-coupon p-2 bg-light border rounded d-flex justify-content-between align-items-center" *ngIf="appliedCoupon">
+                  <div>
+                    <span class="fw-bold text-success">{{ appliedCoupon.code }}</span>
+                    <br>
+                    <small class="text-muted" style="font-size: 0.75rem;">Descuento aplicado</small>
+                  </div>
+                  <button class="btn btn-link text-danger btn-sm p-0 text-decoration-none" (click)="removeCoupon()">
+                    <i class="bi bi-x-circle"></i> Quitar
+                  </button>
+                </div>
+
+                <div *ngIf="couponMessage" class="mt-2 small" 
+                     [class.text-success]="couponMessageType === 'success'"
+                     [class.text-danger]="couponMessageType === 'error'">
+                  {{ couponMessage }}
+                </div>
+              </div>
+
+              <hr class="sidebar-divider">
+
+              <div class="price-summary">
+                <span class="price-label">Resumen de los cargos</span>
+                
+                <div class="d-flex justify-content-between mb-1" *ngIf="appliedCoupon">
+                  <span class="text-muted small">Subtotal</span>
+                  <span class="text-muted small">{{ bookingSummary.totalPrice }} {{ bookingSummary.currency }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between mb-2" *ngIf="appliedCoupon">
+                  <span class="text-success small fw-bold">Descuento</span>
+                  <span class="text-success small fw-bold">-{{ discountAmount }} {{ bookingSummary.currency }}</span>
+                </div>
+
+                <div class="price-total mt-2">
+                  <span class="price-amount">{{ finalPrice }}</span>
+                  <span class="price-currency">{{ bookingSummary.currency }} Total</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</div>

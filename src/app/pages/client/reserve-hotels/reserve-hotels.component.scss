@@ -1,0 +1,901 @@
+// Variables
+$bg-main: #f3eee7;
+$bg-white: #ffffff;
+$text-dark: #1a1a1a;
+$text-mid: #494949;
+$text-light: #707274;
+$border-color: #d9d9d9;
+$primary-dark: #1a1a1a;
+$accent-orange: #c96c00;
+
+// Mixins
+@mixin font-brand {
+  font-family: 'Luxurious Roman', serif;
+}
+
+@mixin font-ui {
+  font-family: 'Whitney SSm', system-ui, -apple-system, sans-serif;
+}
+
+// Contenedor de la página
+.reserve-hotels-page {
+  min-height: 100vh;
+  background-color: $bg-main;
+  @include font-ui;
+}
+
+// Encabezado del hotel
+.hotel-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 48px;
+  background-color: $bg-white;
+  border-bottom: 1px solid $border-color;
+  text-align: center;
+
+  &__brand {
+    .brand-text {
+      font-family: 'Whitney SSm', system-ui, -apple-system, sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      color: $text-mid;
+    }
+
+    .brand-logo,
+    .brand-logo-img {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+      max-width: 250px;
+      margin-bottom: 8px;
+    }
+  }
+
+  &__info {
+    .hotel-name {
+      @include font-brand;
+      font-size: 28px;
+      font-weight: 400;
+      color: $text-dark;
+      margin: 0 0 4px;
+      text-transform: uppercase;
+    }
+
+    .hotel-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      font-size: 13px;
+      color: $text-mid;
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        i {
+          font-size: 11px;
+        }
+      }
+
+      .hotel-rating {
+        i {
+          color: #1a1a1a;
+        }
+      }
+    }
+  }
+}
+
+// Barra de reserva
+.booking-bar {
+  background-color: $bg-white;
+  border-bottom: 1px solid $border-color;
+  padding: 16px 48px;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+
+    &:hover {
+      .booking-bar__value {
+        color: $text-dark;
+      }
+    }
+  }
+
+  &__label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: $text-light;
+  }
+
+  &__value {
+    font-size: 15px;
+    color: $text-mid;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+
+    i {
+      font-size: 12px;
+    }
+  }
+
+  &__divider {
+    width: 1px;
+    height: 40px;
+    background-color: $border-color;
+  }
+
+  &__update-btn {
+    margin-left: auto;
+    padding: 12px 32px;
+    background-color: $primary-dark;
+    color: $bg-white;
+    border: none;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: lighten($primary-dark, 10%);
+    }
+  }
+}
+
+// Contenido principal
+.rooms-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  background-color: $bg-white;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  &__title {
+    @include font-brand;
+    font-size: 18px;
+    font-weight: 400;
+    color: $text-dark;
+    margin: 0 0 24px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+}
+
+// Pestañas de tarifas
+.rate-tabs {
+  margin-bottom: 24px;
+  border-bottom: 2px solid $border-color;
+
+  &__tab {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 0;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+
+    &--active {
+      border-bottom-color: $primary-dark;
+
+      .tab-name {
+        font-weight: 600;
+      }
+    }
+
+    .tab-name {
+      font-size: 16px;
+      color: $text-dark;
+    }
+
+    .tab-price {
+      font-size: 13px;
+      color: $text-light;
+    }
+  }
+}
+
+// Barra de filtros
+.filters-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+
+  &__btn,
+  &__dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: $bg-white;
+    border: 1px solid $border-color;
+    border-radius: 24px;
+    font-size: 14px;
+    color: $text-dark;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: $text-dark;
+    }
+
+    i {
+      font-size: 12px;
+    }
+  }
+}
+
+// Filtros activos
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  &__tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: $text-dark;
+    color: $bg-white;
+    border-radius: 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: lighten($text-dark, 15%);
+    }
+
+    i {
+      font-size: 10px;
+    }
+  }
+
+  &__clear {
+    background: none;
+    border: none;
+    color: $accent-orange;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+
+    &:hover {
+      color: darken($accent-orange, 10%);
+    }
+  }
+}
+
+// Conteo de habitaciones
+.rooms-count {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 24px;
+  color: $accent-orange;
+  font-size: 14px;
+
+  &__number {
+    font-weight: 600;
+  }
+}
+
+// Estados de carga y vacío
+.rooms-loading,
+.rooms-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  text-align: center;
+
+  i {
+    font-size: 64px;
+    color: $text-light;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 20px;
+    color: $text-dark;
+    margin: 0 0 8px;
+  }
+
+  p {
+    font-size: 14px;
+    color: $text-light;
+    margin: 0 0 24px;
+  }
+}
+
+// Tarjeta de habitación
+.room-card {
+  display: flex;
+  gap: 24px;
+  background-color: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  overflow: hidden;
+
+  &__gallery {
+    flex: 0 0 360px;
+  }
+
+  &__carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__carousel-indicators {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+
+    .indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &.active {
+        background-color: $bg-white;
+      }
+    }
+  }
+
+  .carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background-color: $bg-white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    &--prev {
+      left: 12px;
+    }
+
+    &--next {
+      right: 12px;
+    }
+  }
+
+  &__carousel:hover .carousel-nav {
+    opacity: 1;
+  }
+
+  &__info {
+    flex: 1;
+    padding: 24px 24px 24px 0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  &__name {
+    font-size: 18px;
+    font-weight: 500;
+    color: $text-dark;
+    margin: 0;
+  }
+
+  &__details-link {
+    background: none;
+    border: none;
+    color: $text-dark;
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: $text-mid;
+    }
+  }
+
+  &__rates {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+// Fila de tarifa
+.rate-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 0;
+  border-top: 1px solid $border-color;
+
+  &__info {
+    flex: 1;
+
+    .rate-row__name {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      font-weight: 500;
+      color: $text-dark;
+      margin-bottom: 4px;
+
+      i {
+        color: $accent-orange;
+        font-size: 12px;
+      }
+    }
+
+    .rate-row__details-link {
+      background: none;
+      border: none;
+      padding: 0;
+      color: $text-mid;
+      font-size: 12px;
+      text-decoration: underline;
+      cursor: pointer;
+
+      &:hover {
+        color: $text-dark;
+      }
+    }
+  }
+
+  &__pricing {
+    text-align: right;
+  }
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    justify-content: flex-end;
+
+    .price-amount {
+      font-size: 22px;
+      font-weight: 600;
+      color: $text-dark;
+    }
+
+    .price-currency {
+      font-size: 14px;
+      color: $text-mid;
+    }
+
+    .price-unit {
+      font-size: 12px;
+      color: $text-light;
+    }
+  }
+
+  &__total {
+    font-size: 12px;
+    color: $text-light;
+    margin-top: 4px;
+  }
+
+  &__select-btn {
+    padding: 12px 32px;
+    background-color: $primary-dark;
+    color: $bg-white;
+    border: none;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: lighten($primary-dark, 10%);
+    }
+  }
+}
+
+
+// Modal de filtros
+.filters-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 24px;
+
+  &__content {
+    background-color: $bg-white;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid $border-color;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 500;
+      color: $text-dark;
+      margin: 0;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: $text-mid;
+      cursor: pointer;
+
+      &:hover {
+        color: $text-dark;
+      }
+    }
+  }
+
+  &__body {
+    padding: 24px;
+
+    .filter-group {
+      margin-bottom: 24px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: $text-dark;
+        margin: 0 0 12px;
+      }
+
+      .filter-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .filter-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border: 1px solid $border-color;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        input {
+          display: none;
+        }
+
+        span {
+          font-size: 13px;
+          color: $text-mid;
+        }
+
+        &.selected {
+          background-color: $text-dark;
+          border-color: $text-dark;
+
+          span {
+            color: $bg-white;
+          }
+        }
+
+        &:hover:not(.selected) {
+          border-color: $text-dark;
+        }
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-top: 1px solid $border-color;
+
+    .btn-secondary {
+      padding: 12px 24px;
+      background: none;
+      border: 1px solid $border-color;
+      border-radius: 24px;
+      font-size: 14px;
+      color: $text-mid;
+      cursor: pointer;
+
+      &:hover {
+        border-color: $text-dark;
+        color: $text-dark;
+      }
+    }
+  }
+}
+
+// Utility buttons
+.btn-primary-dark {
+  padding: 12px 32px;
+  background-color: $primary-dark;
+  color: $bg-white;
+  border: none;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: lighten($primary-dark, 10%);
+  }
+}
+
+// Responsive
+@media (max-width: 992px) {
+  .hotel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 24px;
+  }
+
+  .booking-bar {
+    padding: 16px 24px;
+    overflow-x: auto;
+
+    &__container {
+      min-width: max-content;
+    }
+  }
+
+  .room-card {
+    flex-direction: column;
+
+    &__gallery {
+      flex: none;
+      height: 240px;
+    }
+
+    &__info {
+      padding: 20px;
+    }
+  }
+
+  .room-details-modal__amenities {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .rate-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    &__pricing {
+      text-align: left;
+    }
+
+    &__select-btn {
+      width: 100%;
+    }
+  }
+
+  .room-details-modal__amenities {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Modal: Tarifa para socios
+.member-rate-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: 1rem;
+
+  &__content {
+    background: white;
+    border-radius: 12px;
+    max-width: 450px;
+    width: 100%;
+    padding: 2.5rem;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      color: $text-light;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+
+      &:hover {
+        color: $text-dark;
+      }
+    }
+  }
+
+  &__icon {
+    margin-bottom: 1.5rem;
+
+    .bonvoy-logo {
+      height: 48px;
+      width: auto;
+    }
+  }
+
+  h2 {
+    @include font-brand;
+    font-size: 1.75rem;
+    color: $text-dark;
+    margin-bottom: 1rem;
+  }
+
+  &__message {
+    color: $text-mid;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+
+    strong {
+      color: $accent-orange;
+    }
+  }
+
+  &__benefits {
+    font-size: 0.9rem;
+    color: $text-light;
+    margin-bottom: 0.75rem;
+  }
+
+  &__benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    text-align: left;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      font-size: 0.95rem;
+      color: $text-mid;
+
+      i {
+        color: #2e7d32;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+
+    .btn-primary-dark {
+      padding: 0.875rem 1.5rem;
+      background: $primary-dark;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: #333;
+      }
+    }
+
+    .btn-secondary {
+      padding: 0.875rem 1.5rem;
+      background: white;
+      color: $text-dark;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: $text-dark;
+      }
+    }
+  }
+
+  &__note {
+    font-size: 0.85rem;
+    color: $text-light;
+
+    strong {
+      color: $text-mid;
+    }
+  }
+}

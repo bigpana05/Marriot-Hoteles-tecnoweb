@@ -1,0 +1,88 @@
+<div class="hotel-card" (click)="viewHotelDetails()">
+    <!-- Imagen principal con overlay -->
+    <div class="card-image-wrapper">
+        <img [src]="getMainImage()" [alt]="hotel?.name" class="card-image" loading="lazy">
+
+        <!-- Overlay gradiente -->
+        <div class="card-overlay"></div>
+
+        <!-- Logo de la marca (sin fondo) -->
+        <div class="brand-logo" *ngIf="getBrandLogo()">
+            <img [src]="getBrandLogo()" [alt]="hotel?.brand" class="logo-img">
+        </div>
+
+        <!-- Badge de disponibilidad -->
+        <span class="availability-badge" [class.available]="hasAvailability()" [class.unavailable]="!hasAvailability()">
+            {{ hasAvailability() ? 'Disponible' : 'Sin disponibilidad' }}
+        </span>
+    </div>
+
+    <!-- Contenido de la tarjeta -->
+    <div class="card-content">
+        <!-- Rating y reseñas -->
+        <div class="rating-section">
+            <div class="stars">
+                <span *ngFor="let star of getStars()" class="star" [ngClass]="{
+          'filled': star.type === 'full',
+          'half': star.type === 'half',
+          'empty': star.type === 'empty'
+        }">
+                    <span *ngIf="star.type === 'full'">★</span>
+                    <span *ngIf="star.type === 'half'" class="half-star">
+                        <span class="half-star-left">★</span>
+                        <span class="half-star-right">★</span>
+                    </span>
+                    <span *ngIf="star.type === 'empty'">★</span>
+                </span>
+            </div>
+            <span class="rating-number">{{ hotel?.rating | number:'1.1-1' }}</span>
+            <span class="review-count">({{ hotel?.reviewCount | number }} reseñas)</span>
+        </div>
+
+        <!-- Nombre del hotel -->
+        <h3 class="hotel-name">{{ hotel?.name }}</h3>
+
+        <!-- Ubicación -->
+        <div class="location">
+            <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>{{ hotel?.location?.city }}, {{ hotel?.location?.country }}</span>
+        </div>
+
+        <!-- Descripción corta -->
+        <p class="description">{{ hotel?.description }}</p>
+
+        <!-- Habitaciones disponibles del día -->
+        <div class="rooms-available">
+            <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span class="rooms-text">
+                <strong>{{ getAvailableRooms() }}</strong>
+                {{ getAvailableRooms() === 1 ? 'habitación disponible' : 'habitaciones disponibles' }} hoy
+            </span>
+        </div>
+
+        <!-- Precio y botón -->
+        <div class="card-footer">
+            <div class="price-section">
+                <span class="price-label">Desde</span>
+                <span class="price">{{ getFormattedPrice() }}</span>
+                <span class="price-unit">/noche</span>
+            </div>
+
+            <button class="view-btn" [disabled]="!hasAvailability()">
+                Ver hotel
+                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>

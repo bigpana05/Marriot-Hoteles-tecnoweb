@@ -1,0 +1,385 @@
+﻿<section class="admin-hotels">
+  <div class="page-header">
+    <h1>Gestion de Hoteles</h1>
+    <p class="text-muted">Administra hoteles, ubicaciones, comodidades e imagenes.</p>
+  </div>
+
+  <!-- Mensajes -->
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show">
+    {{ successMessage }}
+    <button type="button" class="btn-close" (click)="successMessage = null"></button>
+  </div>
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show">
+    {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
+
+  <div class="row">
+    <!-- Formulario -->
+    <div class="col-lg-8 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">{{ isEditing ? 'Editar: ' + formModel.name : 'Nuevo Hotel' }}</h5>
+        </div>
+        
+        <!-- Navegacion de secciones -->
+        <div class="section-nav">
+          <button type="button" [class.active]="activeSection === 'basic'" (click)="setActiveSection('basic')">
+            <i class="bi bi-building"></i> Informacion Basica
+          </button>
+          <button type="button" [class.active]="activeSection === 'location'" (click)="setActiveSection('location')">
+            <i class="bi bi-geo-alt"></i> Ubicacion
+          </button>
+          <button type="button" [class.active]="activeSection === 'amenities'" (click)="setActiveSection('amenities')">
+            <i class="bi bi-check2-circle"></i> Comodidades
+            <span class="badge bg-primary ms-1">{{ getActiveAmenitiesCount() }}</span>
+          </button>
+          <button type="button" [class.active]="activeSection === 'galleries'" (click)="setActiveSection('galleries')">
+            <i class="bi bi-images"></i> Imagenes
+          </button>
+          <button type="button" [class.active]="activeSection === 'property'" (click)="setActiveSection('property')">
+            <i class="bi bi-info-circle"></i> Propiedad
+          </button>
+        </div>
+
+        <div class="card-body">
+          <form #f="ngForm" (ngSubmit)="save(f)">
+            
+            <!-- SECCION: Informacion Basica -->
+            <div *ngIf="activeSection === 'basic'" class="form-section">
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label class="form-label">Nombre del Hotel *</label>
+                  <input class="form-control" name="name" [(ngModel)]="formModel.name" required placeholder="Ej: W Barcelona">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Idioma principal</label>
+                  <select class="form-select" name="language" [(ngModel)]="formModel.language">
+                    <option *ngFor="let lang of languages" [value]="lang">{{ lang }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Marca *</label>
+                  <select class="form-select" name="brand" [(ngModel)]="formModel.brand" required>
+                    <option value="">Seleccionar marca</option>
+                    <option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">URL Logo de la marca</label>
+                  <input class="form-control" name="brandLogo" [(ngModel)]="formModel.brandLogo" placeholder="assets/brand/logos/...">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Descripcion *</label>
+                <textarea class="form-control" name="description" [(ngModel)]="formModel.description" rows="3" required placeholder="Describe el hotel..."></textarea>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <label class="form-label">Precio base *</label>
+                  <input type="number" class="form-control" name="basePrice" [(ngModel)]="formModel.basePrice" min="0" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label class="form-label">Moneda</label>
+                  <select class="form-select" name="currency" [(ngModel)]="formModel.currency">
+                    <option *ngFor="let curr of currencies" [value]="curr.code">{{ curr.code }} - {{ curr.name }}</option>
+                  </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label class="form-label">Rating (0-5)</label>
+                  <input type="number" class="form-control" name="rating" [(ngModel)]="formModel.rating" min="0" max="5" step="0.1">
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label class="form-label">N de opiniones</label>
+                  <input type="number" class="form-control" name="reviewCount" [(ngModel)]="formModel.reviewCount" min="0">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Total de habitaciones</label>
+                  <input type="number" class="form-control" name="totalRooms" [(ngModel)]="formModel.totalRooms" min="0">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Habitaciones disponibles</label>
+                  <input type="number" class="form-control" name="availableRooms" [(ngModel)]="formModel.availableRooms" min="0">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Estado</label>
+                  <div class="form-check form-switch mt-2">
+                    <input class="form-check-input" type="checkbox" id="isActive" name="isActive" [(ngModel)]="formModel.isActive">
+                    <label class="form-check-label" for="isActive">{{ formModel.isActive ? 'Activo' : 'Inactivo' }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECCION: Ubicacion -->
+            <div *ngIf="activeSection === 'location'" class="form-section">
+              <h6 class="section-title">Direccion</h6>
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label class="form-label">Direccion completa *</label>
+                  <input class="form-control" name="address" [(ngModel)]="formModel.location.address" required placeholder="Placa Rosa dels Vents, 1...">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Codigo postal</label>
+                  <input class="form-control" name="postalCode" [(ngModel)]="formModel.location.postalCode">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Ciudad *</label>
+                  <input class="form-control" name="city" [(ngModel)]="formModel.location.city" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Pais *</label>
+                  <input class="form-control" name="country" [(ngModel)]="formModel.location.country" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Telefono</label>
+                  <input class="form-control" name="phone" [(ngModel)]="formModel.location.phone" placeholder="+34 93-xxx-xxxx">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Latitud</label>
+                  <input type="number" class="form-control" name="latitude" [(ngModel)]="formModel.location.latitude" step="0.0001">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Longitud</label>
+                  <input type="number" class="form-control" name="longitude" [(ngModel)]="formModel.location.longitude" step="0.0001">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Distancia al centro (km)</label>
+                  <input type="number" class="form-control" name="distanceFromCenter" [(ngModel)]="formModel.location.distanceFromCenter" step="0.1">
+                </div>
+              </div>
+
+              <h6 class="section-title mt-4">Aeropuertos cercanos</h6>
+              <div class="airports-list mb-3">
+                <div *ngFor="let airport of formModel.location.nearbyAirports; let i = index" class="list-item">
+                  <span>{{ airport.name }} ({{ airport.code }}) - {{ airport.distance }}</span>
+                  <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeAirport(i)"><i class="bi bi-x"></i></button>
+                </div>
+                <div *ngIf="formModel.location.nearbyAirports?.length === 0" class="text-muted small">No hay aeropuertos agregados</div>
+              </div>
+              
+              <div class="row add-item-row">
+                <div class="col-md-4 mb-2">
+                  <input class="form-control form-control-sm" [(ngModel)]="newAirport.name" name="newAirportName" placeholder="Nombre del aeropuerto">
+                </div>
+                <div class="col-md-2 mb-2">
+                  <input class="form-control form-control-sm" [(ngModel)]="newAirport.code" name="newAirportCode" placeholder="Codigo">
+                </div>
+                <div class="col-md-3 mb-2">
+                  <input class="form-control form-control-sm" [(ngModel)]="newAirport.distance" name="newAirportDistance" placeholder="Distancia">
+                </div>
+                <div class="col-md-3 mb-2">
+                  <button type="button" class="btn btn-sm btn-outline-primary w-100" (click)="addAirport()"><i class="bi bi-plus"></i> Agregar</button>
+                </div>
+              </div>
+
+              <h6 class="section-title mt-4">Otros transportes</h6>
+              <div class="transports-list mb-3">
+                <div *ngFor="let transport of formModel.location.otherTransports; let i = index" class="list-item">
+                  <span>{{ transport.type }} - {{ transport.company }}</span>
+                  <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeTransport(i)"><i class="bi bi-x"></i></button>
+                </div>
+                <div *ngIf="formModel.location.otherTransports?.length === 0" class="text-muted small">No hay transportes agregados</div>
+              </div>
+              
+              <div class="row add-item-row">
+                <div class="col-md-4 mb-2">
+                  <input class="form-control form-control-sm" [(ngModel)]="newTransport.type" name="newTransportType" placeholder="Tipo (Taxi, Metro...)">
+                </div>
+                <div class="col-md-4 mb-2">
+                  <input class="form-control form-control-sm" [(ngModel)]="newTransport.company" name="newTransportCompany" placeholder="Empresa">
+                </div>
+                <div class="col-md-4 mb-2">
+                  <button type="button" class="btn btn-sm btn-outline-primary w-100" (click)="addTransport()"><i class="bi bi-plus"></i> Agregar</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECCION: Comodidades -->
+            <div *ngIf="activeSection === 'amenities'" class="form-section">
+              <h6 class="section-title">Selecciona las comodidades disponibles</h6>
+              <p class="text-muted small mb-3">Marca las comodidades que ofrece el hotel</p>
+              
+              <div class="amenities-grid">
+                <div *ngFor="let amenity of formModel.amenities" class="amenity-item" [class.active]="amenity.available" (click)="toggleAmenity(amenity.id)">
+                  <span>{{ amenity.name }}</span>
+                  <i class="bi bi-check-circle-fill check-icon" *ngIf="amenity.available"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECCION: Imagenes y Galerias -->
+            <div *ngIf="activeSection === 'galleries'" class="form-section">
+              <h6 class="section-title">Imagenes del carrusel principal</h6>
+              <div class="images-preview mb-3">
+                <div *ngFor="let img of formModel.images; let i = index" class="image-item">
+                  <img [src]="img" alt="Hotel image">
+                  <button type="button" class="btn-remove" (click)="removeImage(i)"><i class="bi bi-x"></i></button>
+                </div>
+                <div *ngIf="formModel.images?.length === 0" class="no-images">
+                  <i class="bi bi-images"></i>
+                  <span>Sin imagenes</span>
+                </div>
+              </div>
+              
+              <div class="row add-item-row mb-4">
+                <div class="col-md-9 mb-2">
+                  <input class="form-control form-control-sm" [(ngModel)]="newImageUrl" name="newImageUrl" placeholder="URL de la imagen (ej: assets/brand/hotels/...)">
+                </div>
+                <div class="col-md-3 mb-2">
+                  <button type="button" class="btn btn-sm btn-outline-primary w-100" (click)="addImage()"><i class="bi bi-plus"></i> Agregar imagen</button>
+                </div>
+              </div>
+
+              <h6 class="section-title">Galerias por categoria</h6>
+              <p class="text-muted small mb-3">Imagenes que se muestran en el detalle del hotel por categoria</p>
+              
+              <div class="galleries-list mb-3">
+                <div *ngFor="let gallery of formModel.galleries; let i = index" class="gallery-item">
+                  <img [src]="gallery.imageUrl" alt="Gallery">
+                  <div class="gallery-info">
+                    <span class="category-badge">{{ getGalleryCategoryName(gallery.category) }}</span>
+                    <span class="gallery-title">{{ gallery.title }}</span>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeGallery(i)"><i class="bi bi-x"></i></button>
+                </div>
+                <div *ngIf="formModel.galleries?.length === 0" class="text-muted small">No hay galerias agregadas</div>
+              </div>
+              
+              <div class="row add-item-row">
+                <div class="col-md-3 mb-2">
+                  <select class="form-select form-select-sm" [(ngModel)]="newGallery.category" name="newGalleryCategory">
+                    <option *ngFor="let cat of galleryCategories" [value]="cat.id">{{ cat.name }}</option>
+                  </select>
+                </div>
+                <div class="col-md-3 mb-2">
+                  <input class="form-control form-control-sm" [(ngModel)]="newGallery.title" name="newGalleryTitle" placeholder="Titulo">
+                </div>
+                <div class="col-md-4 mb-2">
+                  <input class="form-control form-control-sm" [(ngModel)]="newGallery.imageUrl" name="newGalleryUrl" placeholder="URL de la imagen">
+                </div>
+                <div class="col-md-2 mb-2">
+                  <button type="button" class="btn btn-sm btn-outline-primary w-100" (click)="addGallery()"><i class="bi bi-plus"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECCION: Informacion de la propiedad -->
+            <div *ngIf="activeSection === 'property'" class="form-section">
+              <h6 class="section-title">Horarios</h6>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Hora de check-in</label>
+                  <input type="time" class="form-control" name="checkInTime" [(ngModel)]="formModel.propertyInfo.checkInTime">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Hora de check-out</label>
+                  <input type="time" class="form-control" name="checkOutTime" [(ngModel)]="formModel.propertyInfo.checkOutTime">
+                </div>
+              </div>
+
+              <h6 class="section-title mt-3">Politicas</h6>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="smokeFree" name="smokeFree" [(ngModel)]="formModel.propertyInfo.smokeFree">
+                    <label class="form-check-label" for="smokeFree">Hotel 100% libre de humo</label>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Politica de mascotas</label>
+                <textarea class="form-control" name="petPolicy" [(ngModel)]="formModel.propertyInfo.petPolicy" rows="2" placeholder="Ej: Cargo no reembolsable: 100 EUR por estancia..."></textarea>
+              </div>
+
+              <h6 class="section-title mt-3">Informacion adicional</h6>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Ano de construccion</label>
+                  <input type="number" class="form-control" name="yearBuilt" [(ngModel)]="formModel.propertyInfo.yearBuilt" min="1900" max="2030">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Ano de renovacion</label>
+                  <input type="number" class="form-control" name="yearRenovated" [(ngModel)]="formModel.propertyInfo.yearRenovated" min="1900" max="2030">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Link de accesibilidad</label>
+                  <input class="form-control" name="accessibilityLink" [(ngModel)]="formModel.propertyInfo.accessibilityLink" placeholder="#">
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones de accion -->
+            <div class="form-actions mt-4">
+              <button class="btn btn-dark" type="submit" [disabled]="f.invalid">
+                <i class="bi" [ngClass]="isEditing ? 'bi-check-lg' : 'bi-plus-lg'"></i>
+                {{ isEditing ? 'Guardar cambios' : 'Crear hotel' }}
+              </button>
+              <button class="btn btn-outline-secondary" type="button" (click)="resetForm(f)">
+                {{ isEditing ? 'Cancelar edicion' : 'Limpiar formulario' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de hoteles -->
+    <div class="col-lg-4">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">Hoteles registrados ({{ hotels.length }})</h5>
+        </div>
+        <div class="card-body p-0">
+          <div *ngIf="loading" class="text-center py-4">
+            <div class="spinner-border spinner-border-sm" role="status"></div>
+            <span class="ms-2">Cargando...</span>
+          </div>
+          
+          <div *ngIf="!loading" class="hotels-list">
+            <div *ngFor="let h of hotels" class="hotel-list-item" [class.active]="h.id === formModel.id">
+              <div class="hotel-info">
+                <div class="hotel-thumb" *ngIf="h.images?.length">
+                  <img [src]="h.images[0]" alt="Hotel">
+                </div>
+                <div class="hotel-details">
+                  <h6>{{ h.name }}</h6>
+                  <small class="text-muted">{{ h.location?.city }}, {{ h.location?.country }}</small>
+                  <div class="hotel-meta">
+                    <span class="price">{{ h.currency }} {{ h.basePrice }}</span>
+                    <span class="rating" *ngIf="h.rating"><i class="bi bi-star-fill"></i> {{ h.rating }}</span>
+                    <span class="status" [class.active]="h.isActive" [class.inactive]="!h.isActive">{{ h.isActive ? 'Activo' : 'Inactivo' }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hotel-actions">
+                <button class="btn btn-sm btn-outline-primary" (click)="edit(h)" title="Editar"><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-sm btn-outline-danger" (click)="delete(h)" title="Eliminar"><i class="bi bi-trash"></i></button>
+              </div>
+            </div>
+            
+            <div *ngIf="hotels.length === 0" class="text-center py-4 text-muted">
+              <i class="bi bi-building fs-1 d-block mb-2"></i>
+              No hay hoteles registrados
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

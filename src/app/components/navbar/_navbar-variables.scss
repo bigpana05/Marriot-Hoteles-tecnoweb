@@ -1,0 +1,38 @@
+/**
+ * Navbar Variables & Colors
+ * Define colores, espaciado y tipografía reutilizables
+ */
+
+// Colores
+$color-white: #ffffff;
+$color-black: #000000;
+$color-text: #494949;
+$color-text-light: rgba(0, 0, 0, 0.5);
+$color-text-lighter: rgba(0, 0, 0, 0.4);
+$color-border: rgba(0, 0, 0, 0.06);
+$color-border-light: rgba(0, 0, 0, 0.08);
+$color-border-medium: rgba(0, 0, 0, 0.12);
+$color-hover-light: rgba(0, 0, 0, 0.04);
+$color-divider: #2c2c2c;
+
+// Espaciado
+$spacing-navbar-h: 125px;
+$spacing-navbar-padding-lg: 40px;
+$spacing-navbar-padding-md: 20px;
+$spacing-navbar-padding-sm: 16px;
+$spacing-gap-lg: 70px;
+$spacing-gap-md: 30px;
+$spacing-gap-sm: 16px;
+$spacing-gap-xs: 12px;
+$spacing-menu-gap: 40px;
+
+// Border radius
+$radius-pill: 28px;
+$radius-card: 8px;
+
+// Tipografía
+$font-brand: 'Luxurious Roman', serif;
+$font-ui: 'Whitney SSm', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+// Transiciones
+$transition-fast: 0.2s ease;

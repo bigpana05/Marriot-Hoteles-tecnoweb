@@ -1,0 +1,64 @@
+<section class="login-page">
+  <div class="login-card">
+    <!-- LOGO MARRIOTT -->
+    <div class="login-logo">
+      <span class="login-logo-icon"></span>
+    </div>
+
+    <!-- TÍTULO -->
+    <h1 class="login-title">Bienvenido a Marriott International</h1>
+    <p class="login-subtitle">
+      Accede para gestionar tus reservas y experiencias.
+    </p>
+
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+      <!-- CAMPO EMAIL -->
+      <div class="form-field">
+        <label for="email">CORREO ELECTRÓNICO</label>
+        <input id="email" type="email" name="email" required email [(ngModel)]="email" #emailModel="ngModel"
+          placeholder="tu@correo.com" />
+        <small class="field-error" *ngIf="emailModel.invalid && emailModel.touched">
+          Ingresa un correo válido.
+        </small>
+      </div>
+
+      <!-- CAMPO CONTRASEÑA CON TOGGLE -->
+      <div class="form-field">
+        <label for="password">CONTRASEÑA</label>
+        <div class="password-wrapper">
+          <input id="password" [type]="showPassword ? 'text' : 'password'" name="password" required minlength="4"
+            [(ngModel)]="password" #passwordModel="ngModel" placeholder="••••••" />
+          <button type="button" class="eye-btn" (click)="togglePassword()" aria-label="Mostrar/ocultar contraseña">
+            <img [src]="showPassword ? 'assets/icons/eye2.svg' : 'assets/icons/eye1.svg'" alt="Toggle password"
+              class="eye-icon" />
+          </button>
+        </div>
+        <small class="field-error" *ngIf="passwordModel.invalid && passwordModel.touched">
+          La contraseña debe tener al menos 4 caracteres.
+        </small>
+      </div>
+
+      <!-- RECORDARME -->
+      <div class="remember-row">
+        <label class="remember-label">
+          <input type="checkbox" name="remember" />
+          <span>Recordarme</span>
+        </label>
+      </div>
+
+      <!-- ENLACE A REGISTRO -->
+      <p class="register-link">
+        ¿No tienes una cuenta?
+        <a routerLink="/client/register">Regístrate gratis</a>
+      </p>
+
+      <!-- MENSAJE DE ERROR GLOBAL -->
+      <p class="error-message" *ngIf="error">{{ error }}</p>
+
+      <!-- BOTÓN DE ENVÍO -->
+      <button type="submit" class="submit-btn" [disabled]="loginForm.invalid || loading">
+        {{ loading ? "Iniciando sesión..." : "Iniciar sesión" }}
+      </button>
+    </form>
+  </div>
+</section>

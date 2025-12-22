@@ -1,0 +1,302 @@
+<section>
+  <h1 class="mb-3">Gestión de reservas</h1>
+  <p class="text-muted mb-4">
+    Visualiza y gestiona todas las reservas del sistema. Puedes filtrar por estado, buscar por código o cancelar reservas.
+  </p>
+
+  <!-- Stats Cards -->
+  <div class="stats-row mb-4">
+    <div class="stat-card">
+      <span class="stat-value">{{ bookingStats.total }}</span>
+      <span class="stat-label">Total reservas</span>
+    </div>
+    <div class="stat-card confirmed">
+      <span class="stat-value">{{ bookingStats.confirmed }}</span>
+      <span class="stat-label">Confirmadas</span>
+    </div>
+    <div class="stat-card pending">
+      <span class="stat-value">{{ bookingStats.pending }}</span>
+      <span class="stat-label">Pendientes</span>
+    </div>
+    <div class="stat-card cancelled">
+      <span class="stat-value">{{ bookingStats.cancelled }}</span>
+      <span class="stat-label">Canceladas</span>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar mb-4">
+    <div class="filters-left">
+      <button 
+        class="filter-btn" 
+        [class.active]="statusFilter === 'all'"
+        (click)="setStatusFilter('all')">
+        Todas
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="statusFilter === 'CONFIRMED'"
+        (click)="setStatusFilter('CONFIRMED')">
+        Confirmadas
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="statusFilter === 'PENDING'"
+        (click)="setStatusFilter('PENDING')">
+        Pendientes
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="statusFilter === 'CANCELLED'"
+        (click)="setStatusFilter('CANCELLED')">
+        Canceladas
+      </button>
+    </div>
+    
+    <div class="search-box">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm"
+        placeholder="Buscar por código, nombre, email..."
+      />
+      <button *ngIf="searchTerm" class="clear-btn" (click)="clearSearch()">×</button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center py-4">
+    <p>Cargando reservas...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error && !loading" class="alert alert-danger">
+    {{ error }}
+    <button class="btn btn-link" (click)="loadBookings()">Reintentar</button>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && filteredBookings.length === 0" class="empty-state">
+    <p *ngIf="bookings.length === 0">No hay reservas registradas en el sistema.</p>
+    <p *ngIf="bookings.length > 0 && filteredBookings.length === 0">
+      No se encontraron reservas con los filtros actuales.
+    </p>
+  </div>
+
+  <!-- Bookings Table -->
+  <div *ngIf="!loading && filteredBookings.length > 0" class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Hotel</th>
+            <th>Huésped</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th style="width: 140px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of filteredBookings">
+            <td>
+              <span class="confirmation-code">{{ booking.confirmationCode }}</span>
+            </td>
+            <td>
+              <div class="hotel-cell">
+                <strong>{{ booking.hotelName || 'Hotel' }}</strong>
+                <small>{{ booking.roomName }}</small>
+              </div>
+            </td>
+            <td>
+              <div class="guest-cell">
+                <span>{{ booking.guestInfo?.firstName }} {{ booking.guestInfo?.lastName }}</span>
+                <small>{{ booking.guestInfo?.email }}</small>
+              </div>
+            </td>
+            <td>{{ formatDate(booking.checkIn) }}</td>
+            <td>{{ formatDate(booking.checkOut) }}</td>
+            <td>
+              <span class="price">{{ booking.totalPrice | number:'1.2-2' }} {{ booking.currency }}</span>
+            </td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(booking.status)">
+                {{ getStatusLabel(booking.status) }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <button class="btn btn-link btn-sm" (click)="viewDetails(booking)">Ver</button>
+              <button 
+                *ngIf="canCancel(booking)" 
+                class="btn btn-link text-danger btn-sm" 
+                (click)="openCancelModal(booking)">
+                Cancelar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && filteredBookings.length > 0" class="results-count mt-3">
+    Mostrando {{ filteredBookings.length }} de {{ bookings.length }} reservas
+  </div>
+</section>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" *ngIf="showDetailModal" (click)="closeDetailModal()">
+  <div class="modal-content modal-lg" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Detalle de reserva</h2>
+      <button class="close-btn" (click)="closeDetailModal()">×</button>
+    </div>
+    
+    <div class="modal-body" *ngIf="selectedBooking">
+      <div class="detail-section">
+        <h4>Información de la reserva</h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="label">Código</span>
+            <span class="value code">{{ selectedBooking.confirmationCode }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Estado</span>
+            <span class="status-badge" [ngClass]="getStatusClass(selectedBooking.status)">
+              {{ getStatusLabel(selectedBooking.status) }}
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Creada</span>
+            <span class="value">{{ formatDateTime(selectedBooking.createdAt) }}</span>
+          </div>
+          <div class="detail-item" *ngIf="selectedBooking.isMember">
+            <span class="label">Tipo</span>
+            <span class="value member-badge">Miembro Marriott Bonvoy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h4>Hotel y habitación</h4>
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <span class="label">Hotel</span>
+            <span class="value">{{ selectedBooking.hotelName }}</span>
+          </div>
+          <div class="detail-item full">
+            <span class="label">Habitación</span>
+            <span class="value">{{ selectedBooking.roomName }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Tarifa</span>
+            <span class="value">{{ selectedBooking.rateName }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h4>Fechas y ocupación</h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="label">Check-in</span>
+            <span class="value">{{ formatDate(selectedBooking.checkIn) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Check-out</span>
+            <span class="value">{{ formatDate(selectedBooking.checkOut) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Noches</span>
+            <span class="value">{{ selectedBooking.nights }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Habitaciones</span>
+            <span class="value">{{ selectedBooking.rooms }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Adultos</span>
+            <span class="value">{{ selectedBooking.adults }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Niños</span>
+            <span class="value">{{ selectedBooking.children }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h4>Huésped</h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="label">Nombre</span>
+            <span class="value">{{ selectedBooking.guestInfo?.firstName }} {{ selectedBooking.guestInfo?.lastName }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Email</span>
+            <span class="value">{{ selectedBooking.guestInfo?.email }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">País</span>
+            <span class="value">{{ selectedBooking.guestInfo?.country }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Ciudad</span>
+            <span class="value">{{ selectedBooking.guestInfo?.city }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h4>Precio</h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="label">Precio/noche</span>
+            <span class="value">{{ selectedBooking.pricePerNight | number:'1.2-2' }} {{ selectedBooking.currency }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Total</span>
+            <span class="value price">{{ selectedBooking.totalPrice | number:'1.2-2' }} {{ selectedBooking.currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button 
+        *ngIf="selectedBooking && canCancel(selectedBooking)" 
+        class="btn btn-outline-danger" 
+        (click)="closeDetailModal(); openCancelModal(selectedBooking)">
+        Cancelar reserva
+      </button>
+      <button class="btn btn-dark" (click)="closeDetailModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cancel Modal -->
+<div class="modal-overlay" *ngIf="showCancelModal" (click)="closeCancelModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Cancelar reserva</h2>
+    <p>¿Estás seguro de que deseas cancelar esta reserva?</p>
+    
+    <div class="modal-booking-info" *ngIf="bookingToCancel">
+      <strong>{{ bookingToCancel.confirmationCode }}</strong>
+      <span>{{ bookingToCancel.hotelName }}</span>
+      <span>{{ bookingToCancel.guestInfo?.firstName }} {{ bookingToCancel.guestInfo?.lastName }}</span>
+      <span>{{ formatDate(bookingToCancel.checkIn) }} - {{ formatDate(bookingToCancel.checkOut) }}</span>
+    </div>
+
+    <p class="cancel-warning">
+      <strong>Importante:</strong> Al cancelar, el cupo de la habitación volverá a estar disponible automáticamente.
+    </p>
+
+    <div class="modal-actions">
+      <button class="btn btn-outline-secondary" (click)="closeCancelModal()">No, mantener</button>
+      <button class="btn btn-danger" (click)="confirmCancel()" [disabled]="cancellingId">
+        {{ cancellingId ? 'Cancelando...' : 'Sí, cancelar reserva' }}
+      </button>
+    </div>
+  </div>
+</div>

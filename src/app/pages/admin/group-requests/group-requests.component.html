@@ -1,0 +1,187 @@
+<div class="group-requests-container">
+    <header class="page-header">
+        <h1>Solicitudes Grupales</h1>
+        <p class="subtitle">Gestión de solicitudes de reservas para grupos y eventos</p>
+    </header>
+
+    <!-- Mensajes -->
+    <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+    </div>
+    <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters">
+        <button [class.active]="filterStatus === 'ALL'" (click)="setFilter('ALL')">
+            Todas ({{ requests.length }})
+        </button>
+        <button [class.active]="filterStatus === 'PENDING'" (click)="setFilter('PENDING')">
+            Pendientes ({{ getPendingCount() }})
+        </button>
+        <button [class.active]="filterStatus === 'APPROVED'" (click)="setFilter('APPROVED')">
+            Aprobadas ({{ getApprovedCount() }})
+        </button>
+        <button [class.active]="filterStatus === 'REJECTED'" (click)="setFilter('REJECTED')">
+            Rechazadas ({{ getRejectedCount() }})
+        </button>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading">Cargando solicitudes...</div>
+
+    <!-- Empty state -->
+    <div *ngIf="!loading && filteredRequests.length === 0" class="empty-state">
+        No hay solicitudes {{ filterStatus !== 'ALL' ? getStatusLabel(filterStatus).toLowerCase() : '' }}
+    </div>
+
+    <!-- Lista de solicitudes -->
+    <div class="requests-grid">
+        <div *ngFor="let request of filteredRequests" class="request-card">
+            <div class="request-header">
+                <div>
+                    <h3>{{ request.eventName }}</h3>
+                    <span class="request-code">{{ request.confirmationCode }}</span>
+                </div>
+                <span [class]="'status-badge ' + getStatusClass(request.status)">
+                    {{ getStatusLabel(request.status) }}
+                </span>
+            </div>
+
+            <div class="request-info">
+                <div class="info-row">
+                    <span class="label">Hotel:</span>
+                    <span>{{ request.hotelName }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Tipo de evento:</span>
+                    <span>{{ request.eventType === 'business' ? 'Negocios' : request.eventType === 'social' ? 'Social' :
+                        'Boda' }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Check-in:</span>
+                    <span>{{ formatDate(request.checkIn) }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Check-out:</span>
+                    <span>{{ formatDate(request.checkOut) }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Habitaciones:</span>
+                    <span>{{ request.rooms }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Asistentes:</span>
+                    <span>{{ request.attendees }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Descuento:</span>
+                    <span class="discount">{{ request.discount }}%</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Total estimado:</span>
+                    <span class="total">{{ request.estimatedTotal | number:'1.2-2' }} EUR</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Solicitado:</span>
+                    <span>{{ formatDate(request.createdAt) }}</span>
+                </div>
+            </div>
+
+            <div class="request-actions">
+                <button class="btn btn-primary" (click)="viewDetails(request)">
+                    Ver Detalles
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de detalles -->
+    <div class="modal-overlay" *ngIf="showDetails" (click)="closeDetails()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <button class="close-button" (click)="closeDetails()">✕</button>
+
+            <h2>Detalles de la Solicitud</h2>
+
+            <div class="detail-section">
+                <h3>Información del Evento</h3>
+                <div class="detail-grid">
+                    <div><strong>Nombre del evento:</strong> {{ selectedRequest?.eventName }}</div>
+                    <div><strong>Tipo:</strong> {{ selectedRequest?.eventType === 'business' ? 'Negocios' :
+                        selectedRequest?.eventType === 'social' ? 'Social' : 'Boda' }}</div>
+                    <div><strong>Hotel:</strong> {{ selectedRequest?.hotelName }}</div>
+                    <div><strong>Código:</strong> {{ selectedRequest?.confirmationCode }}</div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h3>Fechas y Capacidad</h3>
+                <div class="detail-grid">
+                    <div><strong>Check-in:</strong> {{ formatDate(selectedRequest!.checkIn) }}</div>
+                    <div><strong>Check-out:</strong> {{ formatDate(selectedRequest!.checkOut) }}</div>
+                    <div><strong>Noches:</strong> {{ calculateNights(selectedRequest!.checkIn,
+                        selectedRequest!.checkOut) }}</div>
+                    <div><strong>Habitaciones:</strong> {{ selectedRequest?.rooms }}</div>
+                    <div><strong>Asistentes:</strong> {{ selectedRequest?.attendees }}</div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h3>Información de Contacto</h3>
+                <div class="detail-grid">
+                    <div><strong>Nombre:</strong> {{ selectedRequest?.contactInfo?.firstName }} {{
+                        selectedRequest?.contactInfo?.lastName }}</div>
+                    <div><strong>Email:</strong> {{ selectedRequest?.contactInfo?.email }}</div>
+                    <div><strong>Teléfono:</strong> {{ selectedRequest?.contactInfo?.phone }}</div>
+                    <div *ngIf="selectedRequest?.contactInfo?.company"><strong>Empresa:</strong> {{
+                        selectedRequest?.contactInfo?.company }}</div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h3>Precios</h3>
+                <div class="detail-grid">
+                    <div><strong>Precio por noche:</strong> {{ selectedRequest?.pricePerNight | number:'1.2-2' }} EUR
+                    </div>
+                    <div><strong>Descuento aplicado:</strong> {{ selectedRequest?.discount }}%</div>
+                    <div><strong>Total estimado:</strong> <span class="total-highlight">{{
+                            selectedRequest?.estimatedTotal | number:'1.2-2' }} EUR</span></div>
+                </div>
+            </div>
+
+            <div class="detail-section" *ngIf="selectedRequest?.status !== 'PENDING'">
+                <h3>Información de Revisión</h3>
+                <div class="detail-grid">
+                    <div><strong>Estado:</strong> <span
+                            [class]="'status-badge ' + getStatusClass(selectedRequest!.status)">{{
+                            getStatusLabel(selectedRequest!.status) }}</span></div>
+                    <div *ngIf="selectedRequest?.reviewedAt"><strong>Revisado:</strong> {{
+                        formatDate(selectedRequest?.reviewedAt) }}</div>
+                    <div *ngIf="selectedRequest?.adminNotes" style="grid-column: 1 / -1;">
+                        <strong>Notas del administrador:</strong>
+                        <p>{{ selectedRequest?.adminNotes }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-section" *ngIf="selectedRequest?.status === 'PENDING'">
+                <h3>Acciones de Administrador</h3>
+                <div class="form-group">
+                    <label for="adminNotes">Notas (opcional):</label>
+                    <textarea id="adminNotes" [(ngModel)]="adminNotes" rows="3" class="form-control"
+                        placeholder="Agregar comentarios sobre la decisión..."></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-approve" (click)="approveRequest()">
+                        ✓ Aprobar Solicitud
+                    </button>
+                    <button class="btn btn-reject" (click)="rejectRequest()">
+                        ✕ Rechazar Solicitud
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,390 @@
+@use 'sass:color';
+
+$bg-main: #f3eee7;
+$accent-orange: #c96c00;
+$text-dark: #1a1a1a;
+$success-green: #2e7d32;
+
+.confirmation-page {
+  min-height: 100vh;
+  background: $bg-main;
+  padding: 2rem 1rem 4rem;
+
+  @media (min-width: 768px) {
+    padding: 3rem 2rem 5rem;
+  }
+}
+
+.confirmation-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+// Estado de carga
+.loading-state {
+  text-align: center;
+  padding: 4rem 2rem;
+
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba($accent-orange, 0.2);
+    border-top-color: $accent-orange;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1.5rem;
+  }
+
+  p {
+    color: #666;
+    font-size: 1rem;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Estado de error
+.error-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  .error-icon {
+    color: #d32f2f;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-family: 'Luxurious Roman', serif;
+    font-size: 1.75rem;
+    color: $text-dark;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+}
+
+// Encabezado de éxito
+.success-header {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px 12px 0 0;
+  border-bottom: 1px solid #eee;
+
+  .success-icon {
+    color: $success-green;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Luxurious Roman', serif;
+    font-size: 2rem;
+    color: $text-dark;
+    margin-bottom: 0.75rem;
+
+    @media (min-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  .confirmation-message {
+    color: #666;
+    font-size: 0.95rem;
+    max-width: 450px;
+    margin: 0 auto;
+
+    strong {
+      color: $text-dark;
+    }
+  }
+}
+
+// Caja del código de confirmación
+.confirmation-code-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, $accent-orange 0%, color.adjust($accent-orange, $lightness: -10%) 100%);
+  color: white;
+
+  .code-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+  }
+
+  .code-value {
+    font-family: 'Luxurious Roman', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+
+    @media (min-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+// Detalles de la reserva
+.booking-details {
+  background: white;
+  padding: 2rem;
+
+  .hotel-info {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1.5rem;
+
+    h2 {
+      font-family: 'Luxurious Roman', serif;
+      font-size: 1.5rem;
+      color: $text-dark;
+      margin-bottom: 0.5rem;
+    }
+
+    .room-type {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 0.25rem;
+    }
+
+    .rate-name {
+      font-size: 0.9rem;
+      color: #666;
+    }
+  }
+}
+
+// Cuadrícula de fechas
+.dates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1.5rem;
+
+  .date-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .date-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #666;
+    }
+
+    .date-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: $text-dark;
+    }
+
+    .date-time {
+      font-size: 0.85rem;
+      color: #888;
+    }
+  }
+}
+
+// Resumen del huésped
+.guest-summary {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1.5rem;
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+
+    span:first-child {
+      color: #666;
+    }
+
+    span:last-child {
+      color: $text-dark;
+      font-weight: 500;
+    }
+  }
+}
+
+// Resumen de precios
+.price-summary {
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+
+    span:first-child {
+      color: #666;
+    }
+
+    span:last-child {
+      color: $text-dark;
+    }
+
+    &.total {
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      border-top: 2px solid #eee;
+
+      span:first-child {
+        font-weight: 600;
+        color: $text-dark;
+      }
+
+      span:last-child {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $accent-orange;
+      }
+    }
+  }
+}
+
+// Insignia de miembro
+.member-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  background: #fff8f0;
+  border: 1px solid rgba($accent-orange, 0.3);
+  border-radius: 8px;
+  color: $accent-orange;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+// Acciones
+.confirmation-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 2rem;
+  background: white;
+  border-top: 1px solid #eee;
+
+  @media (min-width: 576px) {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+  padding: 0.875rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+
+  @media (min-width: 576px) {
+    flex: 0 0 auto;
+  }
+}
+
+.btn-primary {
+  background: $text-dark;
+  color: white;
+
+  &:hover {
+    background: #333;
+  }
+}
+
+.btn-secondary {
+  background: white;
+  color: $text-dark;
+  border: 1px solid #ccc;
+
+  &:hover {
+    border-color: $text-dark;
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  color: $accent-orange;
+  border: 1px solid $accent-orange;
+
+  &:hover {
+    background: rgba($accent-orange, 0.05);
+  }
+}
+
+// Información importante
+.important-info {
+  padding: 1.5rem 2rem 2rem;
+  background: white;
+  border-radius: 0 0 12px 12px;
+  border-top: 1px solid #eee;
+
+  h3 {
+    font-family: 'Whitney SSm', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-dark;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.25rem;
+
+    li {
+      color: #666;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// Estilos de impresión
+@media print {
+  .confirmation-page {
+    background: white;
+    padding: 0;
+  }
+
+  .confirmation-actions {
+    display: none;
+  }
+
+  .confirmation-code-box {
+    background: #f5f5f5 !important;
+    color: #000 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

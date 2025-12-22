@@ -1,0 +1,211 @@
+.dropdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+}
+
+.date-picker-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    z-index: 999;
+    min-width: 650px;
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-content {
+    padding: 1.5rem;
+}
+
+// Calendarios
+.calendars-container {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.calendar {
+    flex: 1;
+}
+
+.calendar-header {
+    margin-bottom: 1rem;
+
+    h4 {
+        font-family: 'Luxurious Roman', serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: #000000;
+        margin: 0;
+        text-align: center;
+    }
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.day-name {
+    padding: 0.5rem;
+    text-align: center;
+    font-family: 'Luxurious Roman', serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666666;
+}
+
+.day-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Luxurious Roman', serif;
+    font-size: 14px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+
+    &.empty {
+        visibility: hidden;
+    }
+
+    &.clickable {
+        cursor: pointer;
+        color: #333333;
+
+        &:hover {
+            background-color: #f5f5f5;
+        }
+    }
+
+    &.selected {
+        background-color: #000000;
+        color: #ffffff;
+
+        &:hover {
+            background-color: #333333;
+        }
+    }
+
+    &.in-range {
+        background-color: #e0e0e0;
+        border-radius: 0;
+    }
+
+    &.disabled {
+        color: #cccccc;
+        cursor: not-allowed;
+        pointer-events: none;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+}
+
+// Información de noches
+.nights-info {
+    text-align: center;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    font-family: 'Luxurious Roman', serif;
+    font-size: 14px;
+    color: #666666;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+// Botones de acción
+.actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.reset-button,
+.done-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Luxurious Roman', serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reset-button {
+    background: transparent;
+    border: 1px solid #e0e0e0;
+    color: #666666;
+
+    &:hover {
+        background-color: #f5f5f5;
+        border-color: #cccccc;
+    }
+}
+
+.done-button {
+    background-color: #000000;
+    color: #ffffff;
+    flex: 1;
+
+    &:hover:not(:disabled) {
+        background-color: #333333;
+    }
+
+    &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .date-picker-dropdown {
+        min-width: 600px;
+    }
+
+    .calendars-container {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .date-picker-dropdown {
+        min-width: 90vw;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .calendars-container {
+        flex-direction: column;
+    }
+
+    .calendar-grid {
+        gap: 2px;
+    }
+
+    .day-name,
+    .day-cell {
+        font-size: 12px;
+    }
+}

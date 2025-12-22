@@ -1,0 +1,404 @@
+/* === CATALOG COMPONENT === */
+/* Página de catálogo de hoteles con diseño premium responsive */
+
+.hotels-catalog {
+  min-height: 100vh;
+  background-color: #F3EEE7;
+}
+
+/* === HEADER === */
+.catalog-header {
+  background: #ffffff;
+  padding: 50px 24px 40px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.main-title {
+  font-family: 'Luxurious Roman', serif;
+  font-size: 42px;
+  font-weight: 400;
+  color: #000000;
+  margin: 0 0 12px 0;
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  font-family: 'Whitney SSm', sans-serif;
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+/* === CONTENEDOR PRINCIPAL === */
+.catalog-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+/* === GRID DE HOTELES === */
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+/* === ESTADO DE CARGA === */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px;
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #000000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  font-family: 'Whitney SSm', sans-serif;
+  font-size: 16px;
+  color: #6b7280;
+  margin-top: 20px;
+}
+
+/* === ESTADO VACÍO === */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.empty-icon {
+  width: 80px;
+  height: 80px;
+  color: #9ca3af;
+  margin-bottom: 24px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.empty-title {
+  font-family: 'Luxurious Roman', serif;
+  font-size: 28px;
+  color: #374151;
+  margin: 0 0 12px 0;
+}
+
+.empty-text {
+  font-family: 'Whitney SSm', sans-serif;
+  font-size: 16px;
+  color: #6b7280;
+  max-width: 400px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* === RESPONSIVE === */
+
+/* 2560px - Escritorio Extra Grande */
+@media (min-width: 1921px) {
+  .catalog-header {
+    padding: 60px 40px 50px;
+  }
+
+  .main-title {
+    font-size: 52px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .catalog-container {
+    max-width: 1800px;
+    padding: 80px 60px;
+  }
+
+  .hotels-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+}
+
+/* 1920px - Escritorio Grande */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .catalog-header {
+    padding: 55px 32px 45px;
+  }
+
+  .main-title {
+    font-size: 48px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+  }
+
+  .catalog-container {
+    max-width: 1600px;
+    padding: 70px 50px;
+  }
+
+  .hotels-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 36px;
+  }
+}
+
+/* 1440px - Escritorio Estándar (base) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .catalog-header {
+    padding: 45px 24px 35px;
+  }
+
+  .main-title {
+    font-size: 38px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .catalog-container {
+    max-width: 1300px;
+    padding: 50px 40px;
+  }
+
+  .hotels-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+}
+
+/* 1024px - Tablet Horizontal */
+@media (max-width: 1024px) {
+  .catalog-header {
+    padding: 40px 20px 30px;
+  }
+
+  .main-title {
+    font-size: 34px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .catalog-container {
+    max-width: 100%;
+    padding: 40px 24px;
+  }
+
+  .hotels-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* 768px - Tablet Vertical */
+@media (max-width: 768px) {
+  .catalog-header {
+    padding: 35px 16px 28px;
+  }
+
+  .main-title {
+    font-size: 30px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .catalog-container {
+    padding: 32px 16px;
+  }
+
+  .hotels-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .empty-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .empty-title {
+    font-size: 24px;
+  }
+
+  .empty-text {
+    font-size: 14px;
+  }
+}
+
+/* 425px - Móvil Grande */
+@media (max-width: 425px) {
+  .catalog-header {
+    padding: 30px 16px 24px;
+  }
+
+  .main-title {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .catalog-container {
+    padding: 24px 16px;
+  }
+
+  .hotels-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .loading-state {
+    padding: 80px 16px;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .loading-text {
+    font-size: 14px;
+  }
+
+  .empty-state {
+    padding: 60px 16px;
+  }
+
+  .empty-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .empty-title {
+    font-size: 22px;
+  }
+
+  .empty-text {
+    font-size: 13px;
+  }
+}
+
+/* 375px - Móvil Mediano */
+@media (max-width: 375px) {
+  .catalog-header {
+    padding: 28px 14px 22px;
+  }
+
+  .main-title {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .catalog-container {
+    padding: 20px 14px;
+  }
+
+  .hotels-grid {
+    gap: 18px;
+    max-width: 320px;
+  }
+
+  .empty-title {
+    font-size: 20px;
+  }
+
+  .empty-text {
+    font-size: 12px;
+  }
+}
+
+/* 320px - Móvil Pequeño */
+@media (max-width: 320px) {
+  .catalog-header {
+    padding: 24px 12px 20px;
+  }
+
+  .main-title {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .catalog-container {
+    padding: 16px 12px;
+  }
+
+  .hotels-grid {
+    gap: 16px;
+    max-width: 280px;
+  }
+
+  .loading-state {
+    padding: 60px 12px;
+  }
+
+  .loading-spinner {
+    width: 32px;
+    height: 32px;
+  }
+
+  .loading-text {
+    font-size: 13px;
+  }
+
+  .empty-state {
+    padding: 50px 12px;
+  }
+
+  .empty-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .empty-title {
+    font-size: 18px;
+  }
+
+  .empty-text {
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,43 @@
+<div class="container py-5 mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Ofertas y Cupones</h1>
+        <p class="lead text-muted">Aprovecha nuestros descuentos exclusivos para tu próxima reserva.</p>
+    </div>
+
+    <div *ngIf="coupons.length === 0" class="text-center py-5">
+        <div class="alert alert-info d-inline-block">
+            No hay ofertas públicas disponibles en este momento. ¡Vuelve pronto!
+        </div>
+    </div>
+
+    <div class="row g-4" *ngIf="coupons.length > 0">
+        <div class="col-md-6 col-lg-4" *ngFor="let coupon of coupons">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-header bg-dark text-white text-center py-3">
+                    <h3 class="m-0">
+                        {{ coupon.discountType === 'PERCENTAGE' ? coupon.discountValue + '%' : '$' + coupon.discountValue }} 
+                        <span class="fs-6 fw-light">OFF</span>
+                    </h3>
+                </div>
+                
+                <div class="card-body text-center d-flex flex-column justify-content-center p-4">
+                    <h5 class="card-title text-primary fw-bold mb-3" style="letter-spacing: 1px;">
+                        {{ coupon.code }}
+                    </h5>
+                    <p class="card-text text-muted mb-4">
+                        {{ coupon.description || 'Descuento especial aplicable al finalizar tu reserva.' }}
+                    </p>
+                    <p class="small text-muted border-top pt-3 w-100">
+                        Válido hasta: <strong>{{ coupon.validUntil | date:'dd/MM/yyyy' }}</strong>
+                    </p>
+                </div>
+
+                <div class="card-footer bg-white border-0 pb-4 pt-0 text-center">
+                    <button class="btn btn-outline-primary w-75" (click)="copyCode(coupon.code)">
+                        <i class="bi bi-clipboard me-2"></i> Copiar Código
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

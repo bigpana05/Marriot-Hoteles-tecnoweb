@@ -1,0 +1,35 @@
+<section class="join-marriott">
+    <div class="container">
+        <div class="join-card">
+            <div class="content-wrapper">
+                <div class="left-section">
+                    <div class="text-content">
+                        <h2 class="title">Inscríbete en Marriott Bonvoy</h2>
+                        <p class="subtitle">
+                            Consigue tarifas exclusivas, acumula puntos para noches gratis y mucho más.
+                        </p>
+                    </div>
+                    <!-- Botones para desktop -->
+                    <div class="buttons buttons-desktop">
+                        <a *ngFor="let btn of actionButtons" [href]="btn.link" class="btn"
+                            [ngClass]="'btn-' + btn.variant">
+                            {{ btn.label }}
+                        </a>
+                    </div>
+                </div>
+                <div class="benefits-grid">
+                    <div class="benefit-item" *ngFor="let benefit of benefits">
+                        <img [src]="benefit.icon" [alt]="benefit.label" class="benefit-icon">
+                        <span class="benefit-label">{{ benefit.label }}</span>
+                    </div>
+                </div>
+                <!-- Botones para móvil -->
+                <div class="buttons buttons-mobile">
+                    <a *ngFor="let btn of actionButtons" [href]="btn.link" class="btn" [ngClass]="'btn-' + btn.variant">
+                        {{ btn.label }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

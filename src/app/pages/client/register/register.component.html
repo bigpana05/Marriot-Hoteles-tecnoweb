@@ -1,0 +1,143 @@
+<div class="register-page">
+  <div class="register-card">
+    <!-- LOGO MARRIOTT -->
+    <div class="register-logo">
+      <span class="register-logo-icon"></span>
+    </div>
+
+    <!-- TÍTULO -->
+    <h1 class="register-title">Únete a la comunidad Marriott International</h1>
+
+    <!-- DESCRIPCIÓN -->
+    <p class="register-description">
+      Disfruta de tarifas exclusivas para miembros, acumula puntos en cada estadía
+      y accede a experiencias personalizadas en todos nuestros hoteles.
+    </p>
+
+    <!-- ENLACE A LOGIN -->
+    <p class="signin-link">
+      ¿Ya eres miembro?
+      <a routerLink="/client/login">Inicia sesión</a>
+    </p>
+
+    <!-- FORMULARIO DE REGISTRO -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <!-- NOMBRE Y APELLIDO -->
+      <div class="form-row">
+        <div class="form-field">
+          <label>NOMBRE</label>
+          <input type="text" formControlName="firstName" placeholder="Tu nombre" />
+          <small class="field-error"
+            *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+            Este campo es obligatorio
+          </small>
+        </div>
+
+        <div class="form-field">
+          <label>APELLIDO</label>
+          <input type="text" formControlName="lastName" placeholder="Tu apellido" />
+          <small class="field-error"
+            *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+            Este campo es obligatorio
+          </small>
+        </div>
+      </div>
+
+      <!-- PAÍS Y CÓDIGO POSTAL -->
+      <div class="form-row">
+        <div class="form-field">
+          <label>PAÍS / REGIÓN</label>
+          <div class="select-wrapper">
+            <select formControlName="country">
+              <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+            </select>
+            <span class="select-arrow">▼</span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>CÓDIGO POSTAL</label>
+          <input type="text" formControlName="zipCode" placeholder="Código postal" />
+          <small class="field-error"
+            *ngIf="registerForm.get('zipCode')?.invalid && registerForm.get('zipCode')?.touched">
+            Este campo es obligatorio
+          </small>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="form-row single">
+        <div class="form-field">
+          <label>CORREO ELECTRÓNICO</label>
+          <input type="email" formControlName="email" placeholder="tu@correo.com" />
+          <small class="field-error"
+            *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
+            Este campo es obligatorio
+          </small>
+          <small class="field-error"
+            *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
+            Ingresa un correo electrónico válido
+          </small>
+          <small class="field-error" *ngIf="emailExists">
+            Este correo ya está registrado
+          </small>
+        </div>
+      </div>
+
+      <!-- CONTRASEÑAS -->
+      <div class="form-row">
+        <!-- CONTRASEÑA -->
+        <div class="form-field">
+          <label>CONTRASEÑA</label>
+          <div class="password-wrapper">
+            <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+              placeholder="Mínimo 8 caracteres" />
+            <button type="button" class="eye-btn" (click)="togglePassword()" aria-label="Mostrar/ocultar contraseña">
+              <img [src]="showPassword ? 'assets/icons/eye2.svg' : 'assets/icons/eye1.svg'" alt="Toggle password"
+                class="eye-icon" />
+            </button>
+          </div>
+          <small class="field-error"
+            *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
+            Este campo es obligatorio
+          </small>
+          <small class="field-error"
+            *ngIf="registerForm.get('password')?.hasError('minlength') && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+            Debe tener al menos 8 caracteres
+          </small>
+        </div>
+
+        <!-- CONFIRMAR CONTRASEÑA -->
+        <div class="form-field">
+          <label>CONFIRMAR CONTRASEÑA</label>
+          <div class="password-wrapper">
+            <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword"
+              placeholder="••••" />
+            <button type="button" class="eye-btn" (click)="toggleConfirmPassword()"
+              aria-label="Mostrar/ocultar confirmación">
+              <img [src]="showConfirmPassword ? 'assets/icons/eye2.svg' : 'assets/icons/eye1.svg'" alt="Toggle password"
+                class="eye-icon" />
+            </button>
+          </div>
+          <small class="field-error"
+            *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched && !passwordMismatch">
+            Este campo es obligatorio
+          </small>
+          <small class="field-error" *ngIf="passwordMismatch">
+            Las contraseñas no coinciden
+          </small>
+        </div>
+      </div>
+
+      <!-- MENSAJE DE ERROR GLOBAL -->
+      <p class="error-message" *ngIf="error">{{ error }}</p>
+
+      <!-- BOTÓN DE ENVÍO -->
+      <div class="btn-row">
+        <button type="submit" class="submit-btn" [disabled]="registerForm.invalid || loading">
+          {{ loading ? 'Creando cuenta...' : 'Crear cuenta' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

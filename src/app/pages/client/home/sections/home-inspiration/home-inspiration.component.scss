@@ -1,0 +1,713 @@
+@import url('https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Freeman&display=swap');
+
+.inspiration-journey {
+  padding: 100px 0 80px 0;
+  background-color: #F3EEE7;
+  font-family: 'Luxurious Roman', serif;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header {
+    margin: 0 auto 40px;
+    max-width: 1200px;
+    text-align: left;
+
+    .title {
+      font-family: 'Luxurious Roman', serif;
+      font-size: 45px;
+      margin-bottom: 10px;
+      color: #222222;
+      font-weight: 400;
+    }
+
+    .subtitle {
+      font-family: 'Luxurious Roman', serif;
+      font-size: 24px;
+      color: #707274;
+      margin-bottom: 0;
+      font-weight: 400;
+    }
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      padding: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: opacity 0.3s ease;
+
+      .arrow-icon {
+        width: 100%;
+        height: 100%;
+
+        &.rotated {
+          transform: rotate(180deg);
+        }
+      }
+
+      &:hover {
+        opacity: 0.7;
+      }
+
+      &.prev {
+        left: -70px;
+      }
+
+      &.next {
+        right: -70px;
+      }
+    }
+
+    .carousel-track-container {
+      overflow: hidden;
+      width: 100%;
+      max-width: 1140px;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      gap: 20px;
+
+      &.mobile-mode {
+        gap: 0;
+      }
+    }
+
+    .carousel-slide {
+      min-width: 558px;
+      flex-shrink: 0;
+      box-sizing: border-box;
+    }
+
+    .destination-card {
+      position: relative;
+      width: 558px;
+      height: 314px;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.02);
+      }
+
+      .image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .destination-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .card-overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          padding: 25px;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+          text-align: left;
+          color: #FFFFFF;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+
+          .destination-name {
+            font-family: 'Freeman', sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            margin: 0;
+            line-height: 1.2;
+            color: #FFFFFF;
+          }
+
+          .details-link {
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+              width: 28px;
+              height: 28px;
+            }
+
+            &:hover {
+              transform: scale(1.1);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .dots-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background-color: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.active {
+        background-color: #000;
+        transform: scale(1.5);
+      }
+
+      &:hover:not(.active) {
+        background-color: #999;
+      }
+    }
+  }
+}
+
+/* 2560px - Escritorio Extra Grande */
+@media (min-width: 1921px) {
+  .inspiration-journey {
+    padding: 80px 0 100px 0;
+
+    .container {
+      max-width: 1800px;
+    }
+
+    .header {
+      max-width: 1500px;
+
+      .title {
+        font-size: 55px;
+      }
+
+      .subtitle {
+        font-size: 28px;
+      }
+    }
+
+    .carousel-container {
+      max-width: 1500px;
+
+      .carousel-track-container {
+        max-width: 1400px;
+      }
+
+      .nav-btn {
+        width: 70px;
+        height: 70px;
+
+        &.prev {
+          left: -80px;
+        }
+
+        &.next {
+          right: -80px;
+        }
+      }
+
+      .carousel-slide {
+        min-width: 680px;
+      }
+
+      .destination-card {
+        width: 680px;
+        height: 383px;
+
+        .image-container {
+          .card-overlay {
+            padding: 30px;
+
+            .destination-name {
+              font-size: 28px;
+            }
+
+            .details-link img {
+              width: 32px;
+              height: 32px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots-indicator {
+      margin-top: 50px;
+
+      .dot {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+}
+
+/* 1920px - Escritorio Grande */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .inspiration-journey {
+    padding: 70px 0 90px 0;
+
+    .container {
+      max-width: 1600px;
+    }
+
+    .header {
+      max-width: 1300px;
+
+      .title {
+        font-size: 50px;
+      }
+
+      .subtitle {
+        font-size: 26px;
+      }
+    }
+
+    .carousel-container {
+      max-width: 1300px;
+
+      .carousel-track-container {
+        max-width: 100%;
+      }
+
+      .carousel-slide {
+        min-width: 588px;
+        flex-shrink: 0;
+      }
+
+      .destination-card {
+        width: 588px;
+        height: 331px;
+      }
+    }
+  }
+}
+
+/* 1440px - Desktop Base */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .inspiration-journey {
+    .carousel-slide {
+      min-width: 558px;
+      flex-shrink: 0;
+    }
+
+    .destination-card {
+      width: 558px;
+      height: 314px;
+    }
+  }
+}
+
+/* 1024px - Tablet Horizontal */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .inspiration-journey {
+    padding: 50px 0 60px 0;
+
+    .header {
+      max-width: 900px;
+      margin-bottom: 30px;
+
+      .title {
+        font-size: 38px;
+      }
+
+      .subtitle {
+        font-size: 20px;
+      }
+    }
+
+    .carousel-container {
+      max-width: 100%;
+      padding: 0 60px;
+      justify-content: center;
+
+      .nav-btn {
+        width: 50px;
+        height: 50px;
+
+        &.prev {
+          left: 50px;
+        }
+
+        &.next {
+          right: 50px;
+        }
+      }
+
+      .carousel-track-container {
+        max-width: 660px;
+        overflow: hidden;
+      }
+
+      .carousel-track {
+        gap: 20px;
+      }
+
+      .carousel-slide {
+        min-width: 320px;
+        flex-shrink: 0;
+      }
+
+      .destination-card {
+        width: 320px;
+        height: 180px;
+        border-radius: 10px;
+
+        .image-container {
+          .card-overlay {
+            padding: 20px;
+
+            .destination-name {
+              font-size: 22px;
+            }
+
+            .details-link img {
+              width: 26px;
+              height: 26px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots-indicator {
+      margin-top: 30px;
+    }
+  }
+}
+
+/* 768px - Tablet Vertical (2 items por slide) */
+@media (min-width: 768px) and (max-width: 768px) {
+  .inspiration-journey {
+    padding: 40px 0 50px 0;
+
+    .header {
+      max-width: 100%;
+      text-align: center;
+      padding: 0 20px;
+
+      .title {
+        font-size: 32px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+    }
+
+    .carousel-container {
+      max-width: 100%;
+      padding: 0 50px;
+      justify-content: center;
+
+      .nav-btn {
+        width: 45px;
+        height: 45px;
+
+        &.prev {
+          left: 5px;
+        }
+
+        &.next {
+          right: 5px;
+        }
+      }
+
+      .carousel-track-container {
+        max-width: 620px;
+        overflow: hidden;
+      }
+
+      .carousel-track {
+        gap: 20px;
+      }
+
+      .carousel-slide {
+        min-width: 300px;
+        flex-shrink: 0;
+      }
+
+      .destination-card {
+        width: 300px;
+        height: 169px;
+        border-radius: 8px;
+
+        .image-container {
+          .card-overlay {
+            padding: 18px;
+
+            .destination-name {
+              font-size: 20px;
+            }
+
+            .details-link img {
+              width: 24px;
+              height: 24px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots-indicator {
+      margin-top: 25px;
+    }
+  }
+}
+
+/* 767px y menor - Móvil (1 item por slide) */
+@media (max-width: 767px) {
+  .inspiration-journey {
+    .carousel-container {
+      padding: 0 50px;
+
+      .carousel-track-container {
+        max-width: 100%;
+      }
+
+      .carousel-slide {
+        min-width: 100%;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .destination-card {
+        width: 100%;
+        max-width: 280px;
+        height: 158px;
+      }
+    }
+  }
+}
+
+/* 425px - Móvil Grande */
+@media (max-width: 425px) {
+  .inspiration-journey {
+    padding: 35px 0 45px 0;
+
+    .header {
+      margin-bottom: 25px;
+
+      .title {
+        font-size: 28px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+    }
+
+    .carousel-container {
+      padding: 0 40px;
+
+      .nav-btn {
+        width: 35px;
+        height: 35px;
+
+        &.prev {
+          left: 5px;
+        }
+
+        &.next {
+          right: 5px;
+        }
+      }
+
+      .destination-card {
+        width: 100%;
+        max-width: 280px;
+        height: 158px;
+        border-radius: 8px;
+
+        .image-container {
+          .card-overlay {
+            padding: 15px;
+
+            .destination-name {
+              font-size: 18px;
+            }
+
+            .details-link img {
+              width: 22px;
+              height: 22px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots-indicator {
+      margin-top: 22px;
+      gap: 8px;
+
+      .dot {
+        width: 7px;
+        height: 7px;
+      }
+    }
+  }
+}
+
+/* 375px - Móvil Mediano */
+@media (max-width: 375px) {
+  .inspiration-journey {
+    padding: 30px 0 40px 0;
+
+    .header {
+      margin-bottom: 20px;
+
+      .title {
+        font-size: 26px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+      }
+    }
+
+    .carousel-container {
+      padding: 0 35px;
+
+      .nav-btn {
+        width: 32px;
+        height: 32px;
+      }
+
+      .carousel-slide {
+        min-width: 100%;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .destination-card {
+        width: 100%;
+        max-width: 250px;
+        height: 141px;
+        border-radius: 6px;
+
+        .image-container {
+          .card-overlay {
+            padding: 12px;
+
+            .destination-name {
+              font-size: 16px;
+            }
+
+            .details-link img {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots-indicator {
+      margin-top: 18px;
+    }
+  }
+}
+
+/* 320px - Móvil Pequeño */
+@media (max-width: 320px) {
+  .inspiration-journey {
+    padding: 25px 0 35px 0;
+
+    .header {
+      margin-bottom: 18px;
+
+      .title {
+        font-size: 22px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+    }
+
+    .carousel-container {
+      padding: 0 30px;
+
+      .nav-btn {
+        width: 28px;
+        height: 28px;
+      }
+
+      .carousel-slide {
+        min-width: 100%;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .destination-card {
+        width: 100%;
+        max-width: 220px;
+        height: 124px;
+        border-radius: 5px;
+
+        .image-container {
+          .card-overlay {
+            padding: 10px;
+
+            .destination-name {
+              font-size: 14px;
+            }
+
+            .details-link img {
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots-indicator {
+      margin-top: 15px;
+      gap: 6px;
+
+      .dot {
+        width: 6px;
+        height: 6px;
+      }
+    }
+  }
+}

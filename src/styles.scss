@@ -1,0 +1,85 @@
+/* You can add global styles to this file, and also import other style files */
+
+/**
+ * Global Styles - Marriott Hotels
+ * 
+ * Contiene:
+ * - Fuentes personalizadas (@font-face)
+ * - Variables de diseño (colores, tipografía, espaciado, altura navbar)
+ * - Estilos base globales (HTML, body, etc)
+ * - Clases utilidad reutilizables (.container-1440)
+ */
+
+/* === FUENTES PERSONALIZADAS === */
+@font-face {
+  font-family: "Luxurious Roman";
+  src: url("./assets/fonts/luxurious-roman/LuxuriousRoman.woff2")
+      format("woff2"),
+    url("./assets/fonts/luxurious-roman/LuxuriousRoman.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Whitney SSm";
+  src: url("./assets/fonts/whitney-ssm/Whitney-SSm-Book.woff2") format("woff2"),
+    url("./assets/fonts/whitney-ssm/Whitney-SSm-Book.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------- Tokens de diseño básicos --------- */
+:root {
+  --mtt-bg: #f3eee7; /* beige del Figma */
+  --mtt-text: #494949; /* gris muy oscuro */
+  --mtt-mid: #707274; /* gris medio */
+  --mtt-black: #000000;
+  --mtt-radius-pill: 28px;
+  --mtt-navbar-h: 100px; /* alto navbar del Figma */
+  --mtt-maxw: 1920px; /* ancho frame” */
+  --mtt-font-brand: "Luxurious Roman", serif;
+  --mtt-font-ui: "Whitney SSm", system-ui, -apple-system, Segoe UI, Roboto,
+    Arial, sans-serif;
+}
+
+/* fondo general del proyecto marriott */
+html,
+body {
+  background: var(--mtt-bg);
+  color: var(--mtt-text);
+  font-family: var(--mtt-font-ui);
+}
+
+/* contenedor a 1440 centrado (Bootstrap llega a 1320; lo extendemos) */
+.container-1440 {
+  max-width: var(--mtt-maxw);
+  margin-inline: auto;
+  padding-inline: 24px; /* respiración lateral */
+}
+
+/* botón “Reserve” */
+.btn-reserve {
+  border-radius: var(--mtt-radius-pill);
+  padding: 10px 24px;
+  background: var(--mtt-black);
+  color: #fff;
+  border: 0;
+  font-weight: 500;
+}
+
+/* divisor vertical fino al lado del logo */
+.v-divider {
+  width: 1px;
+  height: 24px;
+  background: #2c2c2c;
+  opacity: 0.4;
+  margin: 0 28px;
+}
+
+/* helper de iconos */
+.icon-20 {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}

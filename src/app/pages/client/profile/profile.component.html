@@ -1,0 +1,282 @@
+<section class="profile" *ngIf="user; else noSession">
+  <div class="profile-container">
+    <!-- Cabecera de bienvenida -->
+    <div class="profile-header">
+      <h1 class="profile-welcome">Bienvenido, {{ user?.name }}!</h1>
+      <p class="profile-subtitle">Información de tu cuenta Marriott International</p>
+    </div>
+
+    <!-- Mensajes de éxito y error -->
+    <div class="alert alert-success" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+    <div class="alert alert-error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Tarjeta de información del miembro -->
+    <div class="member-card">
+      <div class="member-card-header">
+        <h2 class="member-card-title">Miembro Marriott International</h2>
+        <div class="member-badge">
+          <span class="member-badge-label">Member ID</span>
+          <span class="member-badge-number">{{ user?.bonvoyNumber || 'N/A' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta de datos personales -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3 class="info-card-title">Datos Personales</h3>
+        <button class="btn-edit" *ngIf="!isEditing" (click)="startEditing()">
+          Editar perfil
+        </button>
+      </div>
+
+      <!-- Vista de solo lectura -->
+      <div class="info-grid" *ngIf="!isEditing">
+        <div class="info-item">
+          <label class="info-label">Nombre</label>
+          <p class="info-value">{{ user?.firstName || 'N/A' }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Apellido</label>
+          <p class="info-value">{{ user?.lastName || 'N/A' }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Correo electrónico</label>
+          <p class="info-value">{{ user?.email }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Rol</label>
+          <p class="info-value">{{ user?.role === 'ADMIN' ? 'Administrador' : 'Cliente' }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">País/Región</label>
+          <p class="info-value">{{ user?.country || 'No especificado' }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Código postal</label>
+          <p class="info-value">{{ user?.postalCode || 'No especificado' }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Ciudad</label>
+          <p class="info-value">{{ user?.city || 'No especificada' }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Línea de dirección 1</label>
+          <p class="info-value">{{ user?.addressLine1 || 'No especificada' }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Línea de dirección 2</label>
+          <p class="info-value">{{ user?.addressLine2 || 'No especificada' }}</p>
+        </div>
+      </div>
+
+      <!-- Formulario de edición -->
+      <div class="edit-form" *ngIf="isEditing">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="editFirstName" class="form-label">Nombre</label>
+            <input type="text" id="editFirstName" class="form-input" [(ngModel)]="editFirstName"
+              placeholder="Ingresa tu nombre" />
+          </div>
+
+          <div class="form-field">
+            <label for="editLastName" class="form-label">Apellido</label>
+            <input type="text" id="editLastName" class="form-input" [(ngModel)]="editLastName"
+              placeholder="Ingresa tu apellido" />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="editCountry" class="form-label">País/Región</label>
+          <input type="text" id="editCountry" class="form-input" [(ngModel)]="editCountry"
+            placeholder="Ingresa tu país o región" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="editPostalCode" class="form-label">Código postal</label>
+            <input type="text" id="editPostalCode" class="form-input" [(ngModel)]="editPostalCode"
+              placeholder="Ingresa tu código postal" />
+          </div>
+
+          <div class="form-field">
+            <label for="editCity" class="form-label">Ciudad</label>
+            <input type="text" id="editCity" class="form-input" [(ngModel)]="editCity"
+              placeholder="Ingresa tu ciudad" />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="editAddressLine1" class="form-label">Línea de dirección 1</label>
+          <input type="text" id="editAddressLine1" class="form-input" [(ngModel)]="editAddressLine1"
+            placeholder="Ingresa tu dirección principal" />
+        </div>
+
+        <div class="form-field">
+          <label for="editAddressLine2" class="form-label">Línea de dirección 2 (Opcional)</label>
+          <input type="text" id="editAddressLine2" class="form-input" [(ngModel)]="editAddressLine2"
+            placeholder="Apartamento, suite, etc." />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Correo electrónico</label>
+          <input type="email" class="form-input" [value]="user?.email" disabled />
+          <span class="form-hint">El correo electrónico no puede ser modificado</span>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-secondary" (click)="cancelEditing()" [disabled]="isSaving">
+            Cancelar
+          </button>
+          <button class="btn btn-primary" (click)="saveChanges()" [disabled]="isSaving">
+            {{ isSaving ? 'Guardando...' : 'Guardar cambios' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta de cambio de contraseña -->
+    <div class="info-card" *ngIf="!isEditing">
+      <div class="info-card-header">
+        <h3 class="info-card-title">Seguridad</h3>
+        <button class="btn-edit" *ngIf="!isChangingPassword" (click)="startChangingPassword()">
+          Cambiar contraseña
+        </button>
+      </div>
+
+      <!-- Mensaje de error de contraseña -->
+      <div class="alert alert-error" *ngIf="passwordError">
+        {{ passwordError }}
+      </div>
+
+      <!-- Formulario de cambio de contraseña -->
+      <div class="edit-form" *ngIf="isChangingPassword">
+        <div class="form-field">
+          <label for="currentPassword" class="form-label">Contraseña actual</label>
+          <input type="password" id="currentPassword" class="form-input" [(ngModel)]="currentPassword"
+            placeholder="Ingresa tu contraseña actual" />
+        </div>
+
+        <div class="form-field">
+          <label for="newPassword" class="form-label">Nueva contraseña</label>
+          <div class="password-wrapper">
+            <input [type]="showNewPassword ? 'text' : 'password'" id="newPassword" class="form-input"
+              [(ngModel)]="newPassword" placeholder="Ingresa tu nueva contraseña (mínimo 6 caracteres)" />
+            <button type="button" class="eye-btn" (click)="toggleNewPassword()"
+              [attr.aria-label]="showNewPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+              <img [src]="showNewPassword ? 'assets/icons/eye2.svg' : 'assets/icons/eye1.svg'"
+                alt="Toggle password visibility" class="eye-icon" />
+            </button>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="confirmPassword" class="form-label">Confirmar nueva contraseña</label>
+          <div class="password-wrapper">
+            <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" class="form-input"
+              [(ngModel)]="confirmPassword" placeholder="Confirma tu nueva contraseña" />
+            <button type="button" class="eye-btn" (click)="toggleConfirmPassword()"
+              [attr.aria-label]="showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+              <img [src]="showConfirmPassword ? 'assets/icons/eye2.svg' : 'assets/icons/eye1.svg'"
+                alt="Toggle password visibility" class="eye-icon" />
+            </button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-secondary" (click)="cancelPasswordChange()" [disabled]="isSaving">
+            Cancelar
+          </button>
+          <button class="btn btn-primary" (click)="savePassword()" [disabled]="isSaving">
+            {{ isSaving ? 'Guardando...' : 'Cambiar contraseña' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Solicitudes Grupales -->
+    <div class="info-card group-requests-card" *ngIf="!isEditing && !isChangingPassword">
+      <div class="info-card-header">
+        <h3 class="info-card-title">Mis Solicitudes Grupales</h3>
+        <button class="btn-edit" (click)="goToGroupSearch()">
+          Nueva Solicitud
+        </button>
+      </div>
+
+      <!-- Loading -->
+      <div *ngIf="loadingGroupRequests" class="loading-state">
+        <span class="spinner"></span>
+        <p>Cargando solicitudes...</p>
+      </div>
+
+      <!-- Lista de solicitudes -->
+      <div *ngIf="!loadingGroupRequests && groupRequests.length > 0" class="group-requests-list">
+        <div *ngFor="let request of groupRequests" class="group-request-item">
+          <div class="request-info">
+            <h4 class="request-name">{{ request.eventName }}</h4>
+            <p class="request-hotel">{{ request.hotelName }}</p>
+            <div class="request-details">
+              <span class="request-date">{{ formatDate(request.checkIn) }} - {{ formatDate(request.checkOut) }}</span>
+              <span class="request-rooms">{{ request.rooms }} habitaciones</span>
+            </div>
+          </div>
+          <div class="request-status">
+            <span class="status-badge" [ngClass]="getStatusClass(request.status)">
+              {{ getStatusText(request.status) }}
+            </span>
+            <span class="request-code">{{ request.confirmationCode }}</span>
+            <span class="request-total">{{ request.estimatedTotal | currency:request.pricePerNight > 0 ? 'EUR' : 'EUR'
+              }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estado vacío -->
+      <div *ngIf="!loadingGroupRequests && groupRequests.length === 0" class="empty-requests">
+        <p>No tienes solicitudes grupales.</p>
+        <button class="btn btn-outline" (click)="goToGroupSearch()">
+          Explorar hoteles para grupos
+        </button>
+      </div>
+    </div>
+
+    <!-- Acciones rápidas -->
+    <div class="quick-actions" *ngIf="!isEditing && !isChangingPassword">
+      <button class="action-btn action-btn-outline" (click)="goToMyReservations()">
+        Mis Reservas
+      </button>
+      <button class="action-btn action-btn-outline" (click)="goToCatalog()">
+        Ver Catálogo
+      </button>
+      <button class="action-btn action-btn-danger" (click)="logout()">
+        Cerrar sesión
+      </button>
+    </div>
+  </div>
+</section>
+
+<ng-template #noSession>
+  <section class="profile profile--empty">
+    <div class="profile-container">
+      <div class="empty-state">
+        <h1 class="empty-title">Sin sesión activa</h1>
+        <p class="empty-text">Debes iniciar sesión para ver tu perfil.</p>
+        <button class="btn btn-primary" routerLink="/client/login">
+          Ir a Iniciar sesión
+        </button>
+      </div>
+    </div>
+  </section>
+</ng-template>

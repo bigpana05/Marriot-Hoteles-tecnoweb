@@ -1,0 +1,156 @@
+<section class="search-section">
+  <div class="search-content">
+    <!-- Título y subtítulo -->
+    <div class="text-content">
+      <h2 class="section-title">Reserva tu estancia perfecta</h2>
+      <p class="section-subtitle">
+        Encuentra el hotel ideal para tu próximo viaje.
+      </p>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-bar">
+      <!-- Campo: Destino -->
+      <div class="search-field destination-field">
+        <div class="field-content">
+          <div class="field-label">
+            <img
+              src="assets/icons/location.svg"
+              alt="Destination"
+              class="field-icon"
+            />
+            <span class="label-text">DESTINO</span>
+          </div>
+          <div class="field-value-container">
+            <input
+              type="text"
+              class="field-value"
+              [(ngModel)]="selectedDestination"
+              (click)="openDestinationDropdown(); $event.stopPropagation()"
+              (input)="onDestinationInput($event)"
+              placeholder="¿A dónde quieres ir?"
+              autocomplete="off"
+            />
+            <button
+              *ngIf="selectedDestination"
+              class="clear-button"
+              (click)="clearDestination($event); $event.stopPropagation()"
+              type="button"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+
+        <!-- Dropdown de destino -->
+        <app-destination-dropdown
+          [isOpen]="showDestinationDropdown"
+          [searchQuery]="selectedDestination"
+          (destinationSelected)="onDestinationSelected($event)"
+          (close)="closeAllDropdowns()"
+        ></app-destination-dropdown>
+      </div>
+
+      <!-- Separador -->
+      <div class="separator">
+        <img
+          src="assets/icons/dotted-barline.svg"
+          alt=""
+          class="separator-line"
+        />
+      </div>
+
+      <!-- Campo: Fechas -->
+      <div class="search-field dates-field">
+        <div
+          class="field-content"
+          (click)="openDatePicker(); $event.stopPropagation()"
+        >
+          <div class="field-label">
+            <img src="assets/icons/date.svg" alt="Dates" class="field-icon" />
+            <span class="label-text">{{
+              numberOfNights > 0
+                ? numberOfNights + " NOCHE" + (numberOfNights > 1 ? "S" : "")
+                : "FECHAS"
+            }}</span>
+          </div>
+          <div class="field-value-container">
+            <span
+              class="field-value"
+              [class.placeholder]="!selectedDates.checkIn"
+            >
+              {{ datesText }}
+            </span>
+            <button
+              *ngIf="selectedDates.checkIn"
+              class="clear-button"
+              (click)="clearDates($event); $event.stopPropagation()"
+              type="button"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+
+        <!-- Date Picker -->
+        <app-date-picker-dropdown
+          [isOpen]="showDatePicker"
+          (datesSelected)="onDatesSelected($event)"
+          (close)="closeAllDropdowns()"
+        ></app-date-picker-dropdown>
+      </div>
+
+      <!-- Separador condicional -->
+      <div class="separator" *ngIf="shouldShowRoomsField">
+        <img
+          src="assets/icons/dotted-barline.svg"
+          alt=""
+          class="separator-line"
+        />
+      </div>
+
+      <!-- Campo: Rooms (condicional) -->
+      <div class="search-field rooms-field" *ngIf="shouldShowRoomsField">
+        <div
+          class="field-content"
+          (click)="openRoomsSelector(); $event.stopPropagation()"
+        >
+          <div class="field-label">
+            <span class="label-text">HABITACIONES</span>
+          </div>
+          <span class="field-value">
+            {{ roomsText }}
+          </span>
+        </div>
+
+        <!-- Rooms Selector -->
+        <app-rooms-selector
+          [isOpen]="showRoomsSelector"
+          (roomsSelected)="onRoomsSelected($event)"
+          (close)="closeAllDropdowns()"
+        ></app-rooms-selector>
+      </div>
+
+      <!-- Botón Find Hotels -->
+      <button class="find-button" (click)="findHotels()">
+        <img
+          src="assets/icons/search_buttom.svg"
+          alt="Search"
+          class="button-icon"
+        />
+        Buscar Hoteles
+      </button>
+    </div>
+
+    <!-- Hotel Carousel Integrated -->
+    <div class="carousel-wrapper">
+      <div class="carousel-window">
+        <div class="carousel-track">
+          <div class="carousel-item" *ngFor="let image of visibleImages">
+            <img [src]="image" alt="Marriott Hotel" class="hotel-image" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

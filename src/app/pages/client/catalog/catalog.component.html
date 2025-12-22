@@ -1,0 +1,38 @@
+<section class="hotels-catalog">
+  <!-- Header de la sección -->
+  <div class="catalog-header">
+    <h1 class="main-title">Nuestros Hoteles</h1>
+    <p class="subtitle">
+      Descubre destinos exclusivos y experiencias únicas en nuestra colección de hoteles de lujo
+    </p>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="catalog-container">
+    <!-- Estado de carga -->
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Cargando hoteles...</p>
+    </div>
+
+    <!-- Grid de hoteles -->
+    <div class="hotels-grid" *ngIf="!isLoading && hotels.length > 0">
+      <app-hotel-card *ngFor="let hotel of hotels" [hotel]="hotel">
+      </app-hotel-card>
+    </div>
+
+    <!-- Estado vacío -->
+    <div class="empty-state" *ngIf="!isLoading && hotels.length === 0">
+      <div class="empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 21h18M5 21V7l8-4 8 4v14M9 21v-8h6v8" />
+          <path d="M10 9h4M10 12h4" />
+        </svg>
+      </div>
+      <h3 class="empty-title">No hay hoteles disponibles</h3>
+      <p class="empty-text">
+        En este momento no encontramos hoteles disponibles. Por favor, intenta más tarde.
+      </p>
+    </div>
+  </div>
+</section>

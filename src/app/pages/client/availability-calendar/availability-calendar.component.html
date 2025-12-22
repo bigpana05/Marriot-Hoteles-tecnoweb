@@ -1,0 +1,126 @@
+<!-- Página de calendario de disponibilidad -->
+<div class="availability-page">
+  <!-- Header del hotel -->
+  <header class="hotel-header" *ngIf="hotel">
+    <div class="hotel-header__content">
+      <div class="hotel-header__brand">
+        <img [src]="hotel.brandLogo" [alt]="hotel.brand" class="brand-logo">
+      </div>
+      <div class="hotel-header__info">
+        <h1 class="hotel-name">{{ hotel.name }}</h1>
+        <div class="hotel-meta">
+          <a href="#" class="hotel-details-link">
+            <i class="bi bi-info-circle"></i>
+            Ver detalles
+          </a>
+          <span class="hotel-address">
+            <i class="bi bi-geo-alt-fill"></i>
+            {{ hotel.location?.address }}, {{ hotel.location?.city }}, {{ hotel.location?.postalCode }} {{
+            hotel.location?.country }}
+          </span>
+          <span class="hotel-phone">
+            <i class="bi bi-telephone-fill"></i>
+            {{ hotel.location?.phone }}
+          </span>
+          <span class="hotel-rating">
+            <i class="bi bi-star-fill"></i>
+            {{ hotel.rating }} ({{ hotel.reviewCount | number:'1.0-0':'es-ES' }} comentarios)
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra de resumen de búsqueda -->
+  <section class="search-bar">
+    <div class="search-bar__container">
+      <div class="search-bar__item">
+        <span class="search-bar__label">FECHAS ({{ stayText | uppercase }})</span>
+        <span class="search-bar__value">{{ monthName }}</span>
+      </div>
+      <div class="search-bar__divider"></div>
+      <div class="search-bar__item">
+        <span class="search-bar__label">HABITACIONES Y HUÉSPEDES</span>
+        <span class="search-bar__value">{{ guestsText }}</span>
+      </div>
+      <button class="search-bar__update-btn" (click)="searchUpdates()">Búsqueda de actualizaciones</button>
+    </div>
+  </section>
+
+  <!-- Contenido principal -->
+  <main class="calendar-content" *ngIf="!isLoading">
+    <!-- Calendario -->
+    <div class="calendar-card">
+      <div class="calendar-card__header">
+        <h3>Coste total de la habitación</h3>
+        <span class="calendar-card__subtitle">Total de habitación {{ numberOfNights }} noche(s) (EUR)</span>
+      </div>
+
+      <div class="calendar-wrapper">
+        <!-- Navegación de meses -->
+        <div class="calendar-nav">
+          <button class="calendar-nav__btn" (click)="prevMonth()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-chevron-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+            </svg>
+          </button>
+          <span class="calendar-nav__month">{{ monthName }}</span>
+          <button class="calendar-nav__btn" (click)="nextMonth()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-chevron-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Días de la semana -->
+        <div class="calendar-weekdays">
+          <span *ngFor="let day of weekDays" class="weekday">{{ day }}</span>
+        </div>
+
+        <!-- Semanas del calendario -->
+        <div class="calendar-weeks">
+          <div class="calendar-week" *ngFor="let week of calendarWeeks">
+            <div class="calendar-day" *ngFor="let day of week.days" [class.other-month]="!day.isCurrentMonth"
+              [class.unavailable]="!day.isAvailable && day.isCurrentMonth"
+              [class.available]="day.isAvailable && day.isCurrentMonth" [class.selected]="day.isSelected"
+              [class.past]="day.isPast" (click)="selectDate(day)">
+
+              <span class="day-number">{{ day.dayNumber }}</span>
+
+              <ng-container *ngIf="day.isCurrentMonth">
+                <ng-container *ngIf="day.isAvailable; else unavailable">
+                  <span class="day-price">€{{ day.price }}</span>
+                  <span class="day-status available">Disponible</span>
+                </ng-container>
+                <ng-template #unavailable>
+                  <span class="day-status unavailable-text">
+                    No disponible<br>para el registro<br>de llegada
+                  </span>
+                </ng-template>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón continuar -->
+      <div class="calendar-actions">
+        <button class="btn-continue" [disabled]="!selectedDate" (click)="continue()">
+          CONTINUAR
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Cargando -->
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p>Cargando disponibilidad...</p>
+  </div>
+</div>

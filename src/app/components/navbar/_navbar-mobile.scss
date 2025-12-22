@@ -1,0 +1,196 @@
+/**
+ * Navbar Mobile Menu Styles
+ * Estilos responsivos para el menú hamburguesa y versión móvil
+ */
+
+@import 'navbar-variables';
+@import 'navbar-breakpoints';
+
+/* Botón hamburguesa - solo visible en tablets/mobile */
+.btn-menu {
+  display: none !important;
+
+  @include respond-to-tablet {
+    display: inline-flex !important;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #222;
+      margin: 3px 0;
+    }
+  }
+}
+
+/* Menú desplegable móvil - fullscreen overlay */
+.mobile-menu {
+  display: none;
+
+  @include respond-to-tablet {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: $color-white;
+    padding: 0;
+    overflow-y: auto;
+    z-index: 1000;
+    border-top: none;
+
+    /* Header con logo y botón cerrar */
+    .mobile-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: $spacing-navbar-padding-sm 20px;
+      border-bottom: 1px solid $color-border-light;
+      flex-shrink: 0;
+
+      .mobile-menu-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          height: 80px;
+          width: auto;
+          display: block;
+        }
+      }
+
+      .btn-close-menu {
+        background: transparent;
+        border: 0;
+        font-size: 28px;
+        cursor: pointer;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--mtt-text);
+      }
+    }
+
+    /* Selector de idioma independiente en mobile */
+    .mobile-lang-button {
+      position: relative;
+      z-index: 1001;
+
+      .lang-menu {
+        z-index: 1100;
+      }
+    }
+
+    /* Links de navegación mobile */
+    .mobile-nav-links {
+      list-style: none;
+      margin: 0;
+      padding: $spacing-menu-gap;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-menu-gap;
+      flex: 1;
+      border-bottom: 1px solid $color-border-light;
+
+      li {
+        display: block;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--mtt-text);
+        font-size: 18px;
+        font-family: var(--mtt-font-ui);
+        font-style: regular;
+        font-weight: 400;
+        display: block;
+        padding: 0;
+
+        &.active {
+          border-bottom: 2px solid var(--mtt-text);
+        }
+      }
+    }
+
+    /* Acciones en footer del menú */
+    .mobile-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: $spacing-menu-gap 20px;
+      flex-shrink: 0;
+
+      .mobile-user-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 16px;
+        text-align: center;
+        font-family: var(--mtt-font-ui);
+        font-size: 14px;
+        color: var(--mtt-text);
+        border-radius: 4px;
+        background-color: #f8f8f8;
+
+        strong {
+          font-weight: 600;
+          margin: 0 4px;
+        }
+      }
+
+      .mobile-signin {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+        color: var(--mtt-text);
+        font-size: 16px;
+        font-family: var(--mtt-font-ui);
+        font-weight: 400;
+        font-style: regular;
+        padding: 14px 20px;
+        border: 1px solid var(--mtt-text);
+        border-radius: $radius-pill;
+        cursor: pointer;
+        width: 100%;
+
+        img {
+          width: 18px;
+          height: 18px;
+        }
+      }
+
+      .mobile-reserve {
+        width: 100%;
+        padding: 14px 20px;
+        background: $color-black;
+        color: $color-white;
+        border: 0;
+        border-radius: $radius-pill;
+        font-family: var(--mtt-font-ui);
+        font-size: 16px;
+        font-weight: 400;
+        font-style: regular;
+        cursor: pointer;
+        display: block;
+      }
+    }
+  }
+}
