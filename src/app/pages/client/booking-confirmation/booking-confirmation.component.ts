@@ -13,7 +13,7 @@ import { Booking } from '../../../core/models/booking.model';
 })
 export class BookingConfirmationComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  
+
   booking: Booking | null = null;
   loading = true;
   error: string | null = null;
@@ -24,7 +24,7 @@ export class BookingConfirmationComponent implements OnInit, OnDestroy {
     private router: Router,
     private bookingService: BookingService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.currentUser$
@@ -69,7 +69,16 @@ export class BookingConfirmationComponent implements OnInit, OnDestroy {
   }
 
   formatDate(dateString: string): string {
-    const date = new Date(dateString);
+    // Parsear la fecha manualmente para evitar problemas de zona horaria
+    // Si la fecha está en formato YYYY-MM-DD, parseamos como local
+    let date: Date;
+    if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      const [year, month, day] = dateString.split('-').map(Number);
+      date = new Date(year, month - 1, day);
+    } else {
+      date = new Date(dateString);
+    }
+
     return date.toLocaleDateString('es-ES', {
       weekday: 'long',
       day: 'numeric',

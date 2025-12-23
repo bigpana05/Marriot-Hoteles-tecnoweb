@@ -53,6 +53,7 @@ import { RoomDetailsModalComponent } from './pages/client/reserve-hotels/room-de
 import { AdminRoomsComponent } from './pages/admin/rooms/admin-rooms/admin-rooms.component';
 import { AdminRoomOccupancyComponent } from './pages/admin/rooms/admin-room-occupancy/admin-room-occupancy.component';
 import { HotelCardComponent } from './pages/client/catalog/hotel-card/hotel-card.component';
+import { DigitalCheckinComponent } from './pages/client/digital-checkin/digital-checkin.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { HotelCardComponent } from './pages/client/catalog/hotel-card/hotel-card
     AdminRoomsComponent,
     AdminRoomOccupancyComponent,
     HotelCardComponent,
+    DigitalCheckinComponent,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule, AppRoutingModule],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],

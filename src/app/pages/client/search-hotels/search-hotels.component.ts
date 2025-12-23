@@ -517,20 +517,28 @@ export class SearchHotelsComponent implements OnInit, OnDestroy {
 
   /**
    * Obtiene la fecha de check-in formateada para pasar a la reserva
+   * Formatea como YYYY-MM-DD en la zona horaria local (sin convertir a UTC)
    */
   get formattedCheckIn(): string {
     if (this.searchDates.checkIn) {
-      return this.searchDates.checkIn.toISOString().split('T')[0];
+      const year = this.searchDates.checkIn.getFullYear();
+      const month = String(this.searchDates.checkIn.getMonth() + 1).padStart(2, '0');
+      const day = String(this.searchDates.checkIn.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
     }
     return '';
   }
 
   /**
    * Obtiene la fecha de check-out formateada para pasar a la reserva
+   * Formatea como YYYY-MM-DD en la zona horaria local (sin convertir a UTC)
    */
   get formattedCheckOut(): string {
     if (this.searchDates.checkOut) {
-      return this.searchDates.checkOut.toISOString().split('T')[0];
+      const year = this.searchDates.checkOut.getFullYear();
+      const month = String(this.searchDates.checkOut.getMonth() + 1).padStart(2, '0');
+      const day = String(this.searchDates.checkOut.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
     }
     return '';
   }

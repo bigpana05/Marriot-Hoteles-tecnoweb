@@ -1,0 +1,240 @@
+<section class="checkin-page">
+    <div class="checkin-container">
+        <!-- Estado de carga -->
+        <div *ngIf="loading" class="loading-state">
+            <div class="spinner"></div>
+            <p>Cargando información de la reserva...</p>
+        </div>
+
+        <!-- Estado de error -->
+        <div *ngIf="error && !loading" class="error-state">
+            <div class="error-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="15" y1="9" x2="9" y2="15" />
+                    <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+            </div>
+            <h2>Error al cargar la reserva</h2>
+            <p>{{ error }}</p>
+            <button class="btn-primary" (click)="goToHome()">Volver al inicio</button>
+        </div>
+
+        <!-- Check-in completado -->
+        <div *ngIf="checkInCompleted && booking" class="success-wrapper">
+            <div class="success-header">
+                <div class="success-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                </div>
+                <h1>¡Check-in completado!</h1>
+                <p class="success-message">
+                    Tu check-in digital ha sido procesado exitosamente. Llega al hotel a la hora indicada y dirígete
+                    directamente a recepción con tu código de confirmación.
+                </p>
+            </div>
+
+            <div class="checkin-summary-card">
+                <h2>Resumen del Check-in</h2>
+
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span class="label">Hotel</span>
+                        <span class="value">{{ booking.hotelName }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Habitación</span>
+                        <span class="value">{{ booking.roomName }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Check-in</span>
+                        <span class="value">{{ formatDate(booking.checkIn) }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Check-out</span>
+                        <span class="value">{{ formatDate(booking.checkOut) }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Hora estimada de llegada</span>
+                        <span class="value">{{ estimatedArrivalTime }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Código de confirmación</span>
+                        <span class="value confirmation-code">{{ booking.confirmationCode }}</span>
+                    </div>
+                </div>
+
+                <div class="important-notice">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" stroke="white" stroke-width="2" />
+                        <circle cx="12" cy="8" r="1" fill="white" />
+                    </svg>
+                    <p>Recuerda llevar una identificación válida con foto al momento de tu llegada.</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-primary" (click)="goToMyReservations()">
+                    Ver mis reservas
+                </button>
+                <button class="btn-secondary" (click)="printConfirmation()">
+                    Imprimir confirmación
+                </button>
+                <button class="btn-outline" (click)="goToHome()">
+                    Volver al inicio
+                </button>
+            </div>
+        </div>
+
+        <!-- Formulario de check-in -->
+        <div *ngIf="!loading && !error && !checkInCompleted && booking" class="checkin-content">
+            <!-- Encabezado -->
+            <div class="checkin-header">
+                <h1>Check-in Digital Anticipado</h1>
+                <p class="subtitle">Completa tu check-in antes de llegar al hotel para agilizar tu llegada</p>
+            </div>
+
+            <!-- Información de la reserva -->
+            <div class="booking-info-card">
+                <h2>Tu Reserva</h2>
+                <div class="booking-details">
+                    <div class="detail-row">
+                        <span class="label">Hotel:</span>
+                        <span class="value">{{ booking.hotelName }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Habitación:</span>
+                        <span class="value">{{ booking.roomName }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Check-in:</span>
+                        <span class="value">{{ formatDate(booking.checkIn) }} - Desde las 15:00</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Check-out:</span>
+                        <span class="value">{{ formatDate(booking.checkOut) }} - Antes de las 12:00</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Confirmación:</span>
+                        <span class="value confirmation-code">{{ booking.confirmationCode }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verificación de elegibilidad -->
+            <div *ngIf="!canCheckIn" class="ineligible-notice">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <circle cx="12" cy="16" r="1" fill="currentColor" />
+                </svg>
+                <h3>Check-in no disponible</h3>
+                <p>{{ checkInReason }}</p>
+                <button class="btn-secondary" (click)="goToMyReservations()">Volver a mis reservas</button>
+            </div>
+
+            <!-- Formulario -->
+            <div *ngIf="canCheckIn" class="checkin-form">
+                <h2>Información de Llegada</h2>
+
+                <!-- Hora estimada de llegada -->
+                <div class="form-group">
+                    <label for="arrivalTime" class="form-label">
+                        Hora estimada de llegada <span class="required">*</span>
+                    </label>
+                    <select id="arrivalTime" class="form-select" [(ngModel)]="estimatedArrivalTime">
+                        <option *ngFor="let time of timeOptions" [value]="time">{{ time }}</option>
+                    </select>
+                    <p class="form-hint">El check-in está disponible desde las 15:00</p>
+                </div>
+
+                <!-- Preferencia de piso -->
+                <div class="form-group">
+                    <label class="form-label">Preferencia de piso</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="floor" value="none" [(ngModel)]="floorPreference" />
+                            <span>Sin preferencia</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="floor" value="high" [(ngModel)]="floorPreference" />
+                            <span>Piso alto</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="floor" value="low" [(ngModel)]="floorPreference" />
+                            <span>Piso bajo</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Solicitudes especiales -->
+                <div class="form-group">
+                    <label for="requests" class="form-label">Solicitudes especiales (Opcional)</label>
+                    <textarea id="requests" class="form-textarea" [(ngModel)]="specialRequests" rows="4" maxlength="500"
+                        placeholder="Ej: Habitación alejada del ascensor, cuna para bebé, etc."></textarea>
+                    <p class="form-hint">{{ specialRequests.length }}/500 caracteres</p>
+                </div>
+
+                <h3 class="section-title">Información Adicional (Opcional)</h3>
+
+                <!-- Número de identificación -->
+                <div class="form-group">
+                    <label for="idNumber" class="form-label">Número de documento de identidad</label>
+                    <input type="text" id="idNumber" class="form-input" [(ngModel)]="identificationNumber"
+                        placeholder="Ej: 12345678-9" />
+                    <p class="form-hint">Puedes proporcionarlo ahora o en recepción</p>
+                </div>
+
+                <!-- Placa de vehículo -->
+                <div class="form-group">
+                    <label for="vehicle" class="form-label">Placa de vehículo (para parking)</label>
+                    <input type="text" id="vehicle" class="form-input" [(ngModel)]="vehiclePlate"
+                        placeholder="Ej: ABC-1234" />
+                </div>
+
+                <!-- Políticas y condiciones -->
+                <div class="policies-section">
+                    <h3 class="section-title">Políticas del Hotel</h3>
+                    <div class="policies-box">
+                        <ul>
+                            <li>El check-in está disponible a partir de las 15:00 horas.</li>
+                            <li>El check-out debe realizarse antes de las 12:00 horas.</li>
+                            <li>Se requiere presentar identificación válida con foto al llegar.</li>
+                            <li>Las solicitudes especiales están sujetas a disponibilidad.</li>
+                            <li>El hotel se reserva el derecho de modificar la asignación de habitaciones.</li>
+                        </ul>
+                    </div>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" [(ngModel)]="acceptedPolicies" />
+                        <span>He leído y acepto las políticas del hotel <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <!-- Mensajes de error -->
+                <div *ngIf="errorMessage" class="error-message">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="15" y1="9" x2="9" y2="15" stroke="white" stroke-width="2" />
+                        <line x1="9" y1="9" x2="15" y2="15" stroke="white" stroke-width="2" />
+                    </svg>
+                    <span>{{ errorMessage }}</span>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="form-actions">
+                    <button class="btn-secondary" (click)="goToMyReservations()" [disabled]="isSubmitting">
+                        Cancelar
+                    </button>
+                    <button class="btn-primary" (click)="submitCheckIn()"
+                        [disabled]="isSubmitting || !acceptedPolicies">
+                        {{ isSubmitting ? 'Procesando...' : 'Completar Check-in' }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

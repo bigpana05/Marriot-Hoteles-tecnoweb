@@ -13,7 +13,7 @@ import { Booking } from '../../../core/models/booking.model';
 })
 export class MyReservationsComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  
+
   currentUser: User | null = null;
   bookings: Booking[] = [];
   loading = true;
@@ -28,7 +28,7 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
     private router: Router,
     private bookingService: BookingService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.currentUser$
@@ -51,13 +51,13 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
 
   private loadBookings(): void {
     if (!this.currentUser?.id) return;
-    
+
     this.loading = true;
     this.bookingService.getBookingsByUserId(this.currentUser.id.toString())
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (bookings) => {
-          this.bookings = bookings.sort((a, b) => 
+          this.bookings = bookings.sort((a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
           this.loading = false;
@@ -95,7 +95,15 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
   }
 
   formatDate(dateString: string): string {
-    const date = new Date(dateString);
+    // Parsear la fecha manualmente para evitar problemas de zona horaria
+    let date: Date;
+    if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      const [year, month, day] = dateString.split('-').map(Number);
+      date = new Date(year, month - 1, day);
+    } else {
+      date = new Date(dateString);
+    }
+
     return date.toLocaleDateString('es-ES', {
       weekday: 'short',
       day: 'numeric',
@@ -109,7 +117,8 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
       'PENDING': 'Pendiente',
       'CONFIRMED': 'Confirmada',
       'CANCELLED': 'Cancelada',
-      'COMPLETED': 'Completada'
+      'COMPLETED': 'Completada',
+      'CHECKED_IN': 'Check-in Completado'
     };
     return statusMap[status] || status;
   }
@@ -119,7 +128,8 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
       'PENDING': 'status-pending',
       'CONFIRMED': 'status-confirmed',
       'CANCELLED': 'status-cancelled',
-      'COMPLETED': 'status-completed'
+      'COMPLETED': 'status-completed',
+      'CHECKED_IN': 'status-checkedin'
     };
     return classMap[status] || '';
   }
@@ -140,7 +150,7 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
 
   confirmCancel(): void {
     if (!this.bookingToCancel?.id) return;
-    
+
     this.cancellingId = this.bookingToCancel.id;
     this.bookingService.cancelBooking(this.bookingToCancel.id)
       .pipe(takeUntil(this.destroy$))
@@ -166,6 +176,23 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
   viewDetails(booking: Booking): void {
     if (booking.confirmationCode) {
       this.router.navigate(['/client/booking-confirmation', booking.confirmationCode]);
+    }
+  }
+
+  /**
+   * Verifica si una reserva puede hacer check-in digital
+   */
+  canCheckIn(booking: Booking): boolean {
+    const result = this.bookingService.canPerformCheckIn(booking);
+    return result.canCheckIn;
+  }
+
+  /**
+   * Navega al check-in digital
+   */
+  goToCheckIn(booking: Booking): void {
+    if (booking.confirmationCode) {
+      this.router.navigate(['/client/check-in', booking.confirmationCode]);
     }
   }
 

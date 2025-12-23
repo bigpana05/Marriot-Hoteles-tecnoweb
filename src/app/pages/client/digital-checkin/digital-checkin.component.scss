@@ -1,0 +1,498 @@
+// Estilos para el componente de check-in digital
+// Sigue el diseño de Marriott con fondo beige #F3EEE7
+
+.checkin-page {
+    min-height: 100vh;
+    background-color: #F3EEE7;
+    padding: 40px 20px;
+}
+
+.checkin-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+// Estados de carga y error
+.loading-state,
+.error-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+    .spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid #e0e0e0;
+        border-top-color: #1C1C1C;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+    }
+
+    p {
+        color: #707274;
+        font-size: 16px;
+        margin: 20px 0;
+    }
+}
+
+.error-icon,
+.success-header .success-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+
+    svg {
+        color: #1C1C1C;
+    }
+}
+
+.error-state {
+    h2 {
+        font-family: 'Luxurious Roman', serif;
+        font-size: 28px;
+        color: #1C1C1C;
+        margin-bottom: 16px;
+    }
+
+    .btn-primary {
+        margin-top: 24px;
+    }
+}
+
+// Encabezado del check-in
+.checkin-header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    h1 {
+        font-family: 'Luxurious Roman', serif;
+        font-size: 36px;
+        color: #1C1C1C;
+        margin-bottom: 12px;
+    }
+
+    .subtitle {
+        font-size: 18px;
+        color: #707274;
+    }
+}
+
+// Tarjeta de información de la reserva
+.booking-info-card,
+.checkin-summary-card {
+    background: white;
+    border-radius: 8px;
+    padding: 32px;
+    margin-bottom: 32px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+    h2 {
+        font-family: 'Luxurious Roman', serif;
+        font-size: 24px;
+        color: #1C1C1C;
+        margin-bottom: 24px;
+        border-bottom: 2px solid #F3EEE7;
+        padding-bottom: 12px;
+    }
+}
+
+.booking-details,
+.summary-grid {
+    display: grid;
+    gap: 16px;
+}
+
+.detail-row,
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    .label {
+        font-weight: 500;
+        color: #707274;
+        font-size: 14px;
+    }
+
+    .value {
+        font-weight: 600;
+        color: #1C1C1C;
+        text-align: right;
+    }
+
+    .confirmation-code {
+        font-family: 'Courier New', monospace;
+        background: #F3EEE7;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+}
+
+// Aviso de no elegibilidad
+.ineligible-notice {
+    background: white;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+    svg {
+        color: #BF6700;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-family: 'Luxurious Roman', serif;
+        font-size: 24px;
+        color: #1C1C1C;
+        margin-bottom: 12px;
+    }
+
+    p {
+        color: #707274;
+        font-size: 16px;
+        margin-bottom: 24px;
+    }
+}
+
+// Formulario de check-in
+.checkin-form {
+    background: white;
+    border-radius: 8px;
+    padding: 32px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+    h2 {
+        font-family: 'Luxurious Roman', serif;
+        font-size: 24px;
+        color: #1C1C1C;
+        margin-bottom: 24px;
+    }
+}
+
+.section-title {
+    font-family: 'Luxurious Roman', serif;
+    font-size: 20px;
+    color: #1C1C1C;
+    margin: 32px 0 20px;
+    padding-top: 24px;
+    border-top: 2px solid #F3EEE7;
+
+    &:first-child {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+    }
+}
+
+// Grupos de formulario
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 500;
+    color: #1C1C1C;
+    margin-bottom: 8px;
+    font-size: 14px;
+
+    .required {
+        color: #BF6700;
+    }
+}
+
+.form-select,
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: 'Whitney SSm', sans-serif;
+    transition: border-color 0.2s;
+
+    &:focus {
+        outline: none;
+        border-color: #1C1C1C;
+    }
+
+    &::placeholder {
+        color: #999;
+    }
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-hint {
+    font-size: 13px;
+    color: #707274;
+    margin-top: 6px;
+    font-style: italic;
+}
+
+// Radio buttons
+.radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    input[type="radio"] {
+        margin-right: 8px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    span {
+        font-size: 15px;
+        color: #1C1C1C;
+    }
+}
+
+// Políticas
+.policies-section {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px solid #F3EEE7;
+}
+
+.policies-box {
+    background: #F3EEE7;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    ul {
+        margin: 0;
+        padding-left: 20px;
+        list-style: disc;
+
+        li {
+            color: #1C1C1C;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 8px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    margin-top: 16px;
+
+    input[type="checkbox"] {
+        margin-right: 12px;
+        margin-top: 4px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    span {
+        font-size: 15px;
+        color: #1C1C1C;
+        line-height: 1.6;
+    }
+}
+
+// Mensajes
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fee;
+    border-left: 4px solid #c00;
+    padding: 16px;
+    border-radius: 4px;
+    margin: 20px 0;
+
+    svg {
+        flex-shrink: 0;
+        color: #c00;
+    }
+
+    span {
+        color: #c00;
+        font-size: 14px;
+    }
+}
+
+// Botones
+.form-actions,
+.action-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+    justify-content: flex-end;
+}
+
+.action-buttons {
+    justify-content: center;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    font-family: 'Whitney SSm', sans-serif;
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.btn-primary {
+    background: #1C1C1C;
+    color: white;
+    border-color: #1C1C1C;
+
+    &:hover:not(:disabled) {
+        background: #000;
+        border-color: #000;
+    }
+}
+
+.btn-secondary {
+    background: white;
+    color: #1C1C1C;
+    border-color: #1C1C1C;
+
+    &:hover:not(:disabled) {
+        background: #f5f5f5;
+    }
+}
+
+.btn-outline {
+    background: white;
+    color: #1C1C1C;
+    border-color: #d0d0d0;
+
+    &:hover:not(:disabled) {
+        background: #F3EEE7;
+        border-color: #1C1C1C;
+    }
+}
+
+// Éxito
+.success-wrapper {
+    background: white;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.success-header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    h1 {
+        font-family: 'Luxurious Roman', serif;
+        font-size: 32px;
+        color: #1C1C1C;
+        margin-bottom: 16px;
+    }
+
+    .success-message {
+        color: #707274;
+        font-size: 16px;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+.important-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #BF6700;
+    color: white;
+    padding: 16px;
+    border-radius: 6px;
+    margin-top: 24px;
+
+    svg {
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+}
+
+// Animaciones
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Responsive
+@media (max-width: 640px) {
+    .checkin-page {
+        padding: 20px 16px;
+    }
+
+    .checkin-header h1 {
+        font-size: 28px;
+    }
+
+    .booking-info-card,
+    .checkin-summary-card,
+    .checkin-form,
+    .success-wrapper {
+        padding: 24px 20px;
+    }
+
+    .form-actions,
+    .action-buttons {
+        flex-direction: column;
+
+        button {
+            width: 100%;
+        }
+    }
+
+    .radio-group {
+        flex-direction: column;
+        gap: 12px;
+    }
+}

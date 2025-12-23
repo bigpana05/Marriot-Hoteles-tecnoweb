@@ -149,8 +149,16 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
       const dayAfter = new Date(today);
       dayAfter.setDate(dayAfter.getDate() + 3);
 
-      this.checkIn = tomorrow.toISOString().split('T')[0];
-      this.checkOut = dayAfter.toISOString().split('T')[0];
+      // Formatear fechas manualmente para evitar problemas de zona horaria
+      const formatDateLocal = (date: Date): string => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
+
+      this.checkIn = formatDateLocal(tomorrow);
+      this.checkOut = formatDateLocal(dayAfter);
       this.numberOfNights = 2;
     }
   }
