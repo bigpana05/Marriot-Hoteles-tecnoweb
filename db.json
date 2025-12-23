@@ -54,6 +54,28 @@
       "role": "CLIENT",
       "token": "token-1766101610250",
       "bonvoyNumber": "BON123459"
+    },
+    {
+      "id": "ce03",
+      "email": "juan.test@marriott.com",
+      "password": "Test12345",
+      "firstName": "Juan",
+      "lastName": "Perez",
+      "name": "Juan Perez",
+      "role": "CLIENT",
+      "token": "token-1766175144500",
+      "bonvoyNumber": "BON123460"
+    },
+    {
+      "id": "cdaa",
+      "email": "prueba2@gmail.com",
+      "password": "cuenta123",
+      "firstName": "Prueba2",
+      "lastName": "asd",
+      "name": "Prueba2 asd",
+      "role": "CLIENT",
+      "token": "token-1766178692320",
+      "bonvoyNumber": "BON123461"
     }
   ],
   "guests": [],

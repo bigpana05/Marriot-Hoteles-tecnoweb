@@ -1,7 +1,0 @@
-feat(home): agregar sección Join Marriott responsive
-
-Se añade la nueva sección de invitación a unirse a Marriott International en el home.
-Cambios principales:
-- Implementación de diseño responsivo estricto para 5 breakpoints (Desktop, Laptop, Tablet, Móvil).
-- Lógica de layout dual: botones junto al texto en escritorio, y debajo de los iconos en móvil.
-- Cumplimiento con las normas del proyecto (modelos centralizados, directivas estructurales y espaciado).

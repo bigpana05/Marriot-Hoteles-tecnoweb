@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ClientComponent } from './pages/client/client.component';
 import { HomeComponent } from './pages/client/home/home.component';
 import { LoginComponent } from './pages/client/login/login.component';
+import { RegisterComponent } from './pages/client/register/register.component';
 import { ProfileComponent } from './pages/client/profile/profile.component';
 import { CatalogComponent } from './pages/client/catalog/catalog.component';
 import { CartComponent } from './pages/client/cart/cart.component';
@@ -31,6 +32,7 @@ import { AboutComponent } from './pages/about/about.component';
 
 import { AuthGuard } from './core/guards/auth.guard';
 import { RoleGuard } from './core/guards/role.guard';
+import { GuestGuard } from './core/guards/guest.guard';
 
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 
@@ -42,7 +44,8 @@ const routes: Routes = [
     component: ClientComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
+      { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+      { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
       { path: 'profile', component: ProfileComponent },
       { path: 'catalog', component: CatalogComponent },
       { path: 'cart', component: CartComponent },
