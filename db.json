@@ -1581,7 +1581,7 @@
       "name": "Conferencia Tech Latam",
       "hotelId": 1,
       "location": "Santiago, Chile",
-      "date": "2025-07-10",
+      "date": "2026-01-21",
       "capacity": 300,
       "attendees": 226,
       "description": "La conferencia más importante de tecnología en Latinoamérica. Conecta con líderes de la industria, descubre las últimas tendencias y expande tu red profesional.",
@@ -1598,7 +1598,7 @@
       "name": "Summit de Turismo Internacional",
       "hotelId": 2,
       "location": "Buenos Aires, Argentina",
-      "date": "2025-09-05",
+      "date": "2026-04-11",
       "capacity": 200,
       "attendees": 150,
       "description": "Evento exclusivo para profesionales del turismo. Workshops, networking y presentaciones de destinos exclusivos alrededor del mundo.",
@@ -1615,9 +1615,9 @@
       "name": "Expo Innovación Digital",
       "hotelId": 3,
       "location": "Lima, Perú",
-      "date": "2025-11-20",
+      "date": "2026-04-05",
       "capacity": 250,
-      "attendees": 80,
+      "attendees": 83,
       "description": "La exposición más grande de innovación digital en la región andina. Startups, inversores y emprendedores reunidos bajo un mismo techo.",
       "images": [
         "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800",
@@ -1632,7 +1632,7 @@
       "name": "Gala Marriott Excellence",
       "hotelId": 1,
       "location": "Ciudad de México, México",
-      "date": "2025-12-15",
+      "date": "2025-12-31",
       "capacity": 150,
       "attendees": 45,
       "description": "Una noche de elegancia y reconocimiento. Cena de gala con entretenimiento exclusivo y premios a la excelencia en hospitalidad.",
@@ -2913,6 +2913,52 @@
         "vehiclePlate": "ABC-1234",
         "completedAt": "2025-12-20T02:13:05.346Z"
       }
+    },
+    {
+      "id": "3eaa",
+      "hotelId": null,
+      "roomId": 1,
+      "rateId": "member-flexible",
+      "checkIn": "2025-12-24",
+      "checkOut": "2025-12-26",
+      "rooms": 1,
+      "adults": 1,
+      "children": 0,
+      "guestInfo": {
+        "firstName": "Cliente",
+        "lastName": "Demo",
+        "email": "cliente@demo.cl",
+        "memberNumber": "BON123456",
+        "sendSmsConfirmation": false,
+        "country": "Chile",
+        "postalCode": "123123",
+        "city": "Arica",
+        "addressLine1": "pasaje 123",
+        "addressLine2": ""
+      },
+      "paymentInfo": {
+        "method": "credit-card",
+        "cardNumber": "123",
+        "expiryMonth": "04",
+        "expiryYear": "2030",
+        "acceptTerms": true,
+        "receivePromotions": true,
+        "shareData": true,
+        "cardLastFour": "123"
+      },
+      "isMember": true,
+      "userId": "2",
+      "guestId": null,
+      "hotelName": "W Dubái - The Palm",
+      "roomName": "Villa Rose, Villa de 2 dormitorio(s), Dormitorio1: 1 King, Dormitorio2: 1 King, sofás cama: 2",
+      "rateName": "Tarifa flexible para socios",
+      "pricePerNight": 780,
+      "totalPrice": 1560,
+      "currency": "EUR",
+      "confirmationCode": "MRBHWYI8Y2025",
+      "nights": 2,
+      "status": "CONFIRMED",
+      "createdAt": "2025-12-23T14:14:05.170Z"
     }
   ],
   "groupHotels": [
@@ -3340,6 +3386,19 @@
       "numberOfPeople": "3",
       "comments": "prueba",
       "reservationDate": "2025-12-23T03:48:14.628Z",
+      "status": "CONFIRMED"
+    },
+    {
+      "id": "baf6",
+      "eventId": "3",
+      "eventName": "Expo Innovación Digital",
+      "userId": "2",
+      "fullName": "Cliente Demo",
+      "email": "cliente@demo.cl",
+      "phone": "+23423423",
+      "numberOfPeople": 3,
+      "comments": "",
+      "reservationDate": "2025-12-23T14:15:12.371Z",
       "status": "CONFIRMED"
     }
   ]

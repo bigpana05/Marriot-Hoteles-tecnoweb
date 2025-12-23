@@ -17,7 +17,7 @@ import { LoginComponent } from './pages/client/login/login.component';
 import { RegisterComponent } from './pages/client/register/register.component';
 import { ProfileComponent } from './pages/client/profile/profile.component';
 import { CatalogComponent } from './pages/client/catalog/catalog.component';
-import { CartComponent } from './pages/client/cart/cart.component';
+
 
 import { ClientComponent } from './pages/client/client.component';
 
@@ -71,7 +71,7 @@ import { GroupHotelCardComponent } from './pages/client/group-search/group-hotel
     RegisterComponent,
     ProfileComponent,
     CatalogComponent,
-    CartComponent,
+    CatalogComponent,
     ClientComponent,
     AdminComponent,
     HotelsComponent,

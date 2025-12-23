@@ -75,7 +75,7 @@
             Este campo es obligatorio
           </small>
           <small class="field-error"
-            *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
+            *ngIf="registerForm.get('email')?.hasError('pattern') && registerForm.get('email')?.touched">
             Ingresa un correo electrónico válido
           </small>
           <small class="field-error" *ngIf="emailExists">

@@ -15,8 +15,8 @@
       <!-- CAMPO EMAIL -->
       <div class="form-field">
         <label for="email">CORREO ELECTRÓNICO</label>
-        <input id="email" type="email" name="email" required email [(ngModel)]="email" #emailModel="ngModel"
-          placeholder="tu@correo.com" />
+        <input id="email" type="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          [(ngModel)]="email" #emailModel="ngModel" placeholder="tu@correo.com" />
         <small class="field-error" *ngIf="emailModel.invalid && emailModel.touched">
           Ingresa un correo válido.
         </small>

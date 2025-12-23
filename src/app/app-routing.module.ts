@@ -7,7 +7,6 @@ import { LoginComponent } from './pages/client/login/login.component';
 import { RegisterComponent } from './pages/client/register/register.component';
 import { ProfileComponent } from './pages/client/profile/profile.component';
 import { CatalogComponent } from './pages/client/catalog/catalog.component';
-import { CartComponent } from './pages/client/cart/cart.component';
 import { ExperiencesComponent } from './pages/client/experiences/experiences.component';
 import { OffersComponent } from './pages/client/offers/offers.component';
 import { SearchHotelsComponent } from './pages/client/search-hotels/search-hotels.component';
@@ -53,7 +52,6 @@ const routes: Routes = [
       { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
       { path: 'profile', component: ProfileComponent },
       { path: 'catalog', component: CatalogComponent },
-      { path: 'cart', component: CartComponent },
       { path: 'experiences', component: ExperiencesComponent },
       { path: 'offers', component: OffersComponent },
       { path: 'search-hotels', component: SearchHotelsComponent },
