@@ -54,6 +54,12 @@ import { AdminRoomsComponent } from './pages/admin/rooms/admin-rooms/admin-rooms
 import { AdminRoomOccupancyComponent } from './pages/admin/rooms/admin-room-occupancy/admin-room-occupancy.component';
 import { HotelCardComponent } from './pages/client/catalog/hotel-card/hotel-card.component';
 import { DigitalCheckinComponent } from './pages/client/digital-checkin/digital-checkin.component';
+import { GroupHotelsComponent } from './pages/admin/group-hotels/group-hotels.component';
+import { GroupRequestsComponent } from './pages/admin/group-requests/group-requests.component';
+import { GroupSearchComponent } from './pages/client/group-search/group-search.component';
+import { GroupRequestComponent } from './pages/client/group-request/group-request.component';
+import { GroupConfirmationComponent } from './pages/client/group-confirmation/group-confirmation.component';
+import { GroupHotelCardComponent } from './pages/client/group-search/group-hotel-card/group-hotel-card.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +107,12 @@ import { DigitalCheckinComponent } from './pages/client/digital-checkin/digital-
     AdminRoomOccupancyComponent,
     HotelCardComponent,
     DigitalCheckinComponent,
+    GroupHotelsComponent,
+    GroupRequestsComponent,
+    GroupSearchComponent,
+    GroupRequestComponent,
+    GroupConfirmationComponent,
+    GroupHotelCardComponent,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule, AppRoutingModule],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],

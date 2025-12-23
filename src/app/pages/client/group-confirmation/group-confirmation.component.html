@@ -1,0 +1,146 @@
+<div class="confirmation-container">
+    <!-- Loading state -->
+    <div *ngIf="loading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando...</p>
+    </div>
+
+    <!-- Error state -->
+    <div *ngIf="error && !loading" class="error-state">
+        <div class="error-icon">❌</div>
+        <h2>Error</h2>
+        <p>{{ error }}</p>
+        <button class="btn btn-primary" (click)="goToHome()">Volver al inicio</button>
+    </div>
+
+    <!-- Confirmación exitosa -->
+    <div *ngIf="booking && !loading" class="confirmation-content">
+        <div class="success-header">
+            <div class="success-icon">✓</div>
+            <h1>¡Solicitud Enviada!</h1>
+            <p class="success-message">Tu solicitud de reserva grupal ha sido recibida correctamente.</p>
+        </div>
+
+        <div class="confirmation-card">
+            <div class="card-header">
+                <h2>Detalles de la Solicitud</h2>
+                <span [class]="'status-badge ' + getStatusClass(booking.status)">
+                    {{ getStatusLabel(booking.status) }}
+                </span>
+            </div>
+
+            <div class="card-body">
+                <!-- Código de confirmación -->
+                <div class="confirmation-code">
+                    <span class="code-label">Código de confirmación:</span>
+                    <span class="code-value">{{ booking.confirmationCode }}</span>
+                </div>
+
+                <!-- Información del evento -->
+                <section class="info-section">
+                    <h3>Información del Evento</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Nombre del evento:</span>
+                            <span class="value">{{ booking.eventName }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Tipo:</span>
+                            <span class="value">{{ booking.eventType === 'business' ? 'Negocios' : booking.eventType ===
+                                'social' ? 'Social' : 'Boda' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Hotel:</span>
+                            <span class="value">{{ booking.hotelName }}</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Fechas y capacidad -->
+                <section class="info-section">
+                    <h3>Fechas y Capacidad</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Check-in:</span>
+                            <span class="value">{{ formatDate(booking.checkIn) }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Check-out:</span>
+                            <span class="value">{{ formatDate(booking.checkOut) }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Noches:</span>
+                            <span class="value">{{ calculateNights(booking.checkIn, booking.checkOut) }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Habitaciones:</span>
+                            <span class="value">{{ booking.rooms }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Asistentes:</span>
+                            <span class="value">{{ booking.attendees }}</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Resumen de precios -->
+                <section class="info-section">
+                    <h3>Resumen de Precios</h3>
+                    <div class="pricing-summary">
+                        <div class="price-row">
+                            <span>Precio por noche:</span>
+                            <span>{{ booking.pricePerNight | number:'1.2-2' }} EUR</span>
+                        </div>
+                        <div class="price-row discount">
+                            <span>Descuento aplicado:</span>
+                            <span>{{ booking.discount }}%</span>
+                        </div>
+                        <div class="price-row total">
+                            <strong>Total estimado:</strong>
+                            <strong>{{ booking.estimatedTotal | number:'1.2-2' }} EUR</strong>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contacto -->
+                <section class="info-section">
+                    <h3>Información de Contacto</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Nombre:</span>
+                            <span class="value">{{ booking.contactInfo.firstName }} {{ booking.contactInfo.lastName
+                                }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Email:</span>
+                            <span class="value">{{ booking.contactInfo.email }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Teléfono:</span>
+                            <span class="value">{{ booking.contactInfo.phone }}</span>
+                        </div>
+                        <div class="info-item" *ngIf="booking.contactInfo.company">
+                            <span class="label">Empresa:</span>
+                            <span class="value">{{ booking.contactInfo.company }}</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Información adicional -->
+                <div class="next-steps">
+                    <h3>Próximos Pasos</h3>
+                    <ul>
+                        <li>Nuestro equipo revisará tu solicitud en un plazo de 24-48 horas</li>
+                        <li>Recibirás un correo electrónico con la respuesta a {{ booking.contactInfo.email }}</li>
+                        <li>Guarda tu código de confirmación: <strong>{{ booking.confirmationCode }}</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button class="btn btn-secondary" routerLink="/client/groups">Nueva búsqueda</button>
+                <button class="btn btn-primary" (click)="goToHome()">Volver al inicio</button>
+            </div>
+        </div>
+    </div>
+</div>

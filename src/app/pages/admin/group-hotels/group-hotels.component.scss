@@ -1,0 +1,557 @@
+.admin-group-hotels {
+    .page-header {
+        margin-bottom: 1.5rem;
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 0.25rem;
+        }
+    }
+
+    .card {
+        border-radius: 12px;
+        border: none;
+
+        .card-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            border-radius: 12px 12px 0 0 !important;
+            padding: 1rem 1.25rem;
+
+            h5 {
+                font-weight: 600;
+            }
+        }
+    }
+
+    // Navigation tabs for sections
+    .section-nav {
+        display: flex;
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        overflow-x: auto;
+
+        button {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            border: none;
+            background: transparent;
+            color: #6c757d;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.03);
+                color: #1a1a2e;
+            }
+
+            &.active {
+                background: white;
+                color: #1a1a2e;
+                border-bottom: 2px solid #1a1a2e;
+                margin-bottom: -1px;
+            }
+
+            .badge {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.5rem;
+            }
+        }
+    }
+
+    .form-section {
+        animation: fadeIn 0.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .section-title {
+        font-weight: 600;
+        color: #1a1a2e;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    // Amenities grid
+    .amenities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.75rem;
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+
+            &:hover {
+                border-color: #1a1a2e;
+                background: #f8f9fa;
+            }
+
+            &.active {
+                background: #e8f5e9;
+                border-color: #4caf50;
+
+                .check-icon {
+                    color: #4caf50;
+                }
+            }
+
+            .check-icon {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    // Equipment grid
+    .equipment-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.75rem;
+
+        .equipment-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+
+            &:hover {
+                border-color: #1a1a2e;
+                background: #f8f9fa;
+            }
+
+            &.active {
+                background: #e8f5e9;
+                border-color: #4caf50;
+
+                .check-icon {
+                    color: #4caf50;
+                }
+            }
+
+            .check-icon {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    // Images preview
+    .images-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+
+        .image-item {
+            position: relative;
+            width: 100px;
+            height: 75px;
+            border-radius: 8px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .btn-remove {
+                position: absolute;
+                top: 4px;
+                right: 4px;
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                border: none;
+                background: rgba(220, 53, 69, 0.9);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 0.75rem;
+
+                &:hover {
+                    background: #dc3545;
+                }
+            }
+        }
+
+        .no-images {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            color: #adb5bd;
+
+            i {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+
+    // Galleries list
+    .galleries-list {
+        .gallery-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+
+            img {
+                width: 60px;
+                height: 45px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+
+            .gallery-info {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+
+                .category-badge {
+                    font-size: 0.7rem;
+                    background: #e9ecef;
+                    padding: 0.15rem 0.5rem;
+                    border-radius: 4px;
+                    width: fit-content;
+                }
+
+                .gallery-title {
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+
+    .list-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 0.75rem;
+        background: #f8f9fa;
+        border-radius: 6px;
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .add-item-row {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 0.75rem;
+        margin-top: 0.5rem;
+    }
+
+    // Form actions
+    .form-actions {
+        display: flex;
+        gap: 0.75rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e9ecef;
+    }
+
+    // Hotels list sidebar
+    .hotels-list {
+        max-height: 600px;
+        overflow-y: auto;
+
+        .hotel-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+
+            &:hover {
+                background: #f8f9fa;
+            }
+
+            &.active {
+                background: #e3f2fd;
+                border-left: 3px solid #1a1a2e;
+            }
+
+            .hotel-info {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex: 1;
+                min-width: 0;
+
+                .hotel-thumb {
+                    width: 50px;
+                    height: 40px;
+                    border-radius: 6px;
+                    overflow: hidden;
+                    flex-shrink: 0;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                .hotel-details {
+                    flex: 1;
+                    min-width: 0;
+
+                    h6 {
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        margin: 0;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+
+                    small {
+                        font-size: 0.75rem;
+                    }
+
+                    .hotel-meta {
+                        display: flex;
+                        gap: 0.5rem;
+                        margin-top: 0.25rem;
+                        font-size: 0.7rem;
+
+                        .price {
+                            font-weight: 600;
+                            color: #1a1a2e;
+                        }
+
+                        .rooms {
+                            color: #6c757d;
+                        }
+                    }
+                }
+            }
+
+            .hotel-actions {
+                display: flex;
+                gap: 0.25rem;
+
+                .btn {
+                    padding: 0.25rem 0.5rem;
+                    font-size: 0.75rem;
+                }
+            }
+        }
+    }
+
+    // ========== DASHBOARD DE OCUPACIÓN ==========
+
+    .hotel-occupancy-info {
+        padding: 0.75rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid #1a1a2e;
+    }
+
+    .occupancy-nav {
+        padding: 0.5rem;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+    }
+
+    .occupancy-table-container {
+        overflow-x: auto;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+    }
+
+    .occupancy-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 800px;
+
+        thead th {
+            padding: 0.75rem 0.5rem;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            font-size: 0.8rem;
+
+            .day-header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.25rem;
+
+                .day-name {
+                    font-weight: 500;
+                    color: #6c757d;
+                    text-transform: capitalize;
+                }
+
+                .day-num {
+                    font-weight: 700;
+                    color: #1a1a2e;
+                    font-size: 1.1rem;
+                }
+            }
+        }
+
+        .occupancy-cell {
+            padding: 0.5rem;
+            text-align: center;
+            vertical-align: top;
+            border-right: 1px solid #dee2e6;
+
+            &:last-child {
+                border-right: none;
+            }
+
+            .cell-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.25rem;
+                padding: 0.5rem;
+                border-radius: 8px;
+                min-height: 80px;
+            }
+
+            .rooms-info {
+                font-size: 1rem;
+            }
+
+            .available-info {
+                font-size: 0.75rem;
+                color: #6c757d;
+            }
+
+            .percent-bar {
+                width: 100%;
+                height: 6px;
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 3px;
+                overflow: hidden;
+
+                .percent-fill {
+                    height: 100%;
+                    border-radius: 3px;
+                    transition: width 0.3s ease;
+                }
+            }
+
+            .percent-text {
+                font-size: 0.7rem;
+                font-weight: 600;
+            }
+
+            // Estados de ocupación
+            &.low-occupancy .cell-content {
+                background: #e8f5e9;
+
+                .percent-fill {
+                    background: #4caf50;
+                }
+
+                .percent-text {
+                    color: #2e7d32;
+                }
+            }
+
+            &.medium-occupancy .cell-content {
+                background: #fff3e0;
+
+                .percent-fill {
+                    background: #ff9800;
+                }
+
+                .percent-text {
+                    color: #e65100;
+                }
+            }
+
+            &.high-occupancy .cell-content {
+                background: #ffebee;
+
+                .percent-fill {
+                    background: #f44336;
+                }
+
+                .percent-text {
+                    color: #c62828;
+                }
+            }
+        }
+    }
+
+    .occupancy-legend {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        font-size: 0.8rem;
+        color: #6c757d;
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+
+            &.low {
+                background: #e8f5e9;
+                border: 1px solid #4caf50;
+            }
+
+            &.medium {
+                background: #fff3e0;
+                border: 1px solid #ff9800;
+            }
+
+            &.high {
+                background: #ffebee;
+                border: 1px solid #f44336;
+            }
+        }
+    }
+}

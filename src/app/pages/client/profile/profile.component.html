@@ -206,6 +206,52 @@
       </div>
     </div>
 
+    <!-- Solicitudes Grupales -->
+    <div class="info-card group-requests-card" *ngIf="!isEditing && !isChangingPassword">
+      <div class="info-card-header">
+        <h3 class="info-card-title">Mis Solicitudes Grupales</h3>
+        <button class="btn-edit" (click)="goToGroupSearch()">
+          Nueva Solicitud
+        </button>
+      </div>
+
+      <!-- Loading -->
+      <div *ngIf="loadingGroupRequests" class="loading-state">
+        <span class="spinner"></span>
+        <p>Cargando solicitudes...</p>
+      </div>
+
+      <!-- Lista de solicitudes -->
+      <div *ngIf="!loadingGroupRequests && groupRequests.length > 0" class="group-requests-list">
+        <div *ngFor="let request of groupRequests" class="group-request-item">
+          <div class="request-info">
+            <h4 class="request-name">{{ request.eventName }}</h4>
+            <p class="request-hotel">{{ request.hotelName }}</p>
+            <div class="request-details">
+              <span class="request-date">{{ formatDate(request.checkIn) }} - {{ formatDate(request.checkOut) }}</span>
+              <span class="request-rooms">{{ request.rooms }} habitaciones</span>
+            </div>
+          </div>
+          <div class="request-status">
+            <span class="status-badge" [ngClass]="getStatusClass(request.status)">
+              {{ getStatusText(request.status) }}
+            </span>
+            <span class="request-code">{{ request.confirmationCode }}</span>
+            <span class="request-total">{{ request.estimatedTotal | currency:request.pricePerNight > 0 ? 'EUR' : 'EUR'
+              }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estado vacío -->
+      <div *ngIf="!loadingGroupRequests && groupRequests.length === 0" class="empty-requests">
+        <p>No tienes solicitudes grupales.</p>
+        <button class="btn btn-outline" (click)="goToGroupSearch()">
+          Explorar hoteles para grupos
+        </button>
+      </div>
+    </div>
+
     <!-- Acciones rápidas -->
     <div class="quick-actions" *ngIf="!isEditing && !isChangingPassword">
       <button class="action-btn action-btn-outline" (click)="goToMyReservations()">
