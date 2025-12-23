@@ -13,10 +13,10 @@
             <div class="gallery-main">
                 <img [src]="room.images[currentRoomImageIndex]" [alt]="room.name" class="gallery-main__image">
                 <button class="gallery-nav gallery-nav--prev" (click)="prevRoomImage()">
-                    <i class="bi bi-chevron-left"></i>
+                    <img src="assets/icons/chevron-left.svg" alt="Anterior" />
                 </button>
                 <button class="gallery-nav gallery-nav--next" (click)="nextRoomImage()">
-                    <i class="bi bi-chevron-right"></i>
+                    <img src="assets/icons/chevron-right.svg" alt="Siguiente" />
                 </button>
                 <div class="gallery-indicators">
                     <span *ngFor="let img of room.images; let i = index" class="indicator"

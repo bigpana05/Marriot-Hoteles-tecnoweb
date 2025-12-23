@@ -307,7 +307,8 @@ export class SearchHotelService {
    */
   private hotelToSearchResult(hotel: Hotel): HotelSearchResult {
     return {
-      id: typeof hotel.id === 'string' ? parseInt(hotel.id, 10) : (hotel.id || 0),
+      // Usar directamente el ID (ya sea string o numero), evitando parsear si ya es string numerico
+      id: hotel.id || 0,
       name: hotel.name,
       brand: hotel.brand,
       brandLogo: hotel.brandLogo || '',
@@ -462,7 +463,9 @@ export class SearchHotelService {
     };
 
     const city = hotel.location.city.toLowerCase();
-    return cityDistances[city]?.[hotel.id] || hotel.distanceFromDestination;
+    // Casting seguro a number para búsqueda en el mapa estático
+    const numericId = typeof hotel.id === 'string' ? parseInt(hotel.id, 10) : hotel.id;
+    return cityDistances[city]?.[numericId] || hotel.distanceFromDestination;
   }
 
   /**
@@ -626,13 +629,17 @@ export class SearchHotelService {
 
   /**
    * Obtiene un hotel por su ID
-   * @param hotelId - ID del hotel
+   * @param hotelId - ID del hotel (numero o string)
    * @returns Observable con el hotel encontrado o undefined
    */
-  getHotelById(hotelId: number): Observable<HotelSearchResult | undefined> {
+  getHotelById(hotelId: number | string): Observable<HotelSearchResult | undefined> {
     return this.http.get<Hotel>(`${this.apiUrl}/hotels/${hotelId}`).pipe(
       map(hotel => this.hotelToSearchResult(hotel)),
-      catchError(() => of(this.mockHotels.find(h => h.id === hotelId)))
+      catchError(() => {
+        // En caso de error, intentar encontrar en los mocks (manejo string vs number)
+        const mock = this.mockHotels.find(h => String(h.id) === String(hotelId));
+        return of(mock);
+      })
     );
   }
 }

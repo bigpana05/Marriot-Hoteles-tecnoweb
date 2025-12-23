@@ -43,6 +43,17 @@
       "role": "CLIENT",
       "token": "token-1765685184340",
       "bonvoyNumber": "BON123458"
+    },
+    {
+      "id": "f395",
+      "email": "juan@gmail.com",
+      "password": "cuenta123",
+      "firstName": "Juan",
+      "lastName": "Perez",
+      "name": "Juan Perez",
+      "role": "CLIENT",
+      "token": "token-1766101610250",
+      "bonvoyNumber": "BON123459"
     }
   ],
   "guests": [],
@@ -495,8 +506,8 @@
       "description": "Hotel de lujo moderno de 5 estrellas en Lusail con un elegante Spa, gastronomía gourmet y espacios creativos para reuniones.",
       "rating": 4.5,
       "reviewCount": 346,
-      "basePrice": 705,
-      "currency": "QAR",
+      "basePrice": 200,
+      "currency": "USD",
       "images": [
         "assets\\brand\\featured-hotels\\Marriott_International-Le_Royal_Meridien_Doha-Exterior-ref163191.jpg",
         "assets\\brand\\hotels\\Le-Royal-Meridien\\md-dohmd-dohmd-exterior-33508_Wide-Hor.png",
@@ -697,7 +708,7 @@
       "availableRooms": 25,
       "isActive": true,
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-12-14T15:47:51.574Z"
+      "updatedAt": "2025-12-19T00:31:11.460Z"
     },
     {
       "id": "3429",
@@ -913,6 +924,638 @@
       "isActive": true,
       "createdAt": "2025-12-14T05:30:14.921Z",
       "updatedAt": "2025-12-14T15:34:29.217Z"
+    },
+    {
+      "id": "5b79",
+      "name": "W Dubái - The Palm",
+      "brand": "W Hotels",
+      "brandLogo": "assets/brand/hotels/W-Barcelona/wh-logo-white.png",
+      "language": "Inglés",
+      "description": "Ubicado en la media luna oeste de la icónica Palm Jumeirah, este escape sereno facilita la mezcla entre la ciudad y el mar.",
+      "rating": 4.5,
+      "reviewCount": 1746,
+      "basePrice": 500,
+      "currency": "USD",
+      "images": [
+        "assets\\brand\\hotels\\W Dubai - The Palm\\dxbtp-torno-subito-2543-hor-clsc.png",
+        "https://cache.marriott.com//content/dam/marriott-renditions/DXBTP/dxbtp-exterior-7684-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com//content/dam/marriott-renditions/DXBTP/dxbtp-suite-partial-oceanview-1527-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com//content/dam/marriott-renditions/DXBTP/dxbtp-suite-skylineview-1532-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com//is/image/marriotts7prod/dxbtp-heated-pool-4506:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*"
+      ],
+      "galleries": [
+        {
+          "category": "property-view",
+          "title": "Vista 1",
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/DXBTP/dxbtp-torno-subito-2543-hor-clsc.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "suites",
+          "title": "Suite 1",
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/DXBTP/dxbtp-suite-partial-oceanview-1527-hor-clsc.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "rooms",
+          "title": "Room 1",
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/DXBTP/dxbtp-king-fabulous-guestroom-8981-hor-clsc.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "gym",
+          "title": "Gym 1",
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/dxbtp-fit-2541:Classic-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "entertainment",
+          "title": "Entretenimiento ",
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/dxbtp-wet-deck-8999:Classic-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "restaurants",
+          "title": "Restaurante",
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/DXBTP/dxbtp-sobe-9819-hor-clsc.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        }
+      ],
+      "location": {
+        "address": "West Crescent, Palm Jumeirah Dubai, Emiratos Árabes Unidos",
+        "city": "Dúbai",
+        "country": "Emiratos Árabes Unidos",
+        "postalCode": "213138",
+        "phone": "+971 4 245 5555",
+        "latitude": 25.105156,
+        "longitude": 55.112737,
+        "distanceFromCenter": 19.4,
+        "nearbyAirports": [
+          {
+            "name": " Dubai International Airport ",
+            "code": "DXB",
+            "distance": "64,37 km SW",
+            "phone": "",
+            "hasShuttle": false
+          }
+        ],
+        "otherTransports": [
+          {
+            "type": "Alquiler de automóvil",
+            "company": "Hertz",
+            "phone": ""
+          },
+          {
+            "type": "Estación de autobuses  ",
+            "company": "Al Ghubaiba Bus Station",
+            "phone": ""
+          }
+        ]
+      },
+      "propertyInfo": {
+        "checkInTime": "15:00",
+        "checkOutTime": "12:00",
+        "smokeFree": true,
+        "petPolicy": "Dogs/cats only, AED 50/night for bed & snacks, max 18kg, in designated areas.\nCargo no reembolsable: 350 Por estancia\nPóngase en contacto con el hotel para obtener más detalles",
+        "accessibilityLink": "#https://www.marriott.com/en-us/hotels/dxbtp-w-dubai-the-palm/overview/",
+        "yearBuilt": 2016,
+        "yearRenovated": 2022
+      },
+      "amenities": [
+        {
+          "id": "wifi",
+          "name": "Internet de alta velocidad gratis",
+          "icon": "wifi",
+          "available": true
+        },
+        {
+          "id": "pool",
+          "name": "Piscina",
+          "icon": "pool",
+          "available": true
+        },
+        {
+          "id": "gym",
+          "name": "Gimnasio",
+          "icon": "gym",
+          "available": true
+        },
+        {
+          "id": "spa",
+          "name": "Spa con servicio completo",
+          "icon": "spa",
+          "available": true
+        },
+        {
+          "id": "parking",
+          "name": "Estacionamiento",
+          "icon": "parking",
+          "available": true
+        },
+        {
+          "id": "pets",
+          "name": "Se aceptan mascotas",
+          "icon": "pets",
+          "available": true
+        },
+        {
+          "id": "restaurant",
+          "name": "Restaurante",
+          "icon": "restaurant",
+          "available": false
+        },
+        {
+          "id": "bar",
+          "name": "Bar/Lounge",
+          "icon": "bar",
+          "available": false
+        },
+        {
+          "id": "room-service",
+          "name": "Servicio a la habitación 24h",
+          "icon": "room-service",
+          "available": false
+        },
+        {
+          "id": "events",
+          "name": "Espacio para eventos y reuniones",
+          "icon": "events",
+          "available": true
+        },
+        {
+          "id": "business",
+          "name": "Centro de negocios",
+          "icon": "business",
+          "available": false
+        },
+        {
+          "id": "concierge",
+          "name": "Servicio de conserjería",
+          "icon": "concierge",
+          "available": false
+        },
+        {
+          "id": "laundry",
+          "name": "Lavandería/Tintorería",
+          "icon": "laundry",
+          "available": false
+        },
+        {
+          "id": "atm",
+          "name": "Cajero automático/ATM",
+          "icon": "atm",
+          "available": false
+        },
+        {
+          "id": "exchange",
+          "name": "Cambio de divisas",
+          "icon": "exchange",
+          "available": false
+        },
+        {
+          "id": "accessible",
+          "name": "Habitaciones accesibles",
+          "icon": "accessible",
+          "available": false
+        },
+        {
+          "id": "storage",
+          "name": "Consigna de equipaje",
+          "icon": "storage",
+          "available": false
+        },
+        {
+          "id": "airport-shuttle",
+          "name": "Transporte al aeropuerto",
+          "icon": "airport-shuttle",
+          "available": true
+        },
+        {
+          "id": "ev-charging",
+          "name": "Cargador para vehículos eléctricos",
+          "icon": "ev-charging",
+          "available": false
+        },
+        {
+          "id": "kids-club",
+          "name": "Club infantil",
+          "icon": "kids-club",
+          "available": false
+        }
+      ],
+      "totalRooms": 10,
+      "availableRooms": 1,
+      "isActive": true,
+      "createdAt": "2025-12-19T02:09:47.036Z",
+      "updatedAt": "2025-12-19T03:35:35.138Z"
+    },
+    {
+      "id": "0349",
+      "name": "Le Méridien Paris Arco del Triunfo",
+      "brand": "Le Méridien",
+      "brandLogo": "assets/brand/hotels/Le-Royal-Meridien/le-meridien-logo.png",
+      "language": "Francés",
+      "description": "Hotel contemporáneo cerca de los Campos Elíseos y el Palacio de Congresos, con espacios elegantes.",
+      "rating": 3.5,
+      "reviewCount": 2530,
+      "basePrice": 180,
+      "currency": "EUR",
+      "images": [
+        "assets\\brand\\hotels\\Le Méridien Paris Arco del Triunfo\\parmd-exterior-0186-hor-clsc.png",
+        "https://cache.marriott.com//is/image/marriotts7prod/md-parmd-lemerridian-bedroom-view2-32197:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com//content/dam/marriott-renditions/PARMD/parmd-reception-0424-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com//is/image/marriotts7prod/md-parmd-lemerridian-bedroom-25421-12163:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*"
+      ],
+      "galleries": [
+        {
+          "category": "property-view",
+          "title": "Vista",
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/PARMD/parmd-exterior-0186-hor-clsc.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "suites",
+          "title": "Suite",
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/md-parmd-lemerridian-bedroom-view2-32197:Classic-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "rooms",
+          "title": "Habitacion",
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/PARMD/parmd-chic-room-7820-hor-clsc.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "gym",
+          "title": "Gimnasio",
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/md-parmd-fitness-center-97347:Classic-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "restaurants",
+          "title": "Restaurante ",
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/PARMD/parmd-etoile-0423-hor-clsc.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        }
+      ],
+      "location": {
+        "address": "81 Boulevard Gouvion Saint-Cyr Paris, Francia",
+        "city": "Paris",
+        "country": "Francia",
+        "postalCode": "75017",
+        "phone": "+3 314-068-3434",
+        "latitude": 48.879782,
+        "longitude": 2.285163,
+        "distanceFromCenter": 5.4,
+        "nearbyAirports": [
+          {
+            "name": "Paris/Orly Airport ",
+            "code": "ORY",
+            "distance": "35,73 km S",
+            "phone": "",
+            "hasShuttle": false
+          }
+        ],
+        "otherTransports": [
+          {
+            "type": "Alquiler de automóvil",
+            "company": "Avitz",
+            "phone": ""
+          }
+        ]
+      },
+      "propertyInfo": {
+        "checkInTime": "16:00",
+        "checkOutTime": "12:00",
+        "smokeFree": true,
+        "petPolicy": "Se acepta una mascota de hasta 18 kg por habitación con un cargo no reembolsable de 25 EUR por noche y habitación.\nCargo no reembolsable: 25 Por estancia\nPóngase en contacto con el hotel para obtener más detalles.",
+        "accessibilityLink": "#https://www.marriott.com/es/hotels/parmd-le-meridien-etoile/overview/",
+        "yearBuilt": 2010,
+        "yearRenovated": 2019
+      },
+      "amenities": [
+        {
+          "id": "wifi",
+          "name": "Internet de alta velocidad gratis",
+          "icon": "wifi",
+          "available": true
+        },
+        {
+          "id": "pool",
+          "name": "Piscina",
+          "icon": "pool",
+          "available": false
+        },
+        {
+          "id": "gym",
+          "name": "Gimnasio",
+          "icon": "gym",
+          "available": true
+        },
+        {
+          "id": "spa",
+          "name": "Spa con servicio completo",
+          "icon": "spa",
+          "available": false
+        },
+        {
+          "id": "parking",
+          "name": "Estacionamiento",
+          "icon": "parking",
+          "available": true
+        },
+        {
+          "id": "pets",
+          "name": "Se aceptan mascotas",
+          "icon": "pets",
+          "available": true
+        },
+        {
+          "id": "restaurant",
+          "name": "Restaurante",
+          "icon": "restaurant",
+          "available": false
+        },
+        {
+          "id": "bar",
+          "name": "Bar/Lounge",
+          "icon": "bar",
+          "available": false
+        },
+        {
+          "id": "room-service",
+          "name": "Servicio a la habitación 24h",
+          "icon": "room-service",
+          "available": false
+        },
+        {
+          "id": "events",
+          "name": "Espacio para eventos y reuniones",
+          "icon": "events",
+          "available": true
+        },
+        {
+          "id": "business",
+          "name": "Centro de negocios",
+          "icon": "business",
+          "available": false
+        },
+        {
+          "id": "concierge",
+          "name": "Servicio de conserjería",
+          "icon": "concierge",
+          "available": false
+        },
+        {
+          "id": "laundry",
+          "name": "Lavandería/Tintorería",
+          "icon": "laundry",
+          "available": false
+        },
+        {
+          "id": "atm",
+          "name": "Cajero automático/ATM",
+          "icon": "atm",
+          "available": false
+        },
+        {
+          "id": "exchange",
+          "name": "Cambio de divisas",
+          "icon": "exchange",
+          "available": true
+        },
+        {
+          "id": "accessible",
+          "name": "Habitaciones accesibles",
+          "icon": "accessible",
+          "available": true
+        },
+        {
+          "id": "storage",
+          "name": "Consigna de equipaje",
+          "icon": "storage",
+          "available": false
+        },
+        {
+          "id": "airport-shuttle",
+          "name": "Transporte al aeropuerto",
+          "icon": "airport-shuttle",
+          "available": false
+        },
+        {
+          "id": "ev-charging",
+          "name": "Cargador para vehículos eléctricos",
+          "icon": "ev-charging",
+          "available": false
+        },
+        {
+          "id": "kids-club",
+          "name": "Club infantil",
+          "icon": "kids-club",
+          "available": false
+        }
+      ],
+      "totalRooms": 10,
+      "availableRooms": 1,
+      "isActive": true,
+      "createdAt": "2025-12-19T02:24:10.185Z",
+      "updatedAt": "2025-12-19T02:52:39.813Z"
+    },
+    {
+      "id": "33d6",
+      "name": "Le Méridien Munich",
+      "brand": "Le Méridien",
+      "brandLogo": "assets/brand/hotels/Le-Royal-Meridien/le-meridien-logo.png",
+      "language": "Inglés",
+      "description": "Vívido, espacioso + verde en el corazón de Múnich: Hotel Le Méridien Munich.",
+      "rating": 3.8,
+      "reviewCount": 1489,
+      "basePrice": 200,
+      "currency": "EUR",
+      "images": [
+        "assets\\brand\\hotels\\Le Méridien Munich\\mucmd-exterior-5458-hor-clsc.png",
+        "https://cache.marriott.com//is/image/marriotts7prod/md-mucmd-lobby-25719:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com//is/image/marriotts7prod/md-mucmd-entrance-38260:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com//content/dam/marriott-renditions/MUCMD/mucmd-king-suite-1956-hor-wide.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*",
+        "https://cache.marriott.com//is/image/marriotts7prod/md-mucmd-deluxe-city-rm-twin-24956-03930:Wide-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=512px:*"
+      ],
+      "galleries": [
+        {
+          "category": "property-view",
+          "title": "Vista",
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/MUCMD/mucmd-exterior-5458-hor-clsc.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "suites",
+          "title": "Suite",
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/MUCMD/mucmd-king-suite-1956-hor-clsc.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "rooms",
+          "title": "Habitacion",
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/md-mucmd-deluxe-city-rm-twin-24956-03930:Classic-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "gym",
+          "title": "Gimnasio",
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/md-mucmd-fitness-center-77270:Classic-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "entertainment",
+          "title": "Piscina",
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/md-mucmd-pool-32165:Classic-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        },
+        {
+          "category": "restaurants",
+          "title": "Restaurante",
+          "imageUrl": "https://cache.marriott.com/content/dam/marriott-renditions/MUCMD/mucmd-irmi-restaurant-1542-hor-clsc.jpg?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
+        }
+      ],
+      "location": {
+        "address": "Bayerstrasse 41 Munich, Alemania",
+        "city": "Munich",
+        "country": "Alemania",
+        "postalCode": "80335",
+        "phone": "+498924220",
+        "latitude": 48.138801,
+        "longitude": 11.557909,
+        "distanceFromCenter": 1.8,
+        "nearbyAirports": [
+          {
+            "name": "Munich Airport ",
+            "code": "MUC",
+            "distance": "56,33 km SW",
+            "phone": "",
+            "hasShuttle": false
+          }
+        ],
+        "otherTransports": []
+      },
+      "propertyInfo": {
+        "checkInTime": "15:00",
+        "checkOutTime": "12:00",
+        "smokeFree": true,
+        "petPolicy": "Fee 25EUR per night\nCargo no reembolsable: 25 Por estancia\nPóngase en contacto con el hotel para obtener más detalles",
+        "accessibilityLink": "#https://www.marriott.com/en-us/hotels/mucmd-le-meridien-munich/overview/",
+        "yearBuilt": 2011,
+        "yearRenovated": 2020
+      },
+      "amenities": [
+        {
+          "id": "wifi",
+          "name": "Internet de alta velocidad gratis",
+          "icon": "wifi",
+          "available": true
+        },
+        {
+          "id": "pool",
+          "name": "Piscina",
+          "icon": "pool",
+          "available": false
+        },
+        {
+          "id": "gym",
+          "name": "Gimnasio",
+          "icon": "gym",
+          "available": true
+        },
+        {
+          "id": "spa",
+          "name": "Spa con servicio completo",
+          "icon": "spa",
+          "available": false
+        },
+        {
+          "id": "parking",
+          "name": "Estacionamiento",
+          "icon": "parking",
+          "available": true
+        },
+        {
+          "id": "pets",
+          "name": "Se aceptan mascotas",
+          "icon": "pets",
+          "available": true
+        },
+        {
+          "id": "restaurant",
+          "name": "Restaurante",
+          "icon": "restaurant",
+          "available": false
+        },
+        {
+          "id": "bar",
+          "name": "Bar/Lounge",
+          "icon": "bar",
+          "available": false
+        },
+        {
+          "id": "room-service",
+          "name": "Servicio a la habitación 24h",
+          "icon": "room-service",
+          "available": false
+        },
+        {
+          "id": "events",
+          "name": "Espacio para eventos y reuniones",
+          "icon": "events",
+          "available": true
+        },
+        {
+          "id": "business",
+          "name": "Centro de negocios",
+          "icon": "business",
+          "available": false
+        },
+        {
+          "id": "concierge",
+          "name": "Servicio de conserjería",
+          "icon": "concierge",
+          "available": false
+        },
+        {
+          "id": "laundry",
+          "name": "Lavandería/Tintorería",
+          "icon": "laundry",
+          "available": false
+        },
+        {
+          "id": "atm",
+          "name": "Cajero automático/ATM",
+          "icon": "atm",
+          "available": false
+        },
+        {
+          "id": "exchange",
+          "name": "Cambio de divisas",
+          "icon": "exchange",
+          "available": true
+        },
+        {
+          "id": "accessible",
+          "name": "Habitaciones accesibles",
+          "icon": "accessible",
+          "available": true
+        },
+        {
+          "id": "storage",
+          "name": "Consigna de equipaje",
+          "icon": "storage",
+          "available": false
+        },
+        {
+          "id": "airport-shuttle",
+          "name": "Transporte al aeropuerto",
+          "icon": "airport-shuttle",
+          "available": false
+        },
+        {
+          "id": "ev-charging",
+          "name": "Cargador para vehículos eléctricos",
+          "icon": "ev-charging",
+          "available": false
+        },
+        {
+          "id": "kids-club",
+          "name": "Club infantil",
+          "icon": "kids-club",
+          "available": false
+        }
+      ],
+      "totalRooms": 10,
+      "availableRooms": 1,
+      "isActive": true,
+      "createdAt": "2025-12-19T02:34:01.986Z",
+      "updatedAt": "2025-12-19T02:54:11.552Z"
     }
   ],
   "events": [
@@ -945,123 +1588,6 @@
     }
   ],
   "rooms": [
-    {
-      "id": "1",
-      "hotelId": "1",
-      "name": "1 cama tamaño King, Vista limitada, Suite Studio",
-      "type": "suite-studio",
-      "bedType": "king",
-      "view": "limited",
-      "maxCapacity": 3,
-      "size": "60m²/646ft²",
-      "images": [
-        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/bcnwh-studio-suite-4185-hor-wide.png",
-        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/bcnwh-suite-living-5123-hor-wide.png",
-        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/wh-bcnwh-studio-suite-01-42457_Wide-Hor.png",
-        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/wh-bcnwh-studio-suite-02--11473-40867_Wide-Hor.png",
-        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/wh-bcnwh-studio-suite-03-18114_Wide-Hor.png",
-        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/wh-bcnwh-studio-suite-04--37074-87793_Wide-Hor.png"
-      ],
-      "amenities": {
-        "specialBenefits": [
-          "WiFi de alta velocidad"
-        ],
-        "bedsAndLinens": {
-          "maxCapacity": 3,
-          "sofaBed": true,
-          "extraBedsAllowed": false,
-          "cribsAllowed": 1,
-          "maxCribsOrExtraBeds": 1,
-          "beddingDetails": [
-            "Colchón con cubierta tipo almohada",
-            "Colchón de plumas",
-            "Edredón"
-          ]
-        },
-        "roomFeatures": [
-          "Con aire acondicionado",
-          "Habitación para no fumadores",
-          "Se dispone de habitaciones conectadas (sólo para algunas habitaciones)",
-          "Ventanas del piso al techo"
-        ],
-        "bathroomFeatures": [
-          "Bañera y ducha por separado",
-          "Espejo para maquillaje con iluminación",
-          "Secador de cabello",
-          "Bata",
-          "Pantuflas"
-        ],
-        "furnitureAndDecor": [
-          "Reloj despertador",
-          "Caja de seguridad en la habitación, con cargo",
-          "Escritorio, para escribir / trabajar, tomacorriente",
-          "Plancha y tabla de planchar"
-        ],
-        "foodAndBeverages": [
-          "Servicio en la habitación, las 24 horas",
-          "Agua embotellada de cortesía",
-          "Servicio de café y té",
-          "Agua caliente al instante",
-          "Mini-bar, con cargo",
-          "Tetera",
-          "Cafetera Nespresso"
-        ],
-        "internetAndPhones": {
-          "phones": 1,
-          "phoneFeatures": [
-            "Teléfono inalámbrico",
-            "Correo de voz",
-            "Teléfono con altavoz"
-          ],
-          "internetAccess": "Acceso inalámbrico a Internet de cortesía",
-          "wifiNote": "El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy"
-        },
-        "entertainment": [
-          "Habitación de alta tecnología con equipos listos para conexión",
-          "Cable/satélite",
-          "Cable/satélite internacional"
-        ],
-        "accessibility": [
-          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
-          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
-          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
-        ],
-        "hotelHighlights": [
-          "Este hotel es 100% libre de humo",
-          "El hotel se construyó en 2009",
-          "Las habitaciones se renovaron en 2018"
-        ],
-        "parkingAndTransport": [
-          "Estación de carga para vehículos eléctricos gratis",
-          "Personal para estacionar gratis",
-          "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
-        ],
-        "hotelServices": [
-          "Gimnasio en las instalaciones",
-          "Servicio de apertura de cama"
-        ]
-      },
-      "rates": [
-        {
-          "id": "member-flexible",
-          "name": "Tarifa flexible para socios",
-          "description": "Tarifa especial para miembros de Marriott Bonvoy",
-          "pricePerNight": 735,
-          "currency": "EUR",
-          "isMemberRate": true,
-          "memberDiscount": 15
-        },
-        {
-          "id": "flexible",
-          "name": "Tarifa flexible",
-          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
-          "pricePerNight": 750,
-          "currency": "EUR",
-          "isMemberRate": false
-        }
-      ],
-      "available": 1
-    },
     {
       "id": "2",
       "hotelId": "1",
@@ -1255,6 +1781,653 @@
           "Servicio de apertura de cama"
         ]
       }
+    },
+    {
+      "id": "1",
+      "hotelId": "2",
+      "name": "Villa Rose, Villa de 2 dormitorio(s), Dormitorio1: 1 King, Dormitorio2: 1 King, sofás cama: 2",
+      "type": "suite-studio",
+      "bedType": "king",
+      "view": "garden",
+      "maxCapacity": 7,
+      "size": "28m²/301ft²",
+      "images": [
+        "https://cache.marriott.com/content/dam/marriott-renditions/VCEJW/vcejw-villa-rose-3932-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/VCEJW/vcejw-villa-rose-3923-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/VCEJW/vcejw-villa-rose-3924-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/VCEJW/vcejw-villa-rose-3931-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/VCEJW/vcejw-villa-rose-3926-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/VCEJW/vcejw-villa-rose-3928-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/VCEJW/vcejw-villa-rose-3935-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/VCEJW/vcejw-villa-rose-3936-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/VCEJW/vcejw-villa-rose-3934-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/VCEJW/vcejw-villa-rose-3943-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645"
+      ],
+      "available": 4,
+      "rates": [
+        {
+          "id": "member-flexible",
+          "name": "Tarifa flexible para socios",
+          "description": "Tarifa especial para miembros de Marriott Bonvoy",
+          "pricePerNight": 1200,
+          "currency": "EUR",
+          "isMemberRate": true,
+          "memberDiscount": 5
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 1300,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad",
+          "Desayuno incluido"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 2,
+          "sofaBed": true,
+          "extraBedsAllowed": true,
+          "cribsAllowed": 0,
+          "maxCribsOrExtraBeds": 2,
+          "beddingDetails": [
+            "Colchón con cubierta tipo almohada",
+            "Colchón de plumas",
+            "Edredón"
+          ]
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Vista panorámica"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Secador de cabello",
+          "Bata",
+          "Pantuflas"
+        ],
+        "furnitureAndDecor": [
+          "Reloj despertador",
+          "Escritorio, para escribir / trabajar, tomacorriente"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía",
+          "Mini-bar, con cargo"
+        ],
+        "internetAndPhones": {
+          "phones": 3,
+          "phoneFeatures": [
+            "Teléfono inalámbrico",
+            "Correo de voz",
+            "Teléfono con altavoz"
+          ],
+          "internetAccess": "Acceso inalámbrico a Internet de cortesía",
+          "wifiNote": "El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy"
+        },
+        "entertainment": [
+          "Habitación de alta tecnología con equipos listos para conexión",
+          "Cable/satélite",
+          "Smart TV"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo",
+          "Vista al mar"
+        ],
+        "parkingAndTransport": [
+          "Servicio de transporte al aeropuerto"
+        ],
+        "hotelServices": [
+          "Gimnasio en las instalaciones",
+          "Servicio de apertura de cama"
+        ]
+      }
+    },
+    {
+      "id": "1",
+      "hotelId": "3",
+      "name": "Vendome, Habitación, 1 King",
+      "type": "premium",
+      "bedType": "king",
+      "view": "city",
+      "maxCapacity": 2,
+      "size": "41m²/441ft²",
+      "images": [
+        "https://cache.marriott.com/is/image/marriotts7prod/md-dohmd-king-vend-me-room-20879:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/is/image/marriotts7prod/md-dohmd-guest-room-work-desk-19444:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/is/image/marriotts7prod/md-dohmd-guest-room---bathroom-18656:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/is/image/marriotts7prod/md-dohmd-king-vend-me-amen-26352-03363:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/is/image/marriotts7prod/md-dohmd-king-vend-me-bat-39071-97120:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/is/image/marriotts7prod/md-dohmd-king-vend-me-det-10318-78111:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645"
+      ],
+      "available": 1,
+      "rates": [
+        {
+          "id": "member-flexible",
+          "name": "Tarifa flexible para socios",
+          "description": "Tarifa especial para miembros de Marriott Bonvoy",
+          "pricePerNight": 265,
+          "currency": "EUR",
+          "isMemberRate": true,
+          "memberDiscount": 15
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 300,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad",
+          "Check-in móvil"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 2,
+          "sofaBed": false,
+          "extraBedsAllowed": false,
+          "cribsAllowed": 0,
+          "maxCribsOrExtraBeds": 0,
+          "beddingDetails": [
+            "Colchón con cubierta tipo almohada",
+            "Colchón de plumas",
+            "Edredón"
+          ]
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Habitación para no fumadores"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Secador de cabello",
+          "Bata",
+          "Pantuflas"
+        ],
+        "furnitureAndDecor": [
+          "Reloj despertador",
+          "Caja de seguridad en la habitación, con cargo",
+          "Escritorio, para escribir / trabajar, tomacorriente"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía",
+          "Mini-bar, con cargo"
+        ],
+        "internetAndPhones": {
+          "phones": 2,
+          "phoneFeatures": [
+            "Teléfono inalámbrico",
+            "Correo de voz",
+            "Teléfono con altavoz"
+          ],
+          "internetAccess": "Acceso inalámbrico a Internet de cortesía",
+          "wifiNote": "El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy"
+        },
+        "entertainment": [
+          "Habitación de alta tecnología con equipos listos para conexión",
+          "Cable/satélite",
+          "Smart TV"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo"
+        ],
+        "parkingAndTransport": [
+          "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
+        ],
+        "hotelServices": [
+          "Gimnasio en las instalaciones",
+          "Servicio de apertura de cama"
+        ]
+      }
+    },
+    {
+      "id": "1",
+      "hotelId": "3429",
+      "name": "Suite Grand Terrace, Suite, 1 King, piso alto",
+      "type": "suite-studio",
+      "bedType": "king",
+      "view": "city",
+      "maxCapacity": 2,
+      "size": "86m²/925ft²-105m²/1130ft²",
+      "images": [
+        "https://cache.marriott.com/is/image/marriotts7prod/md-bcnmd-grand-terrace-suite-40753:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/BCNMD/bcnmd-suite-2134-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/BCNMD/bcnmd-terrace-suite-2137-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/BCNMD/bcnmd-suite-2132-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/BCNMD/bcnmd-terrace-suite-3639-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/BCNMD/bcnmd-suite-8471-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/is/image/marriotts7prod/md-bcnmd-grand-terrace-suite-41656:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/is/image/marriotts7prod/md-bcnmd-grand-terrace-suite27503-40017:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/is/image/marriotts7prod/md-bcnmd-grand-terrace-suite--32275:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645"
+      ],
+      "available": 1,
+      "rates": [
+        {
+          "id": "member-flexible",
+          "name": "Tarifa flexible para socios",
+          "description": "Tarifa especial para miembros de Marriott Bonvoy",
+          "pricePerNight": 720,
+          "currency": "EUR",
+          "isMemberRate": true,
+          "memberDiscount": 15
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 800,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad",
+          "Desayuno incluido"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 2,
+          "sofaBed": false,
+          "extraBedsAllowed": true,
+          "cribsAllowed": 1,
+          "maxCribsOrExtraBeds": 1,
+          "beddingDetails": [
+            "Colchón con cubierta tipo almohada",
+            "Colchón de plumas",
+            "Edredón"
+          ]
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Habitación para no fumadores",
+          "Balcón privado",
+          "Vista panorámica"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Secador de cabello",
+          "Bata",
+          "Pantuflas"
+        ],
+        "furnitureAndDecor": [
+          "Reloj despertador",
+          "Caja de seguridad en la habitación, con cargo",
+          "Escritorio, para escribir / trabajar, tomacorriente",
+          "Sofá"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía",
+          "Mini-bar, con cargo"
+        ],
+        "internetAndPhones": {
+          "phones": 3,
+          "phoneFeatures": [
+            "Teléfono inalámbrico",
+            "Correo de voz",
+            "Teléfono con altavoz"
+          ],
+          "internetAccess": "Acceso inalámbrico a Internet de cortesía",
+          "wifiNote": "El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy"
+        },
+        "entertainment": [
+          "Habitación de alta tecnología con equipos listos para conexión",
+          "Cable/satélite",
+          "Smart TV"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo"
+        ],
+        "parkingAndTransport": [
+          "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
+        ],
+        "hotelServices": [
+          "Gimnasio en las instalaciones",
+          "Servicio de apertura de cama"
+        ]
+      }
+    },
+    {
+      "id": "1",
+      "hotelId": "5b79",
+      "name": "Habitación Terrace Spectacular, Habitación, 1 King, vista al centro de la ciudad, terraza",
+      "type": "deluxe",
+      "bedType": "king",
+      "view": "sea",
+      "maxCapacity": 4,
+      "size": "50m²/538ft²",
+      "images": [
+        "https://cache.marriott.com/content/dam/marriott-renditions/DXBTP/dxbtp-king-spectacular-guestroom-8720-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/DXBTP/dxbtp-spectacular-terrace-livingarea-4190-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/DXBTP/dxbtp-spectacular-guestroom-balcony-8721-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/DXBTP/dxbtp-spectacular-terrace-views-4188-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/DXBTP/dxbtp-bathroom-4510-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645"
+      ],
+      "available": 3,
+      "rates": [
+        {
+          "id": "member-flexible",
+          "name": "Tarifa flexible para socios",
+          "description": "Tarifa especial para miembros de Marriott Bonvoy",
+          "pricePerNight": 780,
+          "currency": "EUR",
+          "isMemberRate": true,
+          "memberDiscount": 10
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 800,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad",
+          "Check-in móvil",
+          "Desayuno incluido"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 2,
+          "sofaBed": true,
+          "extraBedsAllowed": true,
+          "cribsAllowed": 1,
+          "maxCribsOrExtraBeds": 1,
+          "beddingDetails": [
+            "Colchón con cubierta tipo almohada",
+            "Colchón de plumas",
+            "Edredón"
+          ]
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Habitación para no fumadores",
+          "Vista panorámica",
+          "Balcón privado"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Secador de cabello",
+          "Bata",
+          "Pantuflas"
+        ],
+        "furnitureAndDecor": [
+          "Reloj despertador",
+          "Caja de seguridad en la habitación, con cargo",
+          "Escritorio, para escribir / trabajar, tomacorriente"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía",
+          "Mini-bar, con cargo"
+        ],
+        "internetAndPhones": {
+          "phones": 2,
+          "phoneFeatures": [
+            "Teléfono inalámbrico",
+            "Correo de voz",
+            "Teléfono con altavoz"
+          ],
+          "internetAccess": "Acceso inalámbrico a Internet de cortesía",
+          "wifiNote": "El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy"
+        },
+        "entertainment": [
+          "Habitación de alta tecnología con equipos listos para conexión",
+          "Cable/satélite",
+          "Smart TV"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo",
+          "Vista al mar"
+        ],
+        "parkingAndTransport": [
+          "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
+        ],
+        "hotelServices": [
+          "Gimnasio en las instalaciones",
+          "Servicio de apertura de cama"
+        ]
+      }
+    },
+    {
+      "id": "1",
+      "hotelId": "0349",
+      "name": "Elegante, Habitación, 1 King",
+      "type": "standard",
+      "bedType": "king",
+      "view": "limited",
+      "maxCapacity": 2,
+      "size": "21m²/226ft²",
+      "images": [
+        "https://cache.marriott.com/content/dam/marriott-renditions/PARMD/parmd-chic-room-7820-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/PARMD/parmd-guestroom-2898-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/PARMD/parmd-chic-room-7822-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/PARMD/parmd-guestroom-2899-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/is/image/marriotts7prod/parmd-room-7821:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/PARMD/parmd-bathroom-7823-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645"
+      ],
+      "available": 1,
+      "rates": [
+        {
+          "id": "member-flexible",
+          "name": "Tarifa flexible para socios",
+          "description": "Tarifa especial para miembros de Marriott Bonvoy",
+          "pricePerNight": 180,
+          "currency": "EUR",
+          "isMemberRate": true,
+          "memberDiscount": 15
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 200,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 2,
+          "sofaBed": false,
+          "extraBedsAllowed": false,
+          "cribsAllowed": 1,
+          "maxCribsOrExtraBeds": 0,
+          "beddingDetails": [
+            "Colchón con cubierta tipo almohada",
+            "Colchón de plumas",
+            "Edredón"
+          ]
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Habitación para no fumadores"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Secador de cabello",
+          "Bata",
+          "Pantuflas"
+        ],
+        "furnitureAndDecor": [
+          "Reloj despertador",
+          "Caja de seguridad en la habitación, con cargo",
+          "Escritorio, para escribir / trabajar, tomacorriente"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía",
+          "Mini-bar, con cargo"
+        ],
+        "internetAndPhones": {
+          "phones": 1,
+          "phoneFeatures": [
+            "Teléfono inalámbrico",
+            "Correo de voz",
+            "Teléfono con altavoz"
+          ],
+          "internetAccess": "Acceso inalámbrico a Internet de cortesía",
+          "wifiNote": "El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy"
+        },
+        "entertainment": [
+          "Habitación de alta tecnología con equipos listos para conexión",
+          "Cable/satélite"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo"
+        ],
+        "parkingAndTransport": [
+          "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
+        ],
+        "hotelServices": [
+          "Gimnasio en las instalaciones",
+          "Servicio de apertura de cama"
+        ]
+      }
+    },
+    {
+      "id": "1",
+      "hotelId": "33d6",
+      "name": "Deluxe, Habitación, 2 individual(es), vista al jardín",
+      "type": "deluxe",
+      "bedType": "double",
+      "view": "garden",
+      "maxCapacity": 3,
+      "size": "29m²/312ft²-34m²/366ft²",
+      "images": [
+        "https://cache.marriott.com/is/image/marriotts7prod/md-mucmd-deluxe-garden-view--38196-06812:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/MUCMD/mucmd-room-7595-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/MUCMD/mucmd-deluxe-gardenroom-view-9754-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/is/image/marriotts7prod/md-mucmd-deluxe-garden-vw-rm-33479-12496:Wide-Hor?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/MUCMD/mucmd-bathroom-7591-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645",
+        "https://cache.marriott.com/content/dam/marriott-renditions/MUCMD/mucmd-bathroom-7590-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=*:645"
+      ],
+      "available": 2,
+      "rates": [
+        {
+          "id": "member-flexible",
+          "name": "Tarifa flexible para socios",
+          "description": "Tarifa especial para miembros de Marriott Bonvoy",
+          "pricePerNight": 280,
+          "currency": "EUR",
+          "isMemberRate": true,
+          "memberDiscount": 15
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 300,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 2,
+          "sofaBed": false,
+          "extraBedsAllowed": true,
+          "cribsAllowed": 1,
+          "maxCribsOrExtraBeds": 1,
+          "beddingDetails": [
+            "Colchón con cubierta tipo almohada",
+            "Colchón de plumas",
+            "Edredón"
+          ]
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Habitación para no fumadores",
+          "Vista panorámica"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Secador de cabello",
+          "Bata",
+          "Pantuflas"
+        ],
+        "furnitureAndDecor": [
+          "Reloj despertador",
+          "Caja de seguridad en la habitación, con cargo",
+          "Escritorio, para escribir / trabajar, tomacorriente"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía",
+          "Mini-bar, con cargo"
+        ],
+        "internetAndPhones": {
+          "phones": 1,
+          "phoneFeatures": [
+            "Teléfono inalámbrico",
+            "Correo de voz",
+            "Teléfono con altavoz"
+          ],
+          "internetAccess": "Acceso inalámbrico a Internet de cortesía",
+          "wifiNote": "El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy"
+        },
+        "entertainment": [
+          "Habitación de alta tecnología con equipos listos para conexión",
+          "Cable/satélite",
+          "Smart TV"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo"
+        ],
+        "parkingAndTransport": [
+          "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
+        ],
+        "hotelServices": [
+          "Gimnasio en las instalaciones",
+          "Servicio de apertura de cama"
+        ]
+      }
     }
   ],
   "bookings": [
@@ -1349,6 +2522,52 @@
       "nights": 1,
       "status": "CONFIRMED",
       "createdAt": "2025-12-15T00:00:07.257Z"
+    },
+    {
+      "id": "5b17",
+      "hotelId": 1,
+      "roomId": 1,
+      "rateId": "flexible",
+      "checkIn": "2025-12-18",
+      "checkOut": "2025-12-19",
+      "rooms": 1,
+      "adults": 1,
+      "children": 0,
+      "guestInfo": {
+        "firstName": "Juan",
+        "lastName": "Perez",
+        "email": "juan@gmail.com",
+        "memberNumber": "BON123459",
+        "sendSmsConfirmation": false,
+        "country": "España",
+        "postalCode": "123123",
+        "city": "Barcelona",
+        "addressLine1": "calle 123",
+        "addressLine2": ""
+      },
+      "paymentInfo": {
+        "method": "credit-card",
+        "cardNumber": "1234",
+        "expiryMonth": "04",
+        "expiryYear": "2032",
+        "acceptTerms": true,
+        "receivePromotions": true,
+        "shareData": true,
+        "cardLastFour": "1234"
+      },
+      "isMember": true,
+      "userId": "f395",
+      "guestId": null,
+      "hotelName": "W Barcelona",
+      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
+      "rateName": "Tarifa flexible",
+      "pricePerNight": 750,
+      "totalPrice": 750,
+      "currency": "EUR",
+      "confirmationCode": "MRBRA7XN92025",
+      "nights": 1,
+      "status": "CONFIRMED",
+      "createdAt": "2025-12-18T23:46:53.348Z"
     }
   ]
 }
