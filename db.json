@@ -3,7 +3,7 @@
     {
       "id": "1",
       "email": "admin@demo.cl",
-      "password": "admin",
+      "password": "$2b$10$sz4BmKQzCIio..ELdm.4gOc7a/Q3nj0aTFL8ylOflZtP/fNnALoYO",
       "firstName": "Administrador",
       "lastName": "Sistema",
       "name": "Administrador",
@@ -14,7 +14,7 @@
     {
       "id": "2",
       "email": "cliente@demo.cl",
-      "password": "cliente",
+      "password": "$2b$10$4Kp5rS/xhwa5J0VTUD9Cber/Kgd5r0MM.TyngWwTgQ/a8RYRVNLAe",
       "firstName": "Cliente",
       "lastName": "Demo",
       "name": "Cliente Demo",
@@ -31,7 +31,7 @@
     {
       "id": "4cbe",
       "email": "prueba@gmail.com",
-      "password": "cuenta123",
+      "password": "$2b$10$M5j/QPI.YQLEjpJHXc9xquQ138hjrgS6aONAAonqpNBdm5vUhGa5W",
       "firstName": "prueba3",
       "lastName": "sadsad",
       "name": "prueba3 sadsad",
@@ -42,7 +42,7 @@
     {
       "id": "97b7",
       "email": "prueba1@gmail.com",
-      "password": "cuenta123",
+      "password": "$2b$10$ZShabWz5dDM1AuvnfAKLaefCYaVsVDdZ19nHMPEANE07p9cWqAxN.",
       "firstName": "prueba",
       "lastName": "4",
       "name": "prueba 4",
@@ -53,7 +53,7 @@
     {
       "id": "f395",
       "email": "juan@gmail.com",
-      "password": "cuenta123",
+      "password": "$2b$10$shTwyf7pIut12jPojkDVsOT6WD4XNnjeeR9iKwvqqdTS7SYUcurFu",
       "firstName": "Juan",
       "lastName": "Perez",
       "name": "Juan Perez",
@@ -64,7 +64,7 @@
     {
       "id": "cdaa",
       "email": "prueba2@gmail.com",
-      "password": "cuenta123",
+      "password": "$2b$10$SopMocgJwOgNIqaahJFoLe55YxskDwpzMzfXUYgfjT.WtlrABooG6",
       "firstName": "Prueba2",
       "lastName": "asd",
       "name": "Prueba2 asd",
@@ -555,8 +555,8 @@
         },
         {
           "category": "restaurants",
-          "title": "Restaurantes",
-          "imageUrl": "assets/brand/hotels/Le-Royal-Meridien/md-dohmd-latest-recipe-19606_Wide-Hor.png"
+          "title": "Restaurante",
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/md-dohmd-adrift-anda-15358:Classic-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
         }
       ],
       "location": {
@@ -725,7 +725,7 @@
       "availableRooms": 25,
       "isActive": true,
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-12-19T00:31:11.460Z"
+      "updatedAt": "2025-12-23T06:27:16.279Z"
     },
     {
       "id": "3429",

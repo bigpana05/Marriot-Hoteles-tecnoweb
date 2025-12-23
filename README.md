@@ -1,7 +1,7 @@
-# Marriott Hoteles – Proyecto Tecnologías Web
+# Marriott International – Proyecto Tecnologías Web
 
 Proyecto grupal del ramo **Tecnologías Web** de Ingeniería Civil en Computación e Informática.  
-El sistema implementa una **plataforma SPA en Angular** para la gestión de estancias y reservas en la cadena Marriott, con **vistas diferenciadas por rol** (Cliente y Administrador).
+El sistema implementa una **plataforma SPA en Angular** para la gestión integral de reservas hoteleras en la cadena Marriott International, con **vistas diferenciadas por rol** (Cliente y Administrador), sistema de autenticación robusto con encriptación, y funcionalidades avanzadas de búsqueda y reserva de habitaciones.
 
 ---
 
@@ -21,194 +21,297 @@ El sistema implementa una **plataforma SPA en Angular** para la gestión de esta
 - **Framework:** Angular 15.2.0
 - **TypeScript:** 4.9.4
 - **Librerías:** Bootstrap 5.3.8, jQuery 3.7.1, Popper.js 1.16.1
+- **Seguridad:** bcryptjs 2.4.3, crypto-js 4.2.0
 - **Backend Mock:** json-server (puerto 3000)
 - **RxJS:** 7.8.0
 - **Estilos globales:** `src/styles.scss`
 
 ### Estructura modular
 
-- `pages/client` → vistas del cliente (home, login, register, profile, catalog, cart)
-- `pages/admin` → vistas del administrador (dashboard, hotels, events, users)
-- `components` → elementos compartidos (navbar, footer, etc.)
-- `core/services` → servicios de inyección de dependencias (AuthService, HotelService, AdminUserService, EventService)
-- `core/guards` → protección de rutas (AuthGuard, RoleGuard)
-- `core/models` → interfaces y tipos de datos
-- `shared` → recursos comunes (not-found page)
+- `pages/client` → Vistas del cliente (home, login, register, profile, search-hotels, reserve-hotels, complete-booking, booking-confirmation, my-reservations, guest-reservations, digital-checkin, experiences, offers, groups)
+- `pages/admin` → Vistas del administrador (dashboard, hotels, events, users, bookings, rooms, room-occupancy, group-hotels, group-requests)
+- `components` → Elementos compartidos (navbar, footer)
+- `core/services` → Servicios de inyección de dependencias (AuthService, EncryptionService, HotelService, BookingService, EventService, AdminUserService)
+- `core/guards` → Protección de rutas (AuthGuard, RoleGuard, GuestGuard)
+- `core/models` → Interfaces y tipos de datos (User, Hotel, Room, Booking, Event, etc.)
+- `shared` → Recursos comunes (not-found page)
 
-### Rutas base
+### Sistema de Seguridad Implementado
 
-#### Rutas Públicas (Cliente)
+El proyecto implementa un robusto sistema de encriptación de doble capa:
 
-- `/client/home` → página principal
-- `/client/login` → autenticación de usuario
-- `/client/register` → registro de nuevo usuario
-- `/client/catalog` → catálogo de hoteles (sin protección)
+#### **Encriptación bcrypt para Contraseñas**
+- Hashing irreversible con sal única por contraseña
+- 10 rondas de procesamiento (estándar de seguridad)
+- Las contraseñas nunca se almacenan en texto plano
+- Imposible recuperar la contraseña original
 
-#### Rutas Protegidas (Cliente)
+#### **Encriptación AES para Datos de Sesión**
+- Encriptación simétrica AES-256 para datos en `localStorage`
+- Protección contra manipulación de roles y datos de usuario
+- Los datos de sesión son ilegibles sin la clave secreta
 
-- `/client/profile` → perfil del usuario logueado (requiere AUTH + rol CLIENT)
-- `/client/cart` → carrito de compras (requiere AUTH + rol CLIENT)
+#### **Script de Migración**
+- `scripts/hash-passwords.js` para hashear contraseñas existentes en `db.json`
+- Actualización automática de contraseñas a formato bcrypt
 
-#### Rutas Protegidas (Administrador)
+---
 
-- `/admin/dashboard` → resumen general (requiere AUTH + rol ADMIN)
+## Rutas del Sistema
+
+### Rutas Públicas (Cliente)
+
+- `/client/home` → Página principal con ofertas, hoteles destacados, experiencias
+- `/client/login` → Autenticación de usuario (protegido con GuestGuard)
+- `/client/register` → Registro de nuevo usuario (protegido con GuestGuard)
+- `/client/search-hotels` → Búsqueda de hoteles por destino y fechas
+- `/client/experiences` → Experiencias y amenidades
+- `/client/offers` → Ofertas y promociones exclusivas
+- `/client/groups` → Búsqueda de hoteles para grupos
+- `/client/guest-reservations` → Consulta de reservas sin login
+
+### Rutas Protegidas (Cliente)
+
+- `/client/profile` → Perfil del usuario (requiere AUTH + rol CLIENT)
+- `/client/hotel/:id/availability` → Calendario de disponibilidad
+- `/client/hotel/:id/rooms` → Selección de habitaciones
+- `/client/hotel/:id/booking` → Completar reserva
+- `/client/booking-confirmation/:code` → Confirmación de reserva
+- `/client/my-reservations` → Mis reservas (requiere AUTH)
+- `/client/check-in/:confirmationCode` → Check-in digital
+- `/client/groups/request/:id` → Solicitud de reserva grupal
+- `/client/groups/confirmation/:code` → Confirmación de reserva grupal
+
+### Rutas Protegidas (Administrador)
+
+- `/admin/dashboard` → Resumen estadístico (requiere AUTH + rol ADMIN)
 - `/admin/hotels` → CRUD de hoteles (requiere AUTH + rol ADMIN)
 - `/admin/events` → CRUD de eventos (requiere AUTH + rol ADMIN)
-- `/admin/users` → gestión de usuarios (requiere AUTH + rol ADMIN)
+- `/admin/users` → Gestión de usuarios (requiere AUTH + rol ADMIN)
+- `/admin/bookings` → Gestión de reservas (requiere AUTH + rol ADMIN)
+- `/admin/rooms` → Gestión de habitaciones (requiere AUTH + rol ADMIN)
+- `/admin/room-occupancy` → Ocupación de habitaciones (requiere AUTH + rol ADMIN)
+- `/admin/group-hotels` → Hoteles para grupos (requiere AUTH + rol ADMIN)
+- `/admin/group-requests` → Solicitudes grupales (requiere AUTH + rol ADMIN)
 
 ### Navegación y Protección de Rutas
 
 - **Layouts independientes:**
-
-  - `ClientComponent` → contenedor para rutas cliente (con navbar y footer)
-  - `AdminComponent` → contenedor para rutas admin (con navbar y footer)
+  - `ClientComponent` → Contenedor para rutas cliente (con navbar y footer)
+  - `AdminComponent` → Contenedor para rutas admin (con sidebar y header)
 
 - **Guards implementados:**
-  - `AuthGuard` → verifica si el usuario está autenticado
-  - `RoleGuard` → verifica si el usuario tiene el rol requerido para la ruta
+  - `AuthGuard` → Verifica si el usuario está autenticado
+  - `RoleGuard` → Verifica si el usuario tiene el rol requerido
+  - `GuestGuard` → Redirige usuarios autenticados (para login/register)
+  
 - **Redirección inicial:** `/` → `/client/home`
 - **Rutas no encontradas:** `**` → `/404` (NotFoundComponent)
 
 ### Versionado y Estándar de Commits
 
-- `feat:` nueva funcionalidad
-- `fix:` corrección de errores
-- `chore:` configuración / estructura
-- `docs:` documentación
-- Ramas por feature:
-  - `feature/login-form`
-  - `feature/register-module`
-  - `feature/layout-navbar-static`
-  - etc.
+- `feat:` Nueva funcionalidad
+- `fix:` Corrección de errores
+- `chore:` Configuración / estructura
+- `docs:` Documentación
+- `style:` Cambios de estilos
+- Ramas por feature: `feature/nombre-funcionalidad`
 
 ---
 
-## Estructura funcional actual
+## Funcionalidades Implementadas
 
-### Vistas del Cliente
+### **Módulo de Autenticación y Seguridad**
+- Login con email y contraseña hasheada (bcrypt)
+- Register con validación completa y hashing automático
+- Logout con limpieza de sesión encriptada
+- Cambio de contraseña con verificación del hash anterior
+- Protección de datos de sesión con AES-256
+- Generación de tokens de sesión seguros
+- Prevención de manipulación de roles en localStorage
 
-- **Home** → página de inicio con hoteles destacados
-- **Login** → autenticación con email/contraseña
-- **Register** → registro de nuevos usuarios con selección de país
-- **Profile** → información del usuario autenticado
-- **Catalog** → listado de hoteles disponibles
-- **Cart** → carrito de compras (estructura base)
+### **Sistema de Búsqueda y Reservas**
+- Búsqueda avanzada de hoteles por:
+  - Destino (ciudad, país, nombre de hotel)
+  - Fechas de check-in y check-out con validación
+  - Número de huéspedes (adultos y niños)
+  - Cantidad de habitaciones
+- Calendario de disponibilidad de habitaciones
+- Selección de habitaciones con galería de imágenes
+- Modal de detalles de habitación con carrusel
+- Flujo completo de reserva en 3 pasos
+- Countdown timer de 15 minutos para reservas en proceso
+- Sistema de descuentos para miembros Marriott (10%)
+- Confirmación de reserva con código único
+- Gestión de reservas personales
+- Consulta de reservas sin login (con código de confirmación)
+- Check-in digital
 
-### Vistas del Administrador
+### **Sistema de Reservas Grupales**
+- Búsqueda de hoteles aptos para grupos (10+ habitaciones)
+- Formulario de solicitud de cotización grupal
+- Gestión administrativa de solicitudes grupales
+- Confirmación de reservas grupales
 
-- **Dashboard** → resumen con estadísticas (total usuarios, hoteles, eventos, promedio ocupación)
-- **Gestión de Hoteles** → CRUD completo de hoteles (crear, leer, actualizar, eliminar)
-- **Gestión de Eventos** → CRUD completo de eventos
-- **Gestión de Usuarios** → CRUD completo de usuarios (crear, leer, actualizar, eliminar)
-
-> **Protección:** El acceso a cada vista se controla mediante `AuthGuard` (autenticación) y `RoleGuard` (rol requerido).
-
----
-
-## ✔️ Funcionalidades implementadas / por implementar
-
-| Concepto / Tecnología                                            | Estado |
-| ---------------------------------------------------------------- | :----: |
-| **Interpolation** `{{ }}`                                        |   ✅   |
-| **Template Reference** `#ref="ngForm"`                           |   ✅   |
-| **Property Binding** `[property]="value"`                        |   ✅   |
-| **Event Binding** `(click)="method()"`                           |   ✅   |
-| **Two-way Binding** `[(ngModel)]="var"`                          |   ✅   |
-| **Local Reference** `#variable`                                  |   ✅   |
-| **Directivas:** `*ngIf`, `*ngFor`, `ng-container`, `ng-template` |   ✅   |
-| **Components, Services, Injection, Observables**                 |   ✅   |
-| **Models, Interfaces y DTOs**                                    |   ✅   |
-| **Buenas prácticas de desarrollo**                               |   ✅   |
-| **Bootstrap 5 para interfaz gráfica**                            |   ✅   |
-| **Seguridad: Routes, Guards y control de roles**                 |   ✅   |
-| **Otros frameworks o librerías**                                 |   ☐    |
-
----
-
-## Contenido funcional detallado del sistema
-
-### Autenticación
-
-- ✅ Login con email/contraseña
-- ✅ Register con validación de campos y selección de país
-- ✅ Logout
-- ✅ Almacenamiento de sesión en localStorage
-- ✅ Diferenciación de roles: ADMIN y CLIENT
-
-### Vistas del Cliente
-
-- ✅ Home con hoteles destacados
-- ✅ Catálogo de hoteles consultable
-- ✅ Perfil personal (solo si está autenticado)
-- ✅ Carrito de compras (estructura base)
-- ✅ Rutas protegidas con AuthGuard y RoleGuard
-
-### Vistas del Administrador
-
-- ✅ Dashboard con estadísticas:
-  - Total de usuarios (usuarios ADMIN + CLIENT)
-  - Total de hoteles
-  - Total de eventos
+### **Panel de Administración**
+- Dashboard con estadísticas en tiempo real:
+  - Total de usuarios, hoteles, eventos
+  - Reservas activas y completadas
+  - Ingresos totales
   - Promedio de ocupación
-- ✅ CRUD de Hoteles (crear, leer, actualizar, eliminar)
-- ✅ CRUD de Eventos (crear, leer, actualizar, eliminar)
-- ✅ CRUD de Usuarios (crear, leer, actualizar, eliminar)
-- ✅ Todas las vistas protegidas con rol ADMIN
+- CRUD completo de hoteles con:
+  - Información general (nombre, ubicación, categoría)
+  - Múltiples imágenes
+  - Gestión de servicios y amenidades
+  - Control de estado (activo/inactivo)
+- CRUD completo de habitaciones con:
+  - Tipos de habitación
+  - Precios y capacidad
+  - Imágenes y descripciones
+  - Control de disponibilidad
+- Gestión de ocupación de habitaciones
+- CRUD de eventos
+- CRUD de usuarios con control de roles
+- Gestión de reservas (ver, cancelar)
+- Gestión de hoteles y solicitudes grupales
 
-### Características Técnicas Implementadas
+### **Interfaz de Usuario**
+- Página principal (Home) con:
+  - Hero section con búsqueda integrada
+  - Carrusel de ofertas exclusivas (3 cards desktop, 1 mobile)
+  - Sección "Únete a Marriott International"
+  - Hoteles destacados (carrusel responsive)
+  - Experiencias y amenidades (layout asimétrico)
+  - Sección de inspiración
+- Navbar dinámico según autenticación y rol
+- Footer completo con:
+  - Enlaces corporativos de Marriott reales
+  - Principales destinos dinámicos con búsqueda integrada
+  - Redes sociales vinculadas
+- Diseño 100% responsive (320px - 1920px+)
+- Paleta de colores corporativa Marriott
+- Componentes reutilizables
+- Animaciones y transiciones suaves
+- Validaciones visuales en formularios
 
-- ✅ Angular 15 con Standalone components ready
-- ✅ Bootstrap 5.3.8 para diseño responsivo
-- ✅ Observables y RxJS para operaciones asincrónicas
-- ✅ Guards para protección de rutas
-- ✅ Inyección de dependencias con `@Injectable`
-- ✅ Validaciones en formularios (template-driven)
-- ✅ Interpolación, property binding, event binding
-- ✅ Two-way binding con `[(ngModel)]`
-- ✅ Directivas `*ngIf`, `*ngFor`, `ng-container`, `ng-template`
-- ✅ Template references `#ref="ngForm"` y `#ref="ngModel"`
-
----
-
-## Estado del Proyecto
-
-### **Sprint 1 – Configuración Inicial (✅ COMPLETADO)**
-
-- ✅ Configuración Angular 15 con dependencias
-- ✅ Estructura modular por roles (client/admin)
-- ✅ Layouts anidados y rutas configuradas
-- ✅ Integración con GitHub
-- ✅ Documentación inicial y setup
-
----
-
-### **Sprint 2 – Módulo de Autenticación y Roles (✅ COMPLETADO)**
-
-#### ✅ Tareas Completadas
-
-- **Login:** Componente con validación, autenticación simulada
-- **Register:** Componente con campos validados y selección de país
-- **AuthService:** Servicios de login, register, logout con BehaviorSubject
-- **AuthGuard:** Protección de rutas por autenticación
-- **RoleGuard:** Protección de rutas por rol de usuario
-- **Navbar Dinámico:** Opciones diferentes según autenticación y rol
-- **Flujo Navegación:** Coherencia entre módulos cliente y admin
-
-#### 📊 Resultados Sprint 2
-
-- **Autenticación:** Sistema completo de login/register/logout
-- **Roles Funcionales:** Cliente (CLIENT) y Administrador (ADMIN)
-- **Guards:** Protección bidireccional (auth + role)
-- **Experiencia Usuario:** Navbar y redirecciones dinámicas
-- **Código:** Commits semánticos, ramas por feature, integración en dev
+### **Gestión de Miembros**
+- Sistema de membresía Marriott International
+- Generación automática de Member ID
+- Descuentos exclusivos para miembros (10%)
+- Visualización de beneficios en perfil
 
 ---
 
-## Próximos pasos (Sprint 3)
+## Funcionalidades y Conceptos Angular Aplicados
 
-- Módulo de catálogo avanzado
-- Filtros y búsqueda
-- Reservas reales
-- Integración con servicios simulados (mock API)
+| Concepto / Tecnología | Estado |
+|----------------------|:------:|
+| Interpolation | ✅ |
+| Property Binding | ✅ |
+| Event Binding | ✅ |
+| Two-way Binding | ✅ |
+| Directivas estructurales (`NgIf`, `NgFor`) | ✅ |
+| Comunicación entre componentes (`@Input`, `@Output`) | ✅ |
+| Servicios e Inyección de dependencias | ✅ |
+| Observables | ✅ |
+| Guards y control de roles | ✅ |
+| Modularización y buenas prácticas | ✅ |
+| Diseño responsive con Bootstrap | ✅ |
 
 ---
+
+## Metodología de Trabajo
+
+El proyecto se desarrolló mediante **sprints**, utilizando **tareas en lugar de historias de usuario** por razones de tiempo y organización, manteniendo igualmente una correcta planificación y seguimiento del avance mediante un **backlog centralizado**.
+
+### Sprints Realizados
+
+#### **Sprint 1 – Configuración Inicial (COMPLETADO)**
+- Configuración Angular 15 con dependencias
+- Estructura modular por roles (client/admin)
+- Layouts anidados y rutas configuradas
+- Integración con GitHub
+- Documentación inicial y setup
+
+#### **Sprint 2 – Módulo de Autenticación y Roles (COMPLETADO)**
+- Sistema completo de login/register/logout
+- AuthService con BehaviorSubject
+- AuthGuard, RoleGuard, GuestGuard
+- Navbar dinámico según rol
+- Protección bidireccional de rutas
+
+#### **Sprint 3 – Sistema de Búsqueda y Reservas (COMPLETADO)**
+- Búsqueda avanzada de hoteles
+- Calendario de disponibilidad
+- Selección de habitaciones
+- Flujo completo de reserva
+- Confirmación y gestión de reservas
+- Check-in digital
+
+#### **Sprint 4 – Panel de Administración (COMPLETADO)**
+- Dashboard con estadísticas
+- CRUD completo de hoteles y habitaciones
+- CRUD de eventos y usuarios
+- Gestión de reservas y ocupación
+
+#### **Sprint 5 – Interfaz de Usuario y Seguridad (COMPLETADO)**
+- Diseño completo de Home con todas las secciones
+- Footer y Navbar finalizados
+- Sistema de encriptación bcrypt + AES
+- Responsive design completo
+- Reservas grupales
+- Integración final de componentes
+
+---
+
+## Estado Final del Proyecto
+
+- Configuración completa del entorno Angular
+- Estructura modular por roles
+- Sistema de autenticación y autorización con encriptación
+- Guards y navegación protegida (AuthGuard, RoleGuard, GuestGuard)
+- Sistema completo de búsqueda y reservas
+- Panel administrativo con todas las funcionalidades CRUD
+- Interfaz responsive y pulida (320px - 1920px+)
+- Sistema de membresía con descuentos
+- Reservas grupales funcionales
+- Documentación de seguridad completa
+- Gestión de código con Git y GitHub
+- Proyecto funcional y listo para demostración
+
+---
+
+## Tecnologías y Librerías Utilizadas
+
+### Core
+- **Angular 15.2.0** - Framework principal
+- **TypeScript 4.9.4** - Lenguaje de programación
+- **RxJS 7.8.0** - Programación reactiva
+
+### UI/UX
+- **Bootstrap 5.3.8** - Framework CSS
+- **SCSS** - Preprocesador CSS
+- **jQuery 3.7.1** - Manipulación DOM
+- **Popper.js 1.16.1** - Tooltips y popovers
+
+### Seguridad
+- **bcryptjs 2.4.3** - Hashing de contraseñas
+- **crypto-js 4.2.0** - Encriptación AES
+
+### Backend Mock
+- **json-server** - API REST simulada
+- **concurrently** - Ejecución simultánea de procesos
+
+---
+
+## Conclusión
+
+El proyecto cumple con los requerimientos técnicos y académicos del ramo, demostrando el uso correcto de Angular, buenas prácticas de desarrollo frontend, trabajo colaborativo y gestión de código. 
+
+Se ha implementado un sistema completo de gestión hotelera con:
+- **Seguridad robusta** mediante encriptación de doble capa (bcrypt + AES)
+- **Experiencia de usuario pulida** con diseño responsive y animaciones
+- **Arquitectura escalable** con modularización y separación de responsabilidades
+- **Funcionalidades avanzadas** como búsqueda multi-criterio, calendario de disponibilidad, sistema de reservas completo y panel administrativo completo
+
+El proyecto deja una base sólida para una posible integración futura con backend real, base de datos persistente, sistemas de pago, y funcionalidades adicionales como notificaciones en tiempo real y análisis de datos.

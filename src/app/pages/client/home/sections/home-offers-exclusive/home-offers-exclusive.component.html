@@ -6,7 +6,8 @@
             <p class="subtitle">Explora descuentos, paquetes especiales y ofertas exclusivas disponibles por tiempo
                 limitado.
             </p>
-            <a href="#" class="view-more">Ver Más <img src="assets/icons/arrow-right.svg" alt="Flecha Derecha"></a>
+            <a routerLink="/client/offers" class="view-more">Ver Más <img src="assets/icons/arrow-right.svg"
+                    alt="Flecha Derecha"></a>
         </div>
         <div class="carousel-container">
             <button class="nav-btn prev" (click)="prevSlide()">
@@ -18,7 +19,7 @@
                     [class.mobile-mode]="itemsPerSlide === 1">
                     <div class="carousel-slide" *ngFor="let offer of offers; let i = index"
                         [class.active]="i >= currentSlide * itemsPerSlide && i < (currentSlide + 1) * itemsPerSlide">
-                        <div class="offer-card">
+                        <div class="offer-card" routerLink="/client/offers" style="cursor: pointer;">
                             <div class="image-container">
                                 <img [src]="offer.image" [alt]="offer.title" class="offer-image">
                                 <div class="member-exclusive" *ngIf="offer.isMemberExclusive">
@@ -28,7 +29,7 @@
                                 <div class="card-overlay">
                                     <span class="offer-subtitle">{{ offer.subtitle }}</span>
                                     <h3 class="offer-title">{{ offer.title }}</h3>
-                                    <a [href]="offer.link" class="details-link">
+                                    <a routerLink="/client/offers" class="details-link">
                                         <img src="assets/icons/arrow-white.svg" alt="Details">
                                     </a>
                                 </div>

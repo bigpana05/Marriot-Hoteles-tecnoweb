@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { EncryptionService } from './encryption.service';
 
 export type UserRole = 'ADMIN' | 'CLIENT';
 
@@ -32,13 +33,16 @@ export class AuthService {
   );
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private encryptionService: EncryptionService
+  ) { }
 
-  /** Leer usuario guardado en localStorage */
+  /** Leer usuario guardado en localStorage (encriptado) */
   private loadStoredUser(): User | null {
     try {
-      const raw = localStorage.getItem('user');
-      return raw ? (JSON.parse(raw) as User) : null;
+      const user = this.encryptionService.getSecureItem('user');
+      return user;
     } catch {
       return null;
     }
@@ -59,26 +63,51 @@ export class AuthService {
     return this.currentUserSubject.value?.role === role;
   }
 
-  /** Login contra json-server */
+  /** Login contra json-server con verificación de contraseña hasheada */
   async login(email: string, password: string): Promise<User> {
-    const url =
-      `${this.API_URL}/users?email=` +
-      encodeURIComponent(email) +
-      `&password=` +
-      encodeURIComponent(password);
-
+    // Buscar usuario solo por email
+    const url = `${this.API_URL}/users?email=` + encodeURIComponent(email);
     const users = await firstValueFrom(this.http.get<User[]>(url));
 
     if (!users.length) {
       throw new Error('Credenciales inválidas');
     }
 
+    const dbUser = users[0];
+
+    // Verificar contraseña usando bcrypt
+    const passwordMatch = await this.encryptionService.verifyPassword(
+      password,
+      dbUser.password || ''
+    );
+
+    if (!passwordMatch) {
+      throw new Error('Credenciales inválidas');
+    }
+
+    // Generar token de sesión seguro
+    const sessionToken = this.encryptionService.generateToken(64);
+
+    // Preparar usuario sin contraseña
     const user: User = {
-      ...users[0],
-      token: 'fake-jwt-demo', // Token de sesión fake para testing
+      id: dbUser.id,
+      email: dbUser.email,
+      name: dbUser.name,
+      firstName: dbUser.firstName,
+      lastName: dbUser.lastName,
+      role: dbUser.role,
+      bonvoyNumber: dbUser.bonvoyNumber,
+      country: dbUser.country,
+      postalCode: dbUser.postalCode,
+      city: dbUser.city,
+      addressLine1: dbUser.addressLine1,
+      addressLine2: dbUser.addressLine2,
+      token: sessionToken,
+      // NO incluir password en el objeto de sesión
     };
 
-    localStorage.setItem('user', JSON.stringify(user));
+    // Guardar en localStorage de forma encriptada
+    this.encryptionService.setSecureItem('user', user);
     this.currentUserSubject.next(user);
 
     return user;
@@ -86,7 +115,7 @@ export class AuthService {
 
   /** Cerrar sesión */
   logout(): void {
-    localStorage.removeItem('user');
+    this.encryptionService.removeSecureItem('user');
     this.currentUserSubject.next(null);
   }
 
@@ -132,18 +161,23 @@ export class AuthService {
       throw new Error('El correo electrónico ya está registrado');
     }
 
+    // Hashear contraseña con bcrypt
+    const hashedPassword = await this.encryptionService.hashPassword(userData.password);
+
     // Generar número de miembro
     const bonvoyNumber = await firstValueFrom(this.generateBonvoyNumber());
 
-    // Crear nuevo usuario
+    // Generar token de sesión seguro
+    const sessionToken = this.encryptionService.generateToken(64);
+
+    // Crear nuevo usuario con contraseña hasheada
     const newUser = {
       email: userData.email,
-      password: userData.password,
+      password: hashedPassword, // Contraseña encriptada
       firstName: userData.firstName,
       lastName: userData.lastName,
       name: `${userData.firstName} ${userData.lastName}`,
       role: 'CLIENT' as UserRole,
-      token: `token-${Date.now()}`,
       bonvoyNumber: bonvoyNumber
     };
 
@@ -152,13 +186,21 @@ export class AuthService {
       this.http.post<User>(`${this.API_URL}/users`, newUser)
     );
 
-    // Iniciar sesión automáticamente
+    // Preparar usuario para sesión (sin contraseña)
     const userWithToken: User = {
-      ...createdUser,
-      token: `token-${Date.now()}`
+      id: createdUser.id,
+      email: createdUser.email,
+      name: createdUser.name,
+      firstName: createdUser.firstName,
+      lastName: createdUser.lastName,
+      role: createdUser.role,
+      bonvoyNumber: createdUser.bonvoyNumber,
+      token: sessionToken,
+      // NO incluir password
     };
 
-    localStorage.setItem('user', JSON.stringify(userWithToken));
+    // Guardar en localStorage de forma encriptada
+    this.encryptionService.setSecureItem('user', userWithToken);
     this.currentUserSubject.next(userWithToken);
 
     return userWithToken;
@@ -194,8 +236,8 @@ export class AuthService {
       token: this.currentUser?.token || `token-${Date.now()}`
     };
 
-    // Actualizar el localStorage y el BehaviorSubject
-    localStorage.setItem('user', JSON.stringify(userWithToken));
+    // Actualizar el localStorage y el BehaviorSubject (encriptado)
+    this.encryptionService.setSecureItem('user', userWithToken);
     this.currentUserSubject.next(userWithToken);
 
     return userWithToken;
@@ -214,26 +256,31 @@ export class AuthService {
       this.http.get<User>(`${this.API_URL}/users/${userId}`)
     );
 
-    // Verificar que la contraseña actual sea correcta
-    if (user.password !== currentPassword) {
+    // Verificar que la contraseña actual sea correcta usando bcrypt
+    const passwordMatch = await this.encryptionService.verifyPassword(
+      currentPassword,
+      user.password || ''
+    );
+
+    if (!passwordMatch) {
       throw new Error('La contraseña actual no es correcta');
     }
 
+    // Hashear la nueva contraseña
+    const hashedPassword = await this.encryptionService.hashPassword(newPassword);
+
     // Actualizar la contraseña en la base de datos
-    const updatedUser = await firstValueFrom(
-      this.http.patch<User>(`${this.API_URL}/users/${userId}`, { password: newPassword })
+    await firstValueFrom(
+      this.http.patch<User>(`${this.API_URL}/users/${userId}`, { password: hashedPassword })
     );
 
-    // Mantener el token actual
-    const userWithToken: User = {
-      ...updatedUser,
-      token: this.currentUser?.token || `token-${Date.now()}`
-    };
+    // Mantener el token actual y datos del usuario (sin contraseña)
+    const currentSessionUser = this.currentUser;
+    if (currentSessionUser) {
+      // No es necesario actualizar nada más que confirmar que la operación fue exitosa
+      return currentSessionUser;
+    }
 
-    // Actualizar el localStorage y el BehaviorSubject
-    localStorage.setItem('user', JSON.stringify(userWithToken));
-    this.currentUserSubject.next(userWithToken);
-
-    return userWithToken;
+    throw new Error('Sesión inválida');
   }
 }
