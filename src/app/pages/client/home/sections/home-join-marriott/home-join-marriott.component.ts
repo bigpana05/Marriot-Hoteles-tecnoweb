@@ -36,12 +36,12 @@ export class HomeJoinMarriottComponent {
     actionButtons: ActionButton[] = [
         {
             label: 'Inscríbete gratis',
-            link: '#',
+            link: '/client/register',
             variant: 'primary'
         },
         {
             label: 'Iniciar sesión',
-            link: '#',
+            link: '/client/login',
             variant: 'secondary'
         }
     ];

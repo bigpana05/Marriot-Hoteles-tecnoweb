@@ -11,7 +11,7 @@
                     </div>
                     <!-- Botones para desktop -->
                     <div class="buttons buttons-desktop">
-                        <a *ngFor="let btn of actionButtons" [href]="btn.link" class="btn"
+                        <a *ngFor="let btn of actionButtons" [routerLink]="btn.link" class="btn"
                             [ngClass]="'btn-' + btn.variant">
                             {{ btn.label }}
                         </a>
@@ -25,7 +25,8 @@
                 </div>
                 <!-- Botones para móvil -->
                 <div class="buttons buttons-mobile">
-                    <a *ngFor="let btn of actionButtons" [href]="btn.link" class="btn" [ngClass]="'btn-' + btn.variant">
+                    <a *ngFor="let btn of actionButtons" [routerLink]="btn.link" class="btn"
+                        [ngClass]="'btn-' + btn.variant">
                         {{ btn.label }}
                     </a>
                 </div>
