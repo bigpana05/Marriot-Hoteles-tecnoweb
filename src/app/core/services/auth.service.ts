@@ -15,6 +15,11 @@ export interface User {
   token?: string;
   bonvoyNumber?: string;
   password?: string;
+  country?: string;
+  postalCode?: string;
+  city?: string;
+  addressLine1?: string;
+  addressLine2?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -27,7 +32,7 @@ export class AuthService {
   );
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /** Leer usuario guardado en localStorage */
   private loadStoredUser(): User | null {
@@ -153,6 +158,79 @@ export class AuthService {
       token: `token-${Date.now()}`
     };
 
+    localStorage.setItem('user', JSON.stringify(userWithToken));
+    this.currentUserSubject.next(userWithToken);
+
+    return userWithToken;
+  }
+
+  /**
+   * Actualiza los datos del usuario actual
+   * @param userId - ID del usuario a actualizar
+   * @param userData - Datos parciales a actualizar (firstName, lastName)
+   * @returns Promise con el usuario actualizado
+   */
+  async updateUser(userId: number | string, userData: Partial<User>): Promise<User> {
+    // Actualizar en la base de datos
+    const updatedUser = await firstValueFrom(
+      this.http.patch<User>(`${this.API_URL}/users/${userId}`, userData)
+    );
+
+    // Recalcular el nombre completo si se actualizaron firstName o lastName
+    if (userData.firstName || userData.lastName) {
+      const firstName = userData.firstName || updatedUser.firstName || '';
+      const lastName = userData.lastName || updatedUser.lastName || '';
+      updatedUser.name = `${firstName} ${lastName}`;
+
+      // Actualizar el nombre en la base de datos
+      await firstValueFrom(
+        this.http.patch<User>(`${this.API_URL}/users/${userId}`, { name: updatedUser.name })
+      );
+    }
+
+    // Mantener el token actual
+    const userWithToken: User = {
+      ...updatedUser,
+      token: this.currentUser?.token || `token-${Date.now()}`
+    };
+
+    // Actualizar el localStorage y el BehaviorSubject
+    localStorage.setItem('user', JSON.stringify(userWithToken));
+    this.currentUserSubject.next(userWithToken);
+
+    return userWithToken;
+  }
+
+  /**
+   * Actualiza la contraseña del usuario actual
+   * @param userId - ID del usuario
+   * @param currentPassword - Contraseña actual para validación
+   * @param newPassword - Nueva contraseña
+   * @returns Promise con el usuario actualizado
+   */
+  async updatePassword(userId: number | string, currentPassword: string, newPassword: string): Promise<User> {
+    // Obtener el usuario actual de la base de datos para validar la contraseña
+    const user = await firstValueFrom(
+      this.http.get<User>(`${this.API_URL}/users/${userId}`)
+    );
+
+    // Verificar que la contraseña actual sea correcta
+    if (user.password !== currentPassword) {
+      throw new Error('La contraseña actual no es correcta');
+    }
+
+    // Actualizar la contraseña en la base de datos
+    const updatedUser = await firstValueFrom(
+      this.http.patch<User>(`${this.API_URL}/users/${userId}`, { password: newPassword })
+    );
+
+    // Mantener el token actual
+    const userWithToken: User = {
+      ...updatedUser,
+      token: this.currentUser?.token || `token-${Date.now()}`
+    };
+
+    // Actualizar el localStorage y el BehaviorSubject
     localStorage.setItem('user', JSON.stringify(userWithToken));
     this.currentUserSubject.next(userWithToken);
 

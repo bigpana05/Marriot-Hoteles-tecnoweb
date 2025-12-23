@@ -173,6 +173,12 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
           this.guestInfo.email = user.email || '';
           // Auto-llenar número de miembro Bonvoy
           this.guestInfo.memberNumber = user.bonvoyNumber || '';
+          // Auto-llenar dirección desde el perfil del usuario
+          this.guestInfo.country = user.country || 'España';
+          this.guestInfo.postalCode = user.postalCode || '';
+          this.guestInfo.city = user.city || '';
+          this.guestInfo.addressLine1 = user.addressLine1 || '';
+          this.guestInfo.addressLine2 = user.addressLine2 || '';
         } else {
           // Limpiar número de miembro si no está logueado
           this.guestInfo.memberNumber = '';

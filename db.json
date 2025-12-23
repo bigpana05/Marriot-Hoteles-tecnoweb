@@ -20,7 +20,13 @@
       "name": "Cliente Demo",
       "role": "CLIENT",
       "token": "client-token-456",
-      "bonvoyNumber": "BON123456"
+      "bonvoyNumber": "BON123456",
+      "address": "PASAJE",
+      "country": "Chile",
+      "postalCode": "123123",
+      "city": "Arica",
+      "addressLine1": "pasaje 123",
+      "addressLine2": ""
     },
     {
       "id": "4cbe",
