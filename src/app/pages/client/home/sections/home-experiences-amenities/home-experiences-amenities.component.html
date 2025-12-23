@@ -13,11 +13,7 @@
     <!-- Cards Layout -->
     <div class="cards-layout">
       <!-- Botón anterior -->
-      <button 
-        class="nav-btn prev" 
-        (click)="prevSlide()" 
-        [disabled]="isAnimating"
-        aria-label="Experiencia anterior">
+      <button class="nav-btn prev" (click)="prevSlide()" [disabled]="isAnimating" aria-label="Experiencia anterior">
         <img src="assets/icons/arrow-grey.svg" alt="Anterior" class="arrow-icon rotated">
       </button>
 
@@ -25,17 +21,14 @@
       <div class="card-large-wrapper">
         <div class="card-large" [class.animating]="isAnimating">
           <div class="card-image-container">
-            <img 
-              [src]="visibleExperiences[0].imageUrl" 
-              [alt]="visibleExperiences[0].title" 
-              class="card-image">
+            <img [src]="visibleExperiences[0].imageUrl" [alt]="visibleExperiences[0].title" class="card-image">
           </div>
           <div class="card-content">
             <div class="card-text">
               <h3 class="card-title">{{ visibleExperiences[0].title }}</h3>
               <p class="card-description">{{ visibleExperiences[0].description }}</p>
             </div>
-            <a href="#" class="card-arrow" aria-label="Ver más">
+            <a routerLink="/client/experiences" class="card-arrow" aria-label="Ver más">
               <img src="assets/icons/arrow-black.svg" alt="Ver más">
             </a>
           </div>
@@ -47,14 +40,11 @@
         <!-- Card Pequeña 1 -->
         <div class="card-small" [class.animating]="isAnimating">
           <div class="card-image-container">
-            <img 
-              [src]="visibleExperiences[1].imageUrl" 
-              [alt]="visibleExperiences[1].title" 
-              class="card-image">
+            <img [src]="visibleExperiences[1].imageUrl" [alt]="visibleExperiences[1].title" class="card-image">
           </div>
           <div class="card-content">
             <h3 class="card-title">{{ visibleExperiences[1].title }}</h3>
-            <a href="#" class="card-arrow" aria-label="Ver más">
+            <a routerLink="/client/experiences" class="card-arrow" aria-label="Ver más">
               <img src="assets/icons/arrow-black.svg" alt="Ver más">
             </a>
           </div>
@@ -64,14 +54,11 @@
         <!-- Card Pequeña 2 (solo en desktop) -->
         <div class="card-small" *ngIf="!isMobileLayout" [class.animating]="isAnimating">
           <div class="card-image-container">
-            <img 
-              [src]="visibleExperiences[2].imageUrl" 
-              [alt]="visibleExperiences[2].title" 
-              class="card-image">
+            <img [src]="visibleExperiences[2].imageUrl" [alt]="visibleExperiences[2].title" class="card-image">
           </div>
           <div class="card-content">
             <h3 class="card-title">{{ visibleExperiences[2].title }}</h3>
-            <a href="#" class="card-arrow" aria-label="Ver más">
+            <a routerLink="/client/experiences" class="card-arrow" aria-label="Ver más">
               <img src="assets/icons/arrow-black.svg" alt="Ver más">
             </a>
           </div>
@@ -79,11 +66,7 @@
         </div>
 
         <!-- Botón siguiente -->
-        <button 
-          class="nav-btn next" 
-          (click)="nextSlide()" 
-          [disabled]="isAnimating"
-          aria-label="Siguiente experiencia">
+        <button class="nav-btn next" (click)="nextSlide()" [disabled]="isAnimating" aria-label="Siguiente experiencia">
           <img src="assets/icons/arrow-grey.svg" alt="Siguiente" class="arrow-icon">
         </button>
       </div>

@@ -3,7 +3,7 @@
     {
       "id": "1",
       "email": "admin@demo.cl",
-      "password": "admin",
+      "password": "$2b$10$sz4BmKQzCIio..ELdm.4gOc7a/Q3nj0aTFL8ylOflZtP/fNnALoYO",
       "firstName": "Administrador",
       "lastName": "Sistema",
       "name": "Administrador",
@@ -14,7 +14,7 @@
     {
       "id": "2",
       "email": "cliente@demo.cl",
-      "password": "cliente",
+      "password": "$2b$10$4Kp5rS/xhwa5J0VTUD9Cber/Kgd5r0MM.TyngWwTgQ/a8RYRVNLAe",
       "firstName": "Cliente",
       "lastName": "Demo",
       "name": "Cliente Demo",
@@ -31,7 +31,7 @@
     {
       "id": "4cbe",
       "email": "prueba@gmail.com",
-      "password": "cuenta123",
+      "password": "$2b$10$M5j/QPI.YQLEjpJHXc9xquQ138hjrgS6aONAAonqpNBdm5vUhGa5W",
       "firstName": "prueba3",
       "lastName": "sadsad",
       "name": "prueba3 sadsad",
@@ -42,7 +42,7 @@
     {
       "id": "97b7",
       "email": "prueba1@gmail.com",
-      "password": "cuenta123",
+      "password": "$2b$10$ZShabWz5dDM1AuvnfAKLaefCYaVsVDdZ19nHMPEANE07p9cWqAxN.",
       "firstName": "prueba",
       "lastName": "4",
       "name": "prueba 4",
@@ -53,7 +53,7 @@
     {
       "id": "f395",
       "email": "juan@gmail.com",
-      "password": "cuenta123",
+      "password": "$2b$10$shTwyf7pIut12jPojkDVsOT6WD4XNnjeeR9iKwvqqdTS7SYUcurFu",
       "firstName": "Juan",
       "lastName": "Perez",
       "name": "Juan Perez",
@@ -64,7 +64,7 @@
     {
       "id": "cdaa",
       "email": "prueba2@gmail.com",
-      "password": "cuenta123",
+      "password": "$2b$10$SopMocgJwOgNIqaahJFoLe55YxskDwpzMzfXUYgfjT.WtlrABooG6",
       "firstName": "Prueba2",
       "lastName": "asd",
       "name": "Prueba2 asd",
@@ -555,8 +555,8 @@
         },
         {
           "category": "restaurants",
-          "title": "Restaurantes",
-          "imageUrl": "assets/brand/hotels/Le-Royal-Meridien/md-dohmd-latest-recipe-19606_Wide-Hor.png"
+          "title": "Restaurante",
+          "imageUrl": "https://cache.marriott.com/is/image/marriotts7prod/md-dohmd-adrift-anda-15358:Classic-Hor?output-quality=90&interpolation=progressive-bilinear&downsize=562px:366px"
         }
       ],
       "location": {
@@ -725,7 +725,7 @@
       "availableRooms": 25,
       "isActive": true,
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-12-19T00:31:11.460Z"
+      "updatedAt": "2025-12-23T06:27:16.279Z"
     },
     {
       "id": "3429",
@@ -1581,7 +1581,7 @@
       "name": "Conferencia Tech Latam",
       "hotelId": 1,
       "location": "Santiago, Chile",
-      "date": "2025-07-10",
+      "date": "2026-01-21",
       "capacity": 300,
       "attendees": 226,
       "description": "La conferencia más importante de tecnología en Latinoamérica. Conecta con líderes de la industria, descubre las últimas tendencias y expande tu red profesional.",
@@ -1598,7 +1598,7 @@
       "name": "Summit de Turismo Internacional",
       "hotelId": 2,
       "location": "Buenos Aires, Argentina",
-      "date": "2025-09-05",
+      "date": "2026-04-11",
       "capacity": 200,
       "attendees": 150,
       "description": "Evento exclusivo para profesionales del turismo. Workshops, networking y presentaciones de destinos exclusivos alrededor del mundo.",
@@ -1615,9 +1615,9 @@
       "name": "Expo Innovación Digital",
       "hotelId": 3,
       "location": "Lima, Perú",
-      "date": "2025-11-20",
+      "date": "2026-04-05",
       "capacity": 250,
-      "attendees": 80,
+      "attendees": 83,
       "description": "La exposición más grande de innovación digital en la región andina. Startups, inversores y emprendedores reunidos bajo un mismo techo.",
       "images": [
         "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800",
@@ -1632,7 +1632,7 @@
       "name": "Gala Marriott Excellence",
       "hotelId": 1,
       "location": "Ciudad de México, México",
-      "date": "2025-12-15",
+      "date": "2025-12-31",
       "capacity": 150,
       "attendees": 45,
       "description": "Una noche de elegancia y reconocimiento. Cena de gala con entretenimiento exclusivo y premios a la excelencia en hospitalidad.",
@@ -2867,12 +2867,12 @@
       }
     },
     {
-      "id": "37cd",
-      "hotelId": 3,
+      "id": "3eaa",
+      "hotelId": null,
       "roomId": 1,
       "rateId": "member-flexible",
       "checkIn": "2025-12-24",
-      "checkOut": "2026-01-22",
+      "checkOut": "2025-12-26",
       "rooms": 1,
       "adults": 1,
       "children": 0,
@@ -2890,79 +2890,27 @@
       },
       "paymentInfo": {
         "method": "credit-card",
-        "cardNumber": "3333333333333333333",
+        "cardNumber": "123",
         "expiryMonth": "04",
-        "expiryYear": "2028",
+        "expiryYear": "2030",
         "acceptTerms": true,
         "receivePromotions": true,
         "shareData": true,
-        "cardLastFour": "3333"
+        "cardLastFour": "123"
       },
       "isMember": true,
       "userId": "2",
       "guestId": null,
-      "hotelName": "Le Royal Méridien Place Vendôme Lusail",
+      "hotelName": "W Dubái - The Palm",
       "roomName": "Villa Rose, Villa de 2 dormitorio(s), Dormitorio1: 1 King, Dormitorio2: 1 King, sofás cama: 2",
       "rateName": "Tarifa flexible para socios",
-      "pricePerNight": 265,
-      "totalPrice": 7685,
-      "originalPrice": 7685,
-      "discountAmount": 0,
-      "couponCode": null,
+      "pricePerNight": 780,
+      "totalPrice": 1560,
       "currency": "EUR",
-      "confirmationCode": "MRB3L5QRJ2025",
-      "nights": 29,
+      "confirmationCode": "MRBHWYI8Y2025",
+      "nights": 2,
       "status": "CONFIRMED",
-      "createdAt": "2025-12-22T00:50:08.559Z"
-    },
-    {
-      "id": "9dc4",
-      "hotelId": 2,
-      "roomId": 1,
-      "rateId": "member-flexible",
-      "checkIn": "2025-12-23",
-      "checkOut": "2026-01-13",
-      "rooms": 1,
-      "adults": 1,
-      "children": 0,
-      "guestInfo": {
-        "firstName": "Cliente",
-        "lastName": "Demo",
-        "email": "cliente@demo.cl",
-        "memberNumber": "BON123456",
-        "sendSmsConfirmation": false,
-        "country": "Chile",
-        "postalCode": "123123",
-        "city": "Arica",
-        "addressLine1": "pasaje 123",
-        "addressLine2": ""
-      },
-      "paymentInfo": {
-        "method": "credit-card",
-        "cardNumber": "1211111111111111111",
-        "expiryMonth": "11",
-        "expiryYear": "2033",
-        "acceptTerms": true,
-        "receivePromotions": true,
-        "shareData": true,
-        "cardLastFour": "1111"
-      },
-      "isMember": true,
-      "userId": "2",
-      "guestId": null,
-      "hotelName": "JW Marriott Venice Resort & Spa",
-      "roomName": "Villa Rose, Villa de 2 dormitorio(s), Dormitorio1: 1 King, Dormitorio2: 1 King, sofás cama: 2",
-      "rateName": "Tarifa flexible para socios",
-      "pricePerNight": 1200,
-      "totalPrice": 22176,
-      "originalPrice": 25200,
-      "discountAmount": 3024,
-      "couponCode": "FSBSNRN33",
-      "currency": "EUR",
-      "confirmationCode": "MRBZDL31Q2025",
-      "nights": 21,
-      "status": "CONFIRMED",
-      "createdAt": "2025-12-22T03:31:00.417Z"
+      "createdAt": "2025-12-23T14:14:05.170Z"
     }
   ],
   "groupHotels": [
@@ -3364,7 +3312,7 @@
       "reviewedAt": "2025-12-21T04:51:16.342Z"
     }
   ],
-<<<<<<< HEAD
+
   "coupons": [
     {
       "id": "afcd",
@@ -3395,7 +3343,8 @@
       "isActive": true,
       "isPublic": false,
       "description": "vsve"
-=======
+    }
+  ],
   "experienceReservations": [
     {
       "id": "d371",
@@ -3409,7 +3358,19 @@
       "comments": "prueba",
       "reservationDate": "2025-12-23T03:48:14.628Z",
       "status": "CONFIRMED"
->>>>>>> origin/feature/experiences-update
+    },
+    {
+      "id": "baf6",
+      "eventId": "3",
+      "eventName": "Expo Innovación Digital",
+      "userId": "2",
+      "fullName": "Cliente Demo",
+      "email": "cliente@demo.cl",
+      "phone": "+23423423",
+      "numberOfPeople": 3,
+      "comments": "",
+      "reservationDate": "2025-12-23T14:15:12.371Z",
+      "status": "CONFIRMED"
     }
   ]
 }

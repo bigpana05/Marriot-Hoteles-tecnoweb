@@ -2,10 +2,14 @@
   <div class="background-decor"></div>
   <div class="container">
     <div class="header">
-      <h2 class="title">Ofertas y Cupones</h2>
+      <h2 class="title">Ofertas y Promociones Exclusivas</h2>
       <p class="subtitle">
-        Descubre nuestros códigos promocionales exclusivos.
+        Explora descuentos, paquetes especiales y ofertas exclusivas disponibles
+        por tiempo limitado.
       </p>
+      <a routerLink="/client/offers" class="view-more">
+        Ver Más <img src="assets/icons/arrow-right.svg" alt="Flecha Derecha" />
+      </a>
     </div>
 
     <div *ngIf="coupons.length === 0" class="text-center py-5">
@@ -46,9 +50,9 @@
                 </div>
 
                 <div class="card-overlay">
-                  <span class="offer-subtitle"
-                    >Vence: {{ coupon.validUntil | date : "dd/MM/yyyy" }}</span
-                  >
+                  <span class="offer-subtitle">
+                    Vence: {{ coupon.validUntil | date : "dd/MM/yyyy" }}
+                  </span>
 
                   <h3 class="offer-title">
                     {{
@@ -86,7 +90,8 @@
         class="dot"
         [class.active]="i === currentSlide"
         (click)="goToSlide(i)"
-      ></span>
+      >
+      </span>
     </div>
   </div>
 </section>

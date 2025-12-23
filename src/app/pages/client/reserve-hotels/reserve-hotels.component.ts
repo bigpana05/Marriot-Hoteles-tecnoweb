@@ -511,6 +511,6 @@ export class ReserveHotelsComponent implements OnInit, OnDestroy {
    */
   goToRegister(): void {
     this.closeMemberRateModal();
-    this.router.navigate(['/auth/register']);
+    this.router.navigate(['/client/register']);
   }
 }

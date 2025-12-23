@@ -11,9 +11,9 @@
         </div>
         <nav class="footer__column-links" [class.footer__column-links--open]="openSections['company']">
           <a routerLink="/about" class="footer__link">Sobre Marriott International</a>
-          <a href="#" class="footer__link">Carreras</a>
-          <a href="#" class="footer__link">Noticias y Prensa</a>
-          <a href="#" class="footer__link">Relaciones con Inversores</a>
+          <a href="https://careers.marriott.com/es" class="footer__link" target="_blank">Carreras</a>
+          <a href="https://news.marriott.com/" class="footer__link" target="_blank">Noticias y Prensa</a>
+          <a href="https://marriott.gcs-web.com/" class="footer__link" target="_blank">Relaciones con Inversores</a>
         </nav>
       </div>
 
@@ -25,10 +25,14 @@
             [class.footer__column-arrow--open]="openSections['work']" />
         </div>
         <nav class="footer__column-links" [class.footer__column-links--open]="openSections['work']">
-          <a href="#" class="footer__link">Programa de Pequeñas y Medianas Empresas</a>
-          <a href="#" class="footer__link">Profesionales de Viajes</a>
-          <a href="#" class="footer__link">Afiliados</a>
-          <a href="#" class="footer__link">Desarrollo Hotelero</a>
+          <a href="https://www.marriott.com/programs/business-access-by-marriott-bonvoy.mi" class="footer__link"
+            target="_blank">Programa de Pequeñas y Medianas Empresas</a>
+          <a href="https://www.travelagents.marriott.com/travelagents/default.mi" class="footer__link"
+            target="_blank">Profesionales de Viajes</a>
+          <a href="https://www.marriott.com/marriott/affiliateprogram.mi" class="footer__link"
+            target="_blank">Afiliados</a>
+          <a href="https://www.hotel-development.marriott.com/?stop_mobi=yes" class="footer__link"
+            target="_blank">Desarrollo Hotelero</a>
         </nav>
       </div>
 
@@ -40,10 +44,12 @@
             [class.footer__column-arrow--open]="openSections['help']" />
         </div>
         <nav class="footer__column-links" [class.footer__column-links--open]="openSections['help']">
-          <a href="#" class="footer__link">Ayuda y Contáctanos</a>
-          <a href="#" class="footer__link">Buscar Reserva</a>
-          <a href="#" class="footer__link">Números Telefónicos de Reservas Globales</a>
-          <a href="#" class="footer__link">Garantía de Mejor Tarifa</a>
+          <a href="https://help.marriott.com/s/" class="footer__link" target="_blank">Ayuda y Contáctanos</a>
+          <a routerLink="/client/search-hotels" class="footer__link">Buscar Reserva</a>
+          <a href="https://www.marriott.com/help/global-phone-reservation-numbers.mi" class="footer__link"
+            target="_blank">Números Telefónicos de Reservas Globales</a>
+          <a href="https://www.marriott.com/online-hotel-booking.mi#bestrate" class="footer__link"
+            target="_blank">Garantía de Mejor Tarifa</a>
         </nav>
       </div>
 
@@ -55,10 +61,14 @@
             [class.footer__column-arrow--open]="openSections['privacy']" />
         </div>
         <nav class="footer__column-links" [class.footer__column-links--open]="openSections['privacy']">
-          <a href="#" class="footer__link">Centro de Privacidad</a>
-          <a href="#" class="footer__link">Términos de Uso</a>
-          <a href="#" class="footer__link">Términos y Condiciones del Programa</a>
-          <a href="#" class="footer__link">Sostenibilidad en la Cadena de Suministro</a>
+          <a href="https://www.marriott.com/about/privacy.mi" class="footer__link" target="_blank">Centro de
+            Privacidad</a>
+          <a href="https://www.marriott.com/about/terms-of-use.mi" class="footer__link" target="_blank">Términos de
+            Uso</a>
+          <a href="https://www.marriott.com/loyalty/terms/default.mi" class="footer__link" target="_blank">Términos y
+            Condiciones del Programa</a>
+          <a href="https://www.marriott.com/marriott-brands/sustainabilitysupplychain.mi" class="footer__link"
+            target="_blank">Sostenibilidad en la Cadena de Suministro</a>
         </nav>
       </div>
     </div>
@@ -72,7 +82,8 @@
       </div>
       <div class="footer__destinations-content" [class.footer__destinations-content--open]="isDestinationsOpen">
         <div class="footer__destinations-list">
-          <a *ngFor="let hotel of featuredHotels" href="#" class="footer__destination-link">
+          <a *ngFor="let hotel of featuredHotels" (click)="searchHotel(hotel)" class="footer__destination-link"
+            style="cursor: pointer">
             {{ hotel.name }}
           </a>
         </div>
@@ -83,16 +94,19 @@
     <div class="footer__social">
       <h3 class="footer__social-title">Sigue a Marriott International</h3>
       <div class="footer__social-icons">
-        <a href="#" class="footer__social-link" aria-label="Facebook">
+        <a href="https://www.facebook.com/marriottinternational/" class="footer__social-link" aria-label="Facebook"
+          target="_blank">
           <img src="assets/icons/social-media/facebook.svg" alt="Facebook" class="footer__social-icon" />
         </a>
-        <a href="#" class="footer__social-link" aria-label="Instagram">
+        <a href="https://www.instagram.com/marriottintl/" class="footer__social-link" aria-label="Instagram"
+          target="_blank">
           <img src="assets/icons/social-media/instagram.svg" alt="Instagram" class="footer__social-icon" />
         </a>
-        <a href="#" class="footer__social-link" aria-label="Twitter">
+        <a href="https://x.com/MarriottIntl" class="footer__social-link" aria-label="Twitter" target="_blank">
           <img src="assets/icons/social-media/twitter.svg" alt="Twitter" class="footer__social-icon" />
         </a>
-        <a href="#" class="footer__social-link" aria-label="YouTube">
+        <a href="https://www.youtube.com/@MarriottIntl" class="footer__social-link" aria-label="YouTube"
+          target="_blank">
           <img src="assets/icons/social-media/youtube.svg" alt="YouTube" class="footer__social-icon" />
         </a>
       </div>
