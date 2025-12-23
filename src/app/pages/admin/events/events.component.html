@@ -1,97 +1,207 @@
-<section>
-  <h1 class="mb-3">Eventos y conferencias</h1>
-  <p class="text-muted mb-4">
-    Crea y gestiona eventos asociados a tus hoteles. Desde aquí puedes monitorear la ocupación.
-  </p>
+<section class="admin-experiences">
+  <div class="page-header">
+    <h1>Gestión de Experiencias</h1>
+    <p class="text-muted">Administra experiencias exclusivas para miembros Marriott Bonvoy.</p>
+  </div>
+
+  <!-- Mensajes -->
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show">
+    {{ successMessage }}
+    <button type="button" class="btn-close" (click)="successMessage = null"></button>
+  </div>
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show">
+    {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
 
   <div class="row">
-    <div class="col-md-6 mb-4">
+    <!-- Formulario -->
+    <div class="col-lg-8 mb-4">
       <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">{{ formModel.id ? 'Editar: ' + formModel.name : 'Nueva Experiencia' }}</h5>
+        </div>
+
+        <!-- Navegación de secciones -->
+        <div class="section-nav">
+          <button type="button" [class.active]="activeSection === 'basic'" (click)="activeSection = 'basic'">
+            <i class="bi bi-calendar-event"></i> Información Básica
+          </button>
+          <button type="button" [class.active]="activeSection === 'images'" (click)="activeSection = 'images'">
+            <i class="bi bi-images"></i> Imágenes
+          </button>
+          <button type="button" [class.active]="activeSection === 'reservations'"
+            (click)="activeSection = 'reservations'">
+            <i class="bi bi-people"></i> Reservas
+            <span class="badge bg-primary ms-1">{{ reservations.length }}</span>
+          </button>
+        </div>
+
         <div class="card-body">
-          <h5 class="card-title mb-3">
-            {{ formModel.id ? 'Editar evento' : 'Nuevo evento' }}
-          </h5>
-
           <form #f="ngForm" (ngSubmit)="save(f)">
-            <div class="mb-2">
-              <label class="form-label">Nombre</label>
-              <input
-                class="form-control"
-                name="name"
-                [(ngModel)]="formModel.name"
-                required
-              />
-            </div>
 
-            <div class="mb-2">
-              <label class="form-label">Hotel</label>
-              <select
-                class="form-select"
-                name="hotelId"
-                [(ngModel)]="formModel.hotelId"
-                required
-              >
-                <option *ngFor="let h of hotels" [ngValue]="h.id">
-                  {{ h.name }} ({{ h.location?.city }})
-                </option>
-              </select>
-            </div>
-
-            <div class="mb-2">
-              <label class="form-label">Ubicación</label>
-              <input
-                class="form-control"
-                name="location"
-                [(ngModel)]="formModel.location"
-                required
-              />
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 mb-2">
-                <label class="form-label">Fecha</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  name="date"
-                  [(ngModel)]="formModel.date"
-                  required
-                />
+            <!-- SECCIÓN: Información Básica -->
+            <div *ngIf="activeSection === 'basic'" class="form-section">
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label class="form-label">Nombre de la experiencia *</label>
+                  <input class="form-control" name="name" [(ngModel)]="formModel.name" required
+                    placeholder="Ej: Gala Marriott Excellence">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Hotel asociado</label>
+                  <select class="form-select" name="hotelId" [(ngModel)]="formModel.hotelId" required>
+                    <option *ngFor="let h of hotels" [ngValue]="h.id">
+                      {{ h.name }}
+                    </option>
+                  </select>
+                </div>
               </div>
-              <div class="col-md-3 mb-2">
-                <label class="form-label">Capacidad</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  name="capacity"
-                  [(ngModel)]="formModel.capacity"
-                  min="0"
-                  required
-                />
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Ubicación *</label>
+                  <input class="form-control" name="location" [(ngModel)]="formModel.location" required
+                    placeholder="Ej: Ciudad de México, México">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Fecha del evento *</label>
+                  <input type="date" class="form-control" name="date" [(ngModel)]="formModel.date" required>
+                </div>
               </div>
-              <div class="col-md-3 mb-2">
-                <label class="form-label">Asistentes</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  name="attendees"
-                  [(ngModel)]="formModel.attendees"
-                  min="0"
-                  required
-                />
+
+              <div class="mb-3">
+                <label class="form-label">Descripción *</label>
+                <textarea class="form-control" name="description" [(ngModel)]="formModel.description" rows="3" required
+                  placeholder="Describe la experiencia..."></textarea>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Capacidad total *</label>
+                  <input type="number" class="form-control" name="capacity" [(ngModel)]="formModel.capacity" min="1"
+                    required>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Asistentes actuales</label>
+                  <input type="number" class="form-control" name="attendees" [(ngModel)]="formModel.attendees" min="0"
+                    readonly>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Cupos disponibles</label>
+                  <div class="form-control bg-light">
+                    {{ (formModel.capacity || 0) - (formModel.attendees || 0) }}
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div *ngIf="error" class="text-danger small mb-2">
-              {{ error }}
-            </div>
+            <!-- SECCIÓN: Imágenes -->
+            <div *ngIf="activeSection === 'images'" class="form-section">
+              <h6 class="section-title">URLs de imágenes del carrusel</h6>
+              <p class="text-muted small mb-3">Agrega hasta 5 URLs de imágenes para mostrar en el carrusel.</p>
 
-            <div class="d-flex gap-2">
-              <button class="btn btn-dark btn-sm" type="submit" [disabled]="f.invalid">
-                {{ formModel.id ? 'Guardar cambios' : 'Crear evento' }}
+              <div *ngFor="let img of formModel.images; let i = index" class="mb-2 d-flex gap-2">
+                <input class="form-control" [(ngModel)]="formModel.images![i]" [name]="'image' + i"
+                  placeholder="https://...">
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeImage(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+
+              <button type="button" class="btn btn-outline-secondary btn-sm mt-2" (click)="addImage()"
+                [disabled]="(formModel.images?.length || 0) >= 5">
+                <i class="bi bi-plus"></i> Agregar imagen
               </button>
-              <button class="btn btn-outline-secondary btn-sm" type="button" (click)="resetForm(f)">
-                Limpiar
+
+              <!-- Preview de imágenes -->
+              <div *ngIf="formModel.images && formModel.images.length > 0" class="image-preview mt-4">
+                <h6>Vista previa</h6>
+                <div class="preview-grid">
+                  <div *ngFor="let img of formModel.images" class="preview-item">
+                    <img [src]="img" alt="Preview" (error)="onImageError($event)">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECCIÓN: Reservas -->
+            <div *ngIf="activeSection === 'reservations'" class="form-section">
+              <h6 class="section-title">
+                Reservas realizadas
+                <span class="badge bg-secondary">{{ reservations.length }}</span>
+              </h6>
+
+              <div *ngIf="!formModel.id" class="alert alert-info">
+                Guarda la experiencia primero para ver las reservas.
+              </div>
+
+              <div *ngIf="formModel.id && reservations.length === 0" class="text-muted text-center py-4">
+                No hay reservas para esta experiencia.
+              </div>
+
+              <div *ngIf="formModel.id && reservations.length > 0" class="table-responsive">
+                <table class="table table-sm align-middle">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Email</th>
+                      <th>Teléfono</th>
+                      <th>Personas</th>
+                      <th>Fecha reserva</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let r of reservations">
+                      <td>{{ r.fullName }}</td>
+                      <td>{{ r.email }}</td>
+                      <td>{{ r.phone }}</td>
+                      <td>{{ r.numberOfPeople }}</td>
+                      <td>{{ r.reservationDate | date:'short' }}</td>
+                      <td>
+                        <span class="badge" [class.bg-success]="r.status === 'CONFIRMED'"
+                          [class.bg-warning]="r.status === 'PENDING'" [class.bg-danger]="r.status === 'CANCELLED'">
+                          {{ r.status }}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Estadísticas -->
+              <div *ngIf="formModel.id" class="stats-grid mt-4">
+                <div class="stat-card">
+                  <div class="stat-value">{{ formModel.capacity }}</div>
+                  <div class="stat-label">Capacidad total</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-value">{{ formModel.attendees }}</div>
+                  <div class="stat-label">Reservados</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-value">{{ (formModel.capacity || 0) - (formModel.attendees || 0) }}</div>
+                  <div class="stat-label">Disponibles</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-value" [class.text-success]="occupancy(formModel) < 70"
+                    [class.text-warning]="occupancy(formModel) >= 70 && occupancy(formModel) < 90"
+                    [class.text-danger]="occupancy(formModel) >= 90">
+                    {{ occupancy(formModel) }}%
+                  </div>
+                  <div class="stat-label">Ocupación</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="form-actions mt-4" *ngIf="activeSection !== 'reservations'">
+              <button class="btn btn-dark" type="submit" [disabled]="f.invalid">
+                {{ formModel.id ? 'Guardar cambios' : 'Crear experiencia' }}
+              </button>
+              <button class="btn btn-outline-secondary" type="button" (click)="resetForm(f)">
+                Limpiar formulario
               </button>
             </div>
           </form>
@@ -99,40 +209,44 @@
       </div>
     </div>
 
-    <div class="col-md-6">
-      <div *ngIf="loading">Cargando eventos...</div>
-      <div *ngIf="!loading" class="card shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title mb-3">Listado</h5>
-          <div class="table-responsive">
-            <table class="table table-sm align-middle">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Hotel</th>
-                  <th>Fecha</th>
-                  <th>Ocupación</th>
-                  <th style="width: 120px;"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let e of events">
-                  <td>{{ e.name }}</td>
-                  <td>{{ getHotelName(e) }}</td>
-                  <td>{{ e.date }}</td>
-                  <td>{{ occupancy(e) }}%</td>
-                  <td class="text-end">
-                    <button class="btn btn-link btn-sm" (click)="edit(e)">Editar</button>
-                    <button class="btn btn-link text-danger btn-sm" (click)="delete(e)">
-                      Eliminar
-                    </button>
-                  </td>
-                </tr>
-                <tr *ngIf="events.length === 0">
-                  <td colspan="5" class="text-center text-muted">Sin eventos registrados.</td>
-                </tr>
-              </tbody>
-            </table>
+    <!-- Lista de experiencias -->
+    <div class="col-lg-4">
+      <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Experiencias registradas ({{ events.length }})</h5>
+        </div>
+        <div class="card-body p-0">
+          <div *ngIf="loading" class="p-3 text-center text-muted">
+            Cargando experiencias...
+          </div>
+
+          <div class="experiences-list" *ngIf="!loading">
+            <div *ngFor="let e of events" class="experience-item" [class.active]="formModel.id === e.id"
+              (click)="edit(e)">
+              <div class="experience-image">
+                <img [src]="e.images && e.images[0] ? e.images[0] : 'assets/images/default-experience.jpg'" alt="">
+              </div>
+              <div class="experience-info">
+                <div class="experience-name">{{ e.name }}</div>
+                <div class="experience-location">{{ e.location }}</div>
+                <div class="experience-date">{{ e.date | date:'mediumDate' }}</div>
+                <div class="experience-stats">
+                  <span class="badge" [class.bg-success]="occupancy(e) < 70"
+                    [class.bg-warning]="occupancy(e) >= 70 && occupancy(e) < 90" [class.bg-danger]="occupancy(e) >= 90">
+                    {{ e.attendees }} / {{ e.capacity }}
+                  </span>
+                </div>
+              </div>
+              <div class="experience-actions">
+                <button class="btn btn-sm btn-outline-danger" (click)="delete(e); $event.stopPropagation()">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+
+            <div *ngIf="events.length === 0" class="p-3 text-center text-muted">
+              No hay experiencias registradas.
+            </div>
           </div>
         </div>
       </div>
