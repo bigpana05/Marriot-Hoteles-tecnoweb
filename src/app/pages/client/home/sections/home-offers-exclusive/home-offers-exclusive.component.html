@@ -1,51 +1,92 @@
 <section class="exclusive-offers">
-    <div class="background-decor"></div>
-    <div class="container">
-        <div class="header">
-            <h2 class="title">Ofertas y Promociones Exclusivas</h2>
-            <p class="subtitle">Explora descuentos, paquetes especiales y ofertas exclusivas disponibles por tiempo
-                limitado.
-            </p>
-            <a href="#" class="view-more">Ver Más <img src="assets/icons/arrow-right.svg" alt="Flecha Derecha"></a>
-        </div>
-        <div class="carousel-container">
-            <button class="nav-btn prev" (click)="prevSlide()">
-                <img src="assets/icons/arrow-grey.svg" alt="Previous" style="transform: rotate(180deg);">
-            </button>
-
-            <div class="carousel-track-container">
-                <div class="carousel-track" [style.transform]="transformStyle"
-                    [class.mobile-mode]="itemsPerSlide === 1">
-                    <div class="carousel-slide" *ngFor="let offer of offers; let i = index"
-                        [class.active]="i >= currentSlide * itemsPerSlide && i < (currentSlide + 1) * itemsPerSlide">
-                        <div class="offer-card">
-                            <div class="image-container">
-                                <img [src]="offer.image" [alt]="offer.title" class="offer-image">
-                                <div class="member-exclusive" *ngIf="offer.isMemberExclusive">
-                                    <img src="assets/icons/lock.svg" alt="Lock">
-                                    <span>EXCLUSIVO MIEMBROS</span>
-                                </div>
-                                <div class="card-overlay">
-                                    <span class="offer-subtitle">{{ offer.subtitle }}</span>
-                                    <h3 class="offer-title">{{ offer.title }}</h3>
-                                    <a [href]="offer.link" class="details-link">
-                                        <img src="assets/icons/arrow-white.svg" alt="Details">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="nav-btn next" (click)="nextSlide()">
-                <img src="assets/icons/arrow-grey.svg" alt="Next">
-            </button>
-        </div>
-
-        <div class="dots-indicator">
-            <span *ngFor="let slide of slides; let i = index" class="dot" [class.active]="i === currentSlide"
-                (click)="goToSlide(i)"></span>
-        </div>
+  <div class="background-decor"></div>
+  <div class="container">
+    <div class="header">
+      <h2 class="title">Ofertas y Cupones</h2>
+      <p class="subtitle">
+        Descubre nuestros códigos promocionales exclusivos.
+      </p>
     </div>
+
+    <div *ngIf="coupons.length === 0" class="text-center py-5">
+      <p class="text-muted">Cargando ofertas...</p>
+    </div>
+
+    <div class="carousel-container" *ngIf="coupons.length > 0">
+      <button class="nav-btn prev" (click)="prevSlide()">
+        <img
+          src="assets/icons/arrow-grey.svg"
+          alt="Previous"
+          style="transform: rotate(180deg)"
+        />
+      </button>
+
+      <div class="carousel-track-container">
+        <div
+          class="carousel-track"
+          [style.transform]="transformStyle"
+          [class.mobile-mode]="itemsPerSlide === 1"
+        >
+          <div
+            class="carousel-slide"
+            *ngFor="let coupon of coupons; let i = index"
+            [class.active]="
+              i >= currentSlide * itemsPerSlide &&
+              i < (currentSlide + 1) * itemsPerSlide
+            "
+          >
+            <div class="offer-card">
+              <div class="image-container">
+                <img [src]="getImage(i)" alt="Oferta" class="offer-image" />
+
+                <div class="member-exclusive">
+                  <span style="font-weight: bold"
+                    >CÓDIGO: {{ coupon.code }}</span
+                  >
+                </div>
+
+                <div class="card-overlay">
+                  <span class="offer-subtitle"
+                    >Vence: {{ coupon.validUntil | date : "dd/MM/yyyy" }}</span
+                  >
+
+                  <h3 class="offer-title">
+                    {{
+                      coupon.discountType === "PERCENTAGE"
+                        ? coupon.discountValue + "% OFF"
+                        : "$" + coupon.discountValue + " DCTO"
+                    }}
+                  </h3>
+
+                  <p class="text-white small mb-3">
+                    {{ coupon.description || "Usa este cupón en tu reserva." }}
+                  </p>
+
+                  <button
+                    class="btn btn-sm btn-light text-primary fw-bold w-100"
+                    (click)="copyCode(coupon.code)"
+                  >
+                    COPIAR CÓDIGO
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="nav-btn next" (click)="nextSlide()">
+        <img src="assets/icons/arrow-grey.svg" alt="Next" />
+      </button>
+    </div>
+
+    <div class="dots-indicator" *ngIf="coupons.length > 0">
+      <span
+        *ngFor="let slide of slides; let i = index"
+        class="dot"
+        [class.active]="i === currentSlide"
+        (click)="goToSlide(i)"
+      ></span>
+    </div>
+  </div>
 </section>

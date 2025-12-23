@@ -3,20 +3,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Room, RoomRate } from '../../../core/models/room.model';
-import { Booking, BookingSummary, GuestInfo, PaymentInfo, PaymentMethod } from '../../../core/models/booking.model';
+import {
+  Booking,
+  BookingSummary,
+  GuestInfo,
+  PaymentInfo,
+  PaymentMethod,
+} from '../../../core/models/booking.model';
 import { HotelSearchResult } from '../../../core/models/hotel-search.model';
 import { BookingService } from '../../../core/services/booking.service';
 import { SearchHotelService } from '../../../core/services/search-hotel.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { CouponService } from '../../../core/services/coupon.service';
+import { Coupon } from '../../../core/models/coupon.model';
 
-/**
- * Componente para completar la reserva de hotel
- * Formulario con datos del huésped, dirección y pago
- */
 @Component({
   selector: 'app-complete-booking',
   templateUrl: './complete-booking.component.html',
-  styleUrls: ['./complete-booking.component.scss']
+  styleUrls: ['./complete-booking.component.scss'],
 })
 export class CompleteBookingComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
@@ -32,11 +36,19 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
   // Resumen de la reserva
   bookingSummary: BookingSummary | null = null;
 
+  // Variables para Cupones
+  couponCode: string = '';
+  appliedCoupon: Coupon | null = null;
+  discountAmount: number = 0;
+  finalPrice: number = 0;
+  couponMessage: string = '';
+  couponMessageType: 'success' | 'error' | '' = '';
+
   // Estado del usuario
   isLoggedIn = false;
   isMember = false;
 
-  // Registro de nuevo miembro
+  // Registro
   wantsToJoin = false;
   memberPassword = '';
   memberConfirmPassword = '';
@@ -45,7 +57,6 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
   showRegistrationError = false;
   registrationMessage = '';
 
-  // Formulario - Información del huésped
   guestInfo: GuestInfo = {
     firstName: '',
     lastName: '',
@@ -56,10 +67,9 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
     postalCode: '',
     city: '',
     addressLine1: '',
-    addressLine2: ''
+    addressLine2: '',
   };
 
-  // Formulario - Información de pago
   paymentInfo: PaymentInfo = {
     method: 'credit-card',
     cardNumber: '',
@@ -67,29 +77,47 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
     expiryYear: '',
     acceptTerms: false,
     receivePromotions: false,
-    shareData: false
+    shareData: false,
   };
 
-  // Lista de países
   countries: string[] = [
-    'España', 'Chile', 'Argentina', 'México', 'Colombia', 'Perú',
-    'Estados Unidos', 'Brasil', 'Francia', 'Italia', 'Alemania', 'Reino Unido'
+    'España',
+    'Chile',
+    'Argentina',
+    'México',
+    'Colombia',
+    'Perú',
+    'Estados Unidos',
+    'Brasil',
+    'Francia',
+    'Italia',
+    'Alemania',
+    'Reino Unido',
   ];
 
-  // Meses y años para tarjeta
-  months: string[] = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+  months: string[] = [
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+  ];
   years: string[] = [];
 
-  // Estado de la reserva
   isSubmitting = false;
   bookingConfirmed = false;
   confirmedBooking: Booking | null = null;
 
-  // Política de cancelación
   cancellationDate: string = '';
   cancellationFee: number = 0;
 
-  // Timer de reserva
   timerMinutes = 15;
   timerSeconds = 0;
   private timerInterval: any;
@@ -99,9 +127,9 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
     private router: Router,
     private bookingService: BookingService,
     private searchHotelService: SearchHotelService,
-    private authService: AuthService
+    private authService: AuthService,
+    private couponService: CouponService
   ) {
-    // Generar años (actual + 10)
     const currentYear = new Date().getFullYear();
     for (let i = 0; i <= 10; i++) {
       this.years.push((currentYear + i).toString());
@@ -124,20 +152,15 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  /**
-   * Carga los parámetros de la ruta
-   */
   private loadRouteParams(): void {
-    this.route.params
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        this.hotelId = +params['id'];
-        this.loadHotelData();
-      });
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+      this.hotelId = +params['id'];
+      this.loadHotelData();
+    });
 
     this.route.queryParams
       .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
+      .subscribe((params) => {
         this.roomId = +params['roomId'];
         this.rateId = params['rateId'];
         if (this.roomId) {
@@ -146,74 +169,61 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
       });
   }
 
-  /**
-   * Carga el resumen de la reserva
-   */
   private loadBookingSummary(): void {
     this.bookingSummary = this.bookingService.getBookingSummary();
     if (!this.bookingSummary) {
-      // Si no hay resumen, redirigir a búsqueda
       this.router.navigate(['/client/search-hotels']);
+    } else {
+      this.finalPrice = this.bookingSummary.totalPrice;
     }
   }
 
-  /**
-   * Verifica el estado de autenticación
-   */
   private checkAuthStatus(): void {
     this.authService.currentUser$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(user => {
+      .subscribe((user) => {
         this.isLoggedIn = !!user;
         this.isMember = !!user?.bonvoyNumber;
         if (user) {
-          // Pre-llenar datos del usuario
-          this.guestInfo.firstName = user.firstName || user.name?.split(' ')[0] || '';
-          this.guestInfo.lastName = user.lastName || user.name?.split(' ').slice(1).join(' ') || '';
+          this.guestInfo.firstName =
+            user.firstName || user.name?.split(' ')[0] || '';
+          this.guestInfo.lastName =
+            user.lastName || user.name?.split(' ').slice(1).join(' ') || '';
           this.guestInfo.email = user.email || '';
-          // Auto-llenar número de miembro Bonvoy
           this.guestInfo.memberNumber = user.bonvoyNumber || '';
-          // Auto-llenar dirección desde el perfil del usuario
           this.guestInfo.country = user.country || 'España';
           this.guestInfo.postalCode = user.postalCode || '';
           this.guestInfo.city = user.city || '';
           this.guestInfo.addressLine1 = user.addressLine1 || '';
           this.guestInfo.addressLine2 = user.addressLine2 || '';
         } else {
-          // Limpiar número de miembro si no está logueado
           this.guestInfo.memberNumber = '';
         }
       });
   }
 
-  /**
-   * Carga los datos del hotel
-   */
   private loadHotelData(): void {
-    this.searchHotelService.getHotelById(this.hotelId)
+    this.searchHotelService
+      .getHotelById(this.hotelId)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(hotel => {
+      .subscribe((hotel) => {
         this.hotel = hotel ?? null;
       });
   }
 
-  /**
-   * Carga los datos de la habitación
-   */
   private loadRoomData(): void {
-    this.bookingService.getRoomById(this.roomId)
+    this.bookingService
+      .getRoomById(this.roomId)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(room => {
+      .subscribe((room) => {
         this.room = room;
         if (room && this.rateId) {
-          this.selectedRate = room.rates.find(r => r.id === this.rateId) || null;
+          this.selectedRate =
+            room.rates.find((r) => r.id === this.rateId) || null;
         }
       });
   }
 
-  /**
-   * Calcula la política de cancelación
-   */
   private calculateCancellationPolicy(): void {
     if (this.bookingSummary) {
       const checkInDate = new Date(this.bookingSummary.checkIn);
@@ -224,37 +234,29 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * Formatea la fecha de cancelación
-   */
   private formatCancellationDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = {
       weekday: 'short',
       day: 'numeric',
       month: 'short',
-      year: 'numeric'
+      year: 'numeric',
     };
     return date.toLocaleDateString('es-ES', options);
   }
 
-  /**
-   * Obtiene el texto de las fechas de estancia
-   */
   get stayDatesText(): string {
     if (!this.bookingSummary) return '';
-    return `${this.bookingService.formatDisplayDate(this.bookingSummary.checkIn)} - ${this.bookingService.formatDisplayDate(this.bookingSummary.checkOut)}`;
+    return `${this.bookingService.formatDisplayDate(
+      this.bookingSummary.checkIn
+    )} - ${this.bookingService.formatDisplayDate(
+      this.bookingSummary.checkOut
+    )}`;
   }
 
-  /**
-   * Cambia el método de pago
-   */
   selectPaymentMethod(method: PaymentMethod): void {
     this.paymentInfo.method = method;
   }
 
-  /**
-   * Valida el formulario
-   */
   isFormValid(): boolean {
     const guestValid =
       this.guestInfo.firstName.trim() !== '' &&
@@ -267,26 +269,151 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
 
     const paymentValid =
       this.paymentInfo.method === 'credit-card'
-        ? (this.paymentInfo.cardNumber?.trim() !== '' &&
+        ? this.paymentInfo.cardNumber?.trim() !== '' &&
           this.paymentInfo.expiryMonth !== '' &&
-          this.paymentInfo.expiryYear !== '')
+          this.paymentInfo.expiryYear !== ''
         : true;
 
     return guestValid && paymentValid && this.paymentInfo.acceptTerms;
   }
 
-  /**
-   * Envía la reserva
-   */
+  // ==========================================
+  // 👇 LOGICA DE CUPONES ACTUALIZADA
+  // ==========================================
+
+  applyCoupon(): void {
+    this.resetCouponState();
+
+    if (!this.couponCode.trim()) return;
+
+    // 1. Validar que tengamos un email para verificar historial
+    if (!this.guestInfo.email) {
+      this.showCouponError(
+        'Por favor ingresa tu correo electrónico primero para validar el cupón.'
+      );
+      return;
+    }
+
+    const codeToVerify = this.couponCode.trim().toUpperCase();
+
+    // 2. Obtener cupones del sistema
+    this.couponService.getAll().subscribe({
+      next: (coupons) => {
+        const foundCoupon = coupons.find((c) => c.code === codeToVerify);
+
+        // Validaciones básicas del cupón
+        if (!foundCoupon) {
+          this.showCouponError('Código de cupón no válido.');
+          return;
+        }
+        if (!foundCoupon.isActive) {
+          this.showCouponError('Este cupón ya no está activo.');
+          return;
+        }
+
+        // Validación de fecha (Local Time)
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const today = `${year}-${month}-${day}`;
+
+        if (foundCoupon.validUntil < today) {
+          this.showCouponError('Este cupón ha expirado.');
+          return;
+        }
+
+        // 3. Verificar si el usuario YA USÓ este cupón
+        this.verifyCouponHistory(
+          this.guestInfo.email,
+          codeToVerify,
+          foundCoupon
+        );
+      },
+      error: () => this.showCouponError('Error al verificar el cupón.'),
+    });
+  }
+
+  private verifyCouponHistory(
+    email: string,
+    code: string,
+    coupon: Coupon
+  ): void {
+    this.bookingService.getBookingsByEmail(email).subscribe({
+      next: (bookings) => {
+        // Buscamos en las reservas activas o completadas si ya usó este código
+        // (Ignoramos las canceladas si quieres permitir re-uso tras cancelar)
+        const alreadyUsed = bookings.some(
+          (b) => (b as any).couponCode === code && b.status !== 'CANCELLED'
+        );
+
+        if (alreadyUsed) {
+          this.showCouponError(
+            'Ya has utilizado este cupón en una reserva anterior.'
+          );
+        } else {
+          // Si pasa todas las pruebas, aplicamos el descuento
+          this.calculateDiscount(coupon);
+        }
+      },
+      error: () =>
+        this.showCouponError('No se pudo verificar tu historial de cupones.'),
+    });
+  }
+
+  private calculateDiscount(coupon: Coupon): void {
+    if (!this.bookingSummary) return;
+
+    this.appliedCoupon = coupon;
+    const original = this.bookingSummary.totalPrice;
+
+    if (coupon.discountType === 'PERCENTAGE') {
+      this.discountAmount = Math.round(original * (coupon.discountValue / 100));
+    } else {
+      this.discountAmount = coupon.discountValue;
+    }
+
+    // Evitar negativos
+    if (this.discountAmount > original) {
+      this.discountAmount = original;
+    }
+
+    this.finalPrice = original - this.discountAmount;
+    this.couponMessage = `¡Cupón aplicado! Ahorras ${this.discountAmount} ${this.bookingSummary.currency}`;
+    this.couponMessageType = 'success';
+  }
+
+  removeCoupon(): void {
+    this.resetCouponState();
+    if (this.bookingSummary) {
+      this.finalPrice = this.bookingSummary.totalPrice;
+    }
+  }
+
+  private resetCouponState(): void {
+    this.appliedCoupon = null;
+    this.discountAmount = 0;
+    this.couponMessage = '';
+    this.couponMessageType = '';
+  }
+
+  private showCouponError(msg: string): void {
+    this.couponMessage = msg;
+    this.couponMessageType = 'error';
+    this.appliedCoupon = null;
+  }
+
+  // ==========================================
+
   submitBooking(): void {
     if (!this.isFormValid() || !this.bookingSummary) return;
 
     this.isSubmitting = true;
 
-    // Obtener usuario actual y parámetros de búsqueda
     const searchParams = this.bookingService.getSearchParams();
     const currentUser = this.authService.getCurrentUser();
 
+    // Incluimos los datos del cupón en la reserva para el historial
     const bookingData = {
       hotelId: this.hotelId,
       roomId: this.roomId,
@@ -299,7 +426,7 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
       guestInfo: this.guestInfo,
       paymentInfo: {
         ...this.paymentInfo,
-        cardLastFour: this.paymentInfo.cardNumber?.slice(-4)
+        cardLastFour: this.paymentInfo.cardNumber?.slice(-4),
       },
       isMember: this.isMember || !!this.guestInfo.memberNumber || !!currentUser,
       userId: currentUser?.id?.toString() || null,
@@ -308,139 +435,119 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
       roomName: this.room?.name || this.bookingSummary.roomName,
       rateName: this.selectedRate?.name || this.bookingSummary.rateName,
       pricePerNight: this.bookingSummary.pricePerNight,
-      totalPrice: this.bookingSummary.totalPrice,
-      currency: this.bookingSummary.currency
+
+      // PRECIOS FINALES Y DATOS DE CUPÓN
+      totalPrice: this.finalPrice,
+      originalPrice: this.bookingSummary.totalPrice,
+      discountAmount: this.discountAmount,
+      couponCode: this.appliedCoupon ? this.appliedCoupon.code : null, // Guardamos el código usado
+
+      currency: this.bookingSummary.currency,
     };
 
-    // Simular delay de procesamiento
     setTimeout(() => {
-      this.bookingService.createBooking(bookingData)
+      this.bookingService
+        .createBooking(bookingData)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (confirmedBooking) => {
             this.confirmedBooking = confirmedBooking;
             this.bookingConfirmed = true;
             this.isSubmitting = false;
-            // Redirigir a la página de confirmación
             if (confirmedBooking.confirmationCode) {
-              this.router.navigate(['/client/booking-confirmation', confirmedBooking.confirmationCode]);
+              this.router.navigate([
+                '/client/booking-confirmation',
+                confirmedBooking.confirmationCode,
+              ]);
             }
           },
           error: (error) => {
             console.error('Error al crear reserva:', error);
             this.isSubmitting = false;
-          }
+          },
         });
     }, 1500);
   }
 
-  /**
-   * Abre los detalles de la habitación
-   */
+  // ... (Resto de métodos sin cambios: openRoomDetails, registerMember, startTimer, etc.)
   openRoomDetails(): void {
-    // Por ahora solo navegamos de vuelta
     this.router.navigate(['/client/hotel', this.hotelId, 'rooms']);
   }
 
-  /**
-   * Edita los detalles de la estancia
-   */
   editStayDetails(): void {
     this.router.navigate(['/client/hotel', this.hotelId, 'rooms']);
   }
 
-  /**
-   * Vuelve al inicio
-   */
   goToHome(): void {
     this.router.navigate(['/client/home']);
   }
 
-  /**
-   * Ve las reservas del usuario
-   */
   viewMyBookings(): void {
     this.router.navigate(['/client/profile']);
   }
 
-  /**
-   * Valida las contraseñas del registro
-   */
   validatePasswords(): boolean {
     this.passwordError = '';
-
     if (this.memberPassword.length < 8) {
       this.passwordError = 'La contraseña debe tener al menos 8 caracteres';
       return false;
     }
-
     if (this.memberPassword !== this.memberConfirmPassword) {
       this.passwordError = 'Las contraseñas no coinciden';
       return false;
     }
-
     return true;
   }
 
-  /**
-   * Registra un nuevo miembro de Marriott Bonvoy
-   */
   registerMember(): void {
-    if (!this.validatePasswords()) {
-      return;
-    }
-
-    if (!this.guestInfo.firstName || !this.guestInfo.lastName || !this.guestInfo.email) {
+    if (!this.validatePasswords()) return;
+    if (
+      !this.guestInfo.firstName ||
+      !this.guestInfo.lastName ||
+      !this.guestInfo.email
+    ) {
       this.showRegistrationError = true;
-      this.registrationMessage = 'Por favor complete la información del huésped antes de registrarse';
+      this.registrationMessage =
+        'Por favor complete la información del huésped antes de registrarse';
       setTimeout(() => {
         this.showRegistrationError = false;
       }, 4000);
       return;
     }
-
-    // Datos del nuevo usuario
     const userData = {
       firstName: this.guestInfo.firstName,
       lastName: this.guestInfo.lastName,
       email: this.guestInfo.email,
-      password: this.memberPassword
+      password: this.memberPassword,
     };
-
-    // Llamar al servicio de autenticación para registrar
-    this.authService.register(userData)
-      .then(newUser => {
+    this.authService
+      .register(userData)
+      .then((newUser) => {
         this.isLoggedIn = true;
         this.isMember = true;
         this.wantsToJoin = false;
         this.guestInfo.memberNumber = newUser.bonvoyNumber || '';
         this.showRegistrationSuccess = true;
         this.registrationMessage = `¡Cuenta creada exitosamente! Tu número de miembro es: ${newUser.bonvoyNumber}`;
-
         setTimeout(() => {
           this.showRegistrationSuccess = false;
         }, 5000);
       })
-      .catch(error => {
+      .catch((error) => {
         this.showRegistrationError = true;
-        this.registrationMessage = error.message || 'Error al crear la cuenta. Inténtalo de nuevo.';
+        this.registrationMessage =
+          error.message || 'Error al crear la cuenta. Inténtalo de nuevo.';
         setTimeout(() => {
           this.showRegistrationError = false;
         }, 4000);
       });
   }
 
-  /**
-   * Cierra el mensaje de registro
-   */
   closeRegistrationMessage(): void {
     this.showRegistrationSuccess = false;
     this.showRegistrationError = false;
   }
 
-  /**
-   * Inicia el contador de tiempo de reserva
-   */
   private startTimer(): void {
     this.timerInterval = setInterval(() => {
       if (this.timerSeconds > 0) {
@@ -450,7 +557,6 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
           this.timerMinutes--;
           this.timerSeconds = 59;
         } else {
-          // Tiempo expirado
           clearInterval(this.timerInterval);
           this.handleTimerExpiration();
         }
@@ -458,13 +564,10 @@ export class CompleteBookingComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  /**
-   * Maneja la expiración del tiempo de reserva
-   */
   private handleTimerExpiration(): void {
-    alert('El tiempo de reserva ha expirado. Por favor, selecciona la habitación nuevamente.');
-    // Redirigir a la selección de habitaciones del hotel
-    // Se usa queryParams si el bookingSummary tiene roomId, aunque lo ideal es volver al listado
+    alert(
+      'El tiempo de reserva ha expirado. Por favor, selecciona la habitación nuevamente.'
+    );
     if (this.hotelId) {
       this.router.navigate(['/client/hotel', this.hotelId, 'rooms']);
     } else {

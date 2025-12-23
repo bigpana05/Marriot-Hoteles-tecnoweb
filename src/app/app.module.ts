@@ -60,7 +60,7 @@ import { GroupSearchComponent } from './pages/client/group-search/group-search.c
 import { GroupRequestComponent } from './pages/client/group-request/group-request.component';
 import { GroupConfirmationComponent } from './pages/client/group-confirmation/group-confirmation.component';
 import { GroupHotelCardComponent } from './pages/client/group-search/group-hotel-card/group-hotel-card.component';
-
+import { AdminCouponsComponent } from './pages/admin/coupons/coupons.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -113,9 +113,16 @@ import { GroupHotelCardComponent } from './pages/client/group-search/group-hotel
     GroupRequestComponent,
     GroupConfirmationComponent,
     GroupHotelCardComponent,
+    AdminCouponsComponent,
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+  ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

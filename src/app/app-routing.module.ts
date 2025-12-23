@@ -21,7 +21,7 @@ import { DigitalCheckinComponent } from './pages/client/digital-checkin/digital-
 import { GroupSearchComponent } from './pages/client/group-search/group-search.component';
 import { GroupRequestComponent } from './pages/client/group-request/group-request.component';
 import { GroupConfirmationComponent } from './pages/client/group-confirmation/group-confirmation.component';
-
+import { AdminCouponsComponent } from './pages/admin/coupons/coupons.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { HotelsComponent } from './pages/admin/hotels/hotels.component';
@@ -43,6 +43,28 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'client', pathMatch: 'full' },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ADMIN' },
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'hotels', component: HotelsComponent },
+      { path: 'events', component: EventsComponent },
+      { path: 'users', component: UsersComponent },
+      { path: 'bookings', component: AdminBookingsComponent },
+      { path: 'rooms', component: AdminRoomsComponent },
+      { path: 'room-occupancy', component: AdminRoomOccupancyComponent },
+      { path: 'group-hotels', component: GroupHotelsComponent },
+      { path: 'group-requests', component: GroupRequestsComponent },
+
+      // --- NUEVA RUTA AQUÍ ---
+      { path: 'coupons', component: AdminCouponsComponent },
+
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    ],
+  },
 
   {
     path: 'client',
@@ -50,23 +72,43 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
-      { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
+      {
+        path: 'register',
+        component: RegisterComponent,
+        canActivate: [GuestGuard],
+      },
       { path: 'profile', component: ProfileComponent },
       { path: 'catalog', component: CatalogComponent },
       { path: 'cart', component: CartComponent },
       { path: 'experiences', component: ExperiencesComponent },
       { path: 'offers', component: OffersComponent },
       { path: 'search-hotels', component: SearchHotelsComponent },
-      { path: 'hotel/:id/availability', component: AvailabilityCalendarComponent },
+      {
+        path: 'hotel/:id/availability',
+        component: AvailabilityCalendarComponent,
+      },
       { path: 'hotel/:id/rooms', component: ReserveHotelsComponent },
       { path: 'hotel/:id/booking', component: CompleteBookingComponent },
-      { path: 'booking-confirmation/:code', component: BookingConfirmationComponent },
-      { path: 'my-reservations', component: MyReservationsComponent, canActivate: [AuthGuard] },
-      { path: 'check-in/:confirmationCode', component: DigitalCheckinComponent },
+      {
+        path: 'booking-confirmation/:code',
+        component: BookingConfirmationComponent,
+      },
+      {
+        path: 'my-reservations',
+        component: MyReservationsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'check-in/:confirmationCode',
+        component: DigitalCheckinComponent,
+      },
       { path: 'guest-reservations', component: GuestReservationsComponent },
       { path: 'groups', component: GroupSearchComponent },
       { path: 'groups/request/:id', component: GroupRequestComponent },
-      { path: 'groups/confirmation/:code', component: GroupConfirmationComponent },
+      {
+        path: 'groups/confirmation/:code',
+        component: GroupConfirmationComponent,
+      },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },
@@ -99,4 +141,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

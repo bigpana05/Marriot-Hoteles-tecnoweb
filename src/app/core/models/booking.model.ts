@@ -32,12 +32,22 @@ export interface Booking {
   checkInStatus?: 'PENDING' | 'COMPLETED';
   checkInCompletedAt?: string;
   checkInData?: CheckInData;
+
+  // 👇 NUEVOS CAMPOS DE CUPONES (Agregados)
+  discountAmount?: number;
+  originalPrice?: number;
+  couponCode?: string | null;
 }
 
 /**
  * Estados posibles de una reserva
  */
-export type BookingStatus = 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED' | 'CHECKED_IN';
+export type BookingStatus =
+  | 'PENDING'
+  | 'CONFIRMED'
+  | 'CANCELLED'
+  | 'COMPLETED'
+  | 'CHECKED_IN';
 
 /**
  * Información del huésped
@@ -97,6 +107,11 @@ export interface CreateBookingDTO {
   pricePerNight?: number;
   totalPrice?: number;
   currency?: string;
+
+  // 👇 TAMBIÉN AGREGARLOS AQUÍ PARA EVITAR ERRORES AL CREAR
+  discountAmount?: number;
+  originalPrice?: number;
+  couponCode?: string | null;
 }
 
 /**

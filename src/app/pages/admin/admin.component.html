@@ -1,5 +1,4 @@
 <div class="admin-layout">
-  <!-- Lateral -->
   <aside class="admin-sidebar">
     <div class="admin-logo">
       <span class="admin-logo__title">Marriott Admin</span>
@@ -11,22 +10,29 @@
       <a routerLink="/admin/users" routerLinkActive="active">Usuarios</a>
       <a routerLink="/admin/hotels" routerLinkActive="active">Hoteles</a>
       <a routerLink="/admin/rooms" routerLinkActive="active">Habitaciones</a>
-      <a routerLink="/admin/room-occupancy" routerLinkActive="active">Ocupación</a>
+      <a routerLink="/admin/room-occupancy" routerLinkActive="active"
+        >Ocupación</a
+      >
       <a routerLink="/admin/bookings" routerLinkActive="active">Reservas</a>
-      <a routerLink="/admin/group-hotels" routerLinkActive="active">Hoteles Grupales</a>
-      <a routerLink="/admin/group-requests" routerLinkActive="active">Solicitudes Grupales</a>
+
+      <a routerLink="/admin/coupons" routerLinkActive="active">Cupones</a>
+
+      <a routerLink="/admin/group-hotels" routerLinkActive="active"
+        >Hoteles Grupales</a
+      >
+      <a routerLink="/admin/group-requests" routerLinkActive="active"
+        >Solicitudes Grupales</a
+      >
       <a routerLink="/admin/events" routerLinkActive="active">Eventos</a>
     </nav>
   </aside>
 
-  <!-- Contenido -->
   <main class="admin-content">
-    <!-- Barra superior con info de cuenta -->
     <header class="admin-topbar">
       <div class="admin-topbar__left">
         <h1 class="admin-topbar__title">Panel de administración</h1>
         <p class="admin-topbar__subtitle">
-          Gestiona usuarios, catálogo de hoteles y eventos.
+          Gestiona usuarios, catálogo de hoteles, eventos y promociones.
         </p>
       </div>
 
@@ -44,7 +50,10 @@
         </div>
 
         <div class="admin-topbar__actions">
-          <button class="btn btn-outline-secondary btn-sm" (click)="goToClient()">
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            (click)="goToClient()"
+          >
             Ver sitio público
           </button>
           <button class="btn btn-danger btn-sm" (click)="logout()">
@@ -54,7 +63,6 @@
       </div>
     </header>
 
-    <!-- Zona donde cambian las pantallas (dashboard / users / hotels / events) -->
     <section class="admin-main">
       <router-outlet></router-outlet>
     </section>

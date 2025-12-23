@@ -4,11 +4,11 @@
     <!-- Carrusel de imágenes -->
     <div class="image-carousel">
       <div class="carousel-container">
-        <img [src]="currentImage" [alt]="hotel.name" class="hotel-image" />
+        <img [src]="currentImage" [alt]="hotel?.name" class="hotel-image" />
 
         <!-- Logo de la marca -->
         <div class="brand-logo">
-          <img [src]="hotel.brandLogo" [alt]="hotel.brand" />
+          <img [src]="hotel?.brandLogo" [alt]="hotel?.brand" />
         </div>
 
         <!-- Controles del carrusel -->
@@ -28,7 +28,7 @@
         <!-- Indicadores -->
         <div class="carousel-indicators">
           <button
-            *ngFor="let image of hotel.images; let i = index"
+            *ngFor="let image of hotel?.images; let i = index"
             class="indicator"
             [class.active]="i === currentImageIndex"
             (click)="goToImage(i); $event.stopPropagation()"
@@ -40,13 +40,13 @@
     <!-- Información del hotel -->
     <div class="hotel-info">
       <div class="info-header">
-        <h2 class="hotel-name">{{ hotel.name }}</h2>
-        <span class="hotel-language">{{ hotel.language }}</span>
+        <h2 class="hotel-name">{{ hotel?.name }}</h2>
+        <span class="hotel-language">{{ hotel?.language }}</span>
       </div>
 
       <div class="hotel-rating">
         <span class="rating-star">★</span>
-        <span class="rating-value">{{ hotel.rating }}</span>
+        <span class="rating-value">{{ hotel?.rating }}</span>
         <span class="rating-reviews">{{ reviewsText }}</span>
         <span class="rating-separator">|</span>
         <span class="hotel-distance">
@@ -59,7 +59,7 @@
         </span>
       </div>
 
-      <p class="hotel-description">{{ hotel.description }}</p>
+      <p class="hotel-description">{{ hotel?.description }}</p>
 
       <button class="view-details-btn" (click)="toggleDetails()">
         <span>Ver detalles</span>
@@ -94,8 +94,8 @@
       <!-- Header del hotel -->
       <div class="details-header">
         <h2 class="details-title">
-          {{ hotel.name }}
-          <span class="details-language">{{ hotel.language }}</span>
+          {{ hotel?.name }}
+          <span class="details-language">{{ hotel?.language }}</span>
         </h2>
         <a href="#" class="property-website-link">
           Ver el sitio web del propiedad
@@ -103,7 +103,7 @@
         </a>
         <div class="details-rating">
           <span class="rating-star">★</span>
-          <span class="rating-value">{{ hotel.rating }}</span>
+          <span class="rating-value">{{ hotel?.rating }}</span>
           <span class="rating-reviews">{{ reviewsText }}</span>
           <span class="rating-separator">|</span>
           <span class="hotel-distance">
@@ -118,7 +118,7 @@
       </div>
 
       <!-- Galería de imágenes -->
-      <div class="details-gallery" *ngIf="hotel.galleries.length">
+      <div class="details-gallery" *ngIf="hotel?.galleries?.length">
         <div class="gallery-main">
           <img
             [src]="currentGallery.imageUrl"
@@ -159,11 +159,11 @@
       <div class="details-section">
         <h3 class="section-title">Información general</h3>
         <p class="general-info-text">
-          Explore {{ hotel.location.city }}, {{ hotel.location.country }}, desde
-          el {{ hotel.name }}. Disfrute de nuestro servicio de traslado en bote
-          gratis desde nuestro muelle privado en la Plaza de San Marcos, situado
-          al otro lado de la laguna. Nuestro hotel está cerca del puente Rialto,
-          La Fenice, del Gran Canal, de los museos y de las basílicas.
+          Explore {{ hotel?.location?.city }}, {{ hotel?.location?.country }},
+          desde el {{ hotel?.name }}. Disfrute de nuestro servicio de traslado
+          en bote gratis desde nuestro muelle privado en la Plaza de San Marcos,
+          situado al otro lado de la laguna. Nuestro hotel está cerca del puente
+          Rialto, La Fenice, del Gran Canal, de los museos y de las basílicas.
         </p>
       </div>
 
@@ -173,21 +173,21 @@
         <div class="location-content">
           <div class="location-address">
             <p class="address-text">
-              {{ hotel.location.address }}<br />
-              {{ hotel.location.city }}, {{ hotel.location.country }},
-              {{ hotel.location.postalCode }}
+              {{ hotel?.location?.address }}<br />
+              {{ hotel?.location?.city }}, {{ hotel?.location?.country }},
+              {{ hotel?.location?.postalCode }}
             </p>
             <p class="phone-text">
               <strong>Teléfono:</strong>
-              <a [href]="'tel:' + hotel.location.phone" class="phone-link">{{
-                hotel.location.phone
+              <a [href]="'tel:' + hotel?.location?.phone" class="phone-link">{{
+                hotel?.location?.phone
               }}</a>
             </p>
 
             <!-- Aeropuertos -->
             <div class="airports-list">
               <div
-                *ngFor="let airport of hotel.location.nearbyAirports"
+                *ngFor="let airport of hotel?.location?.nearbyAirports"
                 class="airport-wrapper"
               >
                 <div
@@ -236,7 +236,7 @@
 
               <!-- Otros transportes -->
               <div
-                *ngFor="let transport of hotel.location.otherTransports"
+                *ngFor="let transport of hotel?.location?.otherTransports"
                 class="transport-wrapper"
               >
                 <div class="transport-item">
@@ -266,13 +266,13 @@
                 <img
                   [src]="
                     'https://maps.googleapis.com/maps/api/staticmap?center=' +
-                    hotel.location.latitude +
+                    hotel?.location?.latitude +
                     ',' +
-                    hotel.location.longitude +
+                    hotel?.location?.longitude +
                     '&zoom=15&size=300x200&markers=color:red%7C' +
-                    hotel.location.latitude +
+                    hotel?.location?.latitude +
                     ',' +
-                    hotel.location.longitude +
+                    hotel?.location?.longitude +
                     '&key='
                   "
                   alt="Mapa de ubicación"
@@ -281,7 +281,7 @@
                 />
                 <div class="map-fallback">
                   <img src="assets/icons/map.svg" alt="Mapa" />
-                  <span>{{ hotel.name }}</span>
+                  <span>{{ hotel?.name }}</span>
                 </div>
               </div>
             </div>
@@ -302,7 +302,7 @@
               />
               <span
                 ><strong>LLEGADA:</strong>
-                {{ hotel.propertyInfo.checkInTime }}</span
+                {{ hotel?.propertyInfo?.checkInTime }}</span
               >
             </div>
             <div class="info-item">
@@ -313,10 +313,10 @@
               />
               <span
                 ><strong>SALIDA:</strong>
-                {{ hotel.propertyInfo.checkOutTime }}</span
+                {{ hotel?.propertyInfo?.checkOutTime }}</span
               >
             </div>
-            <div class="info-item" *ngIf="hotel.propertyInfo.smokeFree">
+            <div class="info-item" *ngIf="hotel?.propertyInfo?.smokeFree">
               <img
                 src="assets/icons/no-smoking.svg"
                 alt="Libre de humo"
@@ -346,7 +346,7 @@
               />
               <div class="pet-policy-content">
                 <strong>Política de mascotas</strong>
-                <p>{{ hotel.propertyInfo.petPolicy }}</p>
+                <p>{{ hotel?.propertyInfo?.petPolicy }}</p>
               </div>
             </div>
           </div>
@@ -357,7 +357,7 @@
       <div class="details-section amenities-section">
         <h3 class="section-title">Comodidades</h3>
         <div class="amenities-grid">
-          <div *ngFor="let amenity of hotel.amenities" class="amenity-item">
+          <div *ngFor="let amenity of hotel?.amenities" class="amenity-item">
             <img
               [src]="getAmenityIcon(amenity.icon)"
               [alt]="amenity.name"

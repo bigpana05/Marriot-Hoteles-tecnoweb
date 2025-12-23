@@ -1670,13 +1670,8 @@
           "Habitación para no fumadores",
           "Vista panorámica"
         ],
-        "bathroomFeatures": [
-          "Bañera y ducha por separado",
-          "Bata"
-        ],
-        "furnitureAndDecor": [
-          "Sofá"
-        ],
+        "bathroomFeatures": ["Bañera y ducha por separado", "Bata"],
+        "furnitureAndDecor": ["Sofá"],
         "foodAndBeverages": [
           "Servicio en la habitación, las 24 horas",
           "Agua embotellada de cortesía"
@@ -1687,10 +1682,7 @@
           "internetAccess": "Standard",
           "wifiNote": "El acceso a WiFi es gratis para Socios."
         },
-        "entertainment": [
-          "Cable/satélite",
-          "Smart TV"
-        ],
+        "entertainment": ["Cable/satélite", "Smart TV"],
         "accessibility": [
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas"
@@ -1701,12 +1693,8 @@
           "Las habitaciones se renovaron en 2018",
           "El hotel se construyó en 2009"
         ],
-        "parkingAndTransport": [
-          "Personal para estacionar gratis"
-        ],
-        "hotelServices": [
-          "Servicio de apertura de cama"
-        ]
+        "parkingAndTransport": ["Personal para estacionar gratis"],
+        "hotelServices": ["Servicio de apertura de cama"]
       }
     },
     {
@@ -1745,9 +1733,7 @@
         }
       ],
       "amenities": {
-        "specialBenefits": [
-          "WiFi de alta velocidad"
-        ],
+        "specialBenefits": ["WiFi de alta velocidad"],
         "bedsAndLinens": {
           "maxCapacity": 2,
           "sofaBed": false,
@@ -1798,9 +1784,7 @@
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
         ],
-        "hotelHighlights": [
-          "Este hotel es 100% libre de humo"
-        ],
+        "hotelHighlights": ["Este hotel es 100% libre de humo"],
         "parkingAndTransport": [
           "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
         ],
@@ -1852,10 +1836,7 @@
         }
       ],
       "amenities": {
-        "specialBenefits": [
-          "WiFi de alta velocidad",
-          "Desayuno incluido"
-        ],
+        "specialBenefits": ["WiFi de alta velocidad", "Desayuno incluido"],
         "bedsAndLinens": {
           "maxCapacity": 2,
           "sofaBed": true,
@@ -1868,10 +1849,7 @@
             "Edredón"
           ]
         },
-        "roomFeatures": [
-          "Con aire acondicionado",
-          "Vista panorámica"
-        ],
+        "roomFeatures": ["Con aire acondicionado", "Vista panorámica"],
         "bathroomFeatures": [
           "Bañera y ducha por separado",
           "Secador de cabello",
@@ -1907,13 +1885,8 @@
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
         ],
-        "hotelHighlights": [
-          "Este hotel es 100% libre de humo",
-          "Vista al mar"
-        ],
-        "parkingAndTransport": [
-          "Servicio de transporte al aeropuerto"
-        ],
+        "hotelHighlights": ["Este hotel es 100% libre de humo", "Vista al mar"],
+        "parkingAndTransport": ["Servicio de transporte al aeropuerto"],
         "hotelServices": [
           "Gimnasio en las instalaciones",
           "Servicio de apertura de cama"
@@ -1958,10 +1931,7 @@
         }
       ],
       "amenities": {
-        "specialBenefits": [
-          "WiFi de alta velocidad",
-          "Check-in móvil"
-        ],
+        "specialBenefits": ["WiFi de alta velocidad", "Check-in móvil"],
         "bedsAndLinens": {
           "maxCapacity": 2,
           "sofaBed": false,
@@ -2014,9 +1984,7 @@
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
         ],
-        "hotelHighlights": [
-          "Este hotel es 100% libre de humo"
-        ],
+        "hotelHighlights": ["Este hotel es 100% libre de humo"],
         "parkingAndTransport": [
           "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
         ],
@@ -2067,10 +2035,7 @@
         }
       ],
       "amenities": {
-        "specialBenefits": [
-          "WiFi de alta velocidad",
-          "Desayuno incluido"
-        ],
+        "specialBenefits": ["WiFi de alta velocidad", "Desayuno incluido"],
         "bedsAndLinens": {
           "maxCapacity": 2,
           "sofaBed": false,
@@ -2126,9 +2091,7 @@
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
         ],
-        "hotelHighlights": [
-          "Este hotel es 100% libre de humo"
-        ],
+        "hotelHighlights": ["Este hotel es 100% libre de humo"],
         "parkingAndTransport": [
           "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
         ],
@@ -2234,10 +2197,7 @@
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
         ],
-        "hotelHighlights": [
-          "Este hotel es 100% libre de humo",
-          "Vista al mar"
-        ],
+        "hotelHighlights": ["Este hotel es 100% libre de humo", "Vista al mar"],
         "parkingAndTransport": [
           "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
         ],
@@ -2285,9 +2245,7 @@
         }
       ],
       "amenities": {
-        "specialBenefits": [
-          "WiFi de alta velocidad"
-        ],
+        "specialBenefits": ["WiFi de alta velocidad"],
         "bedsAndLinens": {
           "maxCapacity": 2,
           "sofaBed": false,
@@ -2339,9 +2297,7 @@
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
         ],
-        "hotelHighlights": [
-          "Este hotel es 100% libre de humo"
-        ],
+        "hotelHighlights": ["Este hotel es 100% libre de humo"],
         "parkingAndTransport": [
           "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
         ],
@@ -2389,9 +2345,7 @@
         }
       ],
       "amenities": {
-        "specialBenefits": [
-          "WiFi de alta velocidad"
-        ],
+        "specialBenefits": ["WiFi de alta velocidad"],
         "bedsAndLinens": {
           "maxCapacity": 2,
           "sofaBed": false,
@@ -2445,9 +2399,7 @@
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
           "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
         ],
-        "hotelHighlights": [
-          "Este hotel es 100% libre de humo"
-        ],
+        "hotelHighlights": ["Este hotel es 100% libre de humo"],
         "parkingAndTransport": [
           "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
         ],
@@ -2883,6 +2835,104 @@
         "vehiclePlate": "ABC-1234",
         "completedAt": "2025-12-20T02:13:05.346Z"
       }
+    },
+    {
+      "id": "37cd",
+      "hotelId": 3,
+      "roomId": 1,
+      "rateId": "member-flexible",
+      "checkIn": "2025-12-24",
+      "checkOut": "2026-01-22",
+      "rooms": 1,
+      "adults": 1,
+      "children": 0,
+      "guestInfo": {
+        "firstName": "Cliente",
+        "lastName": "Demo",
+        "email": "cliente@demo.cl",
+        "memberNumber": "BON123456",
+        "sendSmsConfirmation": false,
+        "country": "Chile",
+        "postalCode": "123123",
+        "city": "Arica",
+        "addressLine1": "pasaje 123",
+        "addressLine2": ""
+      },
+      "paymentInfo": {
+        "method": "credit-card",
+        "cardNumber": "3333333333333333333",
+        "expiryMonth": "04",
+        "expiryYear": "2028",
+        "acceptTerms": true,
+        "receivePromotions": true,
+        "shareData": true,
+        "cardLastFour": "3333"
+      },
+      "isMember": true,
+      "userId": "2",
+      "guestId": null,
+      "hotelName": "Le Royal Méridien Place Vendôme Lusail",
+      "roomName": "Villa Rose, Villa de 2 dormitorio(s), Dormitorio1: 1 King, Dormitorio2: 1 King, sofás cama: 2",
+      "rateName": "Tarifa flexible para socios",
+      "pricePerNight": 265,
+      "totalPrice": 7685,
+      "originalPrice": 7685,
+      "discountAmount": 0,
+      "couponCode": null,
+      "currency": "EUR",
+      "confirmationCode": "MRB3L5QRJ2025",
+      "nights": 29,
+      "status": "CONFIRMED",
+      "createdAt": "2025-12-22T00:50:08.559Z"
+    },
+    {
+      "id": "9dc4",
+      "hotelId": 2,
+      "roomId": 1,
+      "rateId": "member-flexible",
+      "checkIn": "2025-12-23",
+      "checkOut": "2026-01-13",
+      "rooms": 1,
+      "adults": 1,
+      "children": 0,
+      "guestInfo": {
+        "firstName": "Cliente",
+        "lastName": "Demo",
+        "email": "cliente@demo.cl",
+        "memberNumber": "BON123456",
+        "sendSmsConfirmation": false,
+        "country": "Chile",
+        "postalCode": "123123",
+        "city": "Arica",
+        "addressLine1": "pasaje 123",
+        "addressLine2": ""
+      },
+      "paymentInfo": {
+        "method": "credit-card",
+        "cardNumber": "1211111111111111111",
+        "expiryMonth": "11",
+        "expiryYear": "2033",
+        "acceptTerms": true,
+        "receivePromotions": true,
+        "shareData": true,
+        "cardLastFour": "1111"
+      },
+      "isMember": true,
+      "userId": "2",
+      "guestId": null,
+      "hotelName": "JW Marriott Venice Resort & Spa",
+      "roomName": "Villa Rose, Villa de 2 dormitorio(s), Dormitorio1: 1 King, Dormitorio2: 1 King, sofás cama: 2",
+      "rateName": "Tarifa flexible para socios",
+      "pricePerNight": 1200,
+      "totalPrice": 22176,
+      "originalPrice": 25200,
+      "discountAmount": 3024,
+      "couponCode": "FSBSNRN33",
+      "currency": "EUR",
+      "confirmationCode": "MRBZDL31Q2025",
+      "nights": 21,
+      "status": "CONFIRMED",
+      "createdAt": "2025-12-22T03:31:00.417Z"
     }
   ],
   "groupHotels": [
@@ -3034,9 +3084,7 @@
       "equipment": [
         {
           "category": "business",
-          "items": [
-            "Computadoras"
-          ]
+          "items": ["Computadoras"]
         },
         {
           "category": "meeting",
@@ -3049,16 +3097,11 @@
         },
         {
           "category": "services",
-          "items": [
-            "Electricista",
-            "Guardia de seguridad"
-          ]
+          "items": ["Electricista", "Guardia de seguridad"]
         },
         {
           "category": "internet",
-          "items": [
-            "Sala de reuniones, Wireless, Wired"
-          ]
+          "items": ["Sala de reuniones, Wireless, Wired"]
         }
       ]
     },
@@ -3210,9 +3253,7 @@
       "equipment": [
         {
           "category": "business",
-          "items": [
-            "Computadoras"
-          ]
+          "items": ["Computadoras"]
         },
         {
           "category": "meeting",
@@ -3227,16 +3268,11 @@
         },
         {
           "category": "services",
-          "items": [
-            "Guardia de seguridad",
-            "Técnico de AV"
-          ]
+          "items": ["Guardia de seguridad", "Técnico de AV"]
         },
         {
           "category": "internet",
-          "items": [
-            "Sala de reuniones, Wireless, Wired"
-          ]
+          "items": ["Sala de reuniones, Wireless, Wired"]
         }
       ],
       "airportCode": "DXB"
@@ -3296,6 +3332,38 @@
       "confirmationCode": "GRPUM109G2RQ7",
       "adminNotes": "",
       "reviewedAt": "2025-12-21T04:51:16.342Z"
+    }
+  ],
+  "coupons": [
+    {
+      "id": "afcd",
+      "code": "FSBSNRN33",
+      "discountType": "PERCENTAGE",
+      "discountValue": 12,
+      "validUntil": "2025-12-30",
+      "isActive": true,
+      "isPublic": true,
+      "description": "vsdvew"
+    },
+    {
+      "id": "87f4",
+      "code": "VSDVWD",
+      "discountType": "FIXED",
+      "discountValue": 24,
+      "validUntil": "2026-01-11",
+      "isActive": true,
+      "isPublic": true,
+      "description": ""
+    },
+    {
+      "id": "a608",
+      "code": "WRVBQEBVSE21",
+      "discountType": "PERCENTAGE",
+      "discountValue": 100,
+      "validUntil": "2026-01-04",
+      "isActive": true,
+      "isPublic": false,
+      "description": "vsve"
     }
   ]
 }
