@@ -62,17 +62,6 @@
       "bonvoyNumber": "BON123459"
     },
     {
-      "id": "ce03",
-      "email": "juan.test@marriott.com",
-      "password": "Test12345",
-      "firstName": "Juan",
-      "lastName": "Perez",
-      "name": "Juan Perez",
-      "role": "CLIENT",
-      "token": "token-1766175144500",
-      "bonvoyNumber": "BON123460"
-    },
-    {
       "id": "cdaa",
       "email": "prueba2@gmail.com",
       "password": "cuenta123",
@@ -1591,28 +1580,69 @@
       "id": "1",
       "name": "Conferencia Tech Latam",
       "hotelId": 1,
-      "location": "Santiago",
+      "location": "Santiago, Chile",
       "date": "2025-07-10",
       "capacity": 300,
-      "attendees": 220
+      "attendees": 226,
+      "description": "La conferencia más importante de tecnología en Latinoamérica. Conecta con líderes de la industria, descubre las últimas tendencias y expande tu red profesional.",
+      "images": [
+        "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800",
+        "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800",
+        "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800"
+      ],
+      "price": 299,
+      "currency": "USD"
     },
     {
       "id": "2",
-      "name": "Summit de Turismo",
+      "name": "Summit de Turismo Internacional",
       "hotelId": 2,
-      "location": "Buenos Aires",
+      "location": "Buenos Aires, Argentina",
       "date": "2025-09-05",
       "capacity": 200,
-      "attendees": 150
+      "attendees": 150,
+      "description": "Evento exclusivo para profesionales del turismo. Workshops, networking y presentaciones de destinos exclusivos alrededor del mundo.",
+      "images": [
+        "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800",
+        "https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=800",
+        "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800"
+      ],
+      "price": 450,
+      "currency": "USD"
     },
     {
       "id": "3",
-      "name": "Expo Innovación",
+      "name": "Expo Innovación Digital",
       "hotelId": 3,
-      "location": "Lima",
+      "location": "Lima, Perú",
       "date": "2025-11-20",
       "capacity": 250,
-      "attendees": 80
+      "attendees": 80,
+      "description": "La exposición más grande de innovación digital en la región andina. Startups, inversores y emprendedores reunidos bajo un mismo techo.",
+      "images": [
+        "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800",
+        "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800",
+        "https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?w=800"
+      ],
+      "price": 199,
+      "currency": "USD"
+    },
+    {
+      "id": "4",
+      "name": "Gala Marriott Excellence",
+      "hotelId": 1,
+      "location": "Ciudad de México, México",
+      "date": "2025-12-15",
+      "capacity": 150,
+      "attendees": 45,
+      "description": "Una noche de elegancia y reconocimiento. Cena de gala con entretenimiento exclusivo y premios a la excelencia en hospitalidad.",
+      "images": [
+        "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800",
+        "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800",
+        "https://images.unsplash.com/photo-1530023367847-a683933f4172?w=800"
+      ],
+      "price": 650,
+      "currency": "USD"
     }
   ],
   "rooms": [
@@ -3334,6 +3364,7 @@
       "reviewedAt": "2025-12-21T04:51:16.342Z"
     }
   ],
+<<<<<<< HEAD
   "coupons": [
     {
       "id": "afcd",
@@ -3364,6 +3395,21 @@
       "isActive": true,
       "isPublic": false,
       "description": "vsve"
+=======
+  "experienceReservations": [
+    {
+      "id": "d371",
+      "eventId": "1",
+      "eventName": "Conferencia Tech Latam",
+      "userId": "2",
+      "fullName": "Cliente Demo",
+      "email": "cliente@demo.cl",
+      "phone": "931231",
+      "numberOfPeople": "3",
+      "comments": "prueba",
+      "reservationDate": "2025-12-23T03:48:14.628Z",
+      "status": "CONFIRMED"
+>>>>>>> origin/feature/experiences-update
     }
   ]
 }
