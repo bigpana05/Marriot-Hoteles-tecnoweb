@@ -11,31 +11,24 @@
   <div class="row g-4">
     <div class="col-md-6 col-lg-4" *ngFor="let hotel of hotels">
       <div class="card h-100 shadow-sm border-0 hotel-card">
-        <img
-          src="assets/brand/hotels/Marriott_International-W-Algarve-Exterior-ref163410.jpg"
-          class="card-img-top"
-          alt="{{ hotel.name }}"
-          style="height: 200px; object-fit: cover"
-        />
+        <img src="assets/brand/hotels/Marriott_International-W-Algarve-Exterior-ref163410.jpg" class="card-img-top"
+          alt="{{ hotel.name }}" style="height: 200px; object-fit: cover" />
 
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-start mb-2">
             <h5 class="card-title fw-bold text-dark mb-0">{{ hotel.name }}</h5>
-            <span class="badge bg-success" *ngIf="hotel.availableRooms > 0"
-              >Disponible</span
-            >
-            <span class="badge bg-danger" *ngIf="hotel.availableRooms === 0"
-              >Agotado</span
-            >
+            <span class="badge bg-success" *ngIf="hotel.availableRooms > 0">Disponible</span>
+            <span class="badge bg-danger" *ngIf="hotel.availableRooms === 0">Agotado</span>
           </div>
 
           <p class="card-text text-muted small">
-            <i class="bi bi-geo-alt-fill text-primary"></i> {{ hotel.city }},
-            {{ hotel.country }}
+            <i class="bi bi-geo-alt-fill text-primary"></i> {{ hotel.location?.city }},
+            {{ hotel.location?.country }}
           </p>
 
           <p class="card-text small">
-            <strong>Tipos de habitación:</strong> {{ hotel.roomTypes }}
+            <strong>Habitaciones disponibles:</strong> {{ hotel.availableRooms !== undefined ? hotel.availableRooms :
+            'N/A' }}
           </p>
 
           <hr />
@@ -48,10 +41,7 @@
                 <small class="fs-6 text-muted">/noche</small>
               </h4>
             </div>
-            <button
-              class="btn btn-outline-primary"
-              [disabled]="hotel.availableRooms === 0"
-            >
+            <button class="btn btn-outline-primary" [disabled]="hotel.availableRooms === 0">
               Ver Detalles
             </button>
           </div>

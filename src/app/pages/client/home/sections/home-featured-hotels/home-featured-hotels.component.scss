@@ -167,6 +167,10 @@
             bottom: 25px;
             right: 25px;
             transition: transform 0.3s ease;
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
 
             img {
               width: 24px;

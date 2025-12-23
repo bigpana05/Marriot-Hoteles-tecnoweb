@@ -69,7 +69,7 @@ export class SearchHotelsComponent implements OnInit, OnDestroy {
   constructor(
     private searchHotelService: SearchHotelService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadFilters();
@@ -94,9 +94,13 @@ export class SearchHotelsComponent implements OnInit, OnDestroy {
           this.searchDestination = params['destination'];
         }
         if (params['checkIn'] && params['checkOut']) {
+          // Parsear fechas asumiendo hora local para evitar desfase de zona horaria
+          const [inYear, inMonth, inDay] = params['checkIn'].split('-').map(Number);
+          const [outYear, outMonth, outDay] = params['checkOut'].split('-').map(Number);
+
           this.searchDates = {
-            checkIn: new Date(params['checkIn']),
-            checkOut: new Date(params['checkOut'])
+            checkIn: new Date(inYear, inMonth - 1, inDay),
+            checkOut: new Date(outYear, outMonth - 1, outDay)
           };
         }
         if (params['rooms']) {
@@ -509,5 +513,25 @@ export class SearchHotelsComponent implements OnInit, OnDestroy {
       return `${checkIn} - ${checkOut}`;
     }
     return 'Agregar fechas';
+  }
+
+  /**
+   * Obtiene la fecha de check-in formateada para pasar a la reserva
+   */
+  get formattedCheckIn(): string {
+    if (this.searchDates.checkIn) {
+      return this.searchDates.checkIn.toISOString().split('T')[0];
+    }
+    return '';
+  }
+
+  /**
+   * Obtiene la fecha de check-out formateada para pasar a la reserva
+   */
+  get formattedCheckOut(): string {
+    if (this.searchDates.checkOut) {
+      return this.searchDates.checkOut.toISOString().split('T')[0];
+    }
+    return '';
   }
 }

@@ -50,9 +50,9 @@ export class FooterComponent implements OnInit {
    */
   private loadFeaturedHotels(): void {
     this.featuredHotels = [
-      { id: 1, name: 'Marriott Santiago', country: 'Chile', imageUrl: '' },
-      { id: 2, name: 'Marriott Buenos Aires', country: 'Argentina', imageUrl: '' },
-      { id: 3, name: 'Marriott Lima', country: 'Perú', imageUrl: '' }
+      { id: 1, name: 'Marriott Santiago', city: 'Santiago', country: 'Chile', imageUrl: '' },
+      { id: 2, name: 'Marriott Buenos Aires', city: 'Buenos Aires', country: 'Argentina', imageUrl: '' },
+      { id: 3, name: 'Marriott Lima', city: 'Lima', country: 'Perú', imageUrl: '' }
     ];
   }
 

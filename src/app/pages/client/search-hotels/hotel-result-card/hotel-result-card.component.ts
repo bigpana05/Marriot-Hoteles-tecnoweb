@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { HotelSearchResult } from '../../../../core/models/hotel-search.model';
+import { BookingService } from '../../../../core/services/booking.service';
 
 /**
  * Componente de tarjeta de resultado de hotel
@@ -15,6 +17,10 @@ export class HotelResultCardComponent {
   @Input() numberOfNights: number = 1;
   @Input() rooms: number = 1;
   @Input() totalGuests: number = 1;
+  @Input() checkIn: string = '';
+  @Input() checkOut: string = '';
+  @Input() adults: number = 1;
+  @Input() children: number = 0;
 
   // Estado del carrusel de imágenes
   currentImageIndex = 0;
@@ -27,6 +33,11 @@ export class HotelResultCardComponent {
 
   // Estado de expansión de aeropuertos
   expandedAirport: string | null = null;
+
+  constructor(
+    private router: Router,
+    private bookingService: BookingService
+  ) {}
 
   /**
    * Obtiene la imagen de galería seleccionada actualmente
@@ -187,10 +198,19 @@ export class HotelResultCardComponent {
 
   /**
    * Maneja el click en Ver Tarifas
-   * Por ahora no hace nada, después navegará a reservas
+   * Guarda los parámetros de búsqueda y navega a la página de selección de habitaciones
    */
   onViewRates(): void {
-    // TODO: Implementar navegación a página de reservas
-    console.log('Ver tarifas del hotel:', this.hotel.id);
+    // Guardar parámetros de búsqueda en el servicio
+    this.bookingService.setSearchParams({
+      checkIn: this.checkIn,
+      checkOut: this.checkOut,
+      rooms: this.rooms,
+      adults: this.adults,
+      children: this.children
+    });
+
+    // Navegar a la página de selección de habitaciones
+    this.router.navigate(['/client/hotel', this.hotel.id, 'rooms']);
   }
 }

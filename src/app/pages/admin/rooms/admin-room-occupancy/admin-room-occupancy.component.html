@@ -1,0 +1,203 @@
+<div class="occupancy-container">
+    <!-- Header -->
+    <div class="page-header">
+        <h1>Calendario de Ocupación</h1>
+        <p class="subtitle">Visualiza las reservas de cada habitación por fecha</p>
+    </div>
+
+    <!-- Selector de Hotel -->
+    <div class="hotel-selector">
+        <label for="hotel-select">Seleccionar Hotel</label>
+        <select id="hotel-select" [(ngModel)]="selectedHotelId" (ngModelChange)="onHotelSelect($event)">
+            <option [ngValue]="null" disabled>-- Selecciona un hotel --</option>
+            <option *ngFor="let hotel of hotels" [ngValue]="hotel.id">
+                {{ hotel.name }}
+            </option>
+        </select>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content" *ngIf="selectedHotelId">
+
+        <!-- Resumen -->
+        <div class="summary-bar" *ngIf="!isLoading">
+            <div class="summary-item">
+                <span class="label">Habitaciones</span>
+                <span class="value">{{ rooms.length }}</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Reservas Activas</span>
+                <span class="value">{{ totalActiveBookings }}</span>
+            </div>
+            <div class="summary-item legend">
+                <span class="legend-item">
+                    <span class="dot empty"></span> Libre
+                </span>
+                <span class="legend-item">
+                    <span class="dot partial"></span> Parcial
+                </span>
+                <span class="legend-item">
+                    <span class="dot full"></span> Ocupado
+                </span>
+            </div>
+        </div>
+
+        <!-- Cargando -->
+        <div class="loading" *ngIf="isLoading">
+            <div class="spinner"></div>
+            <p>Cargando ocupación...</p>
+        </div>
+
+        <!-- Calendario -->
+        <div class="calendar-section" *ngIf="!isLoading && rooms.length > 0">
+
+            <!-- Navegación del mes -->
+            <div class="calendar-nav">
+                <button class="nav-btn" (click)="prevMonth()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <h2 class="month-title">{{ monthName }}</h2>
+                <button class="nav-btn" (click)="nextMonth()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Grid de ocupación -->
+            <div class="occupancy-grid">
+                <!-- Header con días de la semana -->
+                <div class="grid-header">
+                    <div class="room-header">Habitación</div>
+                    <div class="day-header" *ngFor="let day of weekDays">{{ day }}</div>
+                </div>
+
+                <!-- Por cada semana -->
+                <div class="week-section" *ngFor="let week of calendarWeeks; let weekIndex = index">
+                    <!-- Mostrar fechas de esta semana -->
+                    <div class="week-dates">
+                        <div class="room-cell empty"></div>
+                        <div class="date-cell" *ngFor="let day of week" [class.other-month]="!day.isCurrentMonth"
+                            [class.today]="day.isToday">
+                            {{ day.dayNumber }}
+                        </div>
+                    </div>
+
+                    <!-- Por cada habitación -->
+                    <div class="room-row" *ngFor="let roomOcc of roomOccupancies">
+                        <div class="room-cell" *ngIf="weekIndex === 0">
+                            <span class="room-name">{{ roomOcc.room.name | slice:0:30 }}...</span>
+                            <span class="room-inventory">Inv: {{ roomOcc.room.available }}</span>
+                        </div>
+                        <div class="room-cell placeholder" *ngIf="weekIndex !== 0"></div>
+
+                        <div class="occupancy-cell" *ngFor="let day of week" [class.other-month]="!day.isCurrentMonth"
+                            [class.occupied]="isRoomOccupied(roomOcc, day)"
+                            [class.empty]="getOccupancyLevel(roomOcc, day) === 'empty'"
+                            [class.partial]="getOccupancyLevel(roomOcc, day) === 'partial'"
+                            [class.full]="getOccupancyLevel(roomOcc, day) === 'full'"
+                            (click)="isRoomOccupied(roomOcc, day) && showBookingDetails(getBookingsForDay(roomOcc, day)[0])"
+                            [title]="roomOcc.room.name">
+                            <span class="room-name-cell" *ngIf="weekIndex === 0">
+                                {{ roomOcc.room.name | slice:0:20 }}{{ roomOcc.room.name.length > 20 ? '...' : '' }}
+                            </span>
+                            <span class="booking-indicator" *ngIf="isRoomOccupied(roomOcc, day)">
+                                {{ getBookingsForDay(roomOcc, day).length }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sin habitaciones -->
+        <div class="empty-state" *ngIf="!isLoading && rooms.length === 0">
+            <i class="fas fa-bed"></i>
+            <p>Este hotel no tiene habitaciones registradas</p>
+        </div>
+
+        <!-- Lista de reservas activas -->
+        <div class="bookings-list" *ngIf="!isLoading && totalActiveBookings > 0">
+            <h3>Reservas Activas ({{ totalActiveBookings }})</h3>
+            <div class="booking-cards">
+                <div class="booking-card" *ngFor="let roomOcc of roomOccupancies">
+                    <div class="room-title" *ngIf="roomOcc.bookings.length > 0">
+                        {{ roomOcc.room.name }}
+                    </div>
+                    <div class="booking-item" *ngFor="let booking of roomOcc.bookings"
+                        (click)="showBookingDetails(booking)">
+                        <div class="dates">
+                            <i class="fas fa-calendar"></i>
+                            {{ formatDisplayDate(booking.checkIn) }} - {{ formatDisplayDate(booking.checkOut) }}
+                        </div>
+                        <div class="guest">
+                            <i class="fas fa-user"></i>
+                            {{ booking.guestInfo?.firstName }} {{ booking.guestInfo?.lastName }}
+                        </div>
+                        <div class="code">
+                            <i class="fas fa-ticket-alt"></i>
+                            {{ booking.confirmationCode }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de detalles de reserva -->
+    <div class="modal-overlay" *ngIf="showBookingModal" (click)="closeBookingModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <button class="close-btn" (click)="closeBookingModal()">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <h2>Detalles de Reserva</h2>
+
+            <div class="booking-details" *ngIf="selectedBooking">
+                <div class="detail-row">
+                    <span class="label">Código:</span>
+                    <span class="value code">{{ selectedBooking.confirmationCode }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Estado:</span>
+                    <span class="value status" [class.confirmed]="selectedBooking.status === 'CONFIRMED'">
+                        {{ selectedBooking.status }}
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Huésped:</span>
+                    <span class="value">
+                        {{ selectedBooking.guestInfo?.firstName }} {{ selectedBooking.guestInfo?.lastName }}
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Email:</span>
+                    <span class="value">{{ selectedBooking.guestInfo?.email }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Check-in:</span>
+                    <span class="value">{{ formatDisplayDate(selectedBooking.checkIn) }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Check-out:</span>
+                    <span class="value">{{ formatDisplayDate(selectedBooking.checkOut) }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Noches:</span>
+                    <span class="value">{{ selectedBooking.nights }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Habitaciones:</span>
+                    <span class="value">{{ selectedBooking.rooms }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Huéspedes:</span>
+                    <span class="value">{{ selectedBooking.adults }} adultos, {{ selectedBooking.children }}
+                        niños</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Total:</span>
+                    <span class="value price">{{ selectedBooking.totalPrice }} {{ selectedBooking.currency }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

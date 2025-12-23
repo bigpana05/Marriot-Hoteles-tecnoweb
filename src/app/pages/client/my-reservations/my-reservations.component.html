@@ -1,0 +1,140 @@
+<section class="my-reservations-page">
+  <div class="reservations-container">
+    <!-- Encabezado -->
+    <div class="page-header">
+      <h1>Mis reservas</h1>
+      <p class="welcome-text" *ngIf="currentUser">
+        Bienvenido, <strong>{{ currentUser.name }}</strong>.
+        Aquí puedes ver y gestionar todas tus reservas.
+      </p>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters-bar">
+      <button class="filter-btn" [class.active]="activeFilter === 'all'" (click)="setFilter('all')">
+        Todas
+      </button>
+      <button class="filter-btn" [class.active]="activeFilter === 'upcoming'" (click)="setFilter('upcoming')">
+        Próximas
+      </button>
+      <button class="filter-btn" [class.active]="activeFilter === 'past'" (click)="setFilter('past')">
+        Pasadas
+      </button>
+      <button class="filter-btn" [class.active]="activeFilter === 'cancelled'" (click)="setFilter('cancelled')">
+        Canceladas
+      </button>
+    </div>
+
+    <!-- Cargando -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando tus reservas...</p>
+    </div>
+
+    <!-- Estado vacío -->
+    <div *ngIf="!loading && filteredBookings.length === 0" class="empty-state">
+      <div class="empty-icon">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+      </div>
+      <h2>No hay reservas</h2>
+      <p *ngIf="activeFilter === 'all'">Aún no tienes ninguna reserva. ¡Comienza a planear tu próximo viaje!</p>
+      <p *ngIf="activeFilter === 'upcoming'">No tienes reservas próximas.</p>
+      <p *ngIf="activeFilter === 'past'">No tienes reservas pasadas.</p>
+      <p *ngIf="activeFilter === 'cancelled'">No tienes reservas canceladas.</p>
+      <button class="btn-primary" (click)="goToHome()">Buscar hoteles</button>
+    </div>
+
+    <!-- Lista de reservas -->
+    <div *ngIf="!loading && filteredBookings.length > 0" class="bookings-list">
+      <div class="booking-card" *ngFor="let booking of filteredBookings">
+        <div class="booking-header">
+          <div class="hotel-info">
+            <h3>{{ booking.hotelName || 'Hotel' }}</h3>
+            <p class="room-name">{{ booking.roomName }}</p>
+          </div>
+          <span class="status-badge" [ngClass]="getStatusClass(booking.status)">
+            {{ getStatusLabel(booking.status) }}
+          </span>
+        </div>
+
+        <div class="booking-body">
+          <div class="dates-row">
+            <div class="date-block">
+              <span class="date-label">Check-in</span>
+              <span class="date-value">{{ formatDate(booking.checkIn) }}</span>
+            </div>
+            <div class="date-separator">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </div>
+            <div class="date-block">
+              <span class="date-label">Check-out</span>
+              <span class="date-value">{{ formatDate(booking.checkOut) }}</span>
+            </div>
+          </div>
+
+          <div class="booking-details-row">
+            <div class="detail-item">
+              <span class="detail-label">Confirmación</span>
+              <span class="detail-value code">{{ booking.confirmationCode }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Noches</span>
+              <span class="detail-value">{{ booking.nights }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Habitaciones</span>
+              <span class="detail-value">{{ booking.rooms }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Total</span>
+              <span class="detail-value price">{{ booking.totalPrice | number:'1.2-2' }} {{ booking.currency }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-actions">
+          <button class="btn-view" (click)="viewDetails(booking)">
+            Ver detalles
+          </button>
+          <button *ngIf="canCancel(booking)" class="btn-cancel" (click)="openCancelModal(booking)"
+            [disabled]="cancellingId === booking.id">
+            {{ cancellingId === booking.id ? 'Cancelando...' : 'Cancelar reserva' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal de cancelación -->
+<div class="modal-overlay" *ngIf="showCancelModal" (click)="closeCancelModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Cancelar reserva</h2>
+    <p>¿Estás seguro de que deseas cancelar esta reserva?</p>
+
+    <div class="modal-booking-info" *ngIf="bookingToCancel">
+      <strong>{{ bookingToCancel.hotelName }}</strong>
+      <span>{{ formatDate(bookingToCancel.checkIn) }} - {{ formatDate(bookingToCancel.checkOut) }}</span>
+      <span class="code">{{ bookingToCancel.confirmationCode }}</span>
+    </div>
+
+    <p class="cancel-warning">
+      Al cancelar, el cupo de la habitación volverá a estar disponible para otros huéspedes.
+    </p>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="closeCancelModal()">No, mantener reserva</button>
+      <button class="btn-danger" (click)="confirmCancel()" [disabled]="cancellingId">
+        {{ cancellingId ? 'Cancelando...' : 'Sí, cancelar' }}
+      </button>
+    </div>
+  </div>
+</div>

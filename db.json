@@ -4,63 +4,915 @@
       "id": "1",
       "email": "admin@demo.cl",
       "password": "admin",
+      "firstName": "Administrador",
+      "lastName": "Sistema",
       "name": "Administrador",
       "role": "ADMIN",
-      "token": "admin-token-123"
+      "token": "admin-token-123",
+      "bonvoyNumber": "ADM000001"
     },
     {
       "id": "2",
       "email": "cliente@demo.cl",
       "password": "cliente",
+      "firstName": "Cliente",
+      "lastName": "Demo",
       "name": "Cliente Demo",
       "role": "CLIENT",
-      "token": "client-token-456"
+      "token": "client-token-456",
+      "bonvoyNumber": "BON123456"
+    },
+    {
+      "id": "4cbe",
+      "email": "prueba@gmail.com",
+      "password": "cuenta123",
+      "firstName": "prueba3",
+      "lastName": "sadsad",
+      "name": "prueba3 sadsad",
+      "role": "CLIENT",
+      "token": "token-1765684700589",
+      "bonvoyNumber": "BON123457"
+    },
+    {
+      "id": "97b7",
+      "email": "prueba1@gmail.com",
+      "password": "cuenta123",
+      "firstName": "prueba",
+      "lastName": "4",
+      "name": "prueba 4",
+      "role": "CLIENT",
+      "token": "token-1765685184340",
+      "bonvoyNumber": "BON123458"
     }
   ],
+  "guests": [],
   "hotels": [
     {
       "id": "1",
-      "name": "Marriott Santiago",
-      "city": "Santiago",
-      "country": "Chile",
-      "address": "Av. Kennedy 5741, Las Condes",
-      "roomTypes": "Standard, Suite, Ejecutiva",
-      "basePrice": 120,
-      "availableRooms": 30,
-      "totalRooms": 80
+      "name": "W Barcelona",
+      "brand": "W Hotels",
+      "brandLogo": "assets/brand/hotels/W-Barcelona/wh-logo-white.png",
+      "language": "Inglés",
+      "description": "Sumérgete en la modernidad en el W Barcelona en España",
+      "rating": 4.1,
+      "reviewCount": 3292,
+      "basePrice": 641,
+      "currency": "EUR",
+      "images": [
+        "assets\\brand\\featured-hotels\\Marriott_International-W_Hotel_Barcelona-ref163110.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\wh-bcnwh-w-barcelona-23064_Wide-Hor-_1_.png",
+        "assets\\brand\\hotels\\W-Barcelona\\wh-bcnwh-w-barcelona-27524_Wide-Hor-_1_.png",
+        "assets\\brand\\hotels\\W-Barcelona\\wh-bcnwh-cool-corner-01--31202-61312_Wide-Hor.png",
+        "assets\\brand\\hotels\\W-Barcelona\\bcnwh-wet-9829-hor-wide.png",
+        "assets\\brand\\hotels\\W-Barcelona\\wh-bcnwh-wonderful-sky-twin3-29561-33716_Wide-Hor.png"
+      ],
+      "galleries": [
+        {
+          "category": "property-view",
+          "title": "Vista Al Propiedad",
+          "imageUrl": "assets/brand/hotels/W-Barcelona/wh-bcnwh-w-barcelona-23064_Wide-Hor-_1_.png"
+        },
+        {
+          "category": "suites",
+          "title": "Suites",
+          "imageUrl": "assets/brand/hotels/W-Barcelona/wh-bcnwh-wow-suite-03--37868-01542_Wide-Hor.png"
+        },
+        {
+          "category": "rooms",
+          "title": "Habitaciones",
+          "imageUrl": "assets/brand/hotels/W-Barcelona/wh-bcnwh-wonderful-sky-twin3-29561-33716_Wide-Hor.png"
+        },
+        {
+          "category": "gym",
+          "title": "Gimnasio Y Entretenimiento",
+          "imageUrl": "assets/brand/hotels/W-Barcelona/bcnwh-wet-9829-hor-wide.png"
+        },
+        {
+          "category": "restaurants",
+          "title": "Restaurantes",
+          "imageUrl": "assets/brand/hotels/W-Barcelona/wh-bcnwh-whobcnwhrf-657586_Wide-Hor.png"
+        }
+      ],
+      "location": {
+        "address": "Plaça Rosa dels Vents, 1, Final Passeig de Joan de Borbó",
+        "city": "Barcelona",
+        "country": "España",
+        "postalCode": "08039",
+        "phone": "+3 493-295-2800",
+        "latitude": 41.3684,
+        "longitude": 2.1896,
+        "distanceFromCenter": 2.6,
+        "nearbyAirports": [
+          {
+            "name": "Girona-Costa Brava Airport",
+            "code": "GRO",
+            "distance": "165,76 km NE",
+            "phone": "+3 491-321-1000",
+            "hasShuttle": false
+          },
+          {
+            "name": "Barcelona-El Prat Airport",
+            "code": "BCN",
+            "distance": "28,97 km SW",
+            "phone": "",
+            "hasShuttle": false
+          }
+        ],
+        "otherTransports": [
+          {
+            "type": "Alquiler de automóvil",
+            "company": "Hertz",
+            "phone": "+3493356113"
+          },
+          {
+            "type": "Alquiler de automóvil",
+            "company": "Sixt",
+            "phone": "+3 434-932-9251"
+          }
+        ]
+      },
+      "propertyInfo": {
+        "checkInTime": "15:00",
+        "checkOutTime": "12:00",
+        "smokeFree": true,
+        "petPolicy": "Cargo no reembolsable: 100 EUR Por estancia.",
+        "accessibilityLink": "#",
+        "yearBuilt": 2009,
+        "yearRenovated": 2018
+      },
+      "amenities": [
+        {
+          "id": "wifi",
+          "name": "Internet de alta velocidad gratis",
+          "icon": "wifi",
+          "available": true
+        },
+        {
+          "id": "pool",
+          "name": "Piscina",
+          "icon": "pool",
+          "available": true
+        },
+        {
+          "id": "gym",
+          "name": "Gimnasio",
+          "icon": "gym",
+          "available": true
+        },
+        {
+          "id": "pets",
+          "name": "Se aceptan mascotas",
+          "icon": "pets",
+          "available": true
+        },
+        {
+          "id": "parking",
+          "name": "Estacionamiento",
+          "icon": "parking",
+          "available": true
+        },
+        {
+          "id": "spa",
+          "name": "Spa con servicio completo",
+          "icon": "spa",
+          "available": true
+        },
+        {
+          "id": "events",
+          "name": "Espacio para eventos y reuniones",
+          "icon": "events",
+          "available": true
+        },
+        {
+          "id": "atm",
+          "name": "Cajero automático/ATM",
+          "icon": "atm",
+          "available": true
+        },
+        {
+          "id": "accessible",
+          "name": "Habitaciones accesibles",
+          "icon": "accessible",
+          "available": true
+        },
+        {
+          "id": "restaurant",
+          "name": "Restaurante",
+          "icon": "restaurant",
+          "available": true
+        },
+        {
+          "id": "bar",
+          "name": "Bar/Lounge",
+          "icon": "bar",
+          "available": true
+        },
+        {
+          "id": "room-service",
+          "name": "Servicio a la habitación 24h",
+          "icon": "room-service",
+          "available": true
+        },
+        {
+          "id": "business",
+          "name": "Centro de negocios",
+          "icon": "business",
+          "available": false
+        },
+        {
+          "id": "concierge",
+          "name": "Servicio de conserjería",
+          "icon": "concierge",
+          "available": false
+        },
+        {
+          "id": "laundry",
+          "name": "Lavandería/Tintorería",
+          "icon": "laundry",
+          "available": false
+        },
+        {
+          "id": "exchange",
+          "name": "Cambio de divisas",
+          "icon": "exchange",
+          "available": false
+        },
+        {
+          "id": "storage",
+          "name": "Consigna de equipaje",
+          "icon": "storage",
+          "available": false
+        },
+        {
+          "id": "airport-shuttle",
+          "name": "Transporte al aeropuerto",
+          "icon": "airport-shuttle",
+          "available": false
+        },
+        {
+          "id": "ev-charging",
+          "name": "Cargador para vehículos eléctricos",
+          "icon": "ev-charging",
+          "available": false
+        },
+        {
+          "id": "kids-club",
+          "name": "Club infantil",
+          "icon": "kids-club",
+          "available": false
+        }
+      ],
+      "totalRooms": 3,
+      "availableRooms": 3,
+      "isActive": true,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-12-14T21:50:03.973Z"
     },
     {
       "id": "2",
-      "name": "Marriott Buenos Aires",
-      "city": "Buenos Aires",
-      "country": "Argentina",
-      "address": "Catalinas, Retiro",
-      "roomTypes": "Standard, Deluxe, Suite",
-      "basePrice": 140,
+      "name": "JW Marriott Venice Resort & Spa",
+      "brand": "JW Marriott",
+      "brandLogo": "assets\\brand\\hotels\\JW-Venice\\jw-marriott-logo.svg",
+      "language": "Inglés",
+      "description": "Explore Venecia, Italia, desde el JW Marriott Venice Resort & Spa con vistas al Gran Canal",
+      "rating": 4.6,
+      "reviewCount": 1854,
+      "basePrice": 550,
+      "currency": "EUR",
+      "images": [
+        "assets\\brand\\featured-hotels\\Marriott_International-JW_Marriott_Venice_Resort-amp-SPA-JW_Facade-ref161796.jpg",
+        "assets\\brand\\hotels\\JW-Venice\\vcejw-isola-3097-hor-wide.png",
+        "assets\\brand\\hotels\\JW-Venice\\jw-vcejw-jw-roseto-entrance-19744-62059_Wide-Hor.png",
+        "assets\\brand\\hotels\\JW-Venice\\vcejw-exterior-0181-hor-wide.png",
+        "assets\\brand\\hotels\\JW-Venice\\jw-vcejw-family-premium-room-36862_Wide-Hor.png"
+      ],
+      "galleries": [
+        {
+          "category": "property-view",
+          "title": "Vista 1",
+          "imageUrl": "assets\\brand\\hotels\\JW-Venice\\jw-vcejw-jw-roseto-entrance-19744-62059_Wide-Hor.png"
+        },
+        {
+          "category": "property-view",
+          "title": "Vista 2",
+          "imageUrl": "assets\\brand\\hotels\\JW-Venice\\vcejw-isola-3097-hor-wide.png"
+        },
+        {
+          "category": "suites",
+          "title": "Suites 1",
+          "imageUrl": "assets\\brand\\hotels\\JW-Venice\\vcejw-loft-0124-hor-clsc.png"
+        },
+        {
+          "category": "rooms",
+          "title": "Habitación 1",
+          "imageUrl": "assets\\brand\\hotels\\JW-Venice\\jw-vcejw-family-premium-room-40269_Wide-Hor.png"
+        },
+        {
+          "category": "rooms",
+          "title": "Habitación 2",
+          "imageUrl": "assets\\brand\\hotels\\JW-Venice\\jw-vcejw-family-premium-room-36862_Wide-Hor.png"
+        },
+        {
+          "category": "gym",
+          "title": "piscina",
+          "imageUrl": "assets\\brand\\hotels\\JW-Venice\\jw-vcejw-giorgio-baroni---15-30390-09136_Classic-Hor.png"
+        },
+        {
+          "category": "restaurants",
+          "title": "Restaurante",
+          "imageUrl": "assets\\brand\\hotels\\JW-Venice\\jw-vcejw-dopolavoro41659-54891_Classic-Hor.png"
+        }
+      ],
+      "location": {
+        "address": "Isola delle Rose, Laguna di San Marco",
+        "city": "Venecia",
+        "country": "Italia",
+        "postalCode": "30133",
+        "phone": "+3 941-852-1300",
+        "latitude": 45.4064,
+        "longitude": 12.3575,
+        "distanceFromCenter": 0.2,
+        "nearbyAirports": [
+          {
+            "name": "Venice Marco Polo Airport",
+            "code": "VCE",
+            "distance": "15,93 km NE",
+            "phone": "+3 941-260-9260",
+            "hasShuttle": true
+          }
+        ],
+        "otherTransports": [
+          {
+            "type": "Taxi acuático",
+            "company": "Hotel Shuttle Boat",
+            "phone": "+3 941-852-1300"
+          }
+        ]
+      },
+      "propertyInfo": {
+        "checkInTime": "15:00",
+        "checkOutTime": "12:00",
+        "smokeFree": true,
+        "petPolicy": "Se admiten mascotas con cargo adicional.",
+        "accessibilityLink": "#",
+        "yearBuilt": 2015,
+        "yearRenovated": 2020
+      },
+      "amenities": [
+        {
+          "id": "wifi",
+          "name": "Internet de alta velocidad gratis",
+          "icon": "wifi",
+          "available": true
+        },
+        {
+          "id": "pool",
+          "name": "Piscina",
+          "icon": "pool",
+          "available": true
+        },
+        {
+          "id": "gym",
+          "name": "Gimnasio",
+          "icon": "gym",
+          "available": true
+        },
+        {
+          "id": "spa",
+          "name": "Spa con servicio completo",
+          "icon": "spa",
+          "available": true
+        },
+        {
+          "id": "parking",
+          "name": "Estacionamiento",
+          "icon": "parking",
+          "available": false
+        },
+        {
+          "id": "pets",
+          "name": "Se aceptan mascotas",
+          "icon": "pets",
+          "available": true
+        },
+        {
+          "id": "events",
+          "name": "Espacio para eventos y reuniones",
+          "icon": "events",
+          "available": true
+        },
+        {
+          "id": "accessible",
+          "name": "Habitaciones accesibles",
+          "icon": "accessible",
+          "available": true
+        },
+        {
+          "id": "restaurant",
+          "name": "Restaurante",
+          "icon": "restaurant",
+          "available": true
+        },
+        {
+          "id": "bar",
+          "name": "Bar/Lounge",
+          "icon": "bar",
+          "available": true
+        },
+        {
+          "id": "room-service",
+          "name": "Servicio a la habitación 24h",
+          "icon": "room-service",
+          "available": true
+        },
+        {
+          "id": "concierge",
+          "name": "Servicio de conserjería",
+          "icon": "concierge",
+          "available": true
+        },
+        {
+          "id": "business",
+          "name": "Centro de negocios",
+          "icon": "business",
+          "available": false
+        },
+        {
+          "id": "laundry",
+          "name": "Lavandería/Tintorería",
+          "icon": "laundry",
+          "available": false
+        },
+        {
+          "id": "atm",
+          "name": "Cajero automático/ATM",
+          "icon": "atm",
+          "available": false
+        },
+        {
+          "id": "exchange",
+          "name": "Cambio de divisas",
+          "icon": "exchange",
+          "available": false
+        },
+        {
+          "id": "storage",
+          "name": "Consigna de equipaje",
+          "icon": "storage",
+          "available": false
+        },
+        {
+          "id": "airport-shuttle",
+          "name": "Transporte al aeropuerto",
+          "icon": "airport-shuttle",
+          "available": false
+        },
+        {
+          "id": "ev-charging",
+          "name": "Cargador para vehículos eléctricos",
+          "icon": "ev-charging",
+          "available": false
+        },
+        {
+          "id": "kids-club",
+          "name": "Club infantil",
+          "icon": "kids-club",
+          "available": false
+        }
+      ],
+      "totalRooms": 70,
       "availableRooms": 20,
-      "totalRooms": 70
+      "isActive": true,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-12-14T15:00:40.181Z"
     },
     {
       "id": "3",
-      "name": "Marriott Lima",
-      "city": "Lima",
-      "country": "Perú",
-      "address": "Malecón de la Reserva, Miraflores",
-      "roomTypes": "Standard, Vista Mar, Suite",
-      "basePrice": 150,
+      "name": "Le Royal Méridien Place Vendôme Lusail",
+      "brand": "Le Méridien",
+      "brandLogo": "assets/brand/hotels/Le-Royal-Meridien/le-meridien-logo.png",
+      "language": "Inglés",
+      "description": "Hotel de lujo moderno de 5 estrellas en Lusail con un elegante Spa, gastronomía gourmet y espacios creativos para reuniones.",
+      "rating": 4.5,
+      "reviewCount": 346,
+      "basePrice": 705,
+      "currency": "QAR",
+      "images": [
+        "assets\\brand\\featured-hotels\\Marriott_International-Le_Royal_Meridien_Doha-Exterior-ref163191.jpg",
+        "assets\\brand\\hotels\\Le-Royal-Meridien\\md-dohmd-dohmd-exterior-33508_Wide-Hor.png",
+        "assets\\brand\\hotels\\Le-Royal-Meridien\\md-dohmd-explorer-suite-39543_Wide-Hor.png",
+        "assets\\brand\\hotels\\Le-Royal-Meridien\\md-dohmd-exterior---hotel-48418_Wide-Hor.png",
+        "assets\\brand\\hotels\\Le-Royal-Meridien\\md-dohmd-exterior---residences-26402_Wide-Hor.png"
+      ],
+      "galleries": [
+        {
+          "category": "property-view",
+          "title": "Vista Al Propiedad",
+          "imageUrl": "assets/brand/hotels/Le-Royal-Meridien/md-dohmd-exterior---hotel-48418_Wide-Hor.png"
+        },
+        {
+          "category": "suites",
+          "title": "Suites",
+          "imageUrl": "assets/brand/hotels/Le-Royal-Meridien/md-dohmd-explorer-suite-39543_Wide-Hor.png"
+        },
+        {
+          "category": "rooms",
+          "title": "Habitaciones",
+          "imageUrl": "assets/brand/hotels/Le-Royal-Meridien/md-dohmd-king-vend-me-room-20879_Wide-Hor.png"
+        },
+        {
+          "category": "gym",
+          "title": "Gimnasio Y Entretenimiento",
+          "imageUrl": "assets/brand/hotels/Le-Royal-Meridien/md-dohmd-swimming-pool-18286_Wide-Hor.png"
+        },
+        {
+          "category": "restaurants",
+          "title": "Restaurantes",
+          "imageUrl": "assets/brand/hotels/Le-Royal-Meridien/md-dohmd-latest-recipe-19606_Wide-Hor.png"
+        }
+      ],
+      "location": {
+        "address": "Building No. 153, Street No. 347, P.O. Box 4010",
+        "city": "Lusail",
+        "country": "Catar",
+        "postalCode": "4010",
+        "phone": "+9 744-141-6000",
+        "latitude": 25.40626,
+        "longitude": 51.518681,
+        "distanceFromCenter": 13.5,
+        "nearbyAirports": [
+          {
+            "name": "Hamad International Airport",
+            "code": "DOH",
+            "distance": "47,64 km N",
+            "phone": "",
+            "hasShuttle": false
+          }
+        ],
+        "otherTransports": [
+          {
+            "type": "Alquiler de automóvil",
+            "company": "Hertz",
+            "phone": "+9 744-448-9944"
+          },
+          {
+            "type": "Estación de metro",
+            "company": "Legtaifiya Metro Station",
+            "phone": ""
+          }
+        ]
+      },
+      "propertyInfo": {
+        "checkInTime": "15:00",
+        "checkOutTime": "12:00",
+        "smokeFree": false,
+        "petPolicy": "No se admiten mascotas.",
+        "accessibilityLink": "#",
+        "yearBuilt": 2022,
+        "yearRenovated": null
+      },
+      "amenities": [
+        {
+          "id": "wifi",
+          "name": "Internet de alta velocidad gratis",
+          "icon": "wifi",
+          "available": true
+        },
+        {
+          "id": "pool",
+          "name": "Piscina",
+          "icon": "pool",
+          "available": true
+        },
+        {
+          "id": "gym",
+          "name": "Gimnasio",
+          "icon": "gym",
+          "available": true
+        },
+        {
+          "id": "parking",
+          "name": "Estacionamiento",
+          "icon": "parking",
+          "available": true
+        },
+        {
+          "id": "events",
+          "name": "Espacio para eventos y reuniones",
+          "icon": "events",
+          "available": true
+        },
+        {
+          "id": "accessible",
+          "name": "Habitaciones accesibles",
+          "icon": "accessible",
+          "available": true
+        },
+        {
+          "id": "exchange",
+          "name": "Cambio de divisas",
+          "icon": "exchange",
+          "available": true
+        },
+        {
+          "id": "storage",
+          "name": "Consigna de equipaje",
+          "icon": "storage",
+          "available": true
+        },
+        {
+          "id": "restaurant",
+          "name": "Restaurante",
+          "icon": "restaurant",
+          "available": true
+        },
+        {
+          "id": "bar",
+          "name": "Bar/Lounge",
+          "icon": "bar",
+          "available": true
+        },
+        {
+          "id": "spa",
+          "name": "Spa con servicio completo",
+          "icon": "spa",
+          "available": false
+        },
+        {
+          "id": "pets",
+          "name": "Se aceptan mascotas",
+          "icon": "pets",
+          "available": false
+        },
+        {
+          "id": "room-service",
+          "name": "Servicio a la habitación 24h",
+          "icon": "room-service",
+          "available": false
+        },
+        {
+          "id": "business",
+          "name": "Centro de negocios",
+          "icon": "business",
+          "available": false
+        },
+        {
+          "id": "concierge",
+          "name": "Servicio de conserjería",
+          "icon": "concierge",
+          "available": false
+        },
+        {
+          "id": "laundry",
+          "name": "Lavandería/Tintorería",
+          "icon": "laundry",
+          "available": false
+        },
+        {
+          "id": "atm",
+          "name": "Cajero automático/ATM",
+          "icon": "atm",
+          "available": false
+        },
+        {
+          "id": "airport-shuttle",
+          "name": "Transporte al aeropuerto",
+          "icon": "airport-shuttle",
+          "available": false
+        },
+        {
+          "id": "ev-charging",
+          "name": "Cargador para vehículos eléctricos",
+          "icon": "ev-charging",
+          "available": false
+        },
+        {
+          "id": "kids-club",
+          "name": "Club infantil",
+          "icon": "kids-club",
+          "available": false
+        }
+      ],
+      "totalRooms": 60,
       "availableRooms": 25,
-      "totalRooms": 60
+      "isActive": true,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-12-14T15:47:51.574Z"
     },
     {
-      "id": "f3da",
-      "name": "Papu hotel",
-      "city": "OHAIO",
-      "country": "EEUU",
-      "address": "21 de mayo",
-      "roomTypes": "Cama, Sin cama, anashe",
-      "basePrice": 200,
-      "availableRooms": 5,
-      "totalRooms": 40
+      "id": "3429",
+      "name": "Le Méridien Barcelona",
+      "brand": "Le Méridien",
+      "brandLogo": "assets\\brand\\hotels\\Le-Royal-Meridien\\le-meridien-logo.png",
+      "language": "Inglés",
+      "description": "Alójese en Le Méridien Barcelona y descubra los lugares de interés del centro de Barcelona, España.",
+      "rating": 4.3,
+      "reviewCount": 1363,
+      "basePrice": 234,
+      "currency": "EUR",
+      "images": [
+        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-lm-bcn-ago2023-17008-03440_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-facade-las-ramblas-26530-46120_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-hub-longitude-bar--12313-97652_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-panoramic-suite-36646_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-deluxe-room-26285_Classic-Hor.jpg"
+      ],
+      "galleries": [
+        {
+          "category": "property-view",
+          "title": "Vista 1",
+          "imageUrl": "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-facade-las-ramblas-26530-46120_Classic-Hor.jpg"
+        },
+        {
+          "category": "suites",
+          "title": "Suite 1",
+          "imageUrl": "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-panoramic-suite-36646_Classic-Hor.jpg"
+        },
+        {
+          "category": "rooms",
+          "title": "Habitación 1",
+          "imageUrl": "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-deluxe-room-26285_Classic-Hor.jpg"
+        },
+        {
+          "category": "gym",
+          "title": "Gimnasio 1",
+          "imageUrl": "assets\\brand\\hotels\\Le-Meridien-Barcelona\\bcnmd-fitness-centre-3666_Classic-Hor.jpg"
+        },
+        {
+          "category": "restaurants",
+          "title": "Restaurante 1",
+          "imageUrl": "assets\\brand\\hotels\\Le-Meridien-Barcelona\\md-bcnmd-hub-longitude-bar--12313-97652_Classic-Hor.jpg"
+        }
+      ],
+      "location": {
+        "address": "La Rambla 111, Carrer del Pintor Fortuny 4-6 Barcelona, España, 08001",
+        "city": "Barcelona",
+        "country": "España",
+        "postalCode": "08001",
+        "phone": "+3493-318-6200",
+        "latitude": 41.383552,
+        "longitude": 2.170554,
+        "distanceFromCenter": 0.5,
+        "nearbyAirports": [
+          {
+            "name": " Girona-Costa Brava Airport (GRO)",
+            "code": "+3 491-321-1000",
+            "distance": "145,32 km N",
+            "phone": "",
+            "hasShuttle": false
+          },
+          {
+            "name": "Barcelona-El Prat Airport (BCN) ",
+            "code": "+34 939 02404704",
+            "distance": "19,31 km SW",
+            "phone": "",
+            "hasShuttle": false
+          }
+        ],
+        "otherTransports": [
+          {
+            "type": "Alquiler de automóvil",
+            "company": "American Airlines",
+            "phone": ""
+          }
+        ]
+      },
+      "propertyInfo": {
+        "checkInTime": "15:00",
+        "checkOutTime": "12:00",
+        "smokeFree": true,
+        "petPolicy": "Cargo no reembolsable: 45 Por estancia\nPóngase en contacto con el hotel para obtener más detalles",
+        "accessibilityLink": "#https://www.marriott.com/es/hotels/bcnmd-le-meridien-barcelona/overview/",
+        "yearBuilt": 2000,
+        "yearRenovated": 2025
+      },
+      "amenities": [
+        {
+          "id": "wifi",
+          "name": "Internet de alta velocidad gratis",
+          "icon": "wifi",
+          "available": true
+        },
+        {
+          "id": "pool",
+          "name": "Piscina",
+          "icon": "pool",
+          "available": false
+        },
+        {
+          "id": "gym",
+          "name": "Gimnasio",
+          "icon": "gym",
+          "available": true
+        },
+        {
+          "id": "spa",
+          "name": "Spa con servicio completo",
+          "icon": "spa",
+          "available": true
+        },
+        {
+          "id": "parking",
+          "name": "Estacionamiento",
+          "icon": "parking",
+          "available": true
+        },
+        {
+          "id": "pets",
+          "name": "Se aceptan mascotas",
+          "icon": "pets",
+          "available": true
+        },
+        {
+          "id": "restaurant",
+          "name": "Restaurante",
+          "icon": "restaurant",
+          "available": false
+        },
+        {
+          "id": "bar",
+          "name": "Bar/Lounge",
+          "icon": "bar",
+          "available": false
+        },
+        {
+          "id": "room-service",
+          "name": "Servicio a la habitación 24h",
+          "icon": "room-service",
+          "available": false
+        },
+        {
+          "id": "events",
+          "name": "Espacio para eventos y reuniones",
+          "icon": "events",
+          "available": true
+        },
+        {
+          "id": "business",
+          "name": "Centro de negocios",
+          "icon": "business",
+          "available": false
+        },
+        {
+          "id": "concierge",
+          "name": "Servicio de conserjería",
+          "icon": "concierge",
+          "available": false
+        },
+        {
+          "id": "laundry",
+          "name": "Lavandería/Tintorería",
+          "icon": "laundry",
+          "available": false
+        },
+        {
+          "id": "atm",
+          "name": "Cajero automático/ATM",
+          "icon": "atm",
+          "available": true
+        },
+        {
+          "id": "exchange",
+          "name": "Cambio de divisas",
+          "icon": "exchange",
+          "available": false
+        },
+        {
+          "id": "accessible",
+          "name": "Habitaciones accesibles",
+          "icon": "accessible",
+          "available": true
+        },
+        {
+          "id": "storage",
+          "name": "Consigna de equipaje",
+          "icon": "storage",
+          "available": false
+        },
+        {
+          "id": "airport-shuttle",
+          "name": "Transporte al aeropuerto",
+          "icon": "airport-shuttle",
+          "available": false
+        },
+        {
+          "id": "ev-charging",
+          "name": "Cargador para vehículos eléctricos",
+          "icon": "ev-charging",
+          "available": false
+        },
+        {
+          "id": "kids-club",
+          "name": "Club infantil",
+          "icon": "kids-club",
+          "available": false
+        }
+      ],
+      "totalRooms": 10,
+      "availableRooms": 2,
+      "isActive": true,
+      "createdAt": "2025-12-14T05:30:14.921Z",
+      "updatedAt": "2025-12-14T15:34:29.217Z"
     }
   ],
   "events": [
@@ -90,6 +942,413 @@
       "date": "2025-11-20",
       "capacity": 250,
       "attendees": 80
+    }
+  ],
+  "rooms": [
+    {
+      "id": "1",
+      "hotelId": "1",
+      "name": "1 cama tamaño King, Vista limitada, Suite Studio",
+      "type": "suite-studio",
+      "bedType": "king",
+      "view": "limited",
+      "maxCapacity": 3,
+      "size": "60m²/646ft²",
+      "images": [
+        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/bcnwh-studio-suite-4185-hor-wide.png",
+        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/bcnwh-suite-living-5123-hor-wide.png",
+        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/wh-bcnwh-studio-suite-01-42457_Wide-Hor.png",
+        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/wh-bcnwh-studio-suite-02--11473-40867_Wide-Hor.png",
+        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/wh-bcnwh-studio-suite-03-18114_Wide-Hor.png",
+        "assets/brand/hotels/W-Barcelona/Rooms/1-cama-king-suite-studio/wh-bcnwh-studio-suite-04--37074-87793_Wide-Hor.png"
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 3,
+          "sofaBed": true,
+          "extraBedsAllowed": false,
+          "cribsAllowed": 1,
+          "maxCribsOrExtraBeds": 1,
+          "beddingDetails": [
+            "Colchón con cubierta tipo almohada",
+            "Colchón de plumas",
+            "Edredón"
+          ]
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Habitación para no fumadores",
+          "Se dispone de habitaciones conectadas (sólo para algunas habitaciones)",
+          "Ventanas del piso al techo"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Espejo para maquillaje con iluminación",
+          "Secador de cabello",
+          "Bata",
+          "Pantuflas"
+        ],
+        "furnitureAndDecor": [
+          "Reloj despertador",
+          "Caja de seguridad en la habitación, con cargo",
+          "Escritorio, para escribir / trabajar, tomacorriente",
+          "Plancha y tabla de planchar"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía",
+          "Servicio de café y té",
+          "Agua caliente al instante",
+          "Mini-bar, con cargo",
+          "Tetera",
+          "Cafetera Nespresso"
+        ],
+        "internetAndPhones": {
+          "phones": 1,
+          "phoneFeatures": [
+            "Teléfono inalámbrico",
+            "Correo de voz",
+            "Teléfono con altavoz"
+          ],
+          "internetAccess": "Acceso inalámbrico a Internet de cortesía",
+          "wifiNote": "El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy"
+        },
+        "entertainment": [
+          "Habitación de alta tecnología con equipos listos para conexión",
+          "Cable/satélite",
+          "Cable/satélite internacional"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo",
+          "El hotel se construyó en 2009",
+          "Las habitaciones se renovaron en 2018"
+        ],
+        "parkingAndTransport": [
+          "Estación de carga para vehículos eléctricos gratis",
+          "Personal para estacionar gratis",
+          "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
+        ],
+        "hotelServices": [
+          "Gimnasio en las instalaciones",
+          "Servicio de apertura de cama"
+        ]
+      },
+      "rates": [
+        {
+          "id": "member-flexible",
+          "name": "Tarifa flexible para socios",
+          "description": "Tarifa especial para miembros de Marriott Bonvoy",
+          "pricePerNight": 735,
+          "currency": "EUR",
+          "isMemberRate": true,
+          "memberDiscount": 15
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 750,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "available": 1
+    },
+    {
+      "id": "2",
+      "hotelId": "1",
+      "name": "2 camas individuales, Vista al mar Mediterráneo, Habitación Fabulous.",
+      "type": "premium",
+      "bedType": "double",
+      "view": "sea",
+      "maxCapacity": 2,
+      "size": "40m²/430ft²",
+      "images": [
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\2-camas-individuales-Vista-al-mar-Mediterráneo\\wh-bcnwh-fabulous-twin-01--11692-96488_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\2-camas-individuales-Vista-al-mar-Mediterráneo\\wh-bcnwh-twin-guest-room-01--26152-61954_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\2-camas-individuales-Vista-al-mar-Mediterráneo\\wh-bcnwh-guest-room-amenities-40061_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\2-camas-individuales-Vista-al-mar-Mediterráneo\\bcnwh-skyroom-view-4181-hor-clsc.png"
+      ],
+      "available": 2,
+      "rates": [
+        {
+          "id": "standard",
+          "name": "Tarifa Estándar",
+          "description": "cancelación gratuita",
+          "pricePerNight": 400,
+          "currency": "EUR",
+          "isMemberRate": false,
+          "memberDiscount": 15
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 420,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad",
+          "Check-in móvil",
+          "Desayuno incluido"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 2,
+          "sofaBed": false,
+          "extraBedsAllowed": false,
+          "cribsAllowed": 0,
+          "maxCribsOrExtraBeds": 0,
+          "beddingDetails": []
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Habitación para no fumadores",
+          "Vista panorámica"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Bata"
+        ],
+        "furnitureAndDecor": [
+          "Sofá"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía"
+        ],
+        "internetAndPhones": {
+          "phones": 1,
+          "phoneFeatures": [],
+          "internetAccess": "Standard",
+          "wifiNote": "El acceso a WiFi es gratis para Socios."
+        },
+        "entertainment": [
+          "Cable/satélite",
+          "Smart TV"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo",
+          "Vista al mar",
+          "Las habitaciones se renovaron en 2018",
+          "El hotel se construyó en 2009"
+        ],
+        "parkingAndTransport": [
+          "Personal para estacionar gratis"
+        ],
+        "hotelServices": [
+          "Servicio de apertura de cama"
+        ]
+      }
+    },
+    {
+      "id": "3",
+      "hotelId": "1",
+      "name": "1 cama tamaño King, Vista limitada, Habitación Cozy",
+      "type": "standard",
+      "bedType": "king",
+      "view": "limited",
+      "maxCapacity": 2,
+      "size": "39m²/420ft²",
+      "images": [
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\1-cama-king-habitacion-coozy\\wh-bcnwh-cozy-king-01-21205_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\1-cama-king-habitacion-coozy\\wh-bcnwh-cozy-king-02-31984_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\1-cama-king-habitacion-coozy\\wh-bcnwh-guest-room-amenities-40061_Classic-Hor.jpg",
+        "assets\\brand\\hotels\\W-Barcelona\\Rooms\\1-cama-king-habitacion-coozy\\wh-bcnwh-wonderful-king-02-14718_Classic-Hor.jpg"
+      ],
+      "available": 1,
+      "rates": [
+        {
+          "id": "member-flexible",
+          "name": "Tarifa flexible para socios",
+          "description": "Tarifa especial para miembros de Marriott Bonvoy",
+          "pricePerNight": 370,
+          "currency": "EUR",
+          "isMemberRate": true,
+          "memberDiscount": 15
+        },
+        {
+          "id": "flexible",
+          "name": "Tarifa flexible",
+          "description": "Cancelación gratuita hasta 2 días antes de la llegada",
+          "pricePerNight": 390,
+          "currency": "EUR",
+          "isMemberRate": false
+        }
+      ],
+      "amenities": {
+        "specialBenefits": [
+          "WiFi de alta velocidad"
+        ],
+        "bedsAndLinens": {
+          "maxCapacity": 2,
+          "sofaBed": false,
+          "extraBedsAllowed": true,
+          "cribsAllowed": 1,
+          "maxCribsOrExtraBeds": 1,
+          "beddingDetails": [
+            "Colchón con cubierta tipo almohada",
+            "Colchón de plumas",
+            "Edredón"
+          ]
+        },
+        "roomFeatures": [
+          "Con aire acondicionado",
+          "Habitación para no fumadores"
+        ],
+        "bathroomFeatures": [
+          "Bañera y ducha por separado",
+          "Secador de cabello",
+          "Bata",
+          "Pantuflas"
+        ],
+        "furnitureAndDecor": [
+          "Escritorio, para escribir / trabajar, tomacorriente",
+          "Sofá"
+        ],
+        "foodAndBeverages": [
+          "Servicio en la habitación, las 24 horas",
+          "Agua embotellada de cortesía",
+          "Mini-bar, con cargo"
+        ],
+        "internetAndPhones": {
+          "phones": 1,
+          "phoneFeatures": [
+            "Teléfono inalámbrico",
+            "Correo de voz",
+            "Teléfono con altavoz"
+          ],
+          "internetAccess": "Acceso inalámbrico a Internet de cortesía",
+          "wifiNote": "El acceso WiFi siempre es gratis para los socios de Marriott Bonvoy"
+        },
+        "entertainment": [
+          "Habitación de alta tecnología con equipos listos para conexión",
+          "Cable/satélite"
+        ],
+        "accessibility": [
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de movilidad con duchas con acceso para sillas de ruedas",
+          "Este tipo de habitación no ofrece habitaciones con instalaciones para personas con problemas de audición"
+        ],
+        "hotelHighlights": [
+          "Este hotel es 100% libre de humo"
+        ],
+        "parkingAndTransport": [
+          "Estacionamiento en el hotel, tarifa: 30,00 EUR por día"
+        ],
+        "hotelServices": [
+          "Gimnasio en las instalaciones",
+          "Servicio de apertura de cama"
+        ]
+      }
+    }
+  ],
+  "bookings": [
+    {
+      "id": "4472",
+      "hotelId": 1,
+      "roomId": 3,
+      "rateId": "member-flexible",
+      "checkIn": "2025-12-14",
+      "checkOut": "2025-12-15",
+      "rooms": 1,
+      "adults": 1,
+      "children": 0,
+      "guestInfo": {
+        "firstName": "Cliente",
+        "lastName": "Demo",
+        "email": "cliente@demo.cl",
+        "memberNumber": "BON123456",
+        "sendSmsConfirmation": false,
+        "country": "España",
+        "postalCode": "asdasd",
+        "city": "asdas",
+        "addressLine1": "sadsadas",
+        "addressLine2": ""
+      },
+      "paymentInfo": {
+        "method": "credit-card",
+        "cardNumber": "12344",
+        "expiryMonth": "04",
+        "expiryYear": "2025",
+        "acceptTerms": true,
+        "receivePromotions": true,
+        "shareData": true,
+        "cardLastFour": "2344"
+      },
+      "isMember": true,
+      "userId": "2",
+      "guestId": null,
+      "hotelName": "W Barcelona",
+      "roomName": "1 cama tamaño King, Vista limitada, Habitación Cozy",
+      "rateName": "Tarifa flexible para socios",
+      "pricePerNight": 370,
+      "totalPrice": 370,
+      "currency": "EUR",
+      "confirmationCode": "MRBRJY5VN2025",
+      "nights": 1,
+      "status": "CONFIRMED",
+      "createdAt": "2025-12-14T23:39:39.942Z"
+    },
+    {
+      "id": "4cfc",
+      "hotelId": 1,
+      "roomId": 1,
+      "rateId": "member-flexible",
+      "checkIn": "2025-12-14",
+      "checkOut": "2025-12-15",
+      "rooms": 1,
+      "adults": 1,
+      "children": 0,
+      "guestInfo": {
+        "firstName": "prueba3",
+        "lastName": "sadsad",
+        "email": "prueba@gmail.com",
+        "memberNumber": "BON123457",
+        "sendSmsConfirmation": false,
+        "country": "España",
+        "postalCode": "sadsad",
+        "city": "sadsa",
+        "addressLine1": "sada",
+        "addressLine2": "asdas"
+      },
+      "paymentInfo": {
+        "method": "credit-card",
+        "cardNumber": "124214",
+        "expiryMonth": "08",
+        "expiryYear": "2030",
+        "acceptTerms": true,
+        "receivePromotions": true,
+        "shareData": true,
+        "cardLastFour": "4214"
+      },
+      "isMember": true,
+      "userId": "4cbe",
+      "guestId": null,
+      "hotelName": "W Barcelona",
+      "roomName": "1 cama tamaño King, Vista limitada, Suite Studio",
+      "rateName": "Tarifa flexible para socios",
+      "pricePerNight": 735,
+      "totalPrice": 735,
+      "currency": "EUR",
+      "confirmationCode": "MRBCCASZ32025",
+      "nights": 1,
+      "status": "CONFIRMED",
+      "createdAt": "2025-12-15T00:00:07.257Z"
     }
   ]
 }

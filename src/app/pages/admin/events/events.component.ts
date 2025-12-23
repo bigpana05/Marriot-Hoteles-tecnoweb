@@ -110,6 +110,6 @@ export class EventsComponent implements OnInit {
   getHotelName(e: Event): string {
     const hotel = this.hotels.find(h => h.id === e.hotelId);
     if (!hotel) return 'Hotel';
-    return `${hotel.name} (${hotel.city})`;
+    return `${hotel.name} (${hotel.location?.city || ''})`;
   }
 }

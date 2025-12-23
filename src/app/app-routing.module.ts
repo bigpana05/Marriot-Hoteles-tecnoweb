@@ -10,12 +10,22 @@ import { CartComponent } from './pages/client/cart/cart.component';
 import { ExperiencesComponent } from './pages/client/experiences/experiences.component';
 import { OffersComponent } from './pages/client/offers/offers.component';
 import { SearchHotelsComponent } from './pages/client/search-hotels/search-hotels.component';
+import { ReserveHotelsComponent } from './pages/client/reserve-hotels/reserve-hotels.component';
+import { CompleteBookingComponent } from './pages/client/complete-booking/complete-booking.component';
+import { AvailabilityCalendarComponent } from './pages/client/availability-calendar/availability-calendar.component';
+import { BookingConfirmationComponent } from './pages/client/booking-confirmation/booking-confirmation.component';
+import { MyReservationsComponent } from './pages/client/my-reservations/my-reservations.component';
+import { GuestReservationsComponent } from './pages/client/guest-reservations/guest-reservations.component';
 
 import { AdminComponent } from './pages/admin/admin.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { HotelsComponent } from './pages/admin/hotels/hotels.component';
 import { EventsComponent } from './pages/admin/events/events.component';
 import { UsersComponent } from './pages/admin/users/users.component';
+import { AdminBookingsComponent } from './pages/admin/bookings/bookings.component';
+import { AdminRoomsComponent } from './pages/admin/rooms/admin-rooms/admin-rooms.component';
+import { AdminRoomOccupancyComponent } from './pages/admin/rooms/admin-room-occupancy/admin-room-occupancy.component';
+
 
 import { AboutComponent } from './pages/about/about.component';
 
@@ -39,6 +49,12 @@ const routes: Routes = [
       { path: 'experiences', component: ExperiencesComponent },
       { path: 'offers', component: OffersComponent },
       { path: 'search-hotels', component: SearchHotelsComponent },
+      { path: 'hotel/:id/availability', component: AvailabilityCalendarComponent },
+      { path: 'hotel/:id/rooms', component: ReserveHotelsComponent },
+      { path: 'hotel/:id/booking', component: CompleteBookingComponent },
+      { path: 'booking-confirmation/:code', component: BookingConfirmationComponent },
+      { path: 'my-reservations', component: MyReservationsComponent, canActivate: [AuthGuard] },
+      { path: 'guest-reservations', component: GuestReservationsComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },
@@ -53,6 +69,9 @@ const routes: Routes = [
       { path: 'hotels', component: HotelsComponent },
       { path: 'events', component: EventsComponent },
       { path: 'users', component: UsersComponent },
+      { path: 'bookings', component: AdminBookingsComponent },
+      { path: 'rooms', component: AdminRoomsComponent },
+      { path: 'room-occupancy', component: AdminRoomOccupancyComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
@@ -66,4 +85,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

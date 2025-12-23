@@ -1,0 +1,145 @@
+<div class="room-details-modal" (click)="close()">
+    <div class="room-details-modal__content" (click)="$event.stopPropagation()">
+        <!-- Header del modal -->
+        <div class="room-details-modal__header" *ngIf="room">
+            <h2>{{ room.name }}</h2>
+            <button class="close-btn" (click)="close()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <!-- Galería de imágenes -->
+        <div class="room-details-modal__gallery" *ngIf="room">
+            <div class="gallery-main">
+                <img [src]="room.images[currentRoomImageIndex]" [alt]="room.name" class="gallery-main__image">
+                <button class="gallery-nav gallery-nav--prev" (click)="prevRoomImage()">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <button class="gallery-nav gallery-nav--next" (click)="nextRoomImage()">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+                <div class="gallery-indicators">
+                    <span *ngFor="let img of room.images; let i = index" class="indicator"
+                        [class.active]="i === currentRoomImageIndex" (click)="goToRoomImage(i)">
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amenidades de la habitación -->
+        <div class="room-details-modal__amenities" *ngIf="room">
+            <!-- Beneficios especiales -->
+            <div class="amenity-section" *ngIf="room.amenities?.specialBenefits?.length">
+                <h4><i class="bi bi-award"></i> Beneficios especiales</h4>
+                <ul>
+                    <li *ngFor="let benefit of room.amenities.specialBenefits">{{ benefit }}</li>
+                </ul>
+            </div>
+
+            <!-- Camas y ropa de cama -->
+            <div class="amenity-section" *ngIf="room.amenities?.bedsAndLinens">
+                <h4><i class="bi bi-lamp"></i> Camas y ropa de cama</h4>
+                <ul>
+                    <li>Capacidad máxima: {{ room.amenities.bedsAndLinens.maxCapacity }}</li>
+                    <li *ngIf="room.amenities.bedsAndLinens.sofaBed">sofá cama</li>
+                    <li *ngIf="!room.amenities.bedsAndLinens.extraBedsAllowed">No se permiten camas extra</li>
+                    <li *ngIf="room.amenities.bedsAndLinens.cribsAllowed">
+                        Se permiten cunas: {{ room.amenities.bedsAndLinens.cribsAllowed }}
+                    </li>
+                    <li>
+                        Cantidad máxima de cunas/camas extra permitidas: {{
+                        room.amenities.bedsAndLinens.maxCribsOrExtraBeds
+                        }}
+                    </li>
+                    <li *ngFor="let bedding of room.amenities.bedsAndLinens.beddingDetails">{{ bedding }}</li>
+                </ul>
+            </div>
+
+            <!-- Características de la habitación -->
+            <div class="amenity-section" *ngIf="room.amenities?.roomFeatures?.length">
+                <h4><i class="bi bi-house"></i> Características de la habitación</h4>
+                <ul>
+                    <li>{{ room.size }}</li>
+                    <li *ngFor="let feature of room.amenities.roomFeatures">{{ feature }}</li>
+                </ul>
+            </div>
+
+            <!-- Características del baño -->
+            <div class="amenity-section" *ngIf="room.amenities?.bathroomFeatures?.length">
+                <h4><i class="bi bi-droplet"></i> Características del baño</h4>
+                <ul>
+                    <li *ngFor="let feature of room.amenities.bathroomFeatures">{{ feature }}</li>
+                </ul>
+            </div>
+
+            <!-- Mobiliario y decoración -->
+            <div class="amenity-section" *ngIf="room.amenities?.furnitureAndDecor?.length">
+                <h4><i class="bi bi-lamp-fill"></i> Mobiliario y decoración</h4>
+                <ul>
+                    <li *ngFor="let item of room.amenities.furnitureAndDecor">{{ item }}</li>
+                </ul>
+            </div>
+
+            <!-- Comidas y bebidas -->
+            <div class="amenity-section" *ngIf="room.amenities?.foodAndBeverages?.length">
+                <h4><i class="bi bi-cup-hot"></i> Comidas y bebidas</h4>
+                <ul>
+                    <li *ngFor="let item of room.amenities.foodAndBeverages">{{ item }}</li>
+                </ul>
+            </div>
+
+            <!-- Internet y teléfonos -->
+            <div class="amenity-section" *ngIf="room.amenities?.internetAndPhones">
+                <h4><i class="bi bi-wifi"></i> Internet y teléfonos</h4>
+                <ul>
+                    <li>Teléfonos: {{ room.amenities.internetAndPhones.phones }}</li>
+                    <li *ngFor="let feature of room.amenities.internetAndPhones.phoneFeatures">{{ feature }}</li>
+                    <li>{{ room.amenities.internetAndPhones.internetAccess }}</li>
+                    <li class="wifi-note">{{ room.amenities.internetAndPhones.wifiNote }}</li>
+                </ul>
+            </div>
+
+            <!-- Entretenimiento -->
+            <div class="amenity-section" *ngIf="room.amenities?.entertainment?.length">
+                <h4><i class="bi bi-tv"></i> Entretenimiento</h4>
+                <ul>
+                    <li *ngFor="let item of room.amenities.entertainment">{{ item }}</li>
+                </ul>
+            </div>
+
+            <!-- Accesibilidad -->
+            <div class="amenity-section" *ngIf="room.amenities?.accessibility?.length">
+                <h4><i class="bi bi-universal-access"></i> Características de la habitación con instalaciones para
+                    personas con
+                    necesidades especiales</h4>
+                <ul>
+                    <li *ngFor="let item of room.amenities.accessibility">{{ item }}</li>
+                </ul>
+            </div>
+
+            <!-- Aspectos destacados del hotel -->
+            <div class="amenity-section" *ngIf="room.amenities?.hotelHighlights?.length">
+                <h4><i class="bi bi-building"></i> Aspectos destacados del hotel</h4>
+                <ul>
+                    <li *ngFor="let item of room.amenities.hotelHighlights">{{ item }}</li>
+                </ul>
+            </div>
+
+            <!-- Estacionamiento y transporte -->
+            <div class="amenity-section" *ngIf="room.amenities?.parkingAndTransport?.length">
+                <h4><i class="bi bi-p-circle"></i> Estacionamiento y transporte</h4>
+                <ul>
+                    <li *ngFor="let item of room.amenities.parkingAndTransport">{{ item }}</li>
+                </ul>
+            </div>
+
+            <!-- Servicios y comodidades del hotel -->
+            <div class="amenity-section" *ngIf="room.amenities?.hotelServices?.length">
+                <h4><i class="bi bi-grid"></i> Servicios y comodidades del hotel</h4>
+                <ul>
+                    <li *ngFor="let item of room.amenities.hotelServices">{{ item }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

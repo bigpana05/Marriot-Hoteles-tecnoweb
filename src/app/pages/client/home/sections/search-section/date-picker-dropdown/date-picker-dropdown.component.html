@@ -13,8 +13,10 @@
                     <div class="day-name" *ngFor="let day of daysOfWeek">{{ day }}</div>
                     <div class="day-cell" *ngFor="let day of currentMonthDays" [class.empty]="!day"
                         [class.selected]="day ? isSelected(day, currentMonth) : false"
-                        [class.in-range]="day ? isInRange(day, currentMonth) : false" [class.clickable]="day"
-                        (click)="day && selectDate(day, currentMonth)">
+                        [class.in-range]="day ? isInRange(day, currentMonth) : false"
+                        [class.clickable]="day && !isDisabled(day, currentMonth)"
+                        [class.disabled]="day && isDisabled(day, currentMonth)"
+                        (click)="day && !isDisabled(day, currentMonth) && selectDate(day, currentMonth)">
                         {{ day }}
                     </div>
                 </div>
@@ -29,8 +31,10 @@
                     <div class="day-name" *ngFor="let day of daysOfWeek">{{ day }}</div>
                     <div class="day-cell" *ngFor="let day of nextMonthDays" [class.empty]="!day"
                         [class.selected]="day ? isSelected(day, nextMonth) : false"
-                        [class.in-range]="day ? isInRange(day, nextMonth) : false" [class.clickable]="day"
-                        (click)="day && selectDate(day, nextMonth)">
+                        [class.in-range]="day ? isInRange(day, nextMonth) : false"
+                        [class.clickable]="day && !isDisabled(day, nextMonth)"
+                        [class.disabled]="day && isDisabled(day, nextMonth)"
+                        (click)="day && !isDisabled(day, nextMonth) && selectDate(day, nextMonth)">
                         {{ day }}
                     </div>
                 </div>

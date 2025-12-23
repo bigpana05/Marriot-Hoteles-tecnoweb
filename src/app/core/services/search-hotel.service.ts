@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { delay, map, switchMap, catchError } from 'rxjs/operators';
 import {
   HotelSearchResult,
   HotelSearchParams,
@@ -9,6 +10,7 @@ import {
   HotelBrand,
   FilterAmenity
 } from '../models/hotel-search.model';
+import { Hotel } from '../models/hotel.model';
 
 /**
  * Servicio para búsqueda de hoteles
@@ -20,6 +22,10 @@ import {
 export class SearchHotelService {
   // Precio base por noche (1 habitación, 1 huésped)
   private readonly BASE_PRICE_PER_NIGHT = 300;
+  private readonly apiUrl = 'http://localhost:3000';
+
+  // Cache de hoteles para evitar múltiples peticiones
+  private hotelsCache: HotelSearchResult[] | null = null;
 
   // Datos mock del hotel JW Marriott Venice
   private mockHotels: HotelSearchResult[] = [
@@ -294,7 +300,85 @@ export class SearchHotelService {
   private amenitiesSubject = new BehaviorSubject<FilterAmenity[]>(this.availableAmenities);
   private sortOptionSubject = new BehaviorSubject<SortOption>('distance');
 
-  constructor() {}
+  constructor(private http: HttpClient) { }
+
+  /**
+   * Convierte un Hotel de db.json a HotelSearchResult
+   */
+  private hotelToSearchResult(hotel: Hotel): HotelSearchResult {
+    return {
+      id: typeof hotel.id === 'string' ? parseInt(hotel.id, 10) : (hotel.id || 0),
+      name: hotel.name,
+      brand: hotel.brand,
+      brandLogo: hotel.brandLogo || '',
+      language: hotel.language || 'Español',
+      rating: hotel.rating || 0,
+      reviewCount: hotel.reviewCount || 0,
+      distanceFromDestination: hotel.location?.distanceFromCenter || 0,
+      description: hotel.description,
+      pricePerNight: hotel.basePrice,
+      currency: hotel.currency || 'EUR',
+      images: hotel.images || [],
+      location: {
+        address: hotel.location?.address || '',
+        city: hotel.location?.city || '',
+        country: hotel.location?.country || '',
+        postalCode: hotel.location?.postalCode || '',
+        phone: hotel.location?.phone || '',
+        latitude: hotel.location?.latitude || 0,
+        longitude: hotel.location?.longitude || 0,
+        nearbyAirports: hotel.location?.nearbyAirports || [],
+        otherTransports: hotel.location?.otherTransports || []
+      },
+      propertyInfo: {
+        checkInTime: hotel.propertyInfo?.checkInTime || '15:00',
+        checkOutTime: hotel.propertyInfo?.checkOutTime || '12:00',
+        smokeFree: hotel.propertyInfo?.smokeFree || true,
+        petPolicy: hotel.propertyInfo?.petPolicy || '',
+        accessibilityLink: hotel.propertyInfo?.accessibilityLink || '#'
+      },
+      amenities: hotel.amenities?.filter(a => a.available).map(a => ({
+        id: a.id,
+        name: a.name,
+        icon: a.icon || a.id,
+        available: a.available
+      })) || [],
+      galleries: hotel.galleries?.map(g => ({
+        title: g.title,
+        imageUrl: g.imageUrl
+      })) || [],
+      totalRooms: hotel.totalRooms,
+      availableRooms: hotel.availableRooms
+    };
+  }
+
+  /**
+   * Obtiene hoteles desde db.json
+   * Siempre obtiene datos frescos para reflejar cambios del admin
+   */
+  private fetchHotelsFromDB(): Observable<HotelSearchResult[]> {
+    // Siempre obtener datos frescos de la API
+    return this.http.get<Hotel[]>(`${this.apiUrl}/hotels`).pipe(
+      map(hotels => {
+        // Filtrar solo hoteles activos
+        const activeHotels = hotels.filter(h => h.isActive !== false);
+        // Convertir a HotelSearchResult
+        const results = activeHotels.map(h => this.hotelToSearchResult(h));
+        return results;
+      }),
+      catchError(() => {
+        // Si falla, retornar el mock como fallback
+        return of(this.mockHotels);
+      })
+    );
+  }
+
+  /**
+   * Invalida el cache de hoteles (para usar después de cambios en admin)
+   */
+  invalidateCache(): void {
+    this.hotelsCache = null;
+  }
 
   /**
    * Busca hoteles según los parámetros de búsqueda
@@ -302,9 +386,9 @@ export class SearchHotelService {
    * @returns Observable con los resultados de la búsqueda
    */
   searchHotels(params: HotelSearchParams): Observable<HotelSearchResult[]> {
-    // Simula una llamada HTTP con delay
-    return of(this.mockHotels).pipe(
-      delay(500),
+    // Usa los hoteles de db.json
+    return this.fetchHotelsFromDB().pipe(
+      delay(200),
       map(hotels => this.filterByDestination(hotels, params.destination)),
       map(hotels => this.applyFilters(hotels))
     );
@@ -319,38 +403,49 @@ export class SearchHotelService {
   private filterByDestination(hotels: HotelSearchResult[], destination: string): HotelSearchResult[] {
     if (!destination) return hotels;
 
-    const searchTerm = destination.toLowerCase();
-    
+    const searchTerm = destination.toLowerCase().trim();
+
     return hotels
       .filter(hotel => {
-        // Buscar por nombre de hotel específico
-        if (searchTerm.includes(hotel.name.toLowerCase())) {
+        const hotelName = hotel.name.toLowerCase();
+        const hotelCity = hotel.location.city.toLowerCase();
+        const hotelCountry = hotel.location.country.toLowerCase();
+
+        // Buscar si el nombre del hotel contiene el término de búsqueda
+        if (hotelName.includes(searchTerm)) {
           return true;
         }
-        // Buscar por ciudad
-        if (searchTerm.includes(hotel.location.city.toLowerCase())) {
+        // Buscar si el término contiene el nombre del hotel
+        if (searchTerm.includes(hotelName)) {
           return true;
         }
-        // Buscar por país
-        if (searchTerm.includes(hotel.location.country.toLowerCase())) {
+        // Buscar por ciudad (en ambas direcciones)
+        if (hotelCity.includes(searchTerm) || searchTerm.includes(hotelCity)) {
           return true;
         }
+        // Buscar por país (en ambas direcciones)
+        if (hotelCountry.includes(searchTerm) || searchTerm.includes(hotelCountry)) {
+          return true;
+        }
+        // El bucle de palabras individuales es demasiado permisivo y causa resultados irrelevantes
+        // (ej: buscar "Le Royal Méridien..." muestra "Le Méridien Barcelona" por la palabra "Méridien")
+        // Se elimina para priorizar coincidencias de frase completa o ubicación específica.
         return false;
       })
       .map(hotel => {
         // Calcular distancia según tipo de búsqueda
         let distance = hotel.distanceFromDestination;
-        
+
         // Si busca el hotel específico, distancia es la original (cercana)
         if (searchTerm.includes(hotel.name.toLowerCase())) {
-          distance = hotel.distanceFromDestination;
-        } 
+          distance = 0;
+        }
         // Si busca la ciudad, mostrar distancia desde el centro
         else if (searchTerm.includes(hotel.location.city.toLowerCase())) {
           // Distancia desde el centro de la ciudad
           distance = this.getDistanceFromCityCenter(hotel);
         }
-        
+
         return { ...hotel, distanceFromDestination: distance };
       });
   }
@@ -365,7 +460,7 @@ export class SearchHotelService {
       'barcelona': { 2: 2.6 },    // W Barcelona está a 2.6km del centro de Barcelona
       'lusail': { 3: 2.3 }        // Le Royal Méridien está a 2.3km del centro de Lusail
     };
-    
+
     const city = hotel.location.city.toLowerCase();
     return cityDistances[city]?.[hotel.id] || hotel.distanceFromDestination;
   }
@@ -448,7 +543,7 @@ export class SearchHotelService {
     const brands = this.brandsSubject.value.map(b => ({ ...b, selected: false }));
     const amenities = this.amenitiesSubject.value.map(a => ({ ...a, selected: false }));
     const filters = this.filtersSubject.value.map(f => ({ ...f, selected: false }));
-    
+
     this.brandsSubject.next(brands);
     this.amenitiesSubject.next(amenities);
     this.filtersSubject.next(filters);
@@ -535,6 +630,9 @@ export class SearchHotelService {
    * @returns Observable con el hotel encontrado o undefined
    */
   getHotelById(hotelId: number): Observable<HotelSearchResult | undefined> {
-    return of(this.mockHotels.find(h => h.id === hotelId)).pipe(delay(200));
+    return this.http.get<Hotel>(`${this.apiUrl}/hotels/${hotelId}`).pipe(
+      map(hotel => this.hotelToSearchResult(hotel)),
+      catchError(() => of(this.mockHotels.find(h => h.id === hotelId)))
+    );
   }
 }
