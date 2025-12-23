@@ -1,0 +1,297 @@
+<article class="hotel-card">
+  <!-- Contenido principal de la tarjeta -->
+  <div class="card-content">
+    <!-- Carrusel de imágenes -->
+    <div class="image-carousel">
+      <div class="carousel-container">
+        <img
+          [src]="currentImage"
+          [alt]="hotel?.name"
+          class="hotel-image"
+        />
+
+        <!-- Logo de la marca -->
+        <div class="brand-logo">
+          <img [src]="hotel?.brandLogo" [alt]="hotel?.brand" />
+        </div>
+
+        <!-- Controles del carrusel -->
+        <button class="carousel-btn prev" (click)="prevImage(); $event.stopPropagation()">
+          <img src="assets/icons/chevron-left.svg" alt="Anterior" />
+        </button>
+        <button class="carousel-btn next" (click)="nextImage(); $event.stopPropagation()">
+          <img src="assets/icons/chevron-right.svg" alt="Siguiente" />
+        </button>
+
+        <!-- Indicadores -->
+        <div class="carousel-indicators">
+          <button
+            *ngFor="let image of hotel?.images; let i = index"
+            class="indicator"
+            [class.active]="i === currentImageIndex"
+            (click)="goToImage(i); $event.stopPropagation()"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información del hotel -->
+    <div class="hotel-info">
+      <div class="info-header">
+        <h2 class="hotel-name">{{ hotel?.name }}</h2>
+        <span class="hotel-language">{{ hotel?.language }}</span>
+      </div>
+
+      <div class="hotel-rating">
+        <span class="rating-star">★</span>
+        <span class="rating-value">{{ hotel?.rating }}</span>
+        <span class="rating-reviews">{{ reviewsText }}</span>
+        <span class="rating-separator">|</span>
+        <span class="hotel-distance">
+          <img src="assets/icons/location.svg" alt="Ubicación" class="distance-icon" />
+          {{ distanceText }}
+        </span>
+      </div>
+
+      <p class="hotel-description">{{ hotel?.description }}</p>
+
+      <button class="view-details-btn" (click)="toggleDetails()">
+        <span>Ver detalles</span>
+        <img
+          src="assets/icons/arrow-right.svg"
+          alt="Ver más"
+          class="details-arrow"
+        />
+      </button>
+
+      <!-- Precio y botón -->
+      <div class="price-section">
+        <div class="price-info">
+          <span class="price-value">{{ formattedPrice }}</span>
+          <span class="price-period">/ Noche</span>
+        </div>
+        <button class="view-rates-btn" (click)="onViewRates()">
+          Ver Tarifas
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel de detalles desplegable -->
+  <div class="details-panel" *ngIf="showDetails">
+    <div class="details-content">
+      <!-- Botón cerrar -->
+      <button class="close-details-btn" (click)="closeDetails()">
+        <img src="assets/icons/close.svg" alt="Cerrar" />
+      </button>
+
+      <!-- Header del hotel -->
+      <div class="details-header">
+        <h2 class="details-title">{{ hotel?.name }} <span class="details-language">{{ hotel?.language }}</span></h2>
+        <a href="#" class="property-website-link">
+          Ver el sitio web del propiedad
+          <img src="assets/icons/arrow-right.svg" alt="Ir" class="link-arrow" />
+        </a>
+        <div class="details-rating">
+          <span class="rating-star">★</span>
+          <span class="rating-value">{{ hotel?.rating }}</span>
+          <span class="rating-reviews">{{ reviewsText }}</span>
+          <span class="rating-separator">|</span>
+          <span class="hotel-distance">
+            <img src="assets/icons/location.svg" alt="Ubicación" class="distance-icon" />
+            {{ distanceText }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Galería de imágenes -->
+      <div class="details-gallery" *ngIf="hotel?.galleries?.length">
+        <div class="gallery-main">
+          <img
+            [src]="currentGallery.imageUrl"
+            [alt]="currentGallery.title"
+            class="gallery-main-image"
+          />
+          <div class="gallery-main-label">
+            {{ currentGallery.title }}
+            <img src="assets/icons/arrow-right.svg" alt="" class="label-arrow" />
+          </div>
+        </div>
+        <div class="gallery-thumbnails">
+          <div
+            *ngFor="let gallery of hotel.galleries; let i = index"
+            class="gallery-thumb"
+            [class.active]="i === selectedGalleryImage"
+            (click)="selectGalleryImage(i)"
+            [style.display]="i === 0 ? 'none' : 'block'"
+          >
+            <img [src]="gallery.imageUrl" [alt]="gallery.title" />
+            <div class="thumb-label">
+              {{ gallery.title }}
+              <img src="assets/icons/arrow-right.svg" alt="" class="label-arrow" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información general -->
+      <div class="details-section">
+        <h3 class="section-title">Información general</h3>
+        <p class="general-info-text">
+          Explore {{ hotel?.location?.city }}, {{ hotel?.location?.country }}, desde el {{ hotel?.name }}.
+          Disfrute de nuestro servicio de traslado en bote gratis desde nuestro muelle privado en la Plaza de San Marcos,
+          situado al otro lado de la laguna. Nuestro hotel está cerca del puente Rialto, La Fenice, del Gran Canal,
+          de los museos y de las basílicas.
+        </p>
+      </div>
+
+      <!-- Ubicación -->
+      <div class="details-section location-section">
+        <h3 class="section-title">Ubicación</h3>
+        <div class="location-content">
+          <div class="location-address">
+            <p class="address-text">
+              {{ hotel?.location?.address }}<br />
+              {{ hotel?.location?.city }}, {{ hotel?.location?.country }}, {{ hotel?.location?.postalCode }}
+            </p>
+            <p class="phone-text">
+              <strong>Teléfono:</strong>
+              <a [href]="'tel:' + hotel?.location?.phone" class="phone-link">{{ hotel?.location?.phone }}</a>
+            </p>
+
+            <!-- Aeropuertos -->
+            <div class="airports-list">
+              <div
+                *ngFor="let airport of hotel?.location?.nearbyAirports"
+                class="airport-wrapper"
+              >
+                <div
+                  class="airport-item"
+                  [class.expanded]="isAirportExpanded(airport.code)"
+                  (click)="toggleAirport(airport.code)"
+                >
+                  <img src="assets/icons/plane.svg" alt="Aeropuerto" class="airport-icon" />
+                  <span>{{ airport.name }} ({{ airport.code }})</span>
+                  <img
+                    src="assets/icons/chevron-down.svg"
+                    alt="Expandir"
+                    class="expand-icon"
+                    [class.rotated]="isAirportExpanded(airport.code)"
+                  />
+                </div>
+                <div class="airport-details" *ngIf="isAirportExpanded(airport.code)">
+                  <p class="detail-row">
+                    <span class="detail-label">Distancia:</span>
+                    <span class="detail-value">{{ airport.distance }}</span>
+                  </p>
+                  <p class="detail-row">
+                    <span class="detail-label">Teléfono:</span>
+                    <a [href]="'tel:' + airport.phone" class="phone-link">{{ airport.phone }}</a>
+                  </p>
+                  <p class="detail-row" *ngIf="airport.hasShuttle !== undefined">
+                    <span class="detail-label">Servicio de shuttle:</span>
+                    <span class="detail-value">{{ airport.hasShuttle ? 'Sí' : 'No' }}</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Otros transportes -->
+              <div
+                *ngFor="let transport of hotel?.location?.otherTransports"
+                class="transport-wrapper"
+              >
+                <div class="transport-item">
+                  <img src="assets/icons/transport.svg" alt="Transporte" class="transport-icon" />
+                  <span>{{ transport.type }} - {{ transport.company }}</span>
+                </div>
+                <div class="transport-details">
+                  <p class="detail-row">
+                    <span class="detail-label">Teléfono:</span>
+                    <a [href]="'tel:' + transport.phone" class="phone-link">{{ transport.phone }}</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="location-map">
+            <div class="map-placeholder">
+              <span class="map-label">Mapa</span>
+              <div class="map-image">
+                <!-- Placeholder del mapa con coordenadas del hotel -->
+                <img
+                  [src]="'https://maps.googleapis.com/maps/api/staticmap?center=' + hotel?.location?.latitude + ',' + hotel?.location?.longitude + '&zoom=15&size=300x200&markers=color:red%7C' + hotel?.location?.latitude + ',' + hotel?.location?.longitude + '&key='"
+                  alt="Mapa de ubicación"
+                  class="static-map"
+                  onerror="this.style.display='none'"
+                />
+                <div class="map-fallback">
+                  <img src="assets/icons/map.svg" alt="Mapa" />
+                  <span>{{ hotel?.name }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información de la propiedad -->
+      <div class="details-section property-info-section">
+        <h3 class="section-title">Información del propiedad</h3>
+        <div class="property-info-grid">
+          <div class="info-column">
+            <div class="info-item">
+              <img src="assets/icons/clock.svg" alt="Llegada" class="info-icon" />
+              <span><strong>LLEGADA:</strong> {{ hotel?.propertyInfo?.checkInTime }}</span>
+            </div>
+            <div class="info-item">
+              <img src="assets/icons/clock.svg" alt="Salida" class="info-icon" />
+              <span><strong>SALIDA:</strong> {{ hotel?.propertyInfo?.checkOutTime }}</span>
+            </div>
+            <div class="info-item" *ngIf="hotel?.propertyInfo?.smokeFree">
+              <img src="assets/icons/no-smoking.svg" alt="Libre de humo" class="info-icon smoke-free" />
+              <a href="#" class="smoke-free-link">Este propiedad tiene una política libre de humo</a>
+            </div>
+            <div class="info-item">
+              <img src="assets/icons/accessible.svg" alt="Accesibilidad" class="info-icon" />
+              <a href="#" class="accessibility-link">Ver características de accesibilidad</a>
+            </div>
+          </div>
+          <div class="info-column">
+            <div class="pet-policy">
+              <img src="assets/icons/pets.svg" alt="Mascotas" class="info-icon" />
+              <div class="pet-policy-content">
+                <strong>Política de mascotas</strong>
+                <p>{{ hotel?.propertyInfo?.petPolicy }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comodidades -->
+      <div class="details-section amenities-section">
+        <h3 class="section-title">Comodidades</h3>
+        <div class="amenities-grid">
+          <div
+            *ngFor="let amenity of hotel?.amenities"
+            class="amenity-item"
+          >
+            <img [src]="getAmenityIcon(amenity.icon)" [alt]="amenity.name" class="amenity-icon" />
+            <span>{{ amenity.name }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer del panel -->
+      <div class="details-footer">
+        <div class="footer-price">
+          <span class="price-value">{{ formattedPrice }}</span>
+          <span class="price-period">/ Noche</span>
+        </div>
+        <button class="continue-btn" (click)="onViewRates()">
+          Continuar
+        </button>
+      </div>
+    </div>
+  </div>
+</article>

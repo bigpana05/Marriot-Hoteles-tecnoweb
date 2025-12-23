@@ -9,6 +9,7 @@ import { CatalogComponent } from './pages/client/catalog/catalog.component';
 import { CartComponent } from './pages/client/cart/cart.component';
 import { ExperiencesComponent } from './pages/client/experiences/experiences.component';
 import { OffersComponent } from './pages/client/offers/offers.component';
+import { SearchHotelsComponent } from './pages/client/search-hotels/search-hotels.component';
 
 import { AdminComponent } from './pages/admin/admin.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'cart', component: CartComponent },
       { path: 'experiences', component: ExperiencesComponent },
       { path: 'offers', component: OffersComponent },
+      { path: 'search-hotels', component: SearchHotelsComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

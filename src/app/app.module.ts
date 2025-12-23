@@ -39,6 +39,8 @@ import { HomeJoinMarriottComponent } from './pages/client/home/sections/home-joi
 import { HomeFeaturedHotelsComponent } from './pages/client/home/sections/home-featured-hotels/home-featured-hotels.component';
 import { HomeExperiencesAmenitiesComponent } from './pages/client/home/sections/home-experiences-amenities/home-experiences-amenities.component';
 import { HomeInspirationComponent } from './pages/client/home/sections/home-inspiration/home-inspiration.component';
+import { SearchHotelsComponent } from './pages/client/search-hotels/search-hotels.component';
+import { HotelResultCardComponent } from './pages/client/search-hotels/hotel-result-card/hotel-result-card.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { HomeInspirationComponent } from './pages/client/home/sections/home-insp
     HomeFeaturedHotelsComponent,
     HomeExperiencesAmenitiesComponent,
     HomeInspirationComponent,
+    SearchHotelsComponent,
+    HotelResultCardComponent,
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],

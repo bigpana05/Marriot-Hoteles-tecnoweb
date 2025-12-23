@@ -11,16 +11,14 @@ export class DestinationDropdownComponent {
   @Output() destinationSelected = new EventEmitter<string>();
   @Output() close = new EventEmitter<void>();
 
-  // Destinos trending
+  // Destinos disponibles (ciudades y hoteles)
   trendingDestinations: string[] = [
-    'Punta Cana, República Dominicana',
     'Venecia, Italia',
-    'Doha, Qatar',
-    'Dubái, Emiratos Árabes Unidos',
-    'Mallorca, España',
-    'París, Francia',
-    'Tokio, Japón',
-    'Nueva York, EE. UU.'
+    'Barcelona, España',
+    'Lusail, Catar',
+    'JW Marriott Venice Resort & Spa, Venecia, Italia',
+    'W Barcelona, Barcelona, España',
+    'Le Royal Méridien Place Vendôme Lusail, Lusail, Catar'
   ];
 
   // Getter para destinos filtrados según búsqueda
